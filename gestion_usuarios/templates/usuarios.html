@@ -1,0 +1,8 @@
+{% extends 'base_administrador.html' %}
+{% block titulo %}Usuarios registrados{% endblock titulo %}
+{% block contenido %}
+<div class="row">
+   <h5> Usuarios registrados </h5>
+   {% include 'datatable_usuarios.html' %}
+</div>
+{% endblock contenido %}

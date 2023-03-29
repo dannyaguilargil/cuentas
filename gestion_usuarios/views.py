@@ -9,7 +9,7 @@ from django.shortcuts import render
 #     return render(request, 'C:/xampp/htdocs/sistemas_cuentas/gestion_usuarios/templates/index.html')
 
 def  usuarios(request):
-     return render(request, 'index.html') # se modifica esto con lo anterior pero para no poner toda la ruta, cambiando en settin.py insatllerds app poniendo la ruta
+     return render(request, 'usuarios.html') # se modifica esto con lo anterior pero para no poner toda la ruta, cambiando en settin.py insatllerds app poniendo la ruta
 
 def home(request):
     return render(request, 'home.html')
