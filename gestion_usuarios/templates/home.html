@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block contenido %}
+<br> <br>
+<div class="container centrar">
+
+          <div class="izquierdo">
+          <img class="escudoverde" src="{% static 'imgs/escudo.gif' %} " alt="">
+          </div>
+
+
+            <div class="imagen">
+            <img  src=" {% static 'imgs/logocompleto.png' %} "  alt="" style="width: 170px; text-align: center;height: 70px">
+            </div> 
+            <!-- <h3 class="text-center">Iniciar sesion</h3> -->
+            <div class="form-control textoI" style="font-family: Lato">
+            <form action="index.php" method="post">
+            <label class="TT" for="nombre"><b>Usuario</b></label>
+            <input type="text" class="form-control" name="nombre" id="nombre" required><br>
+            <label class="TT" form="password"><b>Contraseña</b></label>
+            <input type="password" class="form-control" name="password" id="password" required><br>
+            
+        
+            <div class="boton">
+            <input type="submit" class="text-center btn btn-success" name="login" value="Login" style="font-family: Lato;"> <!--negrilla -->
+            </div> <br>
+        
+            <a  class="" href=" {% url 'solicitud_usuario' %} " id="" style="color: grey; font-family: Lato">Para solicitar usuario de  gestion de cuentas primero registrese aqui.</a>
+            </form>
+            
+          
+          </div>
+        </div>
+</div>
+
+{% endblock contenido %}

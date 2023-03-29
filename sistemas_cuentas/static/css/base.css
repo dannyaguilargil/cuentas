@@ -1,0 +1,97 @@
+*{
+    font-family: Kodchasan;
+}
+.ultimo{
+    position: absolute;
+    bottom: 10px;
+    left: 5%;
+}
+.imagen{
+    /* display: flex; */
+    
+    justify-content: center;
+    margin-top: 0.76103500761035vh; /*5px*/
+    margin-left: 73.82039573820396vh; /* 41 %  490px*/
+    align-items: center;
+    justify-content: left;
+}
+.textoI{
+    width: 38.051750380517504vh; /* 250 px */
+    margin-top: 3.0441400304414vh; /* 20px */
+    margin-left: 40%;
+    align-items: center;
+    justify-content: center;
+}
+.boton{
+    display: flex;
+    
+    justify-content: center;
+    margin-top: 5px;
+    align-items: center;
+}
+.escudo{
+    text-align: center;
+    position: absolute;
+    right: 9%;
+    top: 8%;
+  
+    /* ME SIRVE POR SI QUIERO METER UN TEXTO AQUI */
+}
+.escudoverde{
+    width: 57.83866057838661vh; /* 400px adaptacion responsive */
+    height: 57.83866057838661vh; /* 400px adaptacion responsive */
+}
+.izquierdo{
+    text-align: center;
+    position: absolute;
+    left: 9%;
+    top: 9%;
+}
+.izquierdoimg{
+    /* cambios de 400 px a menos*/
+    width: 57.83866057838661vh; /* 400px adaptacion responsive */
+    height: 57.83866057838661vh; /* 400px adaptacion responsive */
+}
+
+
+/*media queries adaptandolo a movil */
+@media screen and (max-width: 1100px){
+    .escudo{
+        display: none;
+    }
+    .escudoverde{
+        display: none;
+    }
+    .izquierdo{
+        display: none;
+    }
+    .izquierdoimg{
+        display: none;
+    }
+    footer{
+        display: none;
+    }
+    .centrar{
+        text-align: center;
+    }
+    .imagen{
+        /* display: flex; */
+        margin-left: 20%;
+        text-align: center;
+    }
+    .textoI{
+       text-align: center;
+    }
+    .boton{
+        text-align: center;
+    }
+   
+}
+.form-control{
+    border-color: #1d985a;
+    border-style: dashed;
+   
+}
+.form-control input{
+    border-style: solid;
+}

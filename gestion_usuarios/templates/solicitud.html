@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contenido  %}
+<div class="imagen">
+    <img  src="{% static 'imgs/logocompleto.png' %}"  alt="" style="width: 200px; text-align: center;">
+</div>
+<br> 
+    <div class="centrar">
+        <div class="centrar1 col">
+            <div class="container form-control form-control" >
+            <a class="btn btn-warning fas fa-user-lock" href="{% url 'inicio' %}"></a>
+            
+            <center>
+                <h5 style="font-family: Kodchasan">Solicitud de usuario</h5> <br>
+            </center>
+            
+            <form  action="../../Servidor/solicitud_usuario.php" method="POST" autocomplete="off" style="font-family: Lato;">
+            <div class="row">
+            
+                <div class="col">
+                    <label class="">Primer Nombre</label>
+                    <input type="text" class="form-control" name="nombre" id="nombre" required><br>
+                </div>
+
+                <div class="col">
+                    <label class="">Segundo Nombre</label>
+                    <input type="text" class="form-control" name="segundonombre" id="segundonombre"><br>
+                </div>
+
+                <div class="col">
+                    <label class="">Primer apellido</label>
+                    <input type="text" class="form-control" name="primerapellido" id="primerapellido" required><br>
+                </div>
+
+
+                <div class="col">
+                    <label class="">Segundo apellido</label>
+                    <input type="text" class="form-control" name="segundoapellido" id="segundoapellido"><br>
+                </div>
+
+                <div class="col">
+                <label class="">Cargo o N° contrato</label>
+                <input type="text" class="form-control" name="cargo" id="cargo" required><br>
+            </div>
+            </div>
+
+
+           
+            <div class="row">
+            
+          
+
+         
+            <div class="col">
+                    <label class="">Email personal</label>
+                    <input type="email" class="form-control" name="email" id="email" required><br>
+                </div>
+
+           
+
+            
+        
+
+                <div class="col">
+                    <label class="">Supervisor o jefe inmediato</label>
+                    <input type="text" class="form-control" name="supervisor" id="supervisor" required><br>
+                    <ul class="list"></ul>
+            </div>
+
+
+
+
+            <div class="col">
+                <label for="" class="">Tipo de documento:</label> <br>
+                <select name="tipodocumento" id="tipodocumento" class="form-control">
+                  <option value="CC" class="form-control" selected>Cedula de ciudadania</option>
+                  <option value="CE" class="form-control">Cedula de extranjeria</option>
+                  <option value="PASAPORTE" class="form-control">Pasaporte</option>
+                  <option value="RESIDENCIA" class="form-control">Residencia</option>
+                  <option value="RUMV" class="form-control">RUMV</option>
+                  <option value="PPT" class="form-control">PPT</option>
+                </select>
+            </div>
+
+            
+            <div class="col">
+                    <label class="">Numero de documento</label> <!--CAMBIE DE TYPE TEXT A NUMBER -->
+                    <input type="number" class="form-control" name="cedula" id="cedula" required><br>
+            </div>
+            
+
+        </div>
+
+
+    
+
+            <div class="row">
+                
+
+
+                <div class="col text-center">
+                
+                <button type="submit" class="fas fa-user-md text-center btn btn-success" onclick="envio();">Solicitar</button>
+               
+                </div>
+
+            </div>
+
+        </form>
+          </div>
+        </div>
+
+    
+
+      </div>
+{% endblock  %}
+
+
+
+
+
+
+
+
+
+
+
+

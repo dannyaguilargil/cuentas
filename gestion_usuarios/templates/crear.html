@@ -1,0 +1,56 @@
+{% extends 'base2.html' %}
+{% block titulo %}Crear usuario{% endblock titulo %}
+{% block contenido %}
+<br>
+<div class="card">
+
+    <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="true" href="{% url 'crear' %}"> Registrar un usuario</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'documentos' %}">Registrar documentos</a>
+            </li>
+            
+          </ul>
+    
+    </div>
+
+    <div class="card-body">
+        <h5 class="card-title">Datos del usuario a registrar</h5>
+        {% include 'form.html' %}
+    </div>
+
+    <div class="card-footer text-muted">
+
+        <div class="row">
+            <div class="col-8">
+             
+                "Intentando lo Imposible es como se Realiza lo Posible"
+          
+            </div>
+
+            <div class="col-2">
+                <nav aria-label="...">
+                    <ul class="pagination">
+                      <li class="page-item disabled">
+                        <a class="page-link">Previous</a>
+                      </li>
+                      <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a></li>
+                      <li class="page-item" >
+                        <a class="page-link" href="{% url 'documentos' %}">2</a>
+                      </li>
+                      <li class="page-item"><a class="page-link" href="#">3</a></li>
+                      <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                      </li>
+                    </ul>
+                  </nav>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock contenido %}

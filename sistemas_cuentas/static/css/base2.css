@@ -1,0 +1,22 @@
+*{
+    font-family: Kodchasan;
+}
+label{
+    font-family: Lato;
+}
+input{
+    font-family: Lato;
+}
+a{
+    color: black;
+}
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 90%;
+    height: 80px; /* ajustar según necesidad */
+   text-align: center;
+    color: white;
+    padding: 0px;
+  }
+  

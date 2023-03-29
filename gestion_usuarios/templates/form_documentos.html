@@ -1,0 +1,113 @@
+<nav id="navbar-example2" class="navbar bg-body-tertiary">
+   <h5>Subir documentos del usuario</h5>
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+        <a class="nav-link" href="#scrollspyHeading1">Contrato</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#scrollspyHeading2">CDP</a>
+      </li>
+      <!--
+      <li class="nav-item">
+        <a class="nav-link" href="#scrollspyHeading3">Registro presupuestal</a>
+      </li>
+      -->
+    
+    </ul>
+</nav>
+
+  <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px" data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary rounded-2" tabindex="0">
+  </div> 
+
+
+
+<form action="" method="post" class="form-control">
+    <div class="row">
+        <div class="col"  id="scrollspyHeading1">
+            <div class="card" style="width: 23rem;">
+               <!-- <img src="..." class="card-img-top" alt="...">-->
+                <div class="card-body">
+                    <h6 class="card-title"><b>Contrato </b><br> <button type="button" class="btn btn-outline-success fas fa-eye" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver</button></h6>
+                  <input type="file" name="" id="" class="form-control">
+                <label for="">Numero de contrato</label>
+                <input type="number" placeholder="Numero de contrato" class="form-control">
+                <label for="">Fecha de contrato</label>
+                <input type="date" placeholder="Numero de contrato" class="form-control">
+                <label for="">Valor</label>
+                <input type="number" placeholder="Valor del contrato" class="form-control">
+                  <br>
+                  <a href="#" class="btn btn-outline-primary fas fa-magic">Hacer magia</a>
+                  <a href="#" class="btn btn-outline-success fas fa-magic">Registrarlo</a>
+                </div>
+              </div> 
+    </div>
+
+
+    {% include 'modal_contrato.html' %}
+
+
+    <div class="col">
+            <div class="card" style="width: 20rem;">
+                <!--<img src="..." class="card-img-top" alt="..."> -->
+                <div class="card-body">
+                  <h6 class="card-title"><b>Registro prespuestal </b><br> <button type="button" class="btn btn-outline-success fas fa-eye" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver</button></h6>
+                  <input type="file" name="" id="" class="form-control">
+                <label for="">Numero del registro</label>
+                <input type="number" placeholder="Numero del registro presupuestal" class="form-control">
+                <label for="">Fecha del registro</label>
+                <input type="date" placeholder="Numero de contrato" class="form-control">
+                <label for="">Duracion</label>
+                <input type="text" placeholder="Duracion del contrato" class="form-control">
+                  <br>
+                  <a href="#" class="btn btn-outline-primary fas fa-magic">Hacer magia</a>
+                  <a href="#" class="btn btn-outline-success fas fa-magic">Registrarlo</a>
+                </div>
+              </div> 
+    </div>
+
+
+    <div class="col">
+        <div class="card" style="width: 20rem;">
+            <!--<img src="..." class="card-img-top" alt="..."> -->
+            <div class="card-body">
+              <h6 class="card-title"><b>Acta de inicio </b><br> <button type="button" class="btn btn-outline-success fas fa-eye" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver</button></h6>
+              <input type="file" name="" id="" class="form-control">
+            <label for="">Fecha de acta de inicio</label>
+            <input type="date" placeholder="Numero de contrato" class="form-control">
+              <br>
+              <a href="#" class="btn btn-outline-primary fas fa-magic">Hacer magia</a>
+              <a href="#" class="btn btn-outline-success fas fa-magic">Registrarlo</a>
+            </div>
+          </div> 
+</div>  
+</div>
+
+ <hr>
+
+    <div class="row">
+        <div class="col" id="scrollspyHeading2">
+            <div class="card" style="width: 23rem;">
+               <!-- <img src="..." class="card-img-top" alt="...">-->
+                <div class="card-body">
+                  <h6 class="card-title"><b>Certificado seguimiento cuentas </b><br> <button type="button" class="btn btn-outline-success fas fa-eye" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver</button></h6>
+                  <input type="file" name="" id="" class="form-control">
+                <label for="">Numero de cdp</label>
+                <input type="text" placeholder="Numero de contrato" class="form-control">
+               
+                  <br>
+                  <a href="#" class="btn btn-outline-primary fas fa-magic">Hacer magia</a>
+                </div>
+            </div>
+        </div> 
+   
+
+ 
+
+
+
+
+   
+
+
+  </div>
+</form>
