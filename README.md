@@ -1,2 +1,2 @@
 # cuentas
-sistema web de cuentas de cobro
+Desarrollo de un sistema de informacion web inteligente para el proceso de cuentas de cobro
