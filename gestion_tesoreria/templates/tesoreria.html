@@ -1,0 +1,8 @@
+{% extends 'base_tesoreria.html' %}
+{% block titulo %} Gestion tesoreria{% endblock titulo %}
+{% block contenido %}
+<div class="row">
+   <center> <h5> Gestion de tesoreria </h5> </center> <br> <br>
+   {% include 'datatablestesoreria.html' %}
+</div>
+{% endblock contenido %}

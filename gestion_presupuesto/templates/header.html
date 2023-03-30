@@ -1,0 +1,51 @@
+{% load static %}
+<header >
+    <nav style="background: #1d985a; color: white;">
+        <center>
+            SISTEMA DE CUENTAS IMSALUD
+        </center>
+    </nav>
+<div class="container" style="padding: 1px;">
+  
+    <div class="row">
+    <div class="col-4">
+
+   
+            <button class="btn btn-outline-success fas fa-bars" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                Menu
+            </button>
+
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" style="width: 210px;">
+                <div class="offcanvas-header">
+                  <h5 class="offcanvas-title" id="offcanvasExampleLabel">Gestionar</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                  <button class="btn btn-outline-success">
+                    MI PERFIL
+                  </button>
+               
+                </div>
+              </div>
+
+    </div>   
+        
+
+       
+<div class="col-4">
+    
+    <center>
+        <img  src=" {% static 'imgs/logocompleto.png' %} "  alt="" style="width: 170px; text-align: center;height: 70px">
+    </center>
+        
+</div>
+<div class="col-4">
+            PERFIL
+ 
+</div>
+
+
+    
+</div>
+</div>
+</header>

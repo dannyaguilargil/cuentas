@@ -1,3 +1,9 @@
+
 from django.shortcuts import render
 
-# Create your views here.
+
+def  tesoreria(request):
+     return render(request, 'tesoreria.html') # se modifica esto con lo anterior pero para no poner toda la ruta, cambiando en settin.py insatllerds app poniendo la ruta
+
+
+

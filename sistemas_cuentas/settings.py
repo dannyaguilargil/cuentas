@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'gestion_usuarios', #agregues esta ruta
     'sistemas_cuentas',
     'gestion_supervisor',
+    'gestion_presupuesto',
+    'gestion_tesoreria',
    # 'sistemas_cuentas',
 ]
 
