@@ -24,12 +24,20 @@
     <div class="row">
         <div class="col">
             <label for="sexo">Sexo</label>
-            <input type="text" name="sexo" id="sexo" class="form-control"> 
+            <select name="sexo" id="sexo" class="emerge form-control">
+                <option value="M" class="emerge" selected>Masculino</option>
+                <option value="F" class="emerge">Femenino</option>
+              </select>
         </div>
 
         <div class="col">
             <label for="tipodocumento">Tipo de documento</label>
-            <input type="text" name="tipodocumento" id="tipodocumento" class="form-control">
+            <select name="tipodocumento" id="tipodocumento" class="emerge form-control">
+                <option value="CC" class="emerge" selected>Cedula de ciudadania</option>
+                <option value="CE" class="emerge">Cedula de extranjeria</option>
+                <option value="PASAPORTE" class="emerge">Pasaporte</option>
+                <option value="RESIDENCIA" class="emerge">Residencia</option>
+              </select>
         </div>
 
         <div class="col">
@@ -47,7 +55,8 @@
     <div class="row">
         <div class="col">
             <label for="dependencia">Dependencia</label>
-            <input type="text" name="dependencia" id="dependencia" class="form-control"> 
+            <input type="text" name="lugarexpedicion" id="lugarexpedicion" class="form-control">
+            
         </div>
 
         <div class="col">
@@ -68,14 +77,21 @@
 
     <div class="row">
         <div class="col">
-            <label for="">Rol</label>
-            <input type="text" name="" id="" class="form-control"> <!-- CAMBIAR POR UN SELECT-->
+            <label for="rol">Rol</label>
+            <select name="rol" id="rol" class="emerge form-control">
+                <option value="Contratista" class="emerge" selected>Contratista</option>
+                <option value="Supervisor" class="emerge">Supervisor</option>
+                <option value="Gescon" class="emerge">Gescon</option>
+                <option value="Presupuesto" class="emerge">Presupuesto</option>
+                <option value="Tesoreria" class="emerge">Tesoreria</option>
+              </select>  
         </div>
         <div class="col">
-            
-        </div>
+            <label for="nombreusuario">Nombre de usuario</label>
+            <input type="text" name="nombreusuario" id="nombreusuario" class="form-control"> 
+            </div>
         <div class="col">
-            
+        
         </div>
         <div class="col">
             
