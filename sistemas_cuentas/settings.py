@@ -79,11 +79,21 @@ WSGI_APPLICATION = 'sistemas_cuentas.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
+#mysql -hcontainers-us-west-22.railway.app -uroot -ptkxWbDzZbbir7scaKl5G --port 7829 --protocol=TCP railway
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+       # 'ENGINE': 'django.db.backends.sqlite3',
+       # 'NAME': BASE_DIR / 'db.sqlite3',
+       
+       #mysql -hcontainers-us-west-22.railway.app -uroot -ptkxWbDzZbbir7scaKl5G --port 7829 --protocol=TCP railway
+       #mis creacciones para conexion con railway
+       'ENGINE': 'django.db.backends.mysql',
+       'NAME': 'railway',
+       'USER': 'root',
+       'PASSWORD': 'tkxWbDzZbbir7scaKl5G',
+       'HOST': 'containers-us-west-22.railway.app',
+       'PORT': '7829',
+       
     }
 }
 
