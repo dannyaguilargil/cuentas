@@ -14,4 +14,5 @@ urlpatterns = [
     path('usuarios/documentos', views.documentos, name='documentos'), 
     path('perfil', views.perfil, name='perfil'), 
     path('usuarios/sdocumentos', views.documentos_usuario, name='documentos_usuario'), 
+    path('list_usuarios', views.list_usuarios, name='list_usuarios'), 
 ]
