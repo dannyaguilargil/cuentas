@@ -34,13 +34,9 @@ urlpatterns = [
    path('', include('gestion_presupuesto.urls')),
    path('', include('gestion_tesoreria.urls')),
    
-   # path('despedida/', despedida),
-   # path('edades/<int:agno>', calculaEdad),    
-   # path('saludo3/', saludo3),
-   # path('plantillas/', plantillas),
-   # home('home/', home),
-#    path('home/', home)
-#    path('index/', index)
-#    path('fecha/', fecha),
+   #parte administrativa
+   path('admin/', admin.site.urls),
+   
+
   
 ]

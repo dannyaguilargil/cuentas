@@ -87,13 +87,22 @@ DATABASES = {
        
        #mysql -hcontainers-us-west-22.railway.app -uroot -ptkxWbDzZbbir7scaKl5G --port 7829 --protocol=TCP railway
        #mis creacciones para conexion con railway
-       'ENGINE': 'django.db.backends.mysql',
-       'NAME': 'railway',
-       'USER': 'root',
-       'PASSWORD': 'tkxWbDzZbbir7scaKl5G',
-       'HOST': 'containers-us-west-22.railway.app',
-       'PORT': '7829',
+       #'ENGINE': 'django.db.backends.mysql',
+       #'NAME': 'railway',
+       #'USER': 'root',
+       #'PASSWORD': 'tkxWbDzZbbir7scaKl5G',
+       #'HOST': 'containers-us-west-22.railway.app',
+       #'PORT': '7829',
        
+       
+       #conexion con la base de datos local
+       ###################################
+       'ENGINE': 'django.db.backends.mysql',
+       'NAME': 'sistema_cuentas',
+       'USER': 'danny',
+       'PASSWORD': 'danny',
+       'HOST': 'localhost',
+       'PORT': '3306',
     }
 }
 

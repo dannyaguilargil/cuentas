@@ -1,0 +1,10 @@
+#
+
+#para creaccion del rol administrador
+#python manage.py createsuperuser
+#admin, admin danny.aguilar.gil@gmail.com
+#python manage.py makemigrations
+#python manage.py migrate
+
+INSERT INTO solicitud_usuario VALUES ('DANNY','STIVEENS','AGUILAR','GIL','CONTROL DE ACCESO','SISTEMAS.ACCESO@IMSALUD.GOV.CO','LUCAS AUGUSTO LIENDO ROMERO','CC',1090492324);
+INSERT INTO solicitud_usuario VALUES ('DANIEL','STIVEENS','AGUILAR','GIL','CONTROL DE ACCESO','SISTEMAS.ACCESO@IMSALUD.GOV.CO','LUCAS AUGUSTO LIENDO ROMERO','CC',1090492325);
