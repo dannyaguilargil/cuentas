@@ -1,12 +1,11 @@
 {% extends 'base_administrador.html' %}
 {% block titulo %}Usuarios registrados{% endblock titulo %}
 {% block contenido %}
-<div class="row">
    <center>
    <h5> Usuarios registrados </h5>
    </center>
-   <div class="table-responsive">
+   
    {% include 'datatable_usuarios.html' %}
-   </div>
-</div>
+  
+
 {% endblock contenido %}
