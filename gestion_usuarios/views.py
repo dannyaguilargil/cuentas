@@ -46,8 +46,16 @@ def list_usuarios(request):
     data = {'usuarios': usuarios}
     return JsonResponse(data)
 
+
 def usuarios_pendientes(request):
     return render(request, 'usuariospendientes.html')
+
+#opcion de eliminar aqui
+def eliminar(request, cedula):
+    usolicitudes = usolicitudes.objects.get(cedula=cedula)
+    usolicitudes.delete()
+    return redirect('usuarios')
+#opcion de eliminar aqui   
 
 def usolicitud(request):
     usuarios = list(usolicitudes.objects.values())
