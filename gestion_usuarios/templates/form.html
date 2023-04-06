@@ -1,109 +1,25 @@
-<form action="" method="post" class="form-control">
-    <!--<div class="row"> -->
-        <div class="col">
-            <label for="nombre">Primer nombre</label>
-            <input type="text" name="nombre" id="nombre" class="form-control"> 
-        </div>
-
-        <!--
-        <div class="col">
-            <label for="segundonobre">Segundo nombre</label>
-            <input type="text" name="segundonombre" id="segundonombre" class="form-control">
-        </div>
-
-        <div class="col">
-            <label for="primerapellido">Primer apellido</label>
-            <input type="text" name="primerapellido" id="primerapellido" class="form-control">
-        </div>
-
-        <div class="col">
-            <label for="segundoapellido">Segundo apellido</label>
-            <input type="text" name="segundoapellido" id="segundoapellido" class="form-control">
-        </div>
-    </div>
-
+<form  action="" method="POST" autocomplete="off" style="font-family: Lato;">
+    <!-- CREANDO FORMULARIO DINAMICOS-->
+    {% csrf_token %}
     <div class="row">
-        <div class="col">
-            <label for="sexo">Sexo</label>
-            <select name="sexo" id="sexo" class="emerge form-control">
-                <option value="M" class="emerge" selected>Masculino</option>
-                <option value="F" class="emerge">Femenino</option>
-              </select>
+    {% for campo in formularios%}            
+        <div class="col-md-3">
+            <label class="">{{ campo.label }}:</label>
+            <input type=" {{ campo.field.widget.input_type }} "
+            class="form-control"
+            name="{{ campo.name }}"
+            id="{{ campo.name }}"
+            placeholder="Digite {{ campo.label }}"
+            required>
+            <br>
+        </div>
+    {% endfor %}
+    
+    <div class="col-12">{{ campo.errors }}</div>
+     </div>
+
+        <div class="col text-center">
+        <button type="submit" class="fas fa-user-md text-center btn btn-outline-success" onclick="envio();">Crear usuario</button>
         </div>
 
-        <div class="col">
-            <label for="tipodocumento">Tipo de documento</label>
-            <select name="tipodocumento" id="tipodocumento" class="emerge form-control">
-                <option value="CC" class="emerge" selected>Cedula de ciudadania</option>
-                <option value="CE" class="emerge">Cedula de extranjeria</option>
-                <option value="PASAPORTE" class="emerge">Pasaporte</option>
-                <option value="RESIDENCIA" class="emerge">Residencia</option>
-              </select>
-        </div>
-
-        <div class="col">
-            <label for="cedula">Cedula</label>
-            <input type="text" name="cedula" id="cedula" class="form-control">
-        </div>
-
-        <div class="col">
-            <label for="lugarexpedicion">Lugar de expedicion</label>
-            <input type="text" name="lugarexpedicion" id="lugarexpedicion" class="form-control">
-        </div>
-    </div>
-
-
-    <div class="row">
-        <div class="col">
-            <label for="dependencia">Dependencia</label>
-            <input type="text" name="lugarexpedicion" id="lugarexpedicion" class="form-control">
-            
-        </div>
-
-        <div class="col">
-            <label for="correo">Correo</label>
-            <input type="text" name="correo" id="correo" class="form-control">
-        </div>
-
-        <div class="col">
-            <label for="supervisor">Supervisor</label>
-            <input type="text" name="supervisor" id="supervisor" class="form-control">
-        </div>
-
-        <div class="col">
-            <label for="cargo">Cargo o N° de Contrato</label>
-            <input type="text" name="cargo" id="cargo" class="form-control">
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col">
-            <label for="rol">Rol</label>
-            <select name="rol" id="rol" class="emerge form-control">
-                <option value="Contratista" class="emerge" selected>Contratista</option>
-                <option value="Supervisor" class="emerge">Supervisor</option>
-                <option value="Gescon" class="emerge">Gescon</option>
-                <option value="Presupuesto" class="emerge">Presupuesto</option>
-                <option value="Tesoreria" class="emerge">Tesoreria</option>
-              </select>  
-        </div>
-        <div class="col">
-            <label for="nombreusuario">Nombre de usuario</label>
-            <input type="text" name="nombreusuario" id="nombreusuario" class="form-control"> 
-            </div>
-        <div class="col">
-        
-        </div>
-        <div class="col">
-            
-        </div>
-
-        -->
-   <!--- </div> -->
-
-
-
-    <center> <br>
-<button class="btn btn-success">Registrar</button>
-</center>
-</form>
+     </form>

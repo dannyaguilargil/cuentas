@@ -9,6 +9,7 @@ from gestion_usuarios.models import usuario
 from gestion_usuarios.models import usolicitudes
 from gestion_usuarios.models import prueba
 from gestion_usuarios.forms import User
+from gestion_usuarios.forms import Usuario
 from django.contrib import messages
 
 #def  usuarios(request):
@@ -20,17 +21,25 @@ def  usuarios(request):
 def home(request):
     return render(request, 'home.html')
 
+#Aqui hago insercciones
 def solicitud_usuario(request):
     #Aqui va el formulario dinamico
     formulario = User(request.POST or None)
     if formulario.is_valid():
         formulario.save()
-        messages.success(request, f'¡Cuenta creada!')
+        messages.success(request, f' Cuenta creada')
         return render(request, 'solicitud.html')
     return render(request, 'solicitud.html', {'formulario': formulario})
+#aqui hago insecciones
+
 
 def crear(request):
-    return render(request, 'crear.html')
+    formularios = Usuario(request.POST or None)
+    if formularios.is_valid():
+        formularios.save()
+        messages.success(request, 'Cuenta creada')
+        return render(request, 'crear.html')
+    return render(request, 'crear.html',  {'formularios': formularios})
 
 def documentos(request):
     return render(request, 'sdocumentos.html')
