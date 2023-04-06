@@ -66,7 +66,7 @@ class usolicitudes(models.Model):
     
 #por ahora solo quiero hacer registros pero debo referenciarlo con llave foranea
 class contrato(models.Model):
-    numero = models.IntegerField(verbose_name='Numero')
+    numero = models.IntegerField(primary_key=True, verbose_name='Numero')
     numeroproceso = models.IntegerField(verbose_name='Numero de proceso')
     objeto = models.CharField(max_length=300, verbose_name='Objeto')
     #fechasuscripcion = models.CharField(max_length=300, verbose_name='Fecha de suscripcion')
@@ -75,6 +75,15 @@ class contrato(models.Model):
     fechacontrato = models.CharField(max_length=300, verbose_name='Fecha del contrato')
     fechaterminacion = models.CharField(max_length=300, verbose_name='Fecha final del contrato')
     duracion = models.CharField(max_length=40, verbose_name='Duracion del contrato')
-    
+    #pendiente asignar llave foranea aqui
     def __str__(self):
         return 'CONTRATO: '+self.objeto
+    
+class rp(models.Model):
+    numero = models.IntegerField(primary_key=True, verbose_name='Numero del rp')
+    fecha = models.CharField(max_length=300, verbose_name='Fecha del rp')
+    duracion = models.CharField(max_length=40, verbose_name='Duracion del contrato')
+    valor = models.CharField(max_length=300, verbose_name='Valor del contrato')
+    #pendiente asignar llave foranea aqui
+    def __str__(self):
+        return 'REGISTRO PRESUPUESTAL: '+self.fecha
