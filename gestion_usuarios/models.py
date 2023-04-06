@@ -2,19 +2,22 @@ from django.db import models
 
 
 # Create your models here.
-class solicitud_usuario(models.Model):
-    nombre = models.CharField(max_length=40)
-    segundonombre = models.CharField(max_length=40)
-    primerapellido = models.CharField(max_length=40)
-    segundoapellido = models.CharField(max_length=40)
-    cargo = models.CharField(max_length=40)
-    email = models.CharField(max_length=40)
-    supervisor = models.CharField(max_length=40)
-    tipodocumento = models.CharField(max_length=40)
-    cedula = models.IntegerField(primary_key=True)
+#class solicitud_usuario(models.Model):
+#    nombre = models.CharField(max_length=40)
+#    segundonombre = models.CharField(max_length=40)
+#    primerapellido = models.CharField(max_length=40)
+#    segundoapellido = models.CharField(max_length=40)
+#    cargo = models.CharField(max_length=40)
+#    email = models.CharField(max_length=40)
+#    supervisor = models.CharField(max_length=40)
+#    tipodocumento = models.CharField(max_length=40)
+#    cedula = models.IntegerField(primary_key=True)
        
-    def __str__(self):
-        return 'SOLICITUD DE USUARIO: ' + self.nombre + ' ' + self.primerapellido
+#    class Meta:
+#        db_table = 'usolicitud'   
+       
+#    def __str__(self):
+#        return 'SOLICITUD DE USUARIO: ' + self.nombre + ' ' + self.primerapellido
       
        
 #QUIERO HACER LA PARTE PRIMERO DE MOSTRAR LOS USUARIOS REGISTRADOS Y INCLUIR USUARIOS REGISTRADOS EN EL ADMIN
@@ -41,6 +44,22 @@ class usuario(models.Model):
         return 'USUARIO: ' + self.nombre + ' ' + self.primerapellido
     
     
-#class prueba(models.Model):
-#    nombre = models.CharField(max_length=40)
-#    cedula = models.IntegerField(primary_key=True)
+class prueba(models.Model):
+    nombre = models.CharField(max_length=40)
+    cedula = models.IntegerField(primary_key=True)
+    
+    
+class usolicitudes(models.Model):
+    nombre = models.CharField(max_length=40, verbose_name='Nombre')
+    segundonombre = models.CharField(max_length=40, verbose_name='Segundo nombre')
+    primerapellido = models.CharField(max_length=40, verbose_name='Primer apellido')
+    segundoapellido = models.CharField(max_length=40, verbose_name='Segundo apellido')
+    cargo = models.CharField(max_length=40, verbose_name='Cargo')
+    email = models.CharField(max_length=40, verbose_name='Email')
+    supervisor = models.CharField(max_length=40, verbose_name='Supervisor')
+    tipodocumento = models.CharField(max_length=40, verbose_name='Tipo de documento')
+    cedula = models.IntegerField(primary_key=True, verbose_name='Cedula')
+
+       
+    def __str__(self):
+        return 'SOLICITUD DE USUARIO: ' + self.nombre + ' ' + self.primerapellido

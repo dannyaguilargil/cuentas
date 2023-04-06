@@ -1,3 +1,4 @@
+console.log("entro en usuarios pendientes js")
 let dataTable;
 let dataTableIsInitialized = false;
 
@@ -24,7 +25,7 @@ const initDataTable = async () => {
 
 const listProgrammers = async () => {
     try {
-        const response = await fetch('http://127.0.0.1:8000/list_usuarios');
+        const response = await fetch('http://127.0.0.1:8000/list_pendientes');
         const data = await response.json();
         console.log(data);
 
@@ -39,41 +40,16 @@ const listProgrammers = async () => {
                     <td>${usuario.segundoapellido}</td>
                     <td>${usuario.cedula}</td>
                     <td>
-                    <button class='btn btn-sm btn-outline-success' data-bs-toggle="modal" data-bs-target="#exampleModal" ><i class='fas fa-eye'></i></button>
-                   
+                    <button class='btn btn-sm btn-outline-success' data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='fas fa-eye'></i></button>
                     </td>
-                   
                 </tr>`;
-                
-                //intentando agregar el value
-                /*
-                $('#datatable-programmers tbody').on('click','.exampleModal', function(){
-                    console.log("entro al ejemplo");
-                    $('#nombre').val(usuario.nombre);
-                })  
-                */
-                //intentando agregar el value
-                //$('#nombre').val(usuario.nombre);
         });
         tableBody_programmers.innerHTML = content;
-    
     } catch (ex) {
         alert(ex);
     }
 };
 
-
 window.addEventListener("load", async () => {
     await initDataTable();
 });
-
-
-
-/*
-    //PRUEBA DE MOSTRAR USUARIOS
-    $('#datatable-programmers tbody').on('click','.editar', function(){ 
-        let usuario = dataTable.row($(this).parents()).data();
-        $('#nombre').val(usuario.nombre);
-      })
-    //PRUEBA DE MOSTRAR USUARIOS
-*/

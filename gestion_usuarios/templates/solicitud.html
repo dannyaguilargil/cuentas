@@ -11,27 +11,33 @@
             <a class="btn btn-warning fas fa-user-lock" href="{% url 'inicio' %}"></a>
             
             <center>
-                <h5 style="font-family: Kodchasan">Solicitud de usuario</h5> <br>
+                <h5 style="font-family: Kodchasan">Solicitud de usuario</h5> 
             </center>
             
-            <form  action="../../Servidor/solicitud_usuario.php" method="POST" autocomplete="off" style="font-family: Lato;">
-          
-        
-                <div class="col">
-                    <label class="">Primer Nombre</label>
-                    <input type="text" class="form-control" name="nombre" id="nombre" required><br>
+            <form  action="" method="POST" autocomplete="off" style="font-family: Lato;">
+            <!-- CREANDO FORMULARIO DINAMICOS-->
+            {% csrf_token %}
+            <div class="row">
+            {% for campo in formulario%}            
+                <div class="col-md-3">
+                    <label class="">{{ campo.label }}:</label>
+                    <input type=" {{ campo.field.widget.input_type }} "
+                    class="form-control"
+                    name="{{ campo.name }}"
+                    id="nombre"
+                    placeholder="Digite {{ campo.label }}"
+                    required>
+                    <br>
                 </div>
-
+            {% endfor %}
             
-
-    
+            <div class="col-12">{{ campo.errors }}</div>
+             </div>
 
                 <div class="col text-center">
                 <button type="submit" class="fas fa-user-md text-center btn btn-success" onclick="envio();">Solicitar</button>
                 </div>
 
-      
-         
              </form>
        
 

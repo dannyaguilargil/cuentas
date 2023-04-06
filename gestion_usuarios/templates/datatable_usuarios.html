@@ -1,5 +1,5 @@
 <div class="table-resposive"> 
-<table id="datatable-programmers" class="table">
+<table id="datatable-programmers" class="table table-hover table-bordered">
   <caption>
      Usuarios registrados
   </caption>
@@ -17,3 +17,123 @@
   <tbody id="tableBody_programmers"></tbody>
 </table>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"><b>Datos basicos del usuario registrado</b></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col">
+              <label for="nombre">Primer nombre</label>
+              <input type="text"name="nombre" id="nombre" class="form-control">
+          </div>
+
+          <div class="col">
+              <label for=""> Segundo nombre</label>
+              <input type="text" class="form-control">
+          </div>
+
+          <div class="col">
+            <label for="">Primer apellido</label>
+            <input type="text" class="form-control">
+        </div>
+
+        <div class="col">
+          <label for=""> Segundo apellido</label>
+          <input type="text" class="form-control">
+      </div>
+
+        </div>
+
+
+    
+
+        <div class="row">
+          <div class="col">
+              <label for="">Cargo </label>
+              <input type="text" class="form-control">
+          </div>
+
+          <div class="col">
+              <label for="">Email</label>
+              <input type="text" class="form-control">
+          </div>
+
+          <div class="col">
+            <label for="">Supervisor</label>
+            <input type="text" class="form-control">
+        </div>
+
+        <div class="col">
+            <label for="">Tipo documento</label>
+            <input type="text" class="form-control">
+        </div>
+        </div>
+
+   
+
+        <div class="row">
+          <div class="col">
+              <label for="">Cedula</label>
+              <input type="text" class="form-control">
+          </div>
+
+          <div class="col">
+              <label for="rol">Rol</label>
+              <select name="rol" id="rol" class="form-control">
+                  <option value="" selected class="">NORMAL</option>
+                  <option value="SUPERVISOR" class="">SUPERVISOR</option>
+                  <option value="ADMINISTRADOR" class="">ADMINISTRADOR</option>
+              </select>
+          </div>
+
+          <div class="col">
+            <label for="">Lugar expedicion</label>
+            <input type="text" class="form-control">
+        </div>
+
+        <div class="col">
+          <label for="">Dependencia</label>
+          <input type="text" class="form-control">
+        </div>
+
+        </div>
+
+        
+        <div class="row">
+          <div class="col">
+              <label for="">Sexo</label>
+              <input type="text" class="form-control">
+          </div>
+
+          <div class="col">
+              <label for="rol">Usuario</label>
+              <input type="text" class="form-control">
+             
+          </div>
+
+          <div class="col">
+          
+        </div>
+
+        <div class="col">
+          
+        </div>
+        
+        </div>
+<br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success">Guardarlo</button>
+        <button type="button" class="btn btn-danger">Eliminarlo</button>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import solicitud_usuario, usuario
+from .models import  usuario, prueba, usolicitudes
 
 # Register your models here.
-admin.site.register(solicitud_usuario)
+admin.site.register(usolicitudes)
 admin.site.register(usuario)
-#admin.site.register(prueba)
+admin.site.register(prueba)
 

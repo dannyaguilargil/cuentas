@@ -15,4 +15,6 @@ urlpatterns = [
     path('perfil', views.perfil, name='perfil'), 
     path('usuarios/sdocumentos', views.documentos_usuario, name='documentos_usuario'), 
     path('list_usuarios', views.list_usuarios, name='list_usuarios'), 
+    path('usuarios/pendientes', views.usuarios_pendientes, name='usuarios_pendientes'),
+    path('list_pendientes', views.usolicitud, name='list_pendientes'),  
 ]
