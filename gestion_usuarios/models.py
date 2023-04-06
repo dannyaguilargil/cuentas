@@ -71,8 +71,10 @@ class contrato(models.Model):
     objeto = models.CharField(max_length=300, verbose_name='Objeto')
     #fechasuscripcion = models.CharField(max_length=300, verbose_name='Fecha de suscripcion')
     fechaperfeccionamiento = models.CharField(max_length=300, verbose_name='Fecha de perfeccionamiento')
-    objeto = models.CharField(max_length=300, verbose_name='Objeto')
     valor = models.CharField(max_length=300, verbose_name='Valor del contrato')
     fechacontrato = models.CharField(max_length=300, verbose_name='Fecha del contrato')
-    fechaterminacion = models.CharField(max_length=300, verbose_name='Fecha de terminacion del contrato')
+    fechaterminacion = models.CharField(max_length=300, verbose_name='Fecha final del contrato')
     duracion = models.CharField(max_length=40, verbose_name='Duracion del contrato')
+    
+    def __str__(self):
+        return 'CONTRATO: '+self.objeto

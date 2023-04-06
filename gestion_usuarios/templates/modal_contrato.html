@@ -7,69 +7,37 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+          
+          <form action="" method="POST">
+            <center>
+              previsualizacion del pdf <br> <br> <br> <br> <br> <br>
+            </center>
+          {% csrf_token %}
           <div class="row">
-
-            <div class="col">
-                <center>
-                    <h6>Previsualizacion del pdf</h6>
-                   <!--<object type="apllication/pdf" class="pdfview"></object>--> 
-                   <br> <br> <br> <br>
-                </center>
-                            
-            </div>
-  
-          </div>
-
-
-          <div class="row">
-            <div class="col">
-                <label for="">Numero del contrato</label><br>
-                <input type="tel" name="" id="" class="form-control">
-            </div>
-            <div class="col">
-                <label for="">Fecha del contrato</label><br>
-                <input type="tel" name="" id="" class="form-control">
-            </div>
-
-            <div class="col">
-                <label for="">Valor del contrato</label><br>
-                <input type="tel" name="" id="" class="form-control">
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col">
-                <label for="">Numero del proceso</label><br>
-                <input type="tel" name="" id="" class="form-control">
-            </div>
-            <div class="col">
-                <label for="">Fecha suscripcion</label><br>
-                <input type="date" name="" id="" class="form-control">
-            </div>
-
-            <div class="col">
-                <label for="">Fecha de perfeccionamiento</label><br>
-                <input type="date" name="" id="" class="form-control">
-            </div>
-          </div>
-
-          <div class="row">
+            {% for campo in form%}            
+                <div class="col-md-4">
+                    <label class="">{{ campo.label }}:</label>
+                    <input type=" {{ campo.field.widget.input_type }} "
+                    class="form-control"
+                    name="{{ campo.name }}"
+                    id="{{ campo.name }}"
+                    placeholder="Digite {{ campo.label }}"
+                    required>
+                    <br>
+                </div>
+            {% endfor %}
             
-            <div class="col">
-                <label for="">Objeto del contrato</label><br>
-                <input type="text" name="" id="" class="form-control">
-            </div>
-
-            <div class="col">
-                <label for="">Supervisor contrato</label><br>
-                <input type="text" name="" id="" class="form-control">
-            </div>
-          </div>
+            <div class="col-12">{{ campo.errors }}</div>
+             </div>
+        
         </div>
+
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-success">Registrarlo</button>
+          <button type="submit" class="btn btn-success">Registrarlo</button>
         </div>
+      
       </div>
+    </form>
     </div>
   </div>

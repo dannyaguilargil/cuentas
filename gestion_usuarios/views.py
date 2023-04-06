@@ -8,8 +8,10 @@ from django.http.response import JsonResponse
 from gestion_usuarios.models import usuario
 from gestion_usuarios.models import usolicitudes
 from gestion_usuarios.models import prueba
+from gestion_usuarios.models import contrato
 from gestion_usuarios.forms import User
 from gestion_usuarios.forms import Usuario
+from gestion_usuarios.forms import Contrato
 from django.contrib import messages
 
 #def  usuarios(request):
@@ -32,7 +34,6 @@ def solicitud_usuario(request):
     return render(request, 'solicitud.html', {'formulario': formulario})
 #aqui hago insecciones
 
-
 def crear(request):
     formularios = Usuario(request.POST or None)
     if formularios.is_valid():
@@ -42,7 +43,12 @@ def crear(request):
     return render(request, 'crear.html',  {'formularios': formularios})
 
 def documentos(request):
-    return render(request, 'sdocumentos.html')
+    form = Contrato(request.POST or None)
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Cuenta creada')
+        return render(request, 'sdocumentos.html')
+    return render(request, 'sdocumentos.html', {'form': form})
 
 def perfil(request):
     return render(request, 'perfil.html')
@@ -71,9 +77,19 @@ def usolicitud(request):
     data = {'usuarios': usuarios}
     return JsonResponse(data)
 
-#def incrustada(request):
-#     return render(request, "C:/xampp/htdocs/sistemas_cuentas/sistemas_cuentas/templates/plantilla2.html")
- 
+#opcion de registro puro#
+#def registro(request):
+#    if request.method == 'POST':
+#        numero = request.POST['numero']
+#        numeroproceso = request.POST['numeroproceso']
+#        objeto = request.POST['objeto']
+#        fechaperfeccionamiento = request.POST['fechaperfeccionamiento']
+#        valor = request.POST['valor']
+#        fechacontrato = request.POST['fechacontrato']
+#        fechaterminacion = request.POST['fechaterminacion']
+#        duracion = request.POST['duracion']
+#        registro = contrato(numero=numero, numeroproceso=numeroproceso, objeto=objeto, fechaperfeccionamiento=fechaperfeccionamiento, valor=valor, fechacontrato=fechacontrato, fechaterminacion=fechaterminacion, duracion=duracion)
+#        registro.save()
+#        return render(request, 'sdocumentos.html')
 
-
-
+#opcion de registro puro#
