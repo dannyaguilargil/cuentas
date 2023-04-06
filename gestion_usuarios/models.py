@@ -63,3 +63,16 @@ class usolicitudes(models.Model):
        
     def __str__(self):
         return 'SOLICITUD DE USUARIO: ' + self.nombre + ' ' + self.primerapellido
+    
+#por ahora solo quiero hacer registros pero debo referenciarlo con llave foranea
+class contrato(models.Model):
+    numero = models.IntegerField(verbose_name='Numero')
+    numeroproceso = models.IntegerField(verbose_name='Numero de proceso')
+    objeto = models.CharField(max_length=300, verbose_name='Objeto')
+    #fechasuscripcion = models.CharField(max_length=300, verbose_name='Fecha de suscripcion')
+    fechaperfeccionamiento = models.CharField(max_length=300, verbose_name='Fecha de perfeccionamiento')
+    objeto = models.CharField(max_length=300, verbose_name='Objeto')
+    valor = models.CharField(max_length=300, verbose_name='Valor del contrato')
+    fechacontrato = models.CharField(max_length=300, verbose_name='Fecha del contrato')
+    fechaterminacion = models.CharField(max_length=300, verbose_name='Fecha de terminacion del contrato')
+    duracion = models.CharField(max_length=40, verbose_name='Duracion del contrato')
