@@ -2,6 +2,7 @@ from django import forms
 from .models import usolicitudes
 from .models import usuario
 from .models import contrato
+from .models import rp
 
 class User(forms.ModelForm):
     class Meta:
@@ -17,4 +18,9 @@ class Usuario(forms.ModelForm):
 class Contrato(forms.ModelForm):
     class Meta:
         model = contrato
+        fields = '__all__'
+
+class Rp(forms.ModelForm):
+    class Meta:
+        model = rp
         fields = '__all__'

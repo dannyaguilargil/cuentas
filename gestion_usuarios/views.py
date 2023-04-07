@@ -11,7 +11,7 @@ from gestion_usuarios.models import prueba
 from gestion_usuarios.models import contrato
 from gestion_usuarios.forms import User
 from gestion_usuarios.forms import Usuario
-from gestion_usuarios.forms import Contrato
+from gestion_usuarios.forms import Contrato, Rp
 from django.contrib import messages
 
 #def  usuarios(request):
@@ -42,13 +42,20 @@ def crear(request):
         return render(request, 'crear.html')
     return render(request, 'crear.html',  {'formularios': formularios})
 
+#GESTION DE DOCUMENTOS DE GESCON
 def documentos(request):
     form = Contrato(request.POST or None)
     if form.is_valid():
         form.save()
         messages.success(request, 'Cuenta creada')
         return render(request, 'sdocumentos.html')
-    return render(request, 'sdocumentos.html', {'form': form})
+    formrp = Rp(request.POST or None)
+    if formrp.is_valid():
+        formrp.save()
+        messages.success(request, 'Cuenta creada')
+        return render(request, 'sdocumentos.html')
+    return render(request, 'sdocumentos.html', {'form': form, 'formrp': formrp})
+#GESTION DE DOCUMENTOS GESCON
 
 def perfil(request):
     return render(request, 'perfil.html')
