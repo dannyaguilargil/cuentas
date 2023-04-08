@@ -11,7 +11,7 @@ from gestion_usuarios.models import prueba
 from gestion_usuarios.models import contrato
 from gestion_usuarios.forms import User
 from gestion_usuarios.forms import Usuario
-from gestion_usuarios.forms import Contrato, Rp
+from gestion_usuarios.forms import Contrato, Rp, Actainicio
 from django.contrib import messages
 
 #def  usuarios(request):
@@ -54,14 +54,36 @@ def documentos(request):
         formrp.save()
         messages.success(request, 'Cuenta creada')
         return render(request, 'sdocumentos.html')
-    return render(request, 'sdocumentos.html', {'form': form, 'formrp': formrp})
+    forminicio = Actainicio(request.POST or None)
+    if forminicio.is_valid():
+        forminicio.save()
+        messages.success(request, 'Cuenta creada')
+        return render(request, 'sdocumentos.html')
+    return render(request, 'sdocumentos.html', {'form': form, 'formrp': formrp, 'forminicio': forminicio})
 #GESTION DE DOCUMENTOS GESCON
 
 def perfil(request):
     return render(request, 'perfil.html')
 
+#gestion de documentos de usuarios
 def documentos_usuario(request):
-    return render(request, 'sdocumentos_usuario.html')
+    form = Contrato(request.POST or None)
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Cuenta creada')
+        return render(request, 'sdocumentos.html')
+    formrp = Rp(request.POST or None)
+    if formrp.is_valid():
+        formrp.save()
+        messages.success(request, 'Cuenta creada')
+        return render(request, 'sdocumentos.html')
+    forminicio = Actainicio(request.POST or None)
+    if forminicio.is_valid():
+        forminicio.save()
+        messages.success(request, 'Cuenta creada')
+        return render(request, 'sdocumentos.html')
+    return render(request, 'sdocumentos_usuario.html', {'form': form, 'formrp': formrp, 'forminicio': forminicio})
+#gestion de documentos de usuarios
 
 def list_usuarios(request):
     usuarios = list(usuario.objects.values())

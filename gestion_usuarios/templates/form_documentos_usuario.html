@@ -7,6 +7,9 @@
        <li class="nav-item">
          <a class="nav-link" href="#scrollspyHeading2">Planilla</a>
        </li>
+       <li class="nav-item">
+        <a class="nav-link" href="#scrollspyHeading3">Seguimiento cuentas</a>
+      </li>
        <!--
        <li class="nav-item">
          <a class="nav-link" href="#scrollspyHeading3">Registro presupuestal</a>
@@ -23,12 +26,12 @@
  
  <form action="" method="post" class="form-control">
      <div class="row">
-         <div class="col"  id="scrollspyHeading1">
-             <div class="card" style="width: 23rem;">
+       <div class="col"  id="scrollspyHeading1">
+             <div class="card">
                 <!-- <img src="..." class="card-img-top" alt="...">-->
                  <div class="card-body">
-                     <h6 class="card-title"><b>Contrato </b><br> <a href="" class="btn btn-outline-success fas fa-eye">Ver</a></h6>
-                   <input type="file" name="" id="" class="form-control">
+                  <h6 class="card-title"><b>Contrato </b><br> <button type="button" class="btn btn-outline-success fas fa-eye" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver</button></h6>
+                  <input type="file" name="" id="" class="form-control">
                  <label for="">Numero de contrato</label>
                  <input type="number" placeholder="Numero de contrato" class="form-control">
                  <label for="">Fecha de contrato</label>
@@ -38,18 +41,21 @@
                    <br>
                    <a href="#" class="btn btn-outline-primary fas fa-magic">Hacer magia</a>
                    <a href="#" class="btn btn-outline-success fas fa-magic">Registrarlo</a>
-                 </div>
-               </div> 
-     </div>
- 
+                </div>
+              </div> 
+         </div>
+
+     {% include 'modal_contrato.html' %}
+     {% include 'modal_rp.html' %}
+     {% include 'modal_actainicio.html' %}
  
  
      <div class="col">
-             <div class="card" style="width: 20rem;">
+             <div class="card">
                  <!--<img src="..." class="card-img-top" alt="..."> -->
                  <div class="card-body">
-                     <h6 class="card-title"> <b>Registro presupuestal</b> <br> <a href="" class="btn btn-outline-success fas fa-eye">Ver</a></h6>
-                   <input type="file" name="" id="" class="form-control">
+                  <h6 class="card-title"><b>Registro prespuestal </b><br> <button type="button" class="btn btn-outline-success fas fa-eye" data-bs-toggle="modal" data-bs-target="#exampleModal2">Ver</button></h6>
+                  <input type="file" name="" id="" class="form-control">
                  <label for="">Numero del registro</label>
                  <input type="number" placeholder="Numero del registro presupuestal" class="form-control">
                  <label for="">Fecha del registro</label>
@@ -65,11 +71,11 @@
  
  
      <div class="col">
-         <div class="card" style="width: 20rem;">
+         <div class="card">
              <!--<img src="..." class="card-img-top" alt="..."> -->
              <div class="card-body">
-                 <h6 class="card-title"><b>Acta de inicio</b> <br> <a href="" class="btn btn-outline-success fas fa-eye">Ver</a></h6>
-               <input type="file" name="" id="" class="form-control">
+              <h6 class="card-title"><b>Acta de inicio </b><br> <button type="button" class="btn btn-outline-success fas fa-eye" data-bs-toggle="modal" data-bs-target="#exampleModal3">Ver</button></h6>
+              <input type="file" name="" id="" class="form-control">
              <label for="">Fecha de acta de inicio</label>
              <input type="date" placeholder="Numero de contrato" class="form-control">
                <br>
@@ -84,7 +90,7 @@
  
      <div class="row">
          <div class="col" id="scrollspyHeading2">
-             <div class="card" style="width: 23rem;">
+             <div class="card">
                 <!-- <img src="..." class="card-img-top" alt="...">-->
                  <div class="card-body">
                      <h6 class="card-title"><b>Planilla</b><br> <a href="" class="btn btn-outline-success fas fa-eye">Ver</a></h6>
@@ -100,10 +106,10 @@
     
  
     
-   <div class="col" id="scrollspyHeading2">
-       <div class="card" style="width: 20rem;"> 
+   <div class="col">
+       <div class="card"> 
          <div class="card-body">
-                   <h6 class="card-title">Certificado seguimiento de cuentas <br> <a href="" class="btn btn-outline-success fas fa-eye">Ver</a></h6>
+                   <h6 class="card-title"><b>Actividades </b><br> <a href="" class="btn btn-outline-success fas fa-eye">Ver</a></h6>
                  <input type="file" name="" id="" class="form-control">
                <label for="">Numero de cdp</label>
                <input type="text" placeholder="Numero de contrato" class="form-control">
@@ -116,10 +122,10 @@
  
 
    <!-- TOCA HACERLOS DEPENDIENTES, QUE UNO DEPENDA DEL OTRO-->
-   <div class="col" id="scrollspyHeading2">
-     <div class="card" style="width: 20rem;"> 
+<div class="col" id="scrollspyHeading2">
+    <div class="card"> 
        <div class="card-body">
-                 <h6 class="card-title">Acta de pago <br> <a href="" class="btn btn-outline-success fas fa-eye">Ver</a></h6>
+                 <h6 class="card-title"><b>Acta de pago</b> <br> <a href="" class="btn btn-outline-success fas fa-eye">Ver</a></h6>
                <input type="file" name="" id="" class="form-control">
              <label for="">Numero de planilla</label>
              <input type="text" placeholder="Numero de contrato" class="form-control">
@@ -130,8 +136,28 @@
      </div>
  </div> 
  
- 
- 
+ </div> <hr>
+<div class="row">
+  <div class="col" id="scrollspyHeading3">
+    <div class="card"> 
+      <div class="card-body">
+                <h6 class="card-title"><b>Certificado seguimiento de cuentas</b> <br> <a href="" class="btn btn-outline-success fas fa-eye">Ver</a></h6>
+              <input type="file" name="" id="" class="form-control">
+            <label for="">Certificado seguimiento de cuentas</label>
+            <input type="text" placeholder="Numero de contrato" class="form-control">
+           
+              <br>
+              <a href="#" class="btn btn-outline-primary fas fa-magic">Hacer magia</a>
+        </div>
+    </div>
+  </div>
+  <div class="col">
+
+  </div>
+  <div class="col">
+
+  </div>
+</div>
  
     
  

@@ -12,7 +12,24 @@
             <center>
               previsualizacion del pdf <br> <br> <br> <br> <br> <br>
             </center>
-          
+            {% csrf_token %}
+
+            <div class="row">
+              {% for campo in forminicio%}            
+                  <div class="col-md-4">
+                      <label class="">{{ campo.label }}:</label>
+                      <input type=" {{ campo.field.widget.input_type }} "
+                      class="form-control"
+                      name="{{ campo.name }}"
+                      id="{{ campo.name }}"
+                      placeholder="Digite {{ campo.label }}"
+                      required>
+                      <br>
+                  </div>
+              {% endfor %}
+              
+              <div class="col-12">{{ campo.errors }}</div>
+            </div>
            
         </div>
 

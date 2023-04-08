@@ -22,6 +22,10 @@ from django.db import models
        
 #QUIERO HACER LA PARTE PRIMERO DE MOSTRAR LOS USUARIOS REGISTRADOS Y INCLUIR USUARIOS REGISTRADOS EN EL ADMIN
 class usuario(models.Model):
+    #sexo = (
+     #   ('M', 'Masculino'),
+     #   ('F', 'Femenino'),
+    #)
     nombre = models.CharField(max_length=40, verbose_name='Primer nombre')
     segundonombre = models.CharField(max_length=40, verbose_name='Segundo nombre')
     primerapellido = models.CharField(max_length=40, verbose_name='Primer apellido')
@@ -45,8 +49,9 @@ class usuario(models.Model):
     
     
 class prueba(models.Model):
-    nombre = models.CharField(max_length=40)
+    nombreprueba = models.CharField(max_length=40)
     cedula = models.IntegerField(primary_key=True)
+    
     
     
 class usolicitudes(models.Model):
@@ -87,3 +92,43 @@ class rp(models.Model):
     #pendiente asignar llave foranea aqui
     def __str__(self):
         return 'REGISTRO PRESUPUESTAL: '+self.fecha
+    
+class actainicio(models.Model):
+    numero = models.IntegerField(primary_key=True, verbose_name='Numero del proceso')
+    fecha = models.CharField(max_length=300, verbose_name='Fecha de acta de inicio')
+    duracion = models.CharField(max_length=40, verbose_name='Duracion del contrato')
+    valor = models.CharField(max_length=300, verbose_name='Valor del contrato')
+    
+    def __str__(self):
+        return 'ACTA DE INICIO: '+self.fecha
+ 
+#gestion de documentos del usuario    
+class planilla(models.Model):
+    numero = models.IntegerField(primary_key=True, verbose_name='Numero de la planilla')
+    fecha = models.CharField(max_length=300, verbose_name='Fecha del pago de la planilla')
+    periodo = models.CharField(max_length=40, verbose_name='Periodo de la planilla')
+    valortotal = models.CharField(max_length=300, verbose_name='Valor total de la planilla')
+    nombrepension = models.CharField(max_length=300, verbose_name='Nombre de la entidad de pension')
+    valorpension = models.CharField(max_length=300, verbose_name='Valor de la pension')
+    nombresalud = models.CharField(max_length=300, verbose_name='Nombre de la entidad de salud')
+    valorsalud = models.CharField(max_length=300, verbose_name='Valor de la salud')
+    nombrearl = models.CharField(max_length=300, verbose_name='Nombre de la entidad de arl')
+    valorarl = models.CharField(max_length=300, verbose_name='Valor de arl')
+
+    def __str__(self):
+        return 'PLANILLA: '+self.periodo
+    
+#class actividades(models.Model):
+#    numero = models.IntegerField(primary_key=True, verbose_name='Numero de la planilla')
+#    fecha = models.CharField(max_length=300, verbose_name='Fecha del pago de la planilla')
+#    periodo = models.CharField(max_length=40, verbose_name='Periodo de la planilla')
+#    valortotal = models.CharField(max_length=300, verbose_name='Valor total de la planilla')
+#    nombrepension = models.CharField(max_length=300, verbose_name='Nombre de la entidad de pension')
+#    valorpension = models.CharField(max_length=300, verbose_name='Valor de la pension')
+#    nombresalud = models.CharField(max_length=300, verbose_name='Nombre de la entidad de salud')
+#    valorsalud = models.CharField(max_length=300, verbose_name='Valor de la salud')
+#    nombrearl = models.CharField(max_length=300, verbose_name='Nombre de la entidad de arl')
+#    valorarl = models.CharField(max_length=300, verbose_name='Valor de arl')
+
+#    def __str__(self):
+#        return 'ACTA DE INICIO: '+self.periodo
