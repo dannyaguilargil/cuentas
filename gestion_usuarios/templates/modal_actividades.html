@@ -1,9 +1,9 @@
-<!-- Modal certificado de seguimiento-->
-<div class="modal fade" id="exampleModal7" tabindex="-1" aria-labelledby="exampleModalLabel7" aria-hidden="true">
+<!-- Modal de actividades-->
+<div class="modal fade" id="exampleModal5" tabindex="-1" aria-labelledby="exampleModalLabel5" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Certificado de segumientos</h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Actividades</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -14,7 +14,7 @@
             </center>
             {% csrf_token %}
             <div class="row">
-              {% for campo in formcertificadoseguimiento%}            
+              {% for campo in formactividades%}            
                   <div class="col-md-4">
                       <label class="">{{ campo.label }}:</label>
                       <input type=" {{ campo.field.widget.input_type }} "

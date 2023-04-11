@@ -4,6 +4,10 @@ from .models import usuario
 from .models import contrato
 from .models import rp
 from .models import actainicio
+from .models import planilla
+from .models import actividades
+from .models import actapago
+from .models import certificadoseguimiento
 
 class User(forms.ModelForm):
     class Meta:
@@ -30,4 +34,24 @@ class Rp(forms.ModelForm):
 class Actainicio(forms.ModelForm):
     class Meta:
         model = actainicio
+        fields = '__all__'
+        
+class Planilla(forms.ModelForm):
+    class Meta:
+        model = planilla
+        fields = '__all__'
+
+class Actividades(forms.ModelForm):
+    class Meta:
+        model = actividades
+        fields = '__all__'
+
+class Actapago(forms.ModelForm):
+    class Meta:
+        model = actapago
+        fields = '__all__'
+        
+class Certificadoseguimiento(forms.ModelForm):
+    class Meta:
+        model = certificadoseguimiento
         fields = '__all__'

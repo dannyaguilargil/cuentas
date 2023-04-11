@@ -1,0 +1,42 @@
+<!-- Modal de planilla-->
+<div class="modal fade" id="exampleModal4" tabindex="-1" aria-labelledby="exampleModalLabel4" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Planilla</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          
+          <form action="" method="POST">
+            <center>
+              previsualizacion del pdf <br> <br> <br> <br> <br> <br>
+            </center>
+            {% csrf_token %}
+            <div class="row">
+              {% for campo in formplanilla%}            
+                  <div class="col-md-4">
+                      <label class="">{{ campo.label }}:</label>
+                      <input type=" {{ campo.field.widget.input_type }} "
+                      class="form-control"
+                      name="{{ campo.name }}"
+                      id="{{ campo.name }}"
+                      placeholder="Digite {{ campo.label }}"
+                      required>
+                      <br>
+                  </div>
+              {% endfor %}
+              
+              <div class="col-12">{{ campo.errors }}</div>
+               </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success">Registrarlo</button>
+        </div>
+      
+      </div>
+    </form>
+    </div>
+  </div>

@@ -11,7 +11,7 @@ from gestion_usuarios.models import prueba
 from gestion_usuarios.models import contrato
 from gestion_usuarios.forms import User
 from gestion_usuarios.forms import Usuario
-from gestion_usuarios.forms import Contrato, Rp, Actainicio
+from gestion_usuarios.forms import Contrato, Rp, Actainicio, Planilla, Actividades, Actapago, Certificadoseguimiento
 from django.contrib import messages
 
 #def  usuarios(request):
@@ -82,7 +82,27 @@ def documentos_usuario(request):
         forminicio.save()
         messages.success(request, 'Cuenta creada')
         return render(request, 'sdocumentos.html')
-    return render(request, 'sdocumentos_usuario.html', {'form': form, 'formrp': formrp, 'forminicio': forminicio})
+    formplanilla = Planilla(request.POST or None)
+    if formplanilla.is_valid():
+        formplanilla.save()
+        messages.success(request, 'Cuenta creada')
+        return render(request, 'sdocumentos.html')
+    formactividades = Actividades(request.POST or None)
+    if formactividades.is_valid():
+        formactividades.save()
+        messages.success(request, 'Cuenta creada')
+        return render(request, 'sdocumentos.html')
+    formactapago = Actapago(request.POST or None)
+    if formactapago.is_valid():
+        formactapago.save()
+        messages.success(request, 'Cuenta creada')
+        return render(request, 'sdocumentos.html')
+    formcertificadoseguimiento = Certificadoseguimiento(request.POST or None)
+    if formcertificadoseguimiento.is_valid():
+        formcertificadoseguimiento.save()
+        messages.success(request, 'Cuenta creada')
+        return render(request, 'sdocumentos.html')
+    return render(request, 'sdocumentos_usuario.html', {'form': form, 'formrp': formrp, 'forminicio': forminicio, 'formplanilla': formplanilla, 'formactividades': formactividades, 'formactapago': formactapago, 'formcertificadoseguimiento': formcertificadoseguimiento})
 #gestion de documentos de usuarios
 
 def list_usuarios(request):

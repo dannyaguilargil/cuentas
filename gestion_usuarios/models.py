@@ -118,17 +118,45 @@ class planilla(models.Model):
     def __str__(self):
         return 'PLANILLA: '+self.periodo
     
-#class actividades(models.Model):
-#    numero = models.IntegerField(primary_key=True, verbose_name='Numero de la planilla')
-#    fecha = models.CharField(max_length=300, verbose_name='Fecha del pago de la planilla')
-#    periodo = models.CharField(max_length=40, verbose_name='Periodo de la planilla')
-#    valortotal = models.CharField(max_length=300, verbose_name='Valor total de la planilla')
-#    nombrepension = models.CharField(max_length=300, verbose_name='Nombre de la entidad de pension')
-#    valorpension = models.CharField(max_length=300, verbose_name='Valor de la pension')
-#    nombresalud = models.CharField(max_length=300, verbose_name='Nombre de la entidad de salud')
-#    valorsalud = models.CharField(max_length=300, verbose_name='Valor de la salud')
-#    nombrearl = models.CharField(max_length=300, verbose_name='Nombre de la entidad de arl')
-#    valorarl = models.CharField(max_length=300, verbose_name='Valor de arl')
+class actividades(models.Model):
+    objeto = models.CharField(max_length=300, verbose_name='Objeto del contrato')
+    lugar = models.CharField(max_length=40, verbose_name='Lugar donde realizo la actividad')
+    fecha = models.CharField(max_length=40, verbose_name='Fecha de la cuenta')
+    actividades = models.CharField(max_length=600, verbose_name='Actividades a realizar ')
+    resultadoactvidades = models.CharField(max_length=600, verbose_name='Resultado de las actividades')
 
-#    def __str__(self):
-#        return 'ACTA DE INICIO: '+self.periodo
+    def __str__(self):
+        return 'ACTA DE INICIO: '+self.objeto
+    
+class actapago(models.Model):
+    objeto = models.CharField(max_length=300, verbose_name='Objeto del contrato')
+    lugar = models.CharField(max_length=40, verbose_name='Lugar donde realizo la actividad')
+    valor = models.CharField(max_length=40, verbose_name='Valor del contrato')
+    fechaperfeccionamiento = models.CharField(max_length=40, verbose_name='Fecha de perfeccionamiento')
+    numeroacta = models.IntegerField(verbose_name='Numero de acta de pago')
+    fechacuenta = models.CharField(max_length=600, verbose_name='Fecha en la que pasa la cuenta') #aqui tomar el mes automaticamente y dia
+    periodo = models.IntegerField( verbose_name='Periodo de pago')
+
+    def __str__(self):
+        return 'ACTA DE PAGO: '+self.objeto
+    
+class certificadoseguimiento(models.Model):
+    numerocontrato = models.IntegerField( verbose_name='Numero del contrato')
+    fechacuenta = models.CharField(max_length=40, verbose_name='Fecha actual de la cuenta')
+    objeto = models.CharField(max_length=40, verbose_name='Objeto del contrato')
+    rp = models.CharField(max_length=40, verbose_name='Numero del registro presupuestal')
+    fechasuscripcion = models.CharField(max_length=40, verbose_name='Fecha de suscripcion del contrato')
+    fechaterminacion = models.CharField(max_length=40,verbose_name='Fecha terminacion del contrato')
+    periodo = models.IntegerField( verbose_name='Periodo de pago')
+    numeroplanilla = models.IntegerField( verbose_name='Numero de planilla de pago')
+    nombresalud = models.CharField(max_length=40,verbose_name='Nombre de la entidad de salud')
+    valorsalud = models.CharField(max_length=40,verbose_name='Valor de la salud')
+    nombrepension = models.CharField(max_length=40,verbose_name='Nombre de la entidad de pension')
+    valorpension = models.CharField(max_length=40,verbose_name='Valor de la entidad de pension')
+    nombrearl = models.CharField(max_length=40,verbose_name='Nombre de la entidad de arl')
+    valorarl = models.CharField(max_length=40,verbose_name='Valor de la entidad de arl')
+    cuentapago = models.CharField(max_length=40,verbose_name='Nombre de la entidad bancaria')
+    numerocuentapago = models.IntegerField( verbose_name='Numero de la entidad bancaria')
+
+    def __str__(self):
+        return 'ACTA DE PAGO: '+self.objeto
