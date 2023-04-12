@@ -17,6 +17,9 @@ from django.contrib import messages
 #def  usuarios(request):
 #     return render(request, 'C:/xampp/htdocs/sistemas_cuentas/gestion_usuarios/templates/index.html')
 
+def  base(request):
+     return render(request, 'base_layout_usuarios.html') #archivo base de usuarios
+
 def  usuarios(request):
      return render(request, 'usuarios.html') # se modifica esto con lo anterior pero para no poner toda la ruta, cambiando en settin.py insatllerds app poniendo la ruta
 

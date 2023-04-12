@@ -1,0 +1,159 @@
+<!--
+/////@developer DANNYAGUILARGIL, UP-IMSALUD
+/*
+##################################################
+----------| |----------|     |#    |  ---------  #
+          | |          |    |  |   |      #      # 
+          | |----------|   |    |  |      #      #
+          | |          |  |      | |      #      #
+----------| |          | |        #   ---------  #
+################################################## 
+-->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title> {% block titulo %}    {% endblock  %}</title>  
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kodchasan">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+        <link type="text/css" rel="stylesheet" href=" {% static "css/styles.css"  %} "> 
+        <link type="text/css" rel="stylesheet" href=" {% static "css/base2.css"  %} "> 
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+    </head>
+    <body>
+        <nav class="sb-topnav navbar navbar-expand" style="background: #1d985a; color: white; ">
+            <!-- Navbar Brand-->
+           <!-- <a class="navbar-brand ps-4" href="index.html">Menu</a> -->
+        
+                <div class="col" >
+                    
+                    <button class="btn btn-link " id="sidebarToggle" href="#!" style="background: #1d985a; color: white;"><i class="fas fa-bars"></i></button>
+                    MENÚ
+                </div>
+                <div class="col"></div>
+                <!-- <div class="col"></div> AGREGAR ESTO CON JAVASCRIPT LA CLASE AL PRESIONAR EL SIDEBAR-->
+                <div class="col text-center">
+                    <center>
+                      
+                    </center>
+                </div>
+              
+                <div class="col"></div>
+               
+          
+            <!-- Sidebar Toggle-->
+            
+        
+            <!-- Navbar Search-->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+               Nombre de usuario
+            </form>
+
+           
+            <!-- Navbar-->
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4" style="background: #1d985a; color: white; ">
+                <li class="nav-item dropdown" style="background: #1d985a; color: white;">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="background: #1d985a; color: white;"><i class="fas fa-user fa-fw" ></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" style="background: #1d985a; color: white;">
+                        <li><a class="dropdown-item" href="#!">Actualizar perfil</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="#!">Cerrar sesión</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div id="layoutSidenav" >
+            <div id="layoutSidenav_nav" style="background: #1d985a; color: white;">
+                <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion" style="background: #1d985a; color: white;">
+                    <div class="sb-sidenav-menu" style="background: #1d985a; color: white;">
+                        <div class="nav" style="background: #1d985a; color: white;">
+                            <div class="sb-sidenav-menu-heading" >Perfil</div>
+                            <a class="nav-link" href="index.html" style="background: #1d985a; color: white;">
+                                <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                                Actualizar perfil
+                            </a>
+                            <!--SEGUNDA OPCION
+                            <div class="sb-sidenav-menu-heading">Interface</div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Layouts
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="layout-static.html">Static Navigation</a>
+                                    <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
+                                </nav>
+                            </div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                                Pages
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                                -->
+
+
+                            <div class="sb-sidenav-menu-heading" >Gestionar cuenta</div>
+                            <a class="nav-link" href="charts.html" style="background: #1d985a; color: white;">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                Pasar cuenta
+                            </a>
+                          
+                        </div>
+                    </div>
+                    <div class="sb-sidenav-footer" style="background: #1d985a; color: white;">
+                        <div class="small">
+                        E.S.E IMSALUD &copy 
+                        </div>
+                </nav>
+            </div>
+
+            <div id="layoutSidenav_content">
+                <center>
+                    <img  src=" {% static 'imgs/logocompleto.png' %} "  alt="" style="width: 170px; text-align: center;height: 70px">
+                </center> <br>
+                <div class="container">
+                {% include 'actualizar_perfil.html' %}
+                {% block contenido %}
+                {% endblock contenido %}
+                </div>
+              
+
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <!---->
+                            <div class="text-muted"></div>
+                            <div>
+                                <a href="#" style="color: grey;">Politica de privacidad</a>
+                                &middot;
+                                <a href="#" style="color: grey;">Terminos &amp; Condiciones</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+
+
+
+ </div>
+    </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="{% static 'js/scripts.js' %}"></script>
+          <!-- Bootstrap -->
+  <!-- jQuery -->
+
+  <!-- DataTable.js -->
+
+  <!--<script src="{% static 'js/usuariospendientes.js' %}"></script>-->
+
+    </body>
+</html>

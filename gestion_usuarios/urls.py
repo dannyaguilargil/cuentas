@@ -7,6 +7,7 @@ from django.shortcuts import render
 
 urlpatterns = [
     #path('admin/', admin.site.urls),
+    path('base', views.base, name='base'),
     path('', views.home, name='inicio'),
     path('usuarios', views.usuarios, name='usuarios'), 
     path('usuarios/solicitud', views.solicitud_usuario, name='solicitud_usuario'), 
