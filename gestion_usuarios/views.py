@@ -129,6 +129,8 @@ def usolicitud(request):
     data = {'usuarios': usuarios}
     return JsonResponse(data)
 
+#logueo de usuario
+
 #opcion de registro puro#
 #def registro(request):
 #    if request.method == 'POST':
