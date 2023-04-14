@@ -131,19 +131,3 @@ def usolicitud(request):
 
 #logueo de usuario
 
-#opcion de registro puro#
-#def registro(request):
-#    if request.method == 'POST':
-#        numero = request.POST['numero']
-#        numeroproceso = request.POST['numeroproceso']
-#        objeto = request.POST['objeto']
-#        fechaperfeccionamiento = request.POST['fechaperfeccionamiento']
-#        valor = request.POST['valor']
-#        fechacontrato = request.POST['fechacontrato']
-#        fechaterminacion = request.POST['fechaterminacion']
-#        duracion = request.POST['duracion']
-#        registro = contrato(numero=numero, numeroproceso=numeroproceso, objeto=objeto, fechaperfeccionamiento=fechaperfeccionamiento, valor=valor, fechacontrato=fechacontrato, fechaterminacion=fechaterminacion, duracion=duracion)
-#        registro.save()
-#        return render(request, 'sdocumentos.html')
-
-#opcion de registro puro#

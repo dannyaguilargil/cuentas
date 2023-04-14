@@ -1,31 +1,7 @@
 from django.db import models
 
 
-# Create your models here.
-#class solicitud_usuario(models.Model):
-#    nombre = models.CharField(max_length=40)
-#    segundonombre = models.CharField(max_length=40)
-#    primerapellido = models.CharField(max_length=40)
-#    segundoapellido = models.CharField(max_length=40)
-#    cargo = models.CharField(max_length=40)
-#    email = models.CharField(max_length=40)
-#    supervisor = models.CharField(max_length=40)
-#    tipodocumento = models.CharField(max_length=40)
-#    cedula = models.IntegerField(primary_key=True)
-       
-#    class Meta:
-#        db_table = 'usolicitud'   
-       
-#    def __str__(self):
-#        return 'SOLICITUD DE USUARIO: ' + self.nombre + ' ' + self.primerapellido
-      
-       
-#QUIERO HACER LA PARTE PRIMERO DE MOSTRAR LOS USUARIOS REGISTRADOS Y INCLUIR USUARIOS REGISTRADOS EN EL ADMIN
 class usuario(models.Model):
-    #sexo = (
-     #   ('M', 'Masculino'),
-     #   ('F', 'Femenino'),
-    #)
     nombre = models.CharField(max_length=40, verbose_name='Primer nombre')
     segundonombre = models.CharField(max_length=40, verbose_name='Segundo nombre')
     primerapellido = models.CharField(max_length=40, verbose_name='Primer apellido')

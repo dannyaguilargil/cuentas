@@ -8,6 +8,7 @@ from .models import planilla
 from .models import actividades
 from .models import actapago
 from .models import certificadoseguimiento
+from .models import prueba
 
 class User(forms.ModelForm):
     class Meta:
@@ -54,4 +55,9 @@ class Actapago(forms.ModelForm):
 class Certificadoseguimiento(forms.ModelForm):
     class Meta:
         model = certificadoseguimiento
+        fields = '__all__'
+        
+class Prueba(forms.ModelForm):
+    class Meta:
+        model = prueba
         fields = '__all__'
