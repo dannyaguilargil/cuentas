@@ -40,7 +40,7 @@ const listProgrammers = async () => {
                     <td>${usuario.cedula}</td>
                     <td>
                     <button class='btn btn-sm btn-outline-success' data-bs-toggle="modal" data-bs-target="#exampleModal" ><i class='fas fa-eye'></i></button>
-                   
+                    <button class='btn btn-sm btn-outline-primary' data-bs-toggle="modal" data-bs-target="#exampleModal" ><i class='fas fa-user-edit'></i></button>
                     </td>
                    
                 </tr>`;

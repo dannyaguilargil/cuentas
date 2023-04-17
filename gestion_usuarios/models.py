@@ -1,5 +1,5 @@
 from django.db import models
-
+from gestion_usuarios.choices import sexos
 
 class usuario(models.Model):
     nombre = models.CharField(max_length=40, verbose_name='Primer nombre')
@@ -14,19 +14,20 @@ class usuario(models.Model):
     ##hast aqui va el de usuarios registrados
     lugarexpedicion = models.CharField(max_length=40, verbose_name='Lugar de expedicion')
     dependencia = models.CharField(max_length=40, verbose_name='Dependencia')
-    sexo = models.CharField(max_length=40, verbose_name='Sexo')
+    sexo = models.CharField(max_length=40, verbose_name='Sexo', choices=sexos, default='F')
     usuario = models.CharField(max_length=40, verbose_name='Usuario')
     contrasena = models.CharField(max_length=40, verbose_name='Contrasena')
     rol = models.CharField(max_length=40, verbose_name='Rol')
     
-
+    #Dependiendo de como se muestre aqui se muestra en la relacion de la llave foranera
     def __str__(self):
-        return 'USUARIO: ' + self.nombre + ' ' + self.primerapellido
+        return self.nombre + ' ' + self.primerapellido + ' ' + self.segundoapellido
     
     
 class prueba(models.Model):
     nombreprueba = models.CharField(max_length=40)
     cedula = models.IntegerField(primary_key=True)
+    usuario=models.ForeignKey(usuario,null=True,blank=True,on_delete=models.CASCADE)
     
     
     
@@ -41,9 +42,14 @@ class usolicitudes(models.Model):
     tipodocumento = models.CharField(max_length=40, verbose_name='Tipo de documento')
     cedula = models.IntegerField(primary_key=True, verbose_name='Cedula')
 
-       
     def __str__(self):
-        return 'SOLICITUD DE USUARIO: ' + self.nombre + ' ' + self.primerapellido
+        return 'Solicitud de usuario: ' + self.nombre + ' ' + self.primerapellido
+    
+    #Aqui cambio los atributos de la tabla 
+    class Meta:
+        verbose_name = 'Solicitud de usuario'
+        verbose_name_plural = 'Solicitudes de usuarios'
+        db_table='Solicitudes de usuarios'
     
 #por ahora solo quiero hacer registros pero debo referenciarlo con llave foranea
 class contrato(models.Model):
@@ -56,15 +62,17 @@ class contrato(models.Model):
     fechacontrato = models.CharField(max_length=300, verbose_name='Fecha del contrato')
     fechaterminacion = models.CharField(max_length=300, verbose_name='Fecha final del contrato')
     duracion = models.CharField(max_length=40, verbose_name='Duracion del contrato')
-    #pendiente asignar llave foranea aqui
-    def __str__(self):
-        return 'CONTRATO: '+self.objeto
+     #pendiente validar como muestra la llave foranea
+    usuario=models.ForeignKey(usuario,null=True,blank=True,on_delete=models.CASCADE)
+   
+ 
     
 class rp(models.Model):
     numero = models.IntegerField(primary_key=True, verbose_name='Numero del rp')
     fecha = models.CharField(max_length=300, verbose_name='Fecha del rp')
     duracion = models.CharField(max_length=40, verbose_name='Duracion del contrato')
     valor = models.CharField(max_length=300, verbose_name='Valor del contrato')
+    usuario=models.ForeignKey(usuario,null=True,blank=True,on_delete=models.CASCADE)
     #pendiente asignar llave foranea aqui
     def __str__(self):
         return 'REGISTRO PRESUPUESTAL: '+self.fecha
@@ -74,6 +82,7 @@ class actainicio(models.Model):
     fecha = models.CharField(max_length=300, verbose_name='Fecha de acta de inicio')
     duracion = models.CharField(max_length=40, verbose_name='Duracion del contrato')
     valor = models.CharField(max_length=300, verbose_name='Valor del contrato')
+    usuario=models.ForeignKey(usuario,null=True,blank=True,on_delete=models.CASCADE)
     
     def __str__(self):
         return 'ACTA DE INICIO: '+self.fecha
@@ -90,6 +99,7 @@ class planilla(models.Model):
     valorsalud = models.CharField(max_length=300, verbose_name='Valor de la salud')
     nombrearl = models.CharField(max_length=300, verbose_name='Nombre de la entidad de arl')
     valorarl = models.CharField(max_length=300, verbose_name='Valor de arl')
+    usuario=models.ForeignKey(usuario,null=True,blank=True,on_delete=models.CASCADE)
 
     def __str__(self):
         return 'PLANILLA: '+self.periodo
@@ -100,6 +110,7 @@ class actividades(models.Model):
     fecha = models.CharField(max_length=40, verbose_name='Fecha de la cuenta')
     actividades = models.CharField(max_length=600, verbose_name='Actividades a realizar ')
     resultadoactvidades = models.CharField(max_length=600, verbose_name='Resultado de las actividades')
+    usuario=models.ForeignKey(usuario,null=True,blank=True,on_delete=models.CASCADE)
 
     def __str__(self):
         return 'ACTA DE INICIO: '+self.objeto
@@ -112,6 +123,7 @@ class actapago(models.Model):
     numeroacta = models.IntegerField(verbose_name='Numero de acta de pago')
     fechacuenta = models.CharField(max_length=600, verbose_name='Fecha en la que pasa la cuenta') #aqui tomar el mes automaticamente y dia
     periodo = models.IntegerField( verbose_name='Periodo de pago')
+    usuario=models.ForeignKey(usuario,null=True,blank=True,on_delete=models.CASCADE)
 
     def __str__(self):
         return 'ACTA DE PAGO: '+self.objeto
@@ -133,6 +145,7 @@ class certificadoseguimiento(models.Model):
     valorarl = models.CharField(max_length=40,verbose_name='Valor de la entidad de arl')
     cuentapago = models.CharField(max_length=40,verbose_name='Nombre de la entidad bancaria')
     numerocuentapago = models.IntegerField( verbose_name='Numero de la entidad bancaria')
+    usuario=models.ForeignKey(usuario,null=True,blank=True,on_delete=models.CASCADE)
 
     def __str__(self):
         return 'ACTA DE PAGO: '+self.objeto
