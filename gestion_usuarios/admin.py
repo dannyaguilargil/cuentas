@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import  usuario, usolicitudes, contrato, rp, actainicio, prueba, planilla, actividades, actapago, certificadoseguimiento
+from .models import  usuario, usolicitudes, contrato, rp, actainicio, prueba, planilla, actividades, actapago, certificadoseguimiento, cuentausuario
 
 #Modificaciones del frontend
 admin.site.site_header = "Administracion sistema de cuentas"
@@ -26,7 +26,6 @@ class Cont(admin.ModelAdmin):
     list_display=('numero', 'objeto', 'valor', 'duracion')
 admin.site.register(contrato, Cont)
 #listar por tabla los contrato en el panel de administracion
-
 
 #listar por tablas usuarios
 class Rps(admin.ModelAdmin):
@@ -68,7 +67,6 @@ class Ap(admin.ModelAdmin):
 admin.site.register(actapago, Ap)
 #listar por tabla las actas de pago en el panel de administracion
 
-
 #listar por tabla las actividades en el panel de administracion
 class Cseguimiento(admin.ModelAdmin):
     #Nombre o cedula de la persona a quien pertenece el certificado de seguimiento
@@ -76,3 +74,8 @@ class Cseguimiento(admin.ModelAdmin):
 admin.site.register(certificadoseguimiento, Cseguimiento)
 #listar por tabla las actividades en el panel de administracion
 
+#cuenta a pasar por el usuario
+class Cuentausuario(admin.ModelAdmin):
+    list_display=('nombre', 'primerapellido', 'segundoapellido','objeto')
+admin.site.register(cuentausuario, Cuentausuario)
+#cuenta a pasar por el usuario

@@ -2,7 +2,7 @@
     <!-- CREANDO FORMULARIO DINAMICOS-->
     {% csrf_token %}
     <div class="row">
-    {% for campo in formularios%}            
+    {% for campo in form%}            
         <div class="col-md-3">
             <label class="">{{ campo.label }}:</label>
             <input type=" {{ campo.field.widget.input_type }} "

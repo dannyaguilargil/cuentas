@@ -7,11 +7,12 @@ from django.shortcuts import render, redirect
 from django.http.response import JsonResponse
 from gestion_usuarios.models import usuario
 from gestion_usuarios.models import usolicitudes
+from gestion_usuarios.models import cuentausuario
 from gestion_usuarios.models import prueba
 from gestion_usuarios.models import contrato
 from gestion_usuarios.forms import User
 from gestion_usuarios.forms import Usuario
-from gestion_usuarios.forms import Contrato, Rp, Actainicio, Planilla, Actividades, Actapago, Certificadoseguimiento
+from gestion_usuarios.forms import Contrato, Rp, Actainicio, Planilla, Actividades, Actapago, Certificadoseguimiento, Cusuario
 from django.contrib import messages
 
 #def  usuarios(request):
@@ -66,8 +67,13 @@ def documentos(request):
 #GESTION DE DOCUMENTOS GESCON
 
 def perfil(request):
+    #form = Contrato(request.POST or None)
+    #if form.is_valid():
+    #    form.save()
+    #   messages.success(request, 'Cuenta creada')
+    #   return render(request, 'sdocumentos.html')
     return render(request, 'perfil.html')
-
+    
 #gestion de documentos de usuarios
 def documentos_usuario(request):
     form = Contrato(request.POST or None)

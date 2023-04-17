@@ -9,6 +9,7 @@ from .models import actividades
 from .models import actapago
 from .models import certificadoseguimiento
 from .models import prueba
+from .models import cuentausuario
 
 class User(forms.ModelForm):
     class Meta:
@@ -60,4 +61,10 @@ class Certificadoseguimiento(forms.ModelForm):
 class Prueba(forms.ModelForm):
     class Meta:
         model = prueba
+        fields = '__all__'
+
+#gestion de pasar la cuenta de usuario
+class Cusuario(forms.ModelForm):
+    class Meta:
+        model = cuentausuario
         fields = '__all__'

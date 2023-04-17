@@ -17,7 +17,7 @@
     </div>
     <div class="card-body">
       
-      <form action="">
+      <form  action="" method="POST" autocomplete="off" style="font-family: Lato;">
 
         <div class="row">
           <div class="col">
@@ -36,17 +36,19 @@
           </div>
 
           <div class="col">
-            <label for="">Cedula</label>
+            <label for="">Segundo apellido</label>
             <input type="text" class="form-control">
         </div>
+
+          
       </div>
 
 
         <div class="row">
-            <div class="col">
-                <label for="">Comentarios</label>
-                <input type="text" class="form-control">
-            </div>
+          <div class="col">
+            <label for="">Cedula</label>
+            <input type="text" class="form-control">
+        </div>
 
             <div class="col">
                 <label for="">Estado</label>
@@ -54,7 +56,7 @@
             </div>
 
             <div class="col">
-                <label for="">Estado</label>
+                <label for="">Flujo</label>
                 <input type="text" class="form-control">
             </div>
 
@@ -63,6 +65,35 @@
               <input type="text" class="form-control">
           </div>
         </div>
+
+      
+        <!--AQUI VA LA GESTION DEL CHECKBOX COLLAPSE PARA VER TODA LA INFORMACION DE LA CUENTA-->
+        <div class="container">
+          <div class="form-group">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="miCheckbox" data-toggle="collapse" data-target="#contenido" aria-expanded="false" aria-controls="contenido">
+              <label class="form-check-label fa fa-eye" for="miCheckbox">
+                Ver Informacion
+              </label>
+            </div>
+          </div>
+          <div class="collapse" id="contenido">
+            <div class="card card-body">
+              
+              <!-- Contenido a colapsar o expandir de forma dinamica  -->
+              
+                    <div class="col text-center">
+                    <button type="submit" class="fas fa-user-md text-center btn btn-success" onclick="envio();">Actualizar informacion</button>
+                    </div>
+            
+              <!-- Contenido a colapsar o expandir de forma dinamica  -->
+
+
+            </div>
+          </div>
+        </div>
+        <!--AQUI VA LA GESTION DEL CHECKBOX COLLAPSE PARA VER TODA LA INFORMACION DE LA CUENTA-->
+
       </form>
 <br>
     <center>
