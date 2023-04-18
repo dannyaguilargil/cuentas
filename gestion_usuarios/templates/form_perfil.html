@@ -11,9 +11,13 @@
               <a class="nav-link fa fa-user-edit" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1" style="color: #1d985a">Actualizar datos del pefil</a>
 
             </li>
+          
             
             
           </ul>
+    </div>
+    <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+      <div class="progress-bar" style="width: 1%">1%</div>
     </div>
     <div class="card-body">
       
@@ -61,7 +65,7 @@
             </div>
 
             <div class="col">
-              <label for="">Estado</label>
+              <label for="">Email</label>
               <input type="text" class="form-control">
           </div>
         </div>
@@ -71,8 +75,8 @@
         <div class="container">
           <div class="form-group">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="miCheckbox" data-toggle="collapse" data-target="#contenido" aria-expanded="false" aria-controls="contenido">
-              <label class="form-check-label fa fa-eye" for="miCheckbox">
+              <br><input class="form-check-input" type="checkbox" id="miCheckbox" data-toggle="collapse" data-target="#contenido" aria-expanded="false" aria-controls="contenido">
+             <label class="form-check-label fa fa-eye" for="miCheckbox">
                 Ver Informacion
               </label>
             </div>
@@ -82,9 +86,24 @@
               
               <!-- Contenido a colapsar o expandir de forma dinamica  -->
               
-                    <div class="col text-center">
-                    <button type="submit" class="fas fa-user-md text-center btn btn-success" onclick="envio();">Actualizar informacion</button>
-                    </div>
+              {% csrf_token %}
+              <div class="row">
+              {% for campo in formperfil%}            
+                      <div class="col-md-3">
+                      <label class="">{{ campo.label }}:</label>
+                      <input type=" {{ campo.field.widget.input_type }} "
+                      class="form-control"
+                      name="{{ campo.name }}"
+                      id="{{ campo.name }}"
+                      placeholder="Digite {{ campo.label }}"
+                      disabled>
+                      <br>
+                      </div>
+              {% endfor %}
+              
+              <div class="col-12">{{ campo.errors }}</div>
+              </div>
+                 
             
               <!-- Contenido a colapsar o expandir de forma dinamica  -->
 

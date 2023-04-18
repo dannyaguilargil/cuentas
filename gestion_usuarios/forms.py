@@ -64,7 +64,8 @@ class Prueba(forms.ModelForm):
         fields = '__all__'
 
 #gestion de pasar la cuenta de usuario
+#cuenta de usuario el nombre no porque ya debe estar arriba
 class Cusuario(forms.ModelForm):
     class Meta:
         model = cuentausuario
-        fields = '__all__'
+        fields = ['supervisor', 'cedula', 'dependencia', 'numero', 'objeto','fechaperfeccionamiento','valor','fechacontrato','fechaterminacion','duracion','numerorp','fecharp','numeroactainicio','fechaactainicio']

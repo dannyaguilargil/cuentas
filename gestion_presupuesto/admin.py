@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import  cuentapresupuesto
 
-# Register your models here.
+admin.site.register(cuentapresupuesto)
+

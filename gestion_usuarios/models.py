@@ -157,6 +157,9 @@ class certificadoseguimiento(models.Model):
 class cuentausuario(models.Model): #la idea es no mostrar todo los datos de la cuenta, solo unos datos y pasarla
     #todo la informacion de los documentos traerlos con llave foranea, por ahora validar el registro inidvidual
     #Antes de eso validar que me lo traiga con el mero html
+    ###########################################################################
+    ########## SOLO PLANILLA Y ACTIVIDADES SE SUBEN LO DEMAS LO HACE EL SISTEMA
+    ###########################################################################
     nombre = models.CharField(max_length=40, verbose_name='Primer nombre')
     segundonombre = models.CharField(max_length=40, verbose_name='Segundo nombre')
     primerapellido = models.CharField(max_length=40, verbose_name='Primer apellido')
@@ -181,6 +184,7 @@ class cuentausuario(models.Model): #la idea es no mostrar todo los datos de la c
     fecharp = models.CharField(max_length=40, verbose_name='Fecha del rp')
     #gestion de rp, tener en cuenta el pdf
     #gestion de acta de inicio, tener en cuenta el pdf
-    numeroactainicio = models.IntegerField(verbose_name='Numero del proceso del acta de inicio')
+    numeroactainicio = models.IntegerField(verbose_name='Numero proceso del acta de inicio')
     fechaactainicio = models.CharField(max_length=300, verbose_name='Fecha de acta de inicio')
-    #gestion de acta de inicio, tener en cuenta el pdf
+    #gestion de acta de inicio, tener en cuenta el pdf  
+    

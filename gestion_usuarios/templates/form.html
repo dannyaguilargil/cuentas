@@ -2,18 +2,28 @@
     <!-- CREANDO FORMULARIO DINAMICOS-->
     {% csrf_token %}
     <div class="row">
-    {% for campo in form%}            
-        <div class="col-md-3">
-            <label class="">{{ campo.label }}:</label>
-            <input type=" {{ campo.field.widget.input_type }} "
-            class="form-control"
-            name="{{ campo.name }}"
-            id="{{ campo.name }}"
-            placeholder="Digite {{ campo.label }}"
-            required>
-            <br>
-        </div>
-    {% endfor %}
+        {% for campo in formularios %}
+            <div class="col-md-3">
+                <label class="">{{ campo.label_tag }}</label>
+                {% if campo.field.widget.input_type == 'select' %}
+                    <select class="form-control" name="{{ campo.html_name }}" id="{{ campo.auto_id }}" {% if campo.field.required %}required{% endif %}>
+                        {% for opcion in campo.field.choices %}
+                            <option value="{{ opcion.0 }}" {% if opcion.0 == campo.value %}selected{% endif %}>{{ opcion.1 }}</option>
+                        {% endfor %}
+                    </select>
+                {% else %}
+                    <input type="{{ campo.field.widget.input_type }}"
+                           class="form-control"
+                           name="{{ campo.html_name }}"
+                           id="{{ campo.auto_id }}"
+                           placeholder="Digite {{ campo.label }}"
+                           {% if campo.field.required %}required{% endif %}>
+                {% endif %}
+                <br>
+            </div>
+        {% endfor %}
+    </div>
+    
     
     <div class="col-12">{{ campo.errors }}</div>
      </div>

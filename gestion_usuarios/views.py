@@ -67,12 +67,12 @@ def documentos(request):
 #GESTION DE DOCUMENTOS GESCON
 
 def perfil(request):
-    #form = Contrato(request.POST or None)
-    #if form.is_valid():
-    #    form.save()
-    #   messages.success(request, 'Cuenta creada')
-    #   return render(request, 'sdocumentos.html')
-    return render(request, 'perfil.html')
+    formperfil = Cusuario(request.POST or None)
+    if formperfil.is_valid():
+        formperfil.save()
+        messages.success(request, 'Cuenta creada')
+        return render(request, 'sdocumentos.html')
+    return render(request, 'perfil.html', {'formperfil': formperfil})
     
 #gestion de documentos de usuarios
 def documentos_usuario(request):
