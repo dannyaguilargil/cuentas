@@ -1,7 +1,4 @@
-#from django.http import HttpResponse
-#from django.template import Template,Context
-#from django.template.loader import get_template
-#from django.shortcuts import get_object_or_404
+
 from django.shortcuts import render, redirect
 #para el uso de datatables
 from django.http.response import JsonResponse
@@ -10,14 +7,16 @@ from gestion_usuarios.models import usolicitudes
 from gestion_usuarios.models import cuentausuario
 from gestion_usuarios.models import prueba
 from gestion_usuarios.models import contrato
-from gestion_usuarios.forms import User
+from gestion_usuarios.forms import Users
 from gestion_usuarios.forms import Usuario
 from gestion_usuarios.forms import Contrato, Rp, Actainicio, Planilla, Actividades, Actapago, Certificadoseguimiento, Cusuario
 from django.contrib import messages
 #gestion del usuario
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
-
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 #def  usuarios(request):
 #     return render(request, 'C:/xampp/htdocs/sistemas_cuentas/gestion_usuarios/templates/index.html')
 
@@ -27,41 +26,37 @@ def  base(request):
 def  usuarios(request):
      return render(request, 'usuarios.html') # se modifica esto con lo anterior pero para no poner toda la ruta, cambiando en settin.py insatllerds app poniendo la ruta
 
+################LOGIN####################
 def home(request):
-    return render(request, 'home.html')
+    if request.method == 'POST':
+        form = AuthenticationForm(request, request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                if user.is_staff:
+                     login(request, user)
+                     return redirect('usuarios')
+                else:
+                     return redirect('perfil')
+            else:
+                messages.error(request, 'Las credenciales de inicio de sesión son inválidas.')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'home.html', {'form': form})
+################LOGIN####################
 
 #Aqui hago insercciones
 def solicitud_usuario(request):
     #Aqui va el formulario dinamico
-    formulario = User(request.POST or None)
+    formulario = Users(request.POST or None)
     if formulario.is_valid():
         formulario.save()
-        messages.success(request, f' Cuenta creada')
+        messages.success(request, ' Cuenta creada')
         return render(request, 'solicitud.html')
     return render(request, 'solicitud.html', {'formulario': formulario})
 #aqui hago insecciones
-
-#AQUI VOY A INTENTAR CREAR EL USUARIO EN AUTH_USER PARA DARLE LA SEGURIDAD#
-def crear(request):
-    formularios = Usuario(request.POST or None)
-    if formularios.is_valid():
-        formularios.save()
-        #aqui voy a insertar en auth_user
-        username = formularios.cleaned_data.get('usuario')
-        email = formularios.cleaned_data.get('email')
-        password = formularios.cleaned_data.get('contrasena')
-         # Crear un nuevo usuario
-        new_user = User.objects.create_user(username=username, email=email, password=password)
-        # Guardar el nuevo usuario
-        new_user.save()
-        #autenticar el usuario
-        user = authenticate(username=username, password=password)
-        messages.success(request, 'Cuenta creada')
-        return render(request, 'crear.html')
-    return render(request, 'crear.html',  {'formularios': formularios})
-
-
-
 
 
 
@@ -85,13 +80,16 @@ def documentos(request):
     return render(request, 'sdocumentos.html', {'form': form, 'formrp': formrp, 'forminicio': forminicio})
 #GESTION DE DOCUMENTOS GESCON
 
+#solo usuarios autenticados
+#@login_required
 def perfil(request):
     formperfil = Cusuario(request.POST or None)
+    username = request.user.username #validar esto
     if formperfil.is_valid():
         formperfil.save()
         messages.success(request, 'Cuenta creada')
         return render(request, 'sdocumentos.html')
-    return render(request, 'perfil.html', {'formperfil': formperfil})
+    return render(request, 'perfil.html', {'formperfil': formperfil, 'username': username})
     
 #gestion de documentos de usuarios
 def documentos_usuario(request):
@@ -155,4 +153,26 @@ def usolicitud(request):
     return JsonResponse(data)
 
 #logueo de usuario
+#AQUI VOY A INTENTAR CREAR EL USUARIO EN AUTH_USER PARA DARLE LA SEGURIDAD#
+def crear(request):
+    formularios = Usuario(request.POST or None)
+    if formularios.is_valid():
+        formularios.save()
+        #aqui voy a insertar en auth_user
+        username = formularios.cleaned_data.get('usuario')
+        email = formularios.cleaned_data.get('email')
+        password = formularios.cleaned_data.get('contrasena')
+         # Crear un nuevo usuario
+        new_user = User.objects.create_user(username=username, email=email, password=password)
+        # Guardar el nuevo usuario
+        new_user.save()
+        #autenticar el usuario
+        user = authenticate(username=username, password=password)
+        messages.success(request, 'Cuenta creada')
+        return render(request, 'crear.html')
+    return render(request, 'crear.html',  {'formularios': formularios})
 
+#logout de la pagina
+def logout(request):
+    logout(request)
+    return redirect('inicio')

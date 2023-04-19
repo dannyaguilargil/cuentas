@@ -59,7 +59,8 @@
         
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-               Nombre de usuario
+                {% csrf_token %}
+                Bienvenido, {{ username }}!
             </form>
 
            
@@ -70,7 +71,15 @@
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" style="background: #1d985a; color: white;">
                         <li><a class="dropdown-item" href="#!">Actualizar perfil</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Cerrar sesión</a></li>
+                        <li>
+                            
+                            <form method="post" action="{% url 'inicio' %}">
+                                {% csrf_token %}
+                                <center>
+                                <button class="fas fa-sign-out-alt text-center btn btn-outline-white " type="submit">Cerrar sesión</button>
+                                </center>
+                            </form>
+                        </li>
                     </ul>
                 </li>
             </ul>

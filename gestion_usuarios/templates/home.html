@@ -16,9 +16,10 @@
             </div> 
             <!-- <h3 class="text-center">Iniciar sesion</h3> -->
             <div class="form-control textoI" style="font-family: Lato">
-            <form action="index.php" method="post">
-            <label class="TT" for="nombre"><b>Usuario</b></label>
-            <input type="text" class="form-control" name="nombre" id="nombre" required><br>
+            <form action="" method="POST">
+            {% csrf_token %}
+            <label class="TT" for="username"><b>Usuario</b></label>
+            <input type="text" class="form-control" name="username" id="username" required><br>
             <label class="TT" form="password"><b>Contraseña</b></label>
             <input type="password" class="form-control" name="password" id="password" required><br>
             
@@ -28,7 +29,16 @@
             </div> <br>
         
             <a  class="" href=" {% url 'solicitud_usuario' %} " id="" style="color: grey; font-family: Lato">Para solicitar usuario de  gestion de cuentas primero registrese aqui.</a>
-            </form>
+            
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ message }}
+                   </div>
+                {% endfor %}
+           {% endif %}
+          
+          </form>
             
           
           </div>

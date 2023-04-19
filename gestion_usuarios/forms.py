@@ -11,7 +11,7 @@ from .models import certificadoseguimiento
 from .models import prueba
 from .models import cuentausuario
 
-class User(forms.ModelForm):
+class Users(forms.ModelForm):
     class Meta:
         model = usolicitudes
         fields = '__all__'
