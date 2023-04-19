@@ -14,6 +14,9 @@ from gestion_usuarios.forms import User
 from gestion_usuarios.forms import Usuario
 from gestion_usuarios.forms import Contrato, Rp, Actainicio, Planilla, Actividades, Actapago, Certificadoseguimiento, Cusuario
 from django.contrib import messages
+#gestion del usuario
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
 
 #def  usuarios(request):
 #     return render(request, 'C:/xampp/htdocs/sistemas_cuentas/gestion_usuarios/templates/index.html')
@@ -38,13 +41,29 @@ def solicitud_usuario(request):
     return render(request, 'solicitud.html', {'formulario': formulario})
 #aqui hago insecciones
 
+#AQUI VOY A INTENTAR CREAR EL USUARIO EN AUTH_USER PARA DARLE LA SEGURIDAD#
 def crear(request):
     formularios = Usuario(request.POST or None)
     if formularios.is_valid():
         formularios.save()
+        #aqui voy a insertar en auth_user
+        username = formularios.cleaned_data.get('usuario')
+        email = formularios.cleaned_data.get('email')
+        password = formularios.cleaned_data.get('contrasena')
+         # Crear un nuevo usuario
+        new_user = User.objects.create_user(username=username, email=email, password=password)
+        # Guardar el nuevo usuario
+        new_user.save()
+        #autenticar el usuario
+        user = authenticate(username=username, password=password)
         messages.success(request, 'Cuenta creada')
         return render(request, 'crear.html')
     return render(request, 'crear.html',  {'formularios': formularios})
+
+
+
+
+
 
 #GESTION DE DOCUMENTOS DE GESCON
 def documentos(request):
