@@ -22,51 +22,49 @@
     <div class="card-body">
       
       <form  action="" method="POST" autocomplete="off" style="font-family: Lato;">
-
+        
         <div class="row">
           <div class="col">
-              <label for="">Primer nombre</label>
-              <input type="text" class="form-control">
+              <label for="">Primer nombre:</label>
+              <input type="text" class="form-control" value=" {{ nombre_usuario }} ">
           </div>
 
           <div class="col">
-              <label for="">Segundo nombre</label>
-              <input type="text" class="form-control">
+              <label for="">Segundo nombre:</label>
+              <input type="text" class="form-control" value=" {{ segundo_nombre }}">
           </div>
 
           <div class="col">
-              <label for="">Primer apellido</label>
-              <input type="text" class="form-control">
+              <label for="">Primer apellido:</label>
+              <input type="text" class="form-control" value=" {{ primer_apellido }}">
           </div>
 
           <div class="col">
-            <label for="">Segundo apellido</label>
-            <input type="text" class="form-control">
+            <label for="">Segundo apellido:</label>
+            <input type="text" class="form-control" value=" {{ segundo_apellido }}">
         </div>
-
-          
       </div>
 
 
         <div class="row">
           <div class="col">
             <label for="">Cedula</label>
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" value=" {{ cedula }}">
         </div>
 
             <div class="col">
                 <label for="">Estado</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" value="{{ estado }}">
             </div>
 
             <div class="col">
                 <label for="">Flujo</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" placeholder="Donde va la cuenta">
             </div>
 
             <div class="col">
               <label for="">Email</label>
-              <input type="text" class="form-control">
+              <input type="text" class="form-control" value="{{ email }}">
           </div>
         </div>
 
@@ -86,6 +84,7 @@
               
               <!-- Contenido a colapsar o expandir de forma dinamica  -->
               
+              <!-- CREAR UN CICLO QUE ITERE LOS DATOS DEL USUARIO-->
               {% csrf_token %}
               <div class="row">
               {% for campo in formperfil%}            

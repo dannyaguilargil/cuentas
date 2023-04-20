@@ -59,7 +59,7 @@
         
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                {% csrf_token %}
+                
                 Bienvenido, {{ username }}!
             </form>
 
@@ -73,7 +73,7 @@
                         <li><hr class="dropdown-divider" /></li>
                         <li>
                             
-                            <form method="post" action="{% url 'inicio' %}">
+                            <form method="POST" action="{% url 'logout' %}">
                                 {% csrf_token %}
                                 <center>
                                 <button class="fas fa-sign-out-alt text-center btn btn-outline-white " type="submit">Cerrar sesión</button>

@@ -20,8 +20,8 @@ class usuario(models.Model):
     rol = models.CharField(max_length=40, verbose_name='Rol',choices=rol, default='CONTRATISTA')
     
     #Dependiendo de como se muestre aqui se muestra en la relacion de la llave foranera
-    def __str__(self):
-        return self.nombre + ' ' + self.primerapellido + ' ' + self.segundoapellido
+    #def __str__(self):
+     #   return self.nombre + ' ' + self.primerapellido + ' ' + self.segundoapellido
     
     
 class prueba(models.Model):

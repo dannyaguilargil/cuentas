@@ -24,7 +24,8 @@ def  base(request):
      return render(request, 'base_layout_usuarios.html') #archivo base de usuarios
 
 def  usuarios(request):
-     return render(request, 'usuarios.html') # se modifica esto con lo anterior pero para no poner toda la ruta, cambiando en settin.py insatllerds app poniendo la ruta
+     username = request.user.username #validar esto
+     return render(request, 'usuarios.html', {'username': username}) # se modifica esto con lo anterior pero para no poner toda la ruta, cambiando en settin.py insatllerds app poniendo la ruta
 
 ################LOGIN####################
 def home(request):
@@ -39,6 +40,7 @@ def home(request):
                      login(request, user)
                      return redirect('usuarios')
                 else:
+                     login(request, user)
                      return redirect('perfil')
             else:
                 messages.error(request, 'Las credenciales de inicio de sesión son inválidas.')
@@ -80,16 +82,44 @@ def documentos(request):
     return render(request, 'sdocumentos.html', {'form': form, 'formrp': formrp, 'forminicio': forminicio})
 #GESTION DE DOCUMENTOS GESCON
 
+#############TRAE DATOS SEGUN CORRESPONDE ###################
 #solo usuarios autenticados
 #@login_required
+#usuarios = usuario.objects.all()  ##aqui se trae todo los campos de usuario
+#usuarios = usuario.objects.filter(usuario='username')
+#usuarios = usuario.objects.all().values('usuario')
+#usuarios = usuario.objects.filter(usuario='IMSALUD').values_list('nombre', flat=True)
+#usuarios = usuario.objects.filter(usuario=username).first().nombre  #trae el dato especifico que quiero
+#####################VALIDANDO CONSULTAS #######################
 def perfil(request):
     formperfil = Cusuario(request.POST or None)
-    username = request.user.username #validar esto
+    username = request.user.username
+    usuario_obj = usuario.objects.filter(usuario=username).first()
+    if usuario.objects.filter(usuario=username).exists():
+        nombre_usuario = usuario_obj.nombre
+        segundo_nombre = usuario_obj.segundonombre #HASTA AQUI VA BIEN
+        primer_apellido = usuario_obj.primerapellido
+        segundo_apellido = usuario_obj.segundoapellido
+        cedula = usuario_obj.cedula
+        estado = "CREADO"
+        email = usuario_obj.email
+        ##########NECESITO TODO LOS DATOS DE ESE USUARIO
+    else:
+        nombre_usuario = "No tiene nombre creado"
+        segundo_nombre = ""
+        primer_apellido = "No ha creado apellido"
+        segundo_apellido = ""
+        cedula = "No tiene cedula creada"
+        estado = "No ha cargado documentos"
+        email = "No tiene email creado"
+        
     if formperfil.is_valid():
         formperfil.save()
         messages.success(request, 'Cuenta creada')
         return render(request, 'sdocumentos.html')
-    return render(request, 'perfil.html', {'formperfil': formperfil, 'username': username})
+        #' datos_usuario': datos_usuario}
+    return render(request, 'perfil.html', {'formperfil': formperfil, 'username': username, 'nombre_usuario': nombre_usuario, 'segundo_nombre': segundo_nombre, 'primer_apellido': primer_apellido, 'segundo_apellido': segundo_apellido, 'cedula': cedula, 'estado': estado, 'email': email})
+#############TRAE DATOS SEGUN CORRESPONDE ###################
     
 #gestion de documentos de usuarios
 def documentos_usuario(request):
