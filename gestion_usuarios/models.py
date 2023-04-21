@@ -108,7 +108,7 @@ class planilla(models.Model):
 class actividades(models.Model):
     objeto = models.CharField(max_length=300, verbose_name='Objeto del contrato')
     lugar = models.CharField(max_length=40, verbose_name='Lugar donde realizo la actividad')
-    fecha = models.CharField(max_length=40, verbose_name='Fecha de la cuenta')
+    fecha = models.CharField(max_length=40, verbose_name='Periodo de actividades')
     actividades = models.CharField(max_length=600, verbose_name='Actividades a realizar ')
     resultadoactvidades = models.CharField(max_length=600, verbose_name='Resultado de las actividades')
     #llave foranea

@@ -6,7 +6,7 @@ from gestion_usuarios.models import usuario
 from gestion_usuarios.models import usolicitudes
 from gestion_usuarios.models import cuentausuario
 from gestion_usuarios.models import prueba
-from gestion_usuarios.models import contrato,rp
+from gestion_usuarios.models import contrato,rp,actainicio
 from gestion_usuarios.forms import Users
 from gestion_usuarios.forms import Usuario
 from gestion_usuarios.forms import Contrato, Rp, Actainicio, Planilla, Actividades, Actapago, Certificadoseguimiento, Cusuario
@@ -95,6 +95,7 @@ def perfil(request):
     formperfil = Cusuario(request.POST or None)
     username = request.user.username
     usuario_obj = usuario.objects.filter(usuario=username).first()
+    progreso=1
     if usuario.objects.filter(usuario=username).exists():
         nombre_usuario = usuario_obj.nombre
         segundo_nombre = usuario_obj.segundonombre #HASTA AQUI VA BIEN
@@ -104,6 +105,7 @@ def perfil(request):
         estado = "CREADO"
         email = usuario_obj.email
         supervisor = usuario_obj.supervisor
+        progreso=10
         ###########GESTION DE CONTRATACION########################
         usuario_obj2 = contrato.objects.filter(usuario_id=cedula).first()
         if contrato.objects.filter(usuario_id=cedula).exists():
@@ -112,13 +114,19 @@ def perfil(request):
             valor = usuario_obj2.valor
             fechaterminacion = usuario_obj2.fechaterminacion
             duracion = usuario_obj2.duracion
+            progreso=20
             ###########GESTION DE CONTRATACION RP########################  
             usuario_obj3 = rp.objects.filter(usuario_id=cedula).first()
             if rp.objects.filter(usuario_id=cedula).exists():
                 numerorp = usuario_obj3.numero
                 fecharp = usuario_obj3.fecha
+                progreso=30
                 ###########GESTION DE CONTRATACION ACTA INICIO########################  
-                
+                usuario_obj4 = actainicio.objects.filter(usuario_id=cedula).first()
+                if actainicio.objects.filter(usuario_id=cedula).exists():
+                    numeroai = usuario_obj4.numero
+                    fechaai = usuario_obj4.fecha
+                    progreso=40
     else:
         nombre_usuario = "No tiene nombre creado"
         segundo_nombre = ""
@@ -135,6 +143,8 @@ def perfil(request):
         duracion = "No tiene contrato asignado"
         numerorp = "No tiene registro presupuetal asignado"
         fecharp = "No tiene registro presupuetal asignado"
+        numeroai = "No tiene acta de inicio asignado"
+        fechaai = "No tiene acta de inicio asignado"
         
     if formperfil.is_valid():
         formperfil.save()
@@ -142,7 +152,7 @@ def perfil(request):
         return render(request, 'sdocumentos.html')
         #' datos_usuario': datos_usuario}
     return render(request, 'perfil.html', {'formperfil': formperfil, 'username': username, 'nombre_usuario': nombre_usuario, 'segundo_nombre': segundo_nombre, 'primer_apellido': primer_apellido, 'segundo_apellido': segundo_apellido, 'cedula': cedula, 'estado': estado, 'email': email,
-                                            'supervisor': supervisor, 'numero': numero, 'objeto': objeto, 'valor': valor, 'fechaterminacion': fechaterminacion, 'duracion': duracion, 'numerorp': numerorp, 'fecharp': fecharp})
+                                        'supervisor': supervisor, 'numero': numero, 'objeto': objeto, 'valor': valor, 'fechaterminacion': fechaterminacion, 'duracion': duracion, 'numerorp': numerorp, 'fecharp': fecharp, 'numeroai': numeroai, 'progreso': progreso, 'fechaai': fechaai})
 #############TRAE DATOS SEGUN CORRESPONDE ###################
     
 #gestion de documentos de usuarios

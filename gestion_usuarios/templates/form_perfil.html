@@ -17,7 +17,7 @@
           </ul>
     </div>
     <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-      <div class="progress-bar" style="width: 1%">1%</div>
+      <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" style="width: {{progreso}}%">{{progreso}}%</div>
     </div>
     <div class="card-body">
       
@@ -71,17 +71,46 @@
         <div class="container">
           <div class="form-group">
             <div class="form-check">
-              <br><input class="form-check-input" type="checkbox" id="miCheckbox" data-toggle="collapse" data-target="#contenido" aria-expanded="false" aria-controls="contenido">
-             <label class="form-check-label fas fa-eye" for="miCheckbox" >
-                Ver gestion de contratacion
-              </label>
-              
+<br>
+
+              <div class="row">
+                <div class="col">
+                  <input class="form-check-input" type="checkbox" id="miCheckbox" data-toggle="collapse" data-target="#contenido" aria-expanded="false" aria-controls="contenido">
+                  <label class="form-check-label fas fa-eye" for="miCheckbox" >
+                     Gestion de contratacion
+                   </label>
+                </div>
+
+                <div class="col">
+                  <input class="form-check-input" type="checkbox" id="miCheckbox2" data-toggle="collapse" data-target="#contenido2" aria-expanded="false" aria-controls="contenido2">
+                  <label class="form-check-label fas fa-eye" for="miCheckbox2" >
+                      Planilla
+                   </label>
+                </div>
+
+                <div class="col">
+                  <input class="form-check-input" type="checkbox" id="miCheckbox3" data-toggle="collapse" data-target="#contenido3" aria-expanded="false" aria-controls="contenido3">
+                  <label class="form-check-label fas fa-eye" for="miCheckbox2" >
+                     Actividades
+                   </label>
+                </div>
+
+                <div class="col">
+
+                </div>
+              </div>
+      
+
+            
             </div>
+            
           </div>
+
+
+          <!--GESTION DE CONTRATACION-->
           <div class="collapse" id="contenido">
             <div class="card card-body">
            
-             
                 <div class="row">
                   <center>
                   <h6><b>Gestion de contratacion</b></h6>
@@ -102,7 +131,6 @@
             
 
                 <div class="row">
-                
                   <div class="col">
                     <label for="">Fecha terminacion:</label>
                     <input type="text" name="" id="" class="form-control" value="{{fechaterminacion}}">
@@ -136,11 +164,11 @@
                 <div class="row">
                   <div class="col">
                     <label for="">Numero del acta de inicio:</label>
-                    <input type="text" name="" id="" class="form-control" value="{{numerorp}}">
+                    <input type="text" name="" id="" class="form-control" value="{{numeroai}}">
                   </div>
                   <div class="col">
                     <label for="">Fecha del acta de inicio:</label>
-                    <input type="text" name="" id="" class="form-control" value="{{fecharp}}">
+                    <input type="text" name="" id="" class="form-control" value="{{fechaai}}">
                   </div>
                   <div class="col">
                     <label for="">Pdf del acta de inicio:</label>
@@ -148,10 +176,118 @@
                   </div>
                 </div>
    
-
-
             </div>
           </div>
+          <!--GESTION DE CONTRATACION-->
+          <hr>
+          <!--GESTION DE CUENTA-->
+          <div class="collapse" id="contenido2">
+            <div class="card card-body">
+           
+                <div class="row">
+                  <center>
+                  <h6><b>Planilla</b></h6>
+                  </center>
+                  <div class="col">
+                    <label for="">N° de planilla:</label>
+                    <input type="text" name="" id="" class="form-control" value="{{numero}}">
+                  </div>
+                  <div class="col">
+                    <label for="">Fecha de pago de planilla:</label>
+                    <input type="date" name="" id="" class="form-control" value="{{objeto}}">
+                  </div>
+                  <div class="col">
+                    <label for="">Valor total de la planilla:</label>
+                    <input type="number" name="" id="" class="form-control" value="{{valor}}">
+                  </div>
+                  <div class="col">
+                    <label for="">Periodo de pago de la planilla:</label>
+                    <input type="month" name="" id="" class="form-control" value="{{fechaterminacion}}">
+                  </div>
+                </div>
+            
+
+                <div class="row">
+                  <div class="col">
+                    <label for="">Nombre de la entidad de salud:</label>
+                    <input type="text" name="" id="" class="form-control" value="">
+                  </div>
+                  <div class="col">
+                    <label for="">Valor de la salud:</label>
+                    <input type="text" name="" id="" class="form-control" value="">
+                  </div>  
+                    <div class="col">
+                    <label for="">Nombre de la entidad arl:</label>
+                    <input type="text" name="" id="" class="form-control">
+                  </div>
+                  <div class="col">
+                    <label for="">Valor de la entidad arl:</label>
+                    <input type="text" name="" id="" class="form-control" value="">
+                  </div>  
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <label for="">Nombre de la entidad de pension:</label>
+                    <input type="text" name="" id="" class="form-control" value="">
+                  </div>
+                  <div class="col">
+                    <label for="">Valor de la entidad de pension:</label>
+                    <input type="text" name="" id="" class="form-control" value="">
+                  </div>
+              
+                  <div class="col">
+                    <label for="">Valor de la entidad de pension:</label>
+                    <input type="text" name="" id="" class="form-control" value="">
+                  </div>
+                  <div class="col">
+                    <label for="">Pdf de planilla paga:</label>
+                    <input type="file" name="" id="" class="form-control">
+                  </div>
+                </div>
+
+              
+   
+            </div>
+          </div>
+          <!--GESTION DE CUENTA-->
+          <hr>
+          <!--ACTIVIDADES-->
+          <div class="collapse" id="contenido3">
+            <div class="card card-body">
+           
+                <div class="row">
+                  <center>
+                  <h6><b>Actividades</b></h6>
+                  </center>
+                  <div class="col">
+                    <label for="">Lugar donde realizo la actividad:</label>
+                    <input type="text" name="" id="" class="form-control" value="">
+                  </div>
+                  <div class="col">
+                    <label for="">Periodo:</label>
+                    <input type="month" name="" id="" class="form-control" value="">
+                  </div>
+                 
+                  <div class="col">
+                    <label for="">Pdf de actividades:</label>
+                    <input type="file" name="" id="" class="form-control" value="">
+                  </div>
+                </div>
+            
+
+
+              
+   
+            </div>
+          </div>
+           <!--ACTIVIDADES-->
+
+
+
+
+
+
         </div>
         <!--AQUI VA LA GESTION DEL CHECKBOX COLLAPSE PARA VER TODA LA INFORMACION DE LA CUENTA-->
 
