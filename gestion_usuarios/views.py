@@ -6,7 +6,7 @@ from gestion_usuarios.models import usuario
 from gestion_usuarios.models import usolicitudes
 from gestion_usuarios.models import cuentausuario
 from gestion_usuarios.models import prueba
-from gestion_usuarios.models import contrato
+from gestion_usuarios.models import contrato,rp
 from gestion_usuarios.forms import Users
 from gestion_usuarios.forms import Usuario
 from gestion_usuarios.forms import Contrato, Rp, Actainicio, Planilla, Actividades, Actapago, Certificadoseguimiento, Cusuario
@@ -103,7 +103,22 @@ def perfil(request):
         cedula = usuario_obj.cedula
         estado = "CREADO"
         email = usuario_obj.email
-        ##########NECESITO TODO LOS DATOS DE ESE USUARIO
+        supervisor = usuario_obj.supervisor
+        ###########GESTION DE CONTRATACION########################
+        usuario_obj2 = contrato.objects.filter(usuario_id=cedula).first()
+        if contrato.objects.filter(usuario_id=cedula).exists():
+            numero = usuario_obj2.numero
+            objeto = usuario_obj2.objeto
+            valor = usuario_obj2.valor
+            fechaterminacion = usuario_obj2.fechaterminacion
+            duracion = usuario_obj2.duracion
+            ###########GESTION DE CONTRATACION RP########################  
+            usuario_obj3 = rp.objects.filter(usuario_id=cedula).first()
+            if rp.objects.filter(usuario_id=cedula).exists():
+                numerorp = usuario_obj3.numero
+                fecharp = usuario_obj3.fecha
+                ###########GESTION DE CONTRATACION ACTA INICIO########################  
+                
     else:
         nombre_usuario = "No tiene nombre creado"
         segundo_nombre = ""
@@ -112,13 +127,22 @@ def perfil(request):
         cedula = "No tiene cedula creada"
         estado = "No ha cargado documentos"
         email = "No tiene email creado"
+        supervisor = "No tiene supervisor asignado"
+        numero = "No tiene contrato asignado"
+        objeto = "No tiene contrato asignado"
+        valor = "No tiene contrato asignado"
+        fechaterminacion = "No tiene contrato asignado"
+        duracion = "No tiene contrato asignado"
+        numerorp = "No tiene registro presupuetal asignado"
+        fecharp = "No tiene registro presupuetal asignado"
         
     if formperfil.is_valid():
         formperfil.save()
         messages.success(request, 'Cuenta creada')
         return render(request, 'sdocumentos.html')
         #' datos_usuario': datos_usuario}
-    return render(request, 'perfil.html', {'formperfil': formperfil, 'username': username, 'nombre_usuario': nombre_usuario, 'segundo_nombre': segundo_nombre, 'primer_apellido': primer_apellido, 'segundo_apellido': segundo_apellido, 'cedula': cedula, 'estado': estado, 'email': email})
+    return render(request, 'perfil.html', {'formperfil': formperfil, 'username': username, 'nombre_usuario': nombre_usuario, 'segundo_nombre': segundo_nombre, 'primer_apellido': primer_apellido, 'segundo_apellido': segundo_apellido, 'cedula': cedula, 'estado': estado, 'email': email,
+                                            'supervisor': supervisor, 'numero': numero, 'objeto': objeto, 'valor': valor, 'fechaterminacion': fechaterminacion, 'duracion': duracion, 'numerorp': numerorp, 'fecharp': fecharp})
 #############TRAE DATOS SEGUN CORRESPONDE ###################
     
 #gestion de documentos de usuarios

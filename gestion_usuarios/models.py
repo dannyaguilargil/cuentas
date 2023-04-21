@@ -20,8 +20,8 @@ class usuario(models.Model):
     rol = models.CharField(max_length=40, verbose_name='Rol',choices=rol, default='CONTRATISTA')
     
     #Dependiendo de como se muestre aqui se muestra en la relacion de la llave foranera
-    #def __str__(self):
-     #   return self.nombre + ' ' + self.primerapellido + ' ' + self.segundoapellido
+    def __str__(self):
+        return self.nombre + ' ' + self.primerapellido + ' ' + self.segundoapellido
     
     
 class prueba(models.Model):
@@ -58,7 +58,7 @@ class contrato(models.Model):
     #fechasuscripcion = models.CharField(max_length=300, verbose_name='Fecha de suscripcion')
     fechaperfeccionamiento = models.CharField(max_length=300, verbose_name='Fecha de perfeccionamiento')
     valor = models.CharField(max_length=300, verbose_name='Valor del contrato')
-    fechacontrato = models.CharField(max_length=300, verbose_name='Fecha del contrato')
+    fechacontrato = models.CharField(max_length=300, verbose_name='Fecha inicial del  contrato')
     fechaterminacion = models.CharField(max_length=300, verbose_name='Fecha final del contrato')
     duracion = models.CharField(max_length=40, verbose_name='Duracion del contrato')
     #pendiente validar como muestra la llave foranea

@@ -22,50 +22,48 @@
     <div class="card-body">
       
       <form  action="" method="POST" autocomplete="off" style="font-family: Lato;">
-        
+        <center>
+          <h6><b>Informacion de cuenta</b></h6>
+          </center>
         <div class="row">
           <div class="col">
-              <label for="">Primer nombre:</label>
-              <input type="text" class="form-control" value=" {{ nombre_usuario }} ">
+              <label for="">Nombre completo:</label>
+              <input type="text" class="form-control" value="{{nombre_usuario}} {{segundo_nombre}} {{primer_apellido}} {{segundo_apellido}}">
           </div>
 
           <div class="col">
-              <label for="">Segundo nombre:</label>
-              <input type="text" class="form-control" value=" {{ segundo_nombre }}">
-          </div>
-
-          <div class="col">
-              <label for="">Primer apellido:</label>
-              <input type="text" class="form-control" value=" {{ primer_apellido }}">
-          </div>
-
-          <div class="col">
-            <label for="">Segundo apellido:</label>
-            <input type="text" class="form-control" value=" {{ segundo_apellido }}">
-        </div>
-      </div>
-
-
-        <div class="row">
-          <div class="col">
-            <label for="">Cedula</label>
+            <label for="">Cedula:</label>
             <input type="text" class="form-control" value=" {{ cedula }}">
         </div>
 
             <div class="col">
-                <label for="">Estado</label>
+                <label for="">Estado:</label>
                 <input type="text" class="form-control" value="{{ estado }}">
             </div>
 
-            <div class="col">
-                <label for="">Flujo</label>
-                <input type="text" class="form-control" placeholder="Donde va la cuenta">
-            </div>
+          
+      </div>
+
+
+        <div class="row">
+         
+
 
             <div class="col">
-              <label for="">Email</label>
+              <label for="">Email:</label>
               <input type="text" class="form-control" value="{{ email }}">
           </div>
+
+          <div class="col">
+              <label for="">Supervisor:</label>
+              <input type="text" class="form-control" value="{{ supervisor }}">
+          </div>
+
+          
+          <div class="col">
+            <label for="">Observaciones:</label>
+            <input type="text" class="form-control" placeholder="No tiene observaciones de cuenta">
+        </div>
         </div>
 
       
@@ -74,37 +72,82 @@
           <div class="form-group">
             <div class="form-check">
               <br><input class="form-check-input" type="checkbox" id="miCheckbox" data-toggle="collapse" data-target="#contenido" aria-expanded="false" aria-controls="contenido">
-             <label class="form-check-label fa fa-eye" for="miCheckbox">
-                Ver Informacion
+             <label class="form-check-label fas fa-eye" for="miCheckbox" >
+                Ver gestion de contratacion
               </label>
+              
             </div>
           </div>
           <div class="collapse" id="contenido">
             <div class="card card-body">
-              
-              <!-- Contenido a colapsar o expandir de forma dinamica  -->
-              
-              <!-- CREAR UN CICLO QUE ITERE LOS DATOS DEL USUARIO-->
-              {% csrf_token %}
-              <div class="row">
-              {% for campo in formperfil%}            
-                      <div class="col-md-3">
-                      <label class="">{{ campo.label }}:</label>
-                      <input type=" {{ campo.field.widget.input_type }} "
-                      class="form-control"
-                      name="{{ campo.name }}"
-                      id="{{ campo.name }}"
-                      placeholder="Digite {{ campo.label }}"
-                      disabled>
-                      <br>
-                      </div>
-              {% endfor %}
-              
-              <div class="col-12">{{ campo.errors }}</div>
-              </div>
-                 
+           
+             
+                <div class="row">
+                  <center>
+                  <h6><b>Gestion de contratacion</b></h6>
+                  </center>
+                  <div class="col">
+                    <label for="">N° contrato:</label>
+                    <input type="text" name="" id="" class="form-control" value="{{numero}}">
+                  </div>
+                  <div class="col">
+                    <label for="">Objeto:</label>
+                    <input type="text" name="" id="" class="form-control" value="{{objeto}}">
+                  </div>
+                  <div class="col">
+                    <label for="">Valor total:</label>
+                    <input type="text" name="" id="" class="form-control" value="{{valor}}">
+                  </div>
+                </div>
             
-              <!-- Contenido a colapsar o expandir de forma dinamica  -->
+
+                <div class="row">
+                
+                  <div class="col">
+                    <label for="">Fecha terminacion:</label>
+                    <input type="text" name="" id="" class="form-control" value="{{fechaterminacion}}">
+                  </div>
+                  <div class="col">
+                    <label for="">Duraccion:</label>
+                    <input type="text" name="" id="" class="form-control" value="{{duracion}}">
+                  </div>  
+                    <div class="col">
+                    <label for="">pdf del  contrato:</label>
+                    <input type="file" name="" id="" class="form-control">
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <label for="">Numero del registro presupuestal:</label>
+                    <input type="text" name="" id="" class="form-control" value="{{numerorp}}">
+                  </div>
+                  <div class="col">
+                    <label for="">Fecha del rp:</label>
+                    <input type="text" name="" id="" class="form-control" value="{{fecharp}}">
+                  </div>
+                  <div class="col">
+                    <label for="">Pdf de registro presupuestal:</label>
+                    <input type="file" name="" id="" class="form-control">
+                  </div>
+                </div>
+
+                
+                <div class="row">
+                  <div class="col">
+                    <label for="">Numero del acta de inicio:</label>
+                    <input type="text" name="" id="" class="form-control" value="{{numerorp}}">
+                  </div>
+                  <div class="col">
+                    <label for="">Fecha del acta de inicio:</label>
+                    <input type="text" name="" id="" class="form-control" value="{{fecharp}}">
+                  </div>
+                  <div class="col">
+                    <label for="">Pdf del acta de inicio:</label>
+                    <input type="file" name="" id="" class="form-control">
+                  </div>
+                </div>
+   
 
 
             </div>
