@@ -16,8 +16,8 @@
             
           </ul>
     </div>
-    <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-      <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" style="width: {{progreso}}%">{{progreso}}%</div>
+    <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="{{progreso}}" aria-valuemin="0" aria-valuemax="100">
+      <div class="progress-bar progress-bar-striped {% if progreso == 100 %}bg-secondary{% else %}bg-success{% endif %} progress-bar-animated" style="width: {{progreso}}%">{{progreso}}%</div>
     </div>
     <div class="card-body">
       
@@ -293,7 +293,7 @@
                   </div>
                   <div class="col">
                     <label for="">Resultado de actividad:</label>
-                    <input type="text" class="form-control" placeholder="Digite una actividad realizada" value="{{resultadoactividades}}"">
+                    <input type="text" class="form-control" placeholder="Digite una actividad realizada" value="{{resultadoactividades}}">
                   </div>
                 </div>
 
@@ -311,12 +311,12 @@
                   <h6><b>Acta de pago</b></h6>
                   </center>
                   <div class="col">
-                    <label for="">Lugar donde realizo la actividad:</label>
-                    <input type="text" name="" id="" class="form-control" value="">
+                    <label for="">Numero de acta de pago</label>
+                    <input type="number" name="" id="" class="form-control" value="{{numeroacta}}">
                   </div>
                   <div class="col">
                     <label for="">Periodo:</label>
-                    <input type="month" name="" id="" class="form-control" value="">
+                    <input type="text" name="" id="" class="form-control" value="{{periodoap}}">
                   </div>
                  
                   <div class="col">
@@ -335,19 +335,24 @@
            
                 <div class="row">
                   <center>
-                  <h6><b>Acta de pago</b></h6>
+                  <h6><b>Certificado seguimiento de cuentas</b></h6>
                   </center>
                   <div class="col">
-                    <label for="">Lugar donde realizo la actividad:</label>
-                    <input type="text" name="" id="" class="form-control" value="">
+                    <label for="">Numero de cuenta de pago:</label>
+                    <input type="number" name="" id="" class="form-control" value="{{numerocuentapago}}">
                   </div>
                   <div class="col">
-                    <label for="">Fecha de actividades:</label>
-                    <input type="text" name="" id="" class="form-control" value="">
+                    <label for="">Entidad bancaria:</label>
+                    <input type="text" name="" id="" class="form-control" value="{{cuentapago}}">
                   </div>
                  
                   <div class="col">
-                    <label for="">Pdf de actividades:</label>
+                    <label for="">Pdf certificado bancario:</label>
+                    <input type="file" name="" id="" class="form-control" value="">
+                  </div>
+
+                  <div class="col">
+                    <label for="">Pdf de acta de pago:</label>
                     <input type="file" name="" id="" class="form-control" value="">
                   </div>
                 </div>
@@ -365,7 +370,7 @@
       </form>
 <br>
     <center>
-    <button class="btn btn-outline-success" disabled>Pasar la cuenta</button>
+    <button class="btn btn-outline-success" {% if progreso == 100 %}{% else %}disabled{% endif %} >Pasar la cuenta</button>
     </center>
     </div>
     <div class="card-footer text-muted">

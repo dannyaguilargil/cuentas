@@ -7,7 +7,7 @@ from gestion_usuarios.models import usolicitudes
 from gestion_usuarios.models import cuentausuario
 from gestion_usuarios.models import prueba
 from gestion_usuarios.models import contrato,rp,actainicio,planilla
-from gestion_usuarios.models import actividades
+from gestion_usuarios.models import actividades,actapago,certificadoseguimiento
 from gestion_usuarios.forms import Users
 from gestion_usuarios.forms import Usuario
 from gestion_usuarios.forms import Contrato, Rp, Actainicio, Planilla, Actividades, Actapago, Certificadoseguimiento, Cusuario
@@ -124,6 +124,10 @@ def perfil(request):
     resultadoactividades = "No ha cargado actividades"
     estado = "Pendiente cargue de documentos"
     observacionesc = "Usuario no puede pasar cuenta"
+    numeroacta = 1
+    periodoap = "Usuario no ha cargado seguimiento de cuentas"
+    numerocuentapago = 1
+    cuentapago= "Usuario no ha cargado entidad bancaria"
     #######CUANDO EL USUARIO ESTA CREADO Y NO TIENE DOCUMENTOS NO CARGA
     if usuario.objects.filter(usuario=username).exists():
         nombre_usuario = usuario_obj.nombre
@@ -185,6 +189,21 @@ def perfil(request):
                             resultadoactividades = usuario_obj6.resultadoactvidades
                             progreso=60
                             estado = "Pendiente cargar acta de pago"
+                            ##############ACTA DE PAGO############################
+                            usuario_obj7 = actapago.objects.filter(usuario_id=cedula).first()
+                            if actapago.objects.filter(usuario_id=cedula).exists():
+                                 numeroacta = usuario_obj7.numeroacta
+                                 periodoap = usuario_obj7.periodo
+                                 progreso=80
+                                 estado = "Pendiente cargar certificado de seguimiento de cuentas"
+                                 usuario_obj8 = certificadoseguimiento.objects.filter(usuario_id=cedula).first()
+                                 if certificadoseguimiento.objects.filter(usuario_id=cedula).exists():
+                                    numerocuentapago = usuario_obj8.numerocuentapago
+                                    cuentapago = usuario_obj8.cuentapago
+                                    progreso=100
+                                    estado = "Por pasar cuenta"
+                                    observacionesc = "Pendiente enviar cuenta"
+                                    
     else:
         nombre_usuario = "No tiene nombre creado"
         segundo_nombre = ""
@@ -221,6 +240,11 @@ def perfil(request):
         actividadess = "No ha cargado actividades"
         resultadoactividades = "No ha cargado actividades"
         estado = "Pendiente cargue de documentos"
+        observacionesc = "Usuario no tiene documentos pdf"
+        numeroacta = 0
+        periodoap = "Usuario no ha cargado seguimiento de cuentas"
+        numerocuentapago = 0
+        cuentapago= "Usuario no ha cargado entidad bancaria"
         
     if formperfil.is_valid():
         formperfil.save()
@@ -230,7 +254,8 @@ def perfil(request):
     return render(request, 'perfil.html', {'formperfil': formperfil, 'username': username, 'nombre_usuario': nombre_usuario, 'segundo_nombre': segundo_nombre, 'primer_apellido': primer_apellido, 'segundo_apellido': segundo_apellido, 'cedula': cedula, 'estado': estado, 'email': email,
                                         'supervisor': supervisor, 'numero': numero, 'objeto': objeto, 'valor': valor, 'fechaterminacion': fechaterminacion, 'duracion': duracion, 'numerorp': numerorp, 'fecharp': fecharp, 'numeroai': numeroai, 'progreso': progreso, 'fechaai': fechaai,
                                         'numeroplanilla': numeroplanilla, 'fechaplanilla': fechaplanilla, 'valortotalplanilla': valortotalplanilla, 'periodoplanilla': periodoplanilla, 'nombresalud': nombresalud, 'valorsalud': valorsalud, 'nombrearl': nombrearl, 'valorarl': valorarl,
-                                        'nombrepension': nombrepension, 'valorpension': valorpension, 'lugar': lugar, 'fechaact': fechaact, 'actividadess': actividadess, 'resultadoactividades': resultadoactividades, 'observacionesc': observacionesc})
+                                        'nombrepension': nombrepension, 'valorpension': valorpension, 'lugar': lugar, 'fechaact': fechaact, 'actividadess': actividadess, 'resultadoactividades': resultadoactividades, 'observacionesc': observacionesc, 'numeroacta': numeroacta,
+                                        'periodoap': periodoap, 'numerocuentapago': numerocuentapago, 'cuentapago': cuentapago})
 #############TRAE DATOS SEGUN CORRESPONDE ###################
     
 #gestion de documentos de usuarios
