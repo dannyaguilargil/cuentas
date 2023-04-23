@@ -6,7 +6,8 @@ from gestion_usuarios.models import usuario
 from gestion_usuarios.models import usolicitudes
 from gestion_usuarios.models import cuentausuario
 from gestion_usuarios.models import prueba
-from gestion_usuarios.models import contrato,rp,actainicio
+from gestion_usuarios.models import contrato,rp,actainicio,planilla
+from gestion_usuarios.models import actividades
 from gestion_usuarios.forms import Users
 from gestion_usuarios.forms import Usuario
 from gestion_usuarios.forms import Contrato, Rp, Actainicio, Planilla, Actividades, Actapago, Certificadoseguimiento, Cusuario
@@ -96,13 +97,41 @@ def perfil(request):
     username = request.user.username
     usuario_obj = usuario.objects.filter(usuario=username).first()
     progreso=1
+    ###### SI ESTA CREADO CON EL ADMIN SI CARGA Y VALIDA###########
+    #######CUANDO EL USUARIO ESTA CREADO Y NO TIENE DOCUMENTOS NO CARGA
+    numero = "No tiene registro contrato asignado"
+    objeto = "No tiene contrato asignado"
+    valor = "No tiene contrato asignado"
+    fechaterminacion = "No tiene contrato asignado"
+    duracion = "No tiene contrato asignado"
+    numerorp = "No tiene registro presupuetal asignado"
+    fecharp = "No tiene registro presupuetal asignado"
+    numeroai = "No tiene acta de inicio asignado"
+    fechaai = "No tiene acta de inicio asignado"
+    numeroplanilla = "No ha cargado planilla"
+    fechaplanilla = "No ha cargado planilla"
+    valortotalplanilla = "No ha cargado planilla"
+    periodoplanilla = "No ha cargado planilla"
+    nombresalud = "No ha cargado planilla"
+    valorsalud = "No ha cargado planilla"
+    nombrearl = "No ha cargado planilla"
+    valorarl = "No ha cargado planilla"
+    nombrepension = "No ha cargado planilla"
+    valorpension = "No ha cargado planilla"
+    lugar = "No ha cargado actividades"
+    fechaact = "No ha cargado actividades"
+    actividadess = "No ha cargado actividades"
+    resultadoactividades = "No ha cargado actividades"
+    estado = "Pendiente cargue de documentos"
+    observacionesc = "Usuario no puede pasar cuenta"
+    #######CUANDO EL USUARIO ESTA CREADO Y NO TIENE DOCUMENTOS NO CARGA
     if usuario.objects.filter(usuario=username).exists():
         nombre_usuario = usuario_obj.nombre
         segundo_nombre = usuario_obj.segundonombre #HASTA AQUI VA BIEN
         primer_apellido = usuario_obj.primerapellido
         segundo_apellido = usuario_obj.segundoapellido
         cedula = usuario_obj.cedula
-        estado = "CREADO"
+        estado = "Pendiente cargue de documentos"
         email = usuario_obj.email
         supervisor = usuario_obj.supervisor
         progreso=10
@@ -115,18 +144,47 @@ def perfil(request):
             fechaterminacion = usuario_obj2.fechaterminacion
             duracion = usuario_obj2.duracion
             progreso=20
+            estado = "Pendiente cargue de registro presupuestal"
+        #else: 
+            #VALIDAR CON CONDICIONAL CUANDO EL USUARIO NO TIENE DOCUMENTOS
+            #return redirect('usuarios')
             ###########GESTION DE CONTRATACION RP########################  
             usuario_obj3 = rp.objects.filter(usuario_id=cedula).first()
             if rp.objects.filter(usuario_id=cedula).exists():
                 numerorp = usuario_obj3.numero
                 fecharp = usuario_obj3.fecha
                 progreso=30
+                estado = "Pendiente cargue de acta de inicio"
                 ###########GESTION DE CONTRATACION ACTA INICIO########################  
                 usuario_obj4 = actainicio.objects.filter(usuario_id=cedula).first()
                 if actainicio.objects.filter(usuario_id=cedula).exists():
                     numeroai = usuario_obj4.numero
                     fechaai = usuario_obj4.fecha
                     progreso=40
+                    estado = "Pendiente cargue de planilla"
+                    ###########GESTION DE USUARIO PLANILLA########################  
+                    usuario_obj5 = planilla.objects.filter(usuario_id=cedula).first()
+                    if planilla.objects.filter(usuario_id=cedula).exists():
+                        numeroplanilla = usuario_obj5.numero
+                        fechaplanilla = usuario_obj5.fecha
+                        valortotalplanilla = usuario_obj5.valortotal
+                        periodoplanilla = usuario_obj5.periodo
+                        nombresalud = usuario_obj5.nombresalud
+                        valorsalud = usuario_obj5.valorsalud
+                        nombrearl = usuario_obj5.nombrearl
+                        valorarl = usuario_obj5.valorarl
+                        nombrepension = usuario_obj5.nombrepension
+                        valorpension = usuario_obj5.valorpension
+                        progreso=50
+                        estado = "Pendiente cargue de actividades"
+                        usuario_obj6 = actividades.objects.filter(usuario_id=cedula).first()
+                        if actividades.objects.filter(usuario_id=cedula).exists():
+                            lugar = usuario_obj6.lugar
+                            fechaact = usuario_obj6.fecha
+                            actividadess = usuario_obj6.actividades
+                            resultadoactividades = usuario_obj6.resultadoactvidades
+                            progreso=60
+                            estado = "Pendiente cargar acta de pago"
     else:
         nombre_usuario = "No tiene nombre creado"
         segundo_nombre = ""
@@ -145,6 +203,24 @@ def perfil(request):
         fecharp = "No tiene registro presupuetal asignado"
         numeroai = "No tiene acta de inicio asignado"
         fechaai = "No tiene acta de inicio asignado"
+        progreso = 1
+        #######################PLANILLA###############
+        numeroplanilla = "No ha cargado planilla"
+        fechaplanilla = "No ha cargado planilla"
+        valortotalplanilla = "No ha cargado planilla"
+        periodoplanilla = "No ha cargado planilla"
+        nombresalud = "No ha cargado planilla"
+        valorsalud = "No ha cargado planilla"
+        nombrearl = "No ha cargado planilla"
+        valorarl = "No ha cargado planilla"
+        nombrepension = "No ha cargado planilla"
+        valorpension = "No ha cargado planilla"
+        ########ACTIVIDADES############################
+        lugar = "No ha cargado actividades"
+        fechaact = "No ha cargado actividades"
+        actividadess = "No ha cargado actividades"
+        resultadoactividades = "No ha cargado actividades"
+        estado = "Pendiente cargue de documentos"
         
     if formperfil.is_valid():
         formperfil.save()
@@ -152,12 +228,15 @@ def perfil(request):
         return render(request, 'sdocumentos.html')
         #' datos_usuario': datos_usuario}
     return render(request, 'perfil.html', {'formperfil': formperfil, 'username': username, 'nombre_usuario': nombre_usuario, 'segundo_nombre': segundo_nombre, 'primer_apellido': primer_apellido, 'segundo_apellido': segundo_apellido, 'cedula': cedula, 'estado': estado, 'email': email,
-                                        'supervisor': supervisor, 'numero': numero, 'objeto': objeto, 'valor': valor, 'fechaterminacion': fechaterminacion, 'duracion': duracion, 'numerorp': numerorp, 'fecharp': fecharp, 'numeroai': numeroai, 'progreso': progreso, 'fechaai': fechaai})
+                                        'supervisor': supervisor, 'numero': numero, 'objeto': objeto, 'valor': valor, 'fechaterminacion': fechaterminacion, 'duracion': duracion, 'numerorp': numerorp, 'fecharp': fecharp, 'numeroai': numeroai, 'progreso': progreso, 'fechaai': fechaai,
+                                        'numeroplanilla': numeroplanilla, 'fechaplanilla': fechaplanilla, 'valortotalplanilla': valortotalplanilla, 'periodoplanilla': periodoplanilla, 'nombresalud': nombresalud, 'valorsalud': valorsalud, 'nombrearl': nombrearl, 'valorarl': valorarl,
+                                        'nombrepension': nombrepension, 'valorpension': valorpension, 'lugar': lugar, 'fechaact': fechaact, 'actividadess': actividadess, 'resultadoactividades': resultadoactividades, 'observacionesc': observacionesc})
 #############TRAE DATOS SEGUN CORRESPONDE ###################
     
 #gestion de documentos de usuarios
 def documentos_usuario(request):
     form = Contrato(request.POST or None)
+    username = request.user.username
     if form.is_valid():
         form.save()
         messages.success(request, 'Cuenta creada')
@@ -192,7 +271,7 @@ def documentos_usuario(request):
         formcertificadoseguimiento.save()
         messages.success(request, 'Cuenta creada')
         return render(request, 'sdocumentos.html')
-    return render(request, 'sdocumentos_usuario.html', {'form': form, 'formrp': formrp, 'forminicio': forminicio, 'formplanilla': formplanilla, 'formactividades': formactividades, 'formactapago': formactapago, 'formcertificadoseguimiento': formcertificadoseguimiento})
+    return render(request, 'sdocumentos_usuario.html', {'form': form, 'formrp': formrp, 'forminicio': forminicio, 'formplanilla': formplanilla, 'formactividades': formactividades, 'formactapago': formactapago, 'formcertificadoseguimiento': formcertificadoseguimiento, 'username': username})
 #gestion de documentos de usuarios
 
 def list_usuarios(request):

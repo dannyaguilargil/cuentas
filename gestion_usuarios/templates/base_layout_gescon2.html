@@ -59,7 +59,7 @@
         
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                Bienvenido, {{ username }}!
+                <span class="typed"></span> {{ username }}!
                 
             </form>
 
@@ -117,7 +117,7 @@
                             </a>
 
                             <div class="sb-sidenav-menu-heading" >Panel de administracion gescon</div>
-                            <a class="nav-link" href="charts.html" style="background: #1d985a; color: white;">
+                            <a class="nav-link" href="  " style="background: #1d985a; color: white;">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 Ver panel
                             </a>
@@ -171,7 +171,8 @@
   <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
   <script src="{% static 'js/data.js' %}"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <script src="{% static 'js/main.js' %}"></script>
 
 
        <script src="{% static 'js/cargapdf.js' %}"></script>

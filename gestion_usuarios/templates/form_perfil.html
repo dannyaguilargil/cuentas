@@ -62,7 +62,7 @@
           
           <div class="col">
             <label for="">Observaciones:</label>
-            <input type="text" class="form-control" placeholder="No tiene observaciones de cuenta">
+            <input type="text" class="form-control" placeholder="No tiene observaciones de cuenta" value="{{observacionesc}}">
         </div>
         </div>
 
@@ -74,10 +74,10 @@
 <br>
 
               <div class="row">
-                <div class="col">
-                  <input class="form-check-input" type="checkbox" id="miCheckbox" data-toggle="collapse" data-target="#contenido" aria-expanded="false" aria-controls="contenido">
+                <div class="col ">
+                  <input class="form-check-input " type="checkbox" id="miCheckbox" data-toggle="collapse" data-target="#contenido" aria-expanded="false" aria-controls="contenido">
                   <label class="form-check-label fas fa-eye" for="miCheckbox" >
-                     Gestion de contratacion
+                     Gestion contratacion
                    </label>
                 </div>
 
@@ -96,8 +96,20 @@
                 </div>
 
                 <div class="col">
-
+                  <input class="form-check-input" type="checkbox" id="miCheckbox4" data-toggle="collapse" data-target="#contenido4" aria-expanded="false" aria-controls="contenido4">
+                  <label class="form-check-label fas fa-eye" for="miCheckbox2" >
+                     Acta de pago
+                   </label>
+                   
                 </div>
+
+                <div class="col">
+                  <input class="form-check-input" type="checkbox" id="miCheckbox5" data-toggle="collapse" data-target="#contenido5" aria-expanded="false" aria-controls="contenido5">
+                  <label class="form-check-label fas fa-eye" for="miCheckbox2" >
+                     Seguimiento de cuentas
+                   </label>
+                </div>
+      
               </div>
       
 
@@ -179,8 +191,8 @@
             </div>
           </div>
           <!--GESTION DE CONTRATACION-->
-          <hr>
-          <!--GESTION DE CUENTA-->
+         
+          <!--PlANILLA-->
           <div class="collapse" id="contenido2">
             <div class="card card-body">
            
@@ -190,19 +202,19 @@
                   </center>
                   <div class="col">
                     <label for="">N° de planilla:</label>
-                    <input type="text" name="" id="" class="form-control" value="{{numero}}">
+                    <input type="text" name="" id="" class="form-control" value="{{numeroplanilla}}">
                   </div>
                   <div class="col">
                     <label for="">Fecha de pago de planilla:</label>
-                    <input type="date" name="" id="" class="form-control" value="{{objeto}}">
+                    <input type="text" name="" id="" class="form-control" value="{{fechaplanilla}}">
                   </div>
                   <div class="col">
                     <label for="">Valor total de la planilla:</label>
-                    <input type="number" name="" id="" class="form-control" value="{{valor}}">
+                    <input type="number" name="" id="" class="form-control" value="{{valortotalplanilla}}">
                   </div>
                   <div class="col">
                     <label for="">Periodo de pago de la planilla:</label>
-                    <input type="month" name="" id="" class="form-control" value="{{fechaterminacion}}">
+                    <input type="text" name="" id="" class="form-control" value="{{periodoplanilla}}">
                   </div>
                 </div>
             
@@ -210,48 +222,47 @@
                 <div class="row">
                   <div class="col">
                     <label for="">Nombre de la entidad de salud:</label>
-                    <input type="text" name="" id="" class="form-control" value="">
+                    <input type="text" name="" id="" class="form-control" value="{{nombresalud}}">
                   </div>
                   <div class="col">
                     <label for="">Valor de la salud:</label>
-                    <input type="text" name="" id="" class="form-control" value="">
+                    <input type="text" name="" id="" class="form-control" value="{{valorsalud}}">
                   </div>  
                     <div class="col">
                     <label for="">Nombre de la entidad arl:</label>
-                    <input type="text" name="" id="" class="form-control">
+                    <input type="text" name="" id="" class="form-control" value="{{nombrearl}}">
                   </div>
                   <div class="col">
                     <label for="">Valor de la entidad arl:</label>
-                    <input type="text" name="" id="" class="form-control" value="">
+                    <input type="text" name="" id="" class="form-control" value="{{valorarl}}">
                   </div>  
                 </div>
 
                 <div class="row">
                   <div class="col">
                     <label for="">Nombre de la entidad de pension:</label>
-                    <input type="text" name="" id="" class="form-control" value="">
+                    <input type="text" name="" id="" class="form-control" value="{{nombrepension}}">
                   </div>
                   <div class="col">
                     <label for="">Valor de la entidad de pension:</label>
-                    <input type="text" name="" id="" class="form-control" value="">
-                  </div>
-              
-                  <div class="col">
-                    <label for="">Valor de la entidad de pension:</label>
-                    <input type="text" name="" id="" class="form-control" value="">
+                    <input type="text" name="" id="" class="form-control" value="{{valorpension}}">
                   </div>
                   <div class="col">
                     <label for="">Pdf de planilla paga:</label>
                     <input type="file" name="" id="" class="form-control">
                   </div>
+                  <div class="col">
+                 
+                  </div>
+                  
                 </div>
 
               
    
             </div>
           </div>
-          <!--GESTION DE CUENTA-->
-          <hr>
+          <!--PLANILLA-->
+     
           <!--ACTIVIDADES-->
           <div class="collapse" id="contenido3">
             <div class="card card-body">
@@ -259,6 +270,45 @@
                 <div class="row">
                   <center>
                   <h6><b>Actividades</b></h6>
+                  </center>
+                  <div class="col">
+                    <label for="">Lugar donde realizo la actividad:</label>
+                    <input type="text" name="" id="" class="form-control" value="{{lugar}}">
+                  </div>
+                  <div class="col">
+                    <label for="">Fecha de actividades:</label>
+                    <input type="text" name="" id="" class="form-control" value="{{fechaact}}">
+                  </div>
+                 
+                  <div class="col">
+                    <label for="">Pdf de actividades:</label>
+                    <input type="file" name="" id="" class="form-control" value="">
+                  </div>
+                </div>
+            
+                <div class="row">
+                  <div class="col">
+                    <label for="">Actividad realizada:</label>
+                    <input type="text" name="" id="" class="form-control" placeholder="Digite una actividad realizada" value="{{actividadess}}">
+                  </div>
+                  <div class="col">
+                    <label for="">Resultado de actividad:</label>
+                    <input type="text" class="form-control" placeholder="Digite una actividad realizada" value="{{resultadoactividades}}"">
+                  </div>
+                </div>
+
+   
+            </div>
+          </div>
+           <!--ACTIVIDADES-->
+   
+          <!--ACTA DE PAGO-->
+          <div class="collapse" id="contenido4">
+            <div class="card card-body">
+           
+                <div class="row">
+                  <center>
+                  <h6><b>Acta de pago</b></h6>
                   </center>
                   <div class="col">
                     <label for="">Lugar donde realizo la actividad:</label>
@@ -275,14 +325,35 @@
                   </div>
                 </div>
             
-
-
-              
-   
             </div>
           </div>
-           <!--ACTIVIDADES-->
-
+          <!--ACTA DE PAGO-->
+       
+          <!--CERTIFICADO SEGUIMIENTO DE CUENTAS-->
+          <div class="collapse" id="contenido5">
+            <div class="card card-body">
+           
+                <div class="row">
+                  <center>
+                  <h6><b>Acta de pago</b></h6>
+                  </center>
+                  <div class="col">
+                    <label for="">Lugar donde realizo la actividad:</label>
+                    <input type="text" name="" id="" class="form-control" value="">
+                  </div>
+                  <div class="col">
+                    <label for="">Fecha de actividades:</label>
+                    <input type="text" name="" id="" class="form-control" value="">
+                  </div>
+                 
+                  <div class="col">
+                    <label for="">Pdf de actividades:</label>
+                    <input type="file" name="" id="" class="form-control" value="">
+                  </div>
+                </div>
+            
+            </div>
+          </div>
 
 
 
@@ -294,7 +365,7 @@
       </form>
 <br>
     <center>
-    <button class="btn btn-outline-success">Pasar la cuenta</button>
+    <button class="btn btn-outline-success" disabled>Pasar la cuenta</button>
     </center>
     </div>
     <div class="card-footer text-muted">

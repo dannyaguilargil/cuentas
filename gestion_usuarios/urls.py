@@ -22,4 +22,5 @@ urlpatterns = [
     path('list_pendientes', views.usolicitud, name='list_pendientes'), 
     #path('eliminar/<int:cedula>', views.eliminar, name='eliminar'), 
     #path('usuarios/documentos/registro', views.registro, name='registro'), 
+    
 ]
