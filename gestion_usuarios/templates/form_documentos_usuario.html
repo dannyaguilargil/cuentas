@@ -2,20 +2,14 @@
     <h5>Subir documentos del usuario</h5>
      <ul class="nav nav-pills">
        <li class="nav-item">
-         <a class="nav-link" href="#scrollspyHeading1">Contrato</a>
+         <a class="nav-link text-success" href="#scrollspyHeading1">Contrato</a>
        </li>
        <li class="nav-item">
-         <a class="nav-link" href="#scrollspyHeading2">Planilla</a>
+         <a class="nav-link text-success" href="#scrollspyHeading2">Planilla</a>
        </li>
        <li class="nav-item">
-        <a class="nav-link" href="#scrollspyHeading3">Seguimiento cuentas</a>
+        <a class="nav-link text-success" href="#scrollspyHeading3">Seguimiento cuentas</a>
       </li>
-       <!--
-       <li class="nav-item">
-         <a class="nav-link" href="#scrollspyHeading3">Registro presupuestal</a>
-       </li>
-       -->
-     
      </ul>
  </nav>
  
@@ -31,18 +25,33 @@
                 <!-- <img src="..." class="card-img-top" alt="...">-->
                  <div class="card-body">
                   <center>
-                  <h6 class="card-title"><b>Contrato </b><br> <button type="button" class="btn btn-outline-secondary fas fa-eye" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver</button></h6>
+                  <h6 class="card-title"><b>Contrato </b><br> <button type="button" class="btn btn-outline-secondary fas fa-eye" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Ver
+                    <span class="  position-absolute top-0 start-100 translate-middle badge rounded-pill {% if numero > 1 %}fas fa-check bg-success{% else %}fas fa-times bg-secondary{% endif %}">
+                      
+                      <span class="visually-hidden">unread messages</span>
+                    </span>
+                  </button></h6>
                   </center>
-                  <input type="file" name="pdffFile" id="pdffFile" required class="form-control">
+                  <input type="file" name="pdffFile" id="pdffFile" class="form-control">
                  <label for="">Numero de contrato:</label>
-                 <input type="number" placeholder="Numero de contrato" class="form-control">
-                 <label for="">Fecha de contrato:</label>
-                 <input type="date" placeholder="Numero de contrato" class="form-control">
+                 <input type="number" placeholder="Numero de contrato" class="form-control" value="{{numero}}">
+                 <label for="">Duracion de contrato:</label>
+                 <input type="text" placeholder="Numero de contrato" class="form-control" value="{{duracion}}">
                  <label for="">Estado:</label>
-                 <input type="text" value="Pendiente por cargar pdf" class="form-control">
+                 <input type="text"  class="form-control" value="{{estado}}">
                    <br>
                     <center>
+                  {% if messages %}
+                      {% for message in messages %}
+                       <div class="alert alert-success" role="alert">
+                           {{ message }}
+                      </div>
+                      {% endfor %}
+                  {% endif %} 
+
                    <a href="#" class="btn btn-outline-success fas fa-magic">Generar</a>
+                  
                     </center>
                 </div>
               </div> 
@@ -62,9 +71,11 @@
                  <!--<img src="..." class="card-img-top" alt="..."> -->
                  <div class="card-body">
                   <center>
-                  <h6 class="card-title"><b>Registro prespuestal </b><br> <button type="button" class="btn btn-outline-secondary fas fa-eye" data-bs-toggle="modal" data-bs-target="#exampleModal2">Ver</button></h6>
+                  <h6 class="card-title"><b>Registro prespuestal </b><br> <button type="button" class="btn btn-outline-secondary fas fa-eye" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                    
+                  </button></h6>
                   </center>
-                  <input type="file" name="pdffFiles" id="pdffFiles" required class="form-control">
+                  <input type="file" name="pdffFiles" id="pdffFiles" class="form-control">
                  <label for="">Numero del registro:</label>
                  <input type="number" placeholder="Numero del registro presupuestal" class="form-control">
                  <label for="">Fecha del registro:</label>
@@ -87,7 +98,7 @@
               <center>
               <h6 class="card-title"><b>Acta de inicio </b><br> <button type="button" class="btn btn-outline-secondary fas fa-eye" data-bs-toggle="modal" data-bs-target="#exampleModal3">Ver</button></h6>
               </center>
-              <input type="file" name="pdffFiless" id="pdffFiless" required class="form-control">
+              <input type="file" name="pdffFiless" id="pdffFiless" class="form-control">
               <label for="">Fecha de acta de inicio</label>
              <input type="date" placeholder="Numero de contrato" class="form-control">
              <label for="">Valor del contrato</label>
@@ -113,8 +124,8 @@
                   <center>
               <h6 class="card-title"><b>Planilla </b><br> <button type="button" class="btn btn-outline-secondary fas fa-eye" data-bs-toggle="modal" data-bs-target="#exampleModal4">Ver</button></h6>
             </center>
-              <input type="file" name="pdffFilesss" id="pdffFilesss" required class="form-control">
-                 <label for="">Numero de planill</label>
+              <input type="file" name="pdffFilesss" id="pdffFilesss" class="form-control">
+                 <label for="">Numero de planilla</label>
                  <input type="text" placeholder="Numero de contrato" class="form-control">
                 
                    <br>

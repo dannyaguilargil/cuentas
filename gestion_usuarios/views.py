@@ -10,7 +10,7 @@ from gestion_usuarios.models import contrato,rp,actainicio,planilla
 from gestion_usuarios.models import actividades,actapago,certificadoseguimiento
 from gestion_usuarios.forms import Users
 from gestion_usuarios.forms import Usuario
-from gestion_usuarios.forms import Contrato, Rp, Actainicio, Planilla, Actividades, Actapago, Certificadoseguimiento, Cusuario
+from gestion_usuarios.forms import Contrato, Rp, Actainicio, Planilla, Actividades, Actapago, Certificadoseguimiento, Cusuario,Contratou
 from django.contrib import messages
 #gestion del usuario
 from django.contrib.auth.models import User
@@ -45,8 +45,10 @@ def home(request):
                      return redirect('perfil')
             else:
                 messages.error(request, 'Las credenciales de inicio de sesión son inválidas.')
+                return redirect('inicio')
     else:
         form = AuthenticationForm()
+        messages.error(request, 'Las credenciales de inicio de sesión son inválidas.')
     return render(request, 'home.html', {'form': form})
 ################LOGIN####################
 
@@ -86,11 +88,6 @@ def documentos(request):
 #############TRAE DATOS SEGUN CORRESPONDE ###################
 #solo usuarios autenticados
 #@login_required
-#usuarios = usuario.objects.all()  ##aqui se trae todo los campos de usuario
-#usuarios = usuario.objects.filter(usuario='username')
-#usuarios = usuario.objects.all().values('usuario')
-#usuarios = usuario.objects.filter(usuario='IMSALUD').values_list('nombre', flat=True)
-#usuarios = usuario.objects.filter(usuario=username).first().nombre  #trae el dato especifico que quiero
 #####################VALIDANDO CONSULTAS #######################
 def perfil(request):
     formperfil = Cusuario(request.POST or None)
@@ -202,8 +199,7 @@ def perfil(request):
                                     cuentapago = usuario_obj8.cuentapago
                                     progreso=100
                                     estado = "Por pasar cuenta"
-                                    observacionesc = "Pendiente enviar cuenta"
-                                    
+                                    observacionesc = "Pendiente enviar cuenta"                                
     else:
         nombre_usuario = "No tiene nombre creado"
         segundo_nombre = ""
@@ -260,11 +256,40 @@ def perfil(request):
     
 #gestion de documentos de usuarios
 def documentos_usuario(request):
-    form = Contrato(request.POST or None)
+    form = Contratou(request.POST or None)
     username = request.user.username
+    cedula = 0
+    numero = "No tiene contrato asignado"
+    objeto = "No tiene contrato asignado"
+    valor = "No tiene contrato asignado"
+    fechaterminacion = "No tiene contrato asignado"
+    duracion = "No tiene contrato asignado"
+    estado = "Pendiente cargue de documentos"
+    #primero me traigo los datos de usuario
+    usuario_objr = usuario.objects.filter(usuario=username).first()
+    if usuario.objects.filter(usuario=username).exists():
+        cedula = usuario_objr.cedula
+        usuario_objr2 = contrato.objects.filter(usuario_id=cedula).first()
+        if contrato.objects.filter(usuario_id=cedula).exists():
+            numero = usuario_objr2.numero
+            objeto = usuario_objr2.objeto
+            valor = usuario_objr2.valor
+            fechaterminacion = usuario_objr2.fechaterminacion
+            duracion = usuario_objr2.duracion
+            estado = "Cargado"
+          
+    else:
+        cedular = 0
+        numero = "No tiene contrato asignado"
+        objeto = "No tiene contrato asignado"
+        valor = "No tiene contrato asignado"
+        fechaterminacion = "No tiene contrato asignado"
+        duracion = "No tiene contrato asignado"
+        estado = "Pendiente cargue de documentos"
+    ### Registros de documentos##################
     if form.is_valid():
         form.save()
-        messages.success(request, 'Cuenta creada')
+        messages.success(request, 'Documento guardado')
         return render(request, 'sdocumentos.html')
     formrp = Rp(request.POST or None)
     if formrp.is_valid():
@@ -296,7 +321,8 @@ def documentos_usuario(request):
         formcertificadoseguimiento.save()
         messages.success(request, 'Cuenta creada')
         return render(request, 'sdocumentos.html')
-    return render(request, 'sdocumentos_usuario.html', {'form': form, 'formrp': formrp, 'forminicio': forminicio, 'formplanilla': formplanilla, 'formactividades': formactividades, 'formactapago': formactapago, 'formcertificadoseguimiento': formcertificadoseguimiento, 'username': username})
+    return render(request, 'sdocumentos_usuario.html', {'form': form, 'formrp': formrp, 'forminicio': forminicio, 'formplanilla': formplanilla, 'formactividades': formactividades, 'formactapago': formactapago, 'formcertificadoseguimiento': formcertificadoseguimiento, 'username': username,
+                                                        'numero': numero, 'duracion': duracion, 'estado': estado, 'cedula': cedula})
 #gestion de documentos de usuarios
 
 def list_usuarios(request):

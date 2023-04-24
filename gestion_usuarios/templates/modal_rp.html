@@ -20,7 +20,7 @@
                 <div class="col-md-4">
                     <label class="">{{ campo.label_tag }}</label>
                     {% if campo.field.widget.input_type == 'select' %}
-                        <select class="form-control" name="{{ campo.html_name }}" id="{{ campo.auto_id }}" {% if campo.field.required %}required{% endif %}>
+                        <select class="form-control" name="{{ campo.html_name }}" id="{{ campo.auto_id }}" {% if campo.field.required %}{% endif %}>
                             {% for opcion in campo.field.choices %}
                                 <option value="{{ opcion.0 }}" {% if opcion.0 == campo.value %}selected{% endif %}>{{ opcion.1 }}</option>
                             {% endfor %}
@@ -31,7 +31,7 @@
                                name="{{ campo.html_name }}"
                                id="{{ campo.auto_id }}"
                                placeholder="Digite {{ campo.label }}"
-                               {% if campo.field.required %}required{% endif %}>
+                               {% if campo.field.required %}{% endif %}>
                     {% endif %}
                     <br>
                 </div>

@@ -27,6 +27,13 @@ class Contrato(forms.ModelForm):
     class Meta:
         model = contrato
         fields = '__all__'
+        
+#Contrato del usuario
+class Contratou(forms.ModelForm):
+    class Meta:
+        model = contrato
+        fields = '__all__'
+#Contrato del usuario
 
 class Rp(forms.ModelForm):
     class Meta:

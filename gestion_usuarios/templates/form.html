@@ -29,6 +29,13 @@
      </div>
 
         <div class="col text-center">
+        {%if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success" role="alert">
+                    {{ message }}
+               </div>
+            {% endfor %}
+       {%endif %}
         <button type="submit" class="fas fa-user-md text-center btn btn-outline-success" onclick="envio();">Crear usuario</button>
         </div>
 

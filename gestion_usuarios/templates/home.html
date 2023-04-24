@@ -25,18 +25,23 @@
             
         
             <div class="boton">
+            {% if messages %}
+                  {% for message in messages %}
+                     <div class="alert alert-{{ message.tags }}">
+                      {{ message }}
+                    </div>
+                  {% endfor %}
+            {% endif %}
+
             <input type="submit" class="text-center btn btn-success" name="login" value="Login" style="font-family: Lato;"> <!--negrilla -->
             </div> <br>
         
+
+
+
             <a  class="" href=" {% url 'solicitud_usuario' %} " id="" style="color: grey; font-family: Lato">Para solicitar usuario de  gestion de cuentas primero registrese aqui.</a>
             
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="alert alert-danger" role="alert">
-                        {{ message }}
-                   </div>
-                {% endfor %}
-           {% endif %}
+            
           
           </form>
             
