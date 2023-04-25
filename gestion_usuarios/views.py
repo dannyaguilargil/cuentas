@@ -48,7 +48,7 @@ def home(request):
                 return redirect('inicio')
     else:
         form = AuthenticationForm()
-        messages.error(request, 'Las credenciales de inicio de sesión son inválidas.')
+        #messages.error(request, 'Las credenciales de inicio de sesión son inválidas.')
     return render(request, 'home.html', {'form': form})
 ################LOGIN####################
 
@@ -119,11 +119,11 @@ def perfil(request):
     fechaact = "No ha cargado actividades"
     actividadess = "No ha cargado actividades"
     resultadoactividades = "No ha cargado actividades"
-    estado = "Pendiente cargue de documentos"
+    estado = "Pendiente cargue de pdf"
     observacionesc = "Usuario no puede pasar cuenta"
-    numeroacta = 1
+    numeroacta = 0
     periodoap = "Usuario no ha cargado seguimiento de cuentas"
-    numerocuentapago = 1
+    numerocuentapago = 0
     cuentapago= "Usuario no ha cargado entidad bancaria"
     #######CUANDO EL USUARIO ESTA CREADO Y NO TIENE DOCUMENTOS NO CARGA
     if usuario.objects.filter(usuario=username).exists():
@@ -132,7 +132,7 @@ def perfil(request):
         primer_apellido = usuario_obj.primerapellido
         segundo_apellido = usuario_obj.segundoapellido
         cedula = usuario_obj.cedula
-        estado = "Pendiente cargue de documentos"
+        estado = "Pendiente cargue de pdf"
         email = usuario_obj.email
         supervisor = usuario_obj.supervisor
         progreso=10
@@ -145,7 +145,7 @@ def perfil(request):
             fechaterminacion = usuario_obj2.fechaterminacion
             duracion = usuario_obj2.duracion
             progreso=20
-            estado = "Pendiente cargue de registro presupuestal"
+            estado = "Pendiente cargue del contrato"
         #else: 
             #VALIDAR CON CONDICIONAL CUANDO EL USUARIO NO TIENE DOCUMENTOS
             #return redirect('usuarios')
@@ -260,11 +260,27 @@ def documentos_usuario(request):
     username = request.user.username
     cedula = 0
     numero = "No tiene contrato asignado"
+    numeroproceso = "No tiene contrato asignado"
     objeto = "No tiene contrato asignado"
     valor = "No tiene contrato asignado"
     fechaterminacion = "No tiene contrato asignado"
     duracion = "No tiene contrato asignado"
     estado = "Pendiente cargue de documentos"
+    numerorp = "No tiene Registro presupuestal asignado"
+    fecharp = "No tiene Registro presupuestal asignado"
+    estadorp = "No tiene Registro presupuestal asignado"
+    numeroai = "No tiene Acta de inicio asignado"
+    fechaai = "No tiene Acta de inicio asignado"
+    estadoai = "No tiene Acta de inicio asignado"
+    numeroplanilla = "No tiene planilla asignado"
+    fechaplanilla = "No tiene planilla asignado"
+    estadoplanilla = "No tiene Acta de inicio asignado"
+    lugar = "No tiene actividades asignado"
+    fechaact = "No tiene actividades asignado"
+    numeroacta = 1
+    periodoap = "No tiene actividades asignado"
+    numerocuentapago = "Numero de la entidad bancaria"
+    cuentapago = "Nombre de la entidad bancaria"
     #primero me traigo los datos de usuario
     usuario_objr = usuario.objects.filter(usuario=username).first()
     if usuario.objects.filter(usuario=username).exists():
@@ -272,20 +288,71 @@ def documentos_usuario(request):
         usuario_objr2 = contrato.objects.filter(usuario_id=cedula).first()
         if contrato.objects.filter(usuario_id=cedula).exists():
             numero = usuario_objr2.numero
+            numeroproceso = usuario_objr2.numeroproceso
             objeto = usuario_objr2.objeto
             valor = usuario_objr2.valor
             fechaterminacion = usuario_objr2.fechaterminacion
             duracion = usuario_objr2.duracion
             estado = "Cargado"
-          
+            usuario_objr3 = rp.objects.filter(usuario_id=cedula).first()
+            if rp.objects.filter(usuario_id=cedula).exists():
+                numerorp = usuario_objr3.numero
+                fecharp = usuario_objr3.fecha
+                estadorp = "Cargado"
+                usuario_objr4 = actainicio.objects.filter(usuario_id=cedula).first()
+                if actainicio.objects.filter(usuario_id=cedula).exists():
+                    numeroai = usuario_objr4.numero
+                    fechaai = usuario_objr4.fecha
+                    estadoai = "Cargado"
+                    usuario_objr5 = planilla.objects.filter(usuario_id=cedula).first()
+                    if planilla.objects.filter(usuario_id=cedula).exists():
+                        numeroplanilla = usuario_objr5.numero
+                        fechaplanilla = usuario_objr5.fecha
+                        valortotalplanilla = usuario_objr5.valortotal
+                        periodoplanilla = usuario_objr5.periodo
+                        nombresalud = usuario_objr5.nombresalud
+                        valorsalud = usuario_objr5.valorsalud
+                        nombrearl = usuario_objr5.nombrearl
+                        valorarl = usuario_objr5.valorarl
+                        nombrepension = usuario_objr5.nombrepension
+                        valorpension = usuario_objr5.valorpension
+                        estadoplanilla = "Cargado"
+                        usuario_objr6 = actividades.objects.filter(usuario_id=cedula).first()
+                        if actividades.objects.filter(usuario_id=cedula).exists():
+                            lugar = usuario_objr6.lugar
+                            fechaact = usuario_objr6.fecha
+                            usuario_objr7 = actapago.objects.filter(usuario_id=cedula).first()
+                            if actapago.objects.filter(usuario_id=cedula).exists():
+                                 numeroacta = usuario_objr7.numeroacta
+                                 periodoap = usuario_objr7.periodo
+                                 usuario_objr8 = certificadoseguimiento.objects.filter(usuario_id=cedula).first()
+                                 if certificadoseguimiento.objects.filter(usuario_id=cedula).exists():
+                                    numerocuentapago = usuario_objr8.numerocuentapago
+                                    cuentapago = usuario_objr8.cuentapago
     else:
         cedular = 0
         numero = "No tiene contrato asignado"
+        numeroproceso = "No tiene contrato asignado"
         objeto = "No tiene contrato asignado"
         valor = "No tiene contrato asignado"
         fechaterminacion = "No tiene contrato asignado"
         duracion = "No tiene contrato asignado"
         estado = "Pendiente cargue de documentos"
+        numerorp = "No tiene Registro presupuestal asignado"
+        fecharp = "No tiene Registro presupuestal asignado"
+        estadorp = "No tiene Registro presupuestal asignado"
+        numeroai = "No tiene Acta de inicio asignado"
+        fechaai = "No tiene Acta de inicio asignado"
+        estadoai = "No tiene Acta de inicio asignado"
+        numeroplanilla = "No tiene planilla asignado"
+        fechaplanilla = "No tiene planilla asignado"
+        estadoplanilla = "No tiene Acta de inicio asignado"
+        lugar = "No tiene actividades asignado"
+        fechaact = "No tiene actividades asignado"
+        numeroacta = 1
+        periodoap = "No tiene actividades asignado"
+        numerocuentapago = "Numero de la entidad bancaria"
+        cuentapago = "Nombre de la entidad bancaria"
     ### Registros de documentos##################
     if form.is_valid():
         form.save()
@@ -322,7 +389,9 @@ def documentos_usuario(request):
         messages.success(request, 'Cuenta creada')
         return render(request, 'sdocumentos.html')
     return render(request, 'sdocumentos_usuario.html', {'form': form, 'formrp': formrp, 'forminicio': forminicio, 'formplanilla': formplanilla, 'formactividades': formactividades, 'formactapago': formactapago, 'formcertificadoseguimiento': formcertificadoseguimiento, 'username': username,
-                                                        'numero': numero, 'duracion': duracion, 'estado': estado, 'cedula': cedula})
+                                                        'numero': numero, 'duracion': duracion, 'estado': estado, 'cedula': cedula, 'numeroproceso': numeroproceso, 'numerorp': numerorp, 'fecharp': fecharp, 'estadorp': estadorp,'numeroai': numeroai, 'fechaai': fechaai, 'estadoai': estadoai,
+                                                        'numeroplanilla': numeroplanilla, 'fechaplanilla': fechaplanilla, 'estadoplanilla': estadoplanilla, 'lugar': lugar, 'fechaact': fechaact, 'numeroacta': numeroacta, 'periodoap': periodoap, 'numerocuentapago': numerocuentapago,
+                                                        'cuentapago': cuentapago})
 #gestion de documentos de usuarios
 
 def list_usuarios(request):

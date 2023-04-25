@@ -23,15 +23,15 @@
             <label class="TT" form="password"><b>Contraseña</b></label>
             <input type="password" class="form-control" name="password" id="password" required><br>
             
-        
-            <div class="boton">
             {% if messages %}
-                  {% for message in messages %}
-                     <div class="alert alert-{{ message.tags }}">
-                      {{ message }}
-                    </div>
-                  {% endfor %}
+                {% for message in messages %}
+                 <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+                 </div>
+                {% endfor %}
             {% endif %}
+            <div class="boton">
+           
 
             <input type="submit" class="text-center btn btn-success" name="login" value="Login" style="font-family: Lato;"> <!--negrilla -->
             </div> <br>
