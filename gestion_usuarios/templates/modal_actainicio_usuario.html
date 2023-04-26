@@ -1,0 +1,101 @@
+<!-- Modal de acta de inicio-->
+<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel3" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel3">Acta de inicio</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          
+          <form action="" method="POST">
+            <center>
+              previsualizacion del pdf ...
+              <br>
+              <embed id="vistaPreviass" type="application/pdf" width="350" height="350"> <br> 
+            </center>
+            {% csrf_token %}
+
+            <div class="row">
+              {% for campo in forminicio %}
+              <div class="col-md-4">
+                  <label class="">{{ campo.label_tag }}</label>
+                 
+
+               
+              {% if forloop.first %}
+
+                  <input type="{{ campo.field.widget.input_type }}"
+                          class="form-control"
+                          name="{{ campo.html_name }}"
+                          id="{{ campo.auto_id }}"
+                          placeholder="Digite {{ campo.label }}"
+                          value="{{numeroai}}"
+               
+                           >
+                           
+              {% elif forloop.counter == 2 %}
+                  <input type="{{ campo.field.widget.input_type }}"
+                         class="form-control"
+                         name="{{ campo.html_name }}"
+                         id="{{ campo.auto_id }}"
+                         placeholder="Digite {{ campo.label }}"
+                         value="{{fechaai}}"                    
+                         >
+
+              {% elif forloop.counter == 3 %}
+                  <input type="{{ campo.field.widget.input_type }}"
+                         class="form-control"
+                         name="{{ campo.html_name }}"
+                         id="{{ campo.auto_id }}"
+                         placeholder="Digite {{ campo.label }}"
+                         value="{{duracion}}"                    
+                         >
+
+              {% elif forloop.counter == 4 %}
+                  <input type="{{ campo.field.widget.input_type }}"
+                         class="form-control"
+                         name="{{ campo.html_name }}"
+                         id="{{ campo.auto_id }}"
+                         placeholder="Digite {{ campo.label }}"
+                         value="{{valorc}}"                    
+                         >
+
+              {% elif forloop.last %}
+                  <input type="{{ campo.field.widget.input_type }}"
+                         class="form-control"
+                         name="{{ campo.html_name }}"
+                         id="{{ campo.auto_id }}"
+                         placeholder="Digite {{ campo.label }}"
+                         value="{{cedula}}"
+                         readonly
+                        >
+              {% else %}
+
+                      <input type="{{ campo.field.widget.input_type }}"
+                             class="form-control"
+                             name="{{ campo.html_name }}"
+                             id="{{ campo.auto_id }}"
+                             placeholder="Digite {{ campo.label }}"
+                          
+                             {% if campo.field.required %}required{% endif %}>
+             {% endif %}
+                  <br>
+              </div>
+          {% endfor %}
+            </div>
+              
+              <div class="col-12">{{ campo.errors }}</div>
+            </div>
+           
+       
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success">Registrarlo</button>
+        </div>
+      
+      </div>
+    </form>
+    </div>
+  </div>

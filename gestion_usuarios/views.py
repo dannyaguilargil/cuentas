@@ -262,6 +262,7 @@ def documentos_usuario(request):
     numero = "No tiene contrato asignado"
     numeroproceso = "No tiene contrato asignado"
     objeto = "No tiene contrato asignado"
+    fechaperfeccionamiento = "No tiene asignado"
     valor = "No tiene contrato asignado"
     fechaterminacion = "No tiene contrato asignado"
     duracion = "No tiene contrato asignado"
@@ -281,6 +282,17 @@ def documentos_usuario(request):
     periodoap = "No tiene actividades asignado"
     numerocuentapago = "Numero de la entidad bancaria"
     cuentapago = "Nombre de la entidad bancaria"
+    valorc = "No tiene asignado"
+    fechacontrato = "No tiene asignado"
+    periodoplanilla = "No tiene asignado"
+    valortotalplanilla = "No tiene asignado"
+    nombresalud = "No tiene asignado"
+    nombrepension = "No tiene asignado"
+    valorpension = "No tiene asignado"
+    valorsalud = "No tiene asignado"
+    nombrearl = "No tiene asignado"
+    valorarl = "No tiene asignado"
+    lista = ['numero', 'numeroproceso', 'objeto', 'fechaperfeccionamiento', 'valor', 'fechacontrato', 'fechaterminacion', 'duracion','cedula']
     #primero me traigo los datos de usuario
     usuario_objr = usuario.objects.filter(usuario=username).first()
     if usuario.objects.filter(usuario=username).exists():
@@ -290,7 +302,9 @@ def documentos_usuario(request):
             numero = usuario_objr2.numero
             numeroproceso = usuario_objr2.numeroproceso
             objeto = usuario_objr2.objeto
-            valor = usuario_objr2.valor
+            fechaperfeccionamiento = usuario_objr2.fechaperfeccionamiento
+            valorc = usuario_objr2.valor
+            fechacontrato = usuario_objr2.fechacontrato
             fechaterminacion = usuario_objr2.fechaterminacion
             duracion = usuario_objr2.duracion
             estado = "Cargado"
@@ -353,6 +367,17 @@ def documentos_usuario(request):
         periodoap = "No tiene actividades asignado"
         numerocuentapago = "Numero de la entidad bancaria"
         cuentapago = "Nombre de la entidad bancaria"
+        fechaperfeccionamiento = "No tiene asignado"
+        valorc = "No tiene asignado"
+        fechacontrato = "No tiene asignado"
+        periodoplanilla = "No tiene asignado"
+        valortotalplanilla = "No tiene asignado"
+        nombresalud = "No tiene asignado"
+        nombrepension = "No tiene asignado"
+        valorpension = "No tiene asignado"
+        valorsalud = "No tiene asignado"
+        nombrearl = "No tiene asignado"
+        valorarl = "No tiene asignado"
     ### Registros de documentos##################
     if form.is_valid():
         form.save()
@@ -391,7 +416,8 @@ def documentos_usuario(request):
     return render(request, 'sdocumentos_usuario.html', {'form': form, 'formrp': formrp, 'forminicio': forminicio, 'formplanilla': formplanilla, 'formactividades': formactividades, 'formactapago': formactapago, 'formcertificadoseguimiento': formcertificadoseguimiento, 'username': username,
                                                         'numero': numero, 'duracion': duracion, 'estado': estado, 'cedula': cedula, 'numeroproceso': numeroproceso, 'numerorp': numerorp, 'fecharp': fecharp, 'estadorp': estadorp,'numeroai': numeroai, 'fechaai': fechaai, 'estadoai': estadoai,
                                                         'numeroplanilla': numeroplanilla, 'fechaplanilla': fechaplanilla, 'estadoplanilla': estadoplanilla, 'lugar': lugar, 'fechaact': fechaact, 'numeroacta': numeroacta, 'periodoap': periodoap, 'numerocuentapago': numerocuentapago,
-                                                        'cuentapago': cuentapago})
+                                                        'cuentapago': cuentapago, 'lista': lista, 'objeto': objeto, 'fechaperfeccionamiento': fechaperfeccionamiento, 'valorc': valorc, 'fechacontrato': fechacontrato, 'fechaterminacion': fechaterminacion, 'periodoplanilla': periodoplanilla,
+                                                        'valortotalplanilla': valortotalplanilla, 'nombresalud': nombresalud, 'nombrepension': nombrepension, 'valorpension': valorpension, 'valorsalud': valorsalud, 'nombrearl': nombrearl, 'valorarl': valorarl})
 #gestion de documentos de usuarios
 
 def list_usuarios(request):

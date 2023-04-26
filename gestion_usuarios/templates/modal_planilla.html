@@ -18,12 +18,119 @@
               {% for campo in formplanilla%}            
                   <div class="col-md-4">
                       <label class="">{{ campo.label }}:</label>
-                      <input type=" {{ campo.field.widget.input_type }} "
-                      class="form-control"
-                      name="{{ campo.name }}"
-                      id="{{ campo.name }}"
-                      placeholder="Digite {{ campo.label }}"
-                      required>
+
+
+                      {% if forloop.first %}
+                         <input type="{{ campo.field.widget.input_type }}"
+                                class="form-control"
+                                name="{{ campo.html_name }}"
+                                id="{{ campo.auto_id }}"
+                                placeholder="Digite {{ campo.label }}"
+                                value="{{numeroplanilla}}"
+                           
+                                >
+                      {% elif forloop.counter == 2 %}
+                          <input type="{{ campo.field.widget.input_type }}"
+                                 class="form-control"
+                                 name="{{ campo.html_name }}"
+                                 id="{{ campo.auto_id }}"
+                                 placeholder="Digite {{ campo.label }}"
+                                 value="{{fechaplanilla}}"   
+      
+                                >
+                      {% elif forloop.counter == 3 %}
+                          <input type="{{ campo.field.widget.input_type }}"
+                                 class="form-control"
+                                 name="{{ campo.html_name }}"
+                                 id="{{ campo.auto_id }}"
+                                 placeholder="Digite {{ campo.label }}"
+                                 value="{{periodoplanilla}}"   
+            
+                                >
+
+                      {% elif forloop.counter == 4 %}
+                          <input type="{{ campo.field.widget.input_type }}"
+                                 class="form-control"
+                                 name="{{ campo.html_name }}"
+                                 id="{{ campo.auto_id }}"
+                                 placeholder="Digite {{ campo.label }}"
+                                 value="{{valortotalplanilla}}"   
+                  
+                                >
+
+                                
+                      {% elif forloop.counter == 5 %}
+                      <input type="{{ campo.field.widget.input_type }}"
+                             class="form-control"
+                             name="{{ campo.html_name }}"
+                             id="{{ campo.auto_id }}"
+                             placeholder="Digite {{ campo.label }}"
+                             value="{{nombrepension}}"   
+              
+                            >
+                      {% elif forloop.counter == 6 %}
+                      <input type="{{ campo.field.widget.input_type }}"
+                             class="form-control"
+                             name="{{ campo.html_name }}"
+                             id="{{ campo.auto_id }}"
+                             placeholder="Digite {{ campo.label }}"
+                             value="{{valorpension}}"   
+                    
+                            >
+                      {% elif forloop.counter == 7 %}
+                      <input type="{{ campo.field.widget.input_type }}"
+                             class="form-control"
+                             name="{{ campo.html_name }}"
+                             id="{{ campo.auto_id }}"
+                             placeholder="Digite {{ campo.label }}"
+                             value="{{nombresalud}}"   
+                           >
+                      {% elif forloop.counter == 8 %}
+                      <input type="{{ campo.field.widget.input_type }}"
+                             class="form-control"
+                             name="{{ campo.html_name }}"
+                             id="{{ campo.auto_id }}"
+                             placeholder="Digite {{ campo.label }}"
+                             value="{{valorsalud}}"   
+                            >
+
+                      {% elif forloop.counter == 9 %}
+                      <input type="{{ campo.field.widget.input_type }}"
+                             class="form-control"
+                             name="{{ campo.html_name }}"
+                             id="{{ campo.auto_id }}"
+                             placeholder="Digite {{ campo.label }}"
+                             value="{{nombrearl}}"   
+                            >
+                      {% elif forloop.counter == 10 %}
+                      <input type="{{ campo.field.widget.input_type }}"
+                             class="form-control"
+                             name="{{ campo.html_name }}"
+                             id="{{ campo.auto_id }}"
+                             placeholder="Digite {{ campo.label }}"
+                             value="{{valorarl}}"   
+                            >
+
+                      {% elif forloop.last %}
+                          <input type="{{ campo.field.widget.input_type }}"
+                                 class="form-control"
+                                 name="{{ campo.html_name }}"
+                                 id="{{ campo.auto_id }}"
+                                 placeholder="Digite {{ campo.label }}"
+                                 value="{{cedula}}"
+                                 readonly
+                          >
+                       {% else %}
+
+                           <input type=" {{ campo.field.widget.input_type }} "
+                           class="form-control"
+                           name="{{ campo.name }}"
+                           id="{{ campo.name }}"
+                           placeholder="Digite {{ campo.label }}"
+                           required>
+
+
+                      {% endif %}
                       <br>
                   </div>
               {% endfor %}

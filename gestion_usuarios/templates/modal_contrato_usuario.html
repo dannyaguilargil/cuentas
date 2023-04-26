@@ -15,14 +15,87 @@
             </center>
                       <!--
              with valores_campos = {'campo1': 'valor1', 'campo3': 'valor3'} 
+                          #
+
+            ]
 -->
           {% csrf_token %}
           <div class="row">
-  
-            {% for campo in form %}
+
+
+  {% for campo in form %}
+
     <div class="col-md-4">
         <label class="">{{ campo.label_tag }}</label>
-        {% if forloop.last %}
+       
+       
+        {% if forloop.first %}
+            <input type="{{ campo.field.widget.input_type }}"
+                   class="form-control"
+                   name="{{ campo.html_name }}"
+                   id="{{ campo.auto_id }}"
+                   placeholder="Digite {{ campo.label }}"
+                   value="{{numero}}"
+                   
+                  >
+        {% elif forloop.counter == 2 %}
+            <input type="{{ campo.field.widget.input_type }}"
+                   class="form-control"
+                   name="{{ campo.html_name }}"
+                   id="{{ campo.auto_id }}"
+                   placeholder="Digite {{ campo.label }}"
+                   value="{{numeroproceso}}"                    
+                  >
+        {% elif forloop.counter == 3 %}
+            <input type="{{ campo.field.widget.input_type }}"
+                   class="form-control"
+                   name="{{ campo.html_name }}"
+                   id="{{ campo.auto_id }}"
+                   placeholder="Digite {{ campo.label }}"
+                   value="{{objeto}}"                    
+                  >
+        {% elif forloop.counter == 4 %}
+            <input type="{{ campo.field.widget.input_type }}"
+                   class="form-control"
+                   name="{{ campo.html_name }}"
+                   id="{{ campo.auto_id }}"
+                   placeholder="Digite {{ campo.label }}"
+                   value="{{fechaperfeccionamiento}}"                    
+                  >
+        {% elif forloop.counter == 5 %}
+            <input type="{{ campo.field.widget.input_type }}"
+                   class="form-control"
+                   name="{{ campo.html_name }}"
+                   id="{{ campo.auto_id }}"
+                   placeholder="Digite {{ campo.label }}"
+                   value="{{valorc}}"                    
+                  >
+        {% elif forloop.counter == 6 %}
+            <input type="{{ campo.field.widget.input_type }}"
+                   class="form-control"
+                   name="{{ campo.html_name }}"
+                   id="{{ campo.auto_id }}"
+                   placeholder="Digite {{ campo.label }}"
+                   value="{{fechacontrato}}"                    
+                  >
+        {% elif forloop.counter == 7 %}
+            <input type="{{ campo.field.widget.input_type }}"
+                   class="form-control"
+                   name="{{ campo.html_name }}"
+                   id="{{ campo.auto_id }}"
+                   placeholder="Digite {{ campo.label }}"
+                   value="{{fechaterminacion}}"                    
+                        >
+        {% elif forloop.counter == 8 %}
+            <input type="{{ campo.field.widget.input_type }}"
+                   class="form-control"
+                   name="{{ campo.html_name }}"
+                   id="{{ campo.auto_id }}"
+                   placeholder="Digite {{ campo.label }}"
+                   value="{{duracion}}"                    
+                        >
+                        
+        {% elif forloop.last %}
             <input type="{{ campo.field.widget.input_type }}"
                    class="form-control"
                    name="{{ campo.html_name }}"
@@ -42,7 +115,12 @@
         {% endif %}
         <br>
     </div>
+ 
 {% endfor %}
+
+
+
+
 
         </div>
         
