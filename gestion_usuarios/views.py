@@ -2,6 +2,8 @@
 from django.shortcuts import render, redirect
 #para el uso de datatables
 from django.http.response import JsonResponse
+from django.http import JsonResponse
+
 from gestion_usuarios.models import usuario
 from gestion_usuarios.models import usolicitudes
 from gestion_usuarios.models import cuentausuario
@@ -18,6 +20,8 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from django_datatables_view.base_datatable_view import BaseDatatableView
+
 #def  usuarios(request):
 #     return render(request, 'C:/xampp/htdocs/sistemas_cuentas/gestion_usuarios/templates/index.html')
 
@@ -382,37 +386,39 @@ def documentos_usuario(request):
     if form.is_valid():
         form.save()
         messages.success(request, 'Documento guardado')
-        return render(request, 'sdocumentos.html')
+        #### AQUI IRA LA PARTE DEL ANALISIS DE DOCUMENTO ####
+        #### AQUI IRA LA PARTE DEL ANALISIS DE DOCUMENTO ####
+        return render(request, 'sdocumentos_usuario.html')
     formrp = Rp(request.POST or None)
     if formrp.is_valid():
         formrp.save()
         messages.success(request, 'Cuenta creada')
-        return render(request, 'sdocumentos.html')
+        return render(request, 'sdocumentos_usuario.html')
     forminicio = Actainicio(request.POST or None)
     if forminicio.is_valid():
         forminicio.save()
         messages.success(request, 'Cuenta creada')
-        return render(request, 'sdocumentos.html')
+        return render(request, 'sdocumentos_usuario.html')
     formplanilla = Planilla(request.POST or None)
     if formplanilla.is_valid():
         formplanilla.save()
         messages.success(request, 'Cuenta creada')
-        return render(request, 'sdocumentos.html')
+        return render(request, 'sdocumentos_usuario.html')
     formactividades = Actividades(request.POST or None)
     if formactividades.is_valid():
         formactividades.save()
         messages.success(request, 'Cuenta creada')
-        return render(request, 'sdocumentos.html')
+        return render(request, 'sdocumentos_usuario.html')
     formactapago = Actapago(request.POST or None)
     if formactapago.is_valid():
         formactapago.save()
         messages.success(request, 'Cuenta creada')
-        return render(request, 'sdocumentos.html')
+        return render(request, 'sdocumentos_usuario.html')
     formcertificadoseguimiento = Certificadoseguimiento(request.POST or None)
     if formcertificadoseguimiento.is_valid():
         formcertificadoseguimiento.save()
         messages.success(request, 'Cuenta creada')
-        return render(request, 'sdocumentos.html')
+        return render(request, 'sdocumentos_usuario.html')
     return render(request, 'sdocumentos_usuario.html', {'form': form, 'formrp': formrp, 'forminicio': forminicio, 'formplanilla': formplanilla, 'formactividades': formactividades, 'formactapago': formactapago, 'formcertificadoseguimiento': formcertificadoseguimiento, 'username': username,
                                                         'numero': numero, 'duracion': duracion, 'estado': estado, 'cedula': cedula, 'numeroproceso': numeroproceso, 'numerorp': numerorp, 'fecharp': fecharp, 'estadorp': estadorp,'numeroai': numeroai, 'fechaai': fechaai, 'estadoai': estadoai,
                                                         'numeroplanilla': numeroplanilla, 'fechaplanilla': fechaplanilla, 'estadoplanilla': estadoplanilla, 'lugar': lugar, 'fechaact': fechaact, 'numeroacta': numeroacta, 'periodoap': periodoap, 'numerocuentapago': numerocuentapago,
@@ -465,3 +471,19 @@ def crear(request):
 def logout(request):
     logout(request)
     return redirect('inicio')
+
+#def usuario_pendiente(BaseDatatableView):
+#     data = []
+#     usolicitudes = usolicitudes.objects.all()
+
+#     for usolicitud in usolicitudes:
+#        data.append({
+#            'cedula': usolicitud.cedula,
+#            'nombre': usolicitud.nombre,
+#            'primerapellido': usolicitud.primerapellido,
+#            'cargo': usolicitud.cargo,
+#            'email': usolicitud.email,
+#            'supervisor': usolicitud.supervisor,
+#        })
+
+#     return JsonResponse({'data': data})
