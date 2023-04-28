@@ -71,20 +71,23 @@ def solicitud_usuario(request):
 
 #GESTION DE DOCUMENTOS DE GESCON
 def documentos(request):
-    form = Contrato(request.POST or None)
+    form = Contrato(request.POST ,request.FILES)
     if form.is_valid():
+        #### AQUI IRA LA PARTE DEL ANALISIS DE DOCUMENTO ####
+        #### AQUI IRA LA PARTE DEL ANALISIS DE DOCUMENTO ####
+        #archivo = request.FILES.get('archivo')
         form.save()
-        messages.success(request, 'Cuenta creada')
+        messages.success(request, 'Documento cargado')
         return render(request, 'sdocumentos.html')
     formrp = Rp(request.POST or None)
     if formrp.is_valid():
         formrp.save()
-        messages.success(request, 'Cuenta creada')
+        messages.success(request, 'Documento cargado')
         return render(request, 'sdocumentos.html')
     forminicio = Actainicio(request.POST or None)
     if forminicio.is_valid():
         forminicio.save()
-        messages.success(request, 'Cuenta creada')
+        messages.success(request, 'Documento cargado')
         return render(request, 'sdocumentos.html')
     return render(request, 'sdocumentos.html', {'form': form, 'formrp': formrp, 'forminicio': forminicio})
 #GESTION DE DOCUMENTOS GESCON
@@ -260,7 +263,7 @@ def perfil(request):
     
 #gestion de documentos de usuarios
 def documentos_usuario(request):
-    form = Contratou(request.POST or None)
+    form = Contratou(request.POST ,request.FILES)
     username = request.user.username
     cedula = 0
     numero = "No tiene contrato asignado"

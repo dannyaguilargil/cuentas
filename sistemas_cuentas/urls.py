@@ -19,6 +19,7 @@ from django.urls import path, include
 from sistemas_cuentas.views import index
 from sistemas_cuentas.views import saludo #DESDE LA MISMA CARPETA
 
+
 #from sistemas_cuentas.views import despedida
 #from sistemas_cuentas.views import calculaEdad
 #from sistemas_cuentas.views import saludo3, plantillas
@@ -36,6 +37,7 @@ urlpatterns = [
    
    #parte administrativa
    path('admin/', admin.site.urls,name='admin'),
+
    
 
   

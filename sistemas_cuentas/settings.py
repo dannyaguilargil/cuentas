@@ -15,8 +15,10 @@ import os #lo agregue
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 #################PARA EL MANEJO DE PDFS###################
-MEDIA_ROOT = os.path.join(BASE_DIR, 'pdfs')
-
+MEDIA_ROOT = os.path.join(BASE_DIR, 'sistemas_cuentas/')
+MEDIA_URL = 'sistemas_cuentas/'
+######lo agregue
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 
 
@@ -50,6 +52,7 @@ INSTALLED_APPS = [
     'gestion_presupuesto',
     'gestion_tesoreria',
     'django_datatables_view',
+    'filebrowser',
    # 'sistemas_cuentas',
 ]
 
@@ -62,6 +65,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',#lo agrege por el idioma
+    #'filebrowser.middleware.FileBrowserMiddleware',
 ]
 
 ROOT_URLCONF = 'sistemas_cuentas.urls'

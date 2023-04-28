@@ -1,6 +1,10 @@
 from django.contrib import admin
 from .models import  usuario, usolicitudes, contrato, rp, actainicio, prueba, planilla, actividades, actapago, certificadoseguimiento, cuentausuario
 
+from django.utils.html import format_html
+from django.utils.safestring import mark_safe
+import os
+from django.conf import settings
 #Modificaciones del frontend
 admin.site.site_header = "Administracion sistema de cuentas"
 admin.site.site_title = "Administracion"
@@ -25,9 +29,22 @@ admin.site.register(usuario, User)
 #listar por tabla los contrato en el panel de administracion
 class Cont(admin.ModelAdmin):
     #aqui debe ir el nombre de la persona que pertenece el contrato
-    list_display=('numero', 'objeto', 'valor', 'duracion','usuario_id')
+    list_display=('numero', 'objeto', 'valor', 'duracion','usuario_id','archivo')
     search_fields = ('numero',)#hace busqueda por numeros
+    
+    
+    def display_archivo(self, obj):
+        if obj.archivo:
+            file_url = obj.archivo.url
+            return format_html('<a href="{}" target="_blank">Ver pdf</a>', file_url)
+        else:
+            return '-'
+    display_archivo.short_description = 'Archivo'
+
+    list_display = ['numero', 'objeto', 'valor', 'fechacontrato', 'duracion', 'display_archivo']
+
 admin.site.register(contrato, Cont)
+
 #listar por tabla los contrato en el panel de administracion
 
 #listar por tablas usuarios

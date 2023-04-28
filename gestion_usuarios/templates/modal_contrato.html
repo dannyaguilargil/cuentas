@@ -8,33 +8,36 @@
         </div>
         <div class="modal-body">
           
-          <form action="" method="POST">
+        
             <center>
               <h6>Visualizacion del pdf a cargar...</h6>
               <embed id="vistaPrevia" type="application/pdf" width="350" height="350"> <br> 
             </center>
+          <form action="" method="POST" enctype="multipart/form-data">
           {% csrf_token %}
           <div class="row">
             {% for campo in form %}
-                <div class="col-md-4">
-                    <label class="">{{ campo.label_tag }}</label>
-                    {% if campo.field.widget.input_type == 'select' %}
-                        <select class="form-control" name="{{ campo.html_name }}" id="{{ campo.auto_id }}">
-                            {% for opcion in campo.field.choices %}
-                                <option value="{{ opcion.0 }}" {% if opcion.0 == campo.value %}selected{% endif %}>{{ opcion.1 }}</option>
-                            {% endfor %}
-                        </select>
-                    {% else %}
-                        <input type="{{ campo.field.widget.input_type }}"
-                               class="form-control"
-                               name="{{ campo.html_name }}"
-                               id="{{ campo.auto_id }}"
-                               placeholder="Digite {{ campo.label }}"
-                              >
-                    {% endif %}
-                    <br>
-                </div>
-            {% endfor %}
+            <div class="col-md-4">
+                <label>{{ campo.label_tag }}</label>
+                {% if campo.field.widget.input_type == 'select' %}
+                    <select class="form-control" name="{{ campo.html_name }}" id="{{ campo.auto_id }}">
+                        {% for opcion in campo.field.choices %}
+                            <option value="{{ opcion.0 }}" {% if opcion.0 == campo.value %}selected{% endif %}>{{ opcion.1 }}</option>
+                        {% endfor %}
+                    </select>
+                {% elif campo.field.widget.input_type == 'file' %}
+                    <input type="file" class="form-control" name="{{ campo.html_name }}" id="{{ campo.auto_id }}">
+                {% else %}
+                    <input type="{{ campo.field.widget.input_type }}"
+                           class="form-control"
+                           name="{{ campo.html_name }}"
+                           id="{{ campo.auto_id }}"
+                           placeholder="Digite {{ campo.label }}"
+                    >
+                {% endif %}
+                <br>
+            </div>
+        {% endfor %}
         </div>
         
         

@@ -49,7 +49,9 @@ class usolicitudes(models.Model):
         verbose_name = 'Solicitud de usuario'
         verbose_name_plural = 'Solicitudes de usuarios'
         db_table='Solicitudes de usuarios'
-    
+
+def obtener_archivo_predeterminado():
+    return 'pdfs/'
 #por ahora solo quiero hacer registros pero debo referenciarlo con llave foranea
 class contrato(models.Model):
     numero = models.IntegerField(primary_key=True, verbose_name='Numero')
@@ -61,6 +63,8 @@ class contrato(models.Model):
     fechacontrato = models.CharField(max_length=300, verbose_name='Fecha inicial del  contrato')
     fechaterminacion = models.CharField(max_length=300, verbose_name='Fecha final del contrato')
     duracion = models.CharField(max_length=40, verbose_name='Duracion del contrato')
+    archivo = models.FileField(upload_to='pdfs/', default=obtener_archivo_predeterminado, verbose_name='archivo')
+
     #pendiente validar como muestra la llave foranea
     usuario=models.ForeignKey(usuario,null=True,blank=True,on_delete=models.CASCADE)
    
