@@ -299,11 +299,13 @@ def documentos_usuario(request):
     valorsalud = "No tiene asignado"
     nombrearl = "No tiene asignado"
     valorarl = "No tiene asignado"
+    supervisor = ""
     lista = ['numero', 'numeroproceso', 'objeto', 'fechaperfeccionamiento', 'valor', 'fechacontrato', 'fechaterminacion', 'duracion','cedula']
     #primero me traigo los datos de usuario
     usuario_objr = usuario.objects.filter(usuario=username).first()
     if usuario.objects.filter(usuario=username).exists():
         cedula = usuario_objr.cedula
+        supervisor = usuario_objr.supervisor
         usuario_objr2 = contrato.objects.filter(usuario_id=cedula).first()
         if contrato.objects.filter(usuario_id=cedula).exists():
             numero = usuario_objr2.numero
@@ -385,6 +387,7 @@ def documentos_usuario(request):
         valorsalud = "No tiene asignado"
         nombrearl = "No tiene asignado"
         valorarl = "No tiene asignado"
+        supervisor = "No tiene asignado"
     ### Registros de documentos##################
     if form.is_valid():
         form.save()
@@ -426,7 +429,7 @@ def documentos_usuario(request):
                                                         'numero': numero, 'duracion': duracion, 'estado': estado, 'cedula': cedula, 'numeroproceso': numeroproceso, 'numerorp': numerorp, 'fecharp': fecharp, 'estadorp': estadorp,'numeroai': numeroai, 'fechaai': fechaai, 'estadoai': estadoai,
                                                         'numeroplanilla': numeroplanilla, 'fechaplanilla': fechaplanilla, 'estadoplanilla': estadoplanilla, 'lugar': lugar, 'fechaact': fechaact, 'numeroacta': numeroacta, 'periodoap': periodoap, 'numerocuentapago': numerocuentapago,
                                                         'cuentapago': cuentapago, 'lista': lista, 'objeto': objeto, 'fechaperfeccionamiento': fechaperfeccionamiento, 'valorc': valorc, 'fechacontrato': fechacontrato, 'fechaterminacion': fechaterminacion, 'periodoplanilla': periodoplanilla,
-                                                        'valortotalplanilla': valortotalplanilla, 'nombresalud': nombresalud, 'nombrepension': nombrepension, 'valorpension': valorpension, 'valorsalud': valorsalud, 'nombrearl': nombrearl, 'valorarl': valorarl})
+                                                        'valortotalplanilla': valortotalplanilla, 'nombresalud': nombresalud, 'nombrepension': nombrepension, 'valorpension': valorpension, 'valorsalud': valorsalud, 'nombrearl': nombrearl, 'valorarl': valorarl, 'supervisor': supervisor})
 #gestion de documentos de usuarios
 
 def list_usuarios(request):
@@ -474,6 +477,10 @@ def crear(request):
 def logout(request):
     logout(request)
     return redirect('inicio')
+
+#USUARIOS PENDIENTES SIN DATATABLE
+def usuario_pendiente(request):
+    return render(request, 'usuariopendiente.html')
 
 #def usuario_pendiente(BaseDatatableView):
 #     data = []

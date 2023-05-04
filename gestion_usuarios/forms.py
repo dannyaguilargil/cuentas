@@ -75,4 +75,4 @@ class Prueba(forms.ModelForm):
 class Cusuario(forms.ModelForm):
     class Meta:
         model = cuentausuario
-        fields = ['supervisor', 'cedula', 'dependencia', 'numero', 'objeto','fechaperfeccionamiento','valor','fechacontrato','fechaterminacion','duracion','numerorp','fecharp','numeroactainicio','fechaactainicio']
+        fields = '__all__'

@@ -23,5 +23,5 @@ urlpatterns = [
     #path('eliminar/<int:cedula>', views.eliminar, name='eliminar'), 
     #path('usuarios/documentos/registro', views.registro, name='registro'), 
     ##########GESTION DE USUARIOS PENDIENTES ### CRUD DIFERENTE
-    # path('usuarios/pendiente', views.usuario_pendiente, name='usuario_pendiente')
+    path('usuarios/pendiente', views.usuario_pendiente, name='usuario_pendiente')
 ]
