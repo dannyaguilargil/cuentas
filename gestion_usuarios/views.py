@@ -11,7 +11,7 @@ from gestion_usuarios.models import prueba
 from gestion_usuarios.models import contrato,rp,actainicio,planilla
 from gestion_usuarios.models import actividades,actapago,certificadoseguimiento
 from gestion_usuarios.forms import Users
-from gestion_usuarios.forms import Usuario
+from gestion_usuarios.forms import Usuario, InsertForm
 from gestion_usuarios.forms import Contrato, Rp, Actainicio, Planilla, Actividades, Actapago, Certificadoseguimiento, Cusuario,Contratou
 from django.contrib import messages
 #gestion del usuario
@@ -97,13 +97,25 @@ def documentos(request):
 #@login_required
 #####################VALIDANDO CONSULTAS #######################
 def perfil(request):
-    formperfil = Cusuario(request.POST or None)
+       ################# AQUI VOY A REGISTRAR LA CUENTA######
+    ### username = formularios.cleaned_data.get('usuario')##
+    formper = InsertForm(request.POST or None)
+    if formper.is_valid():
+        formper.save()
+        #email = formper.cleaned_data.get('email')
+        #cedula = formper.cleaned_data.get('cedula')
+        #cuenta = cuentausuario(email=email, cedula=cedula)
+        #cuenta.save()
+        return redirect('perfil')
+            #else:
+            #    formp = InsertForm()
+            ################# AQUI VOY A REGISTRAR LA CUENTA######     
     username = request.user.username
     usuario_obj = usuario.objects.filter(usuario=username).first()
     progreso=1
     ###### SI ESTA CREADO CON EL ADMIN SI CARGA Y VALIDA###########
     #######CUANDO EL USUARIO ESTA CREADO Y NO TIENE DOCUMENTOS NO CARGA
-    numero = "No tiene registro contrato asignado"
+    numero = 2
     objeto = "No tiene contrato asignado"
     valor = "No tiene contrato asignado"
     fechaterminacion = "No tiene contrato asignado"
@@ -132,6 +144,7 @@ def perfil(request):
     periodoap = "Usuario no ha cargado seguimiento de cuentas"
     numerocuentapago = 0
     cuentapago= "Usuario no ha cargado entidad bancaria"
+    cedula = 0
     #######CUANDO EL USUARIO ESTA CREADO Y NO TIENE DOCUMENTOS NO CARGA
     if usuario.objects.filter(usuario=username).exists():
         nombre_usuario = usuario_obj.nombre
@@ -206,17 +219,19 @@ def perfil(request):
                                     cuentapago = usuario_obj8.cuentapago
                                     progreso=100
                                     estado = "Por pasar cuenta"
-                                    observacionesc = "Pendiente enviar cuenta"                                
+                                    observacionesc = "Pendiente enviar cuenta"
+   
+                     
     else:
         nombre_usuario = "No tiene nombre creado"
         segundo_nombre = ""
         primer_apellido = "No ha creado apellido"
         segundo_apellido = ""
-        cedula = "No tiene cedula creada"
+        cedula = 0
         estado = "No ha cargado documentos"
         email = "No tiene email creado"
         supervisor = "No tiene supervisor asignado"
-        numero = "No tiene contrato asignado"
+        numero = 0
         objeto = "No tiene contrato asignado"
         valor = "No tiene contrato asignado"
         fechaterminacion = "No tiene contrato asignado"
@@ -248,13 +263,7 @@ def perfil(request):
         periodoap = "Usuario no ha cargado seguimiento de cuentas"
         numerocuentapago = 0
         cuentapago= "Usuario no ha cargado entidad bancaria"
-        
-    if formperfil.is_valid():
-        formperfil.save()
-        messages.success(request, 'Cuenta creada')
-        return render(request, 'sdocumentos.html')
-        #' datos_usuario': datos_usuario}
-    return render(request, 'perfil.html', {'formperfil': formperfil, 'username': username, 'nombre_usuario': nombre_usuario, 'segundo_nombre': segundo_nombre, 'primer_apellido': primer_apellido, 'segundo_apellido': segundo_apellido, 'cedula': cedula, 'estado': estado, 'email': email,
+    return render(request, 'perfil.html', {'formper': formper, 'username': username, 'nombre_usuario': nombre_usuario, 'segundo_nombre': segundo_nombre, 'primer_apellido': primer_apellido, 'segundo_apellido': segundo_apellido, 'cedula': cedula, 'estado': estado, 'email': email,
                                         'supervisor': supervisor, 'numero': numero, 'objeto': objeto, 'valor': valor, 'fechaterminacion': fechaterminacion, 'duracion': duracion, 'numerorp': numerorp, 'fecharp': fecharp, 'numeroai': numeroai, 'progreso': progreso, 'fechaai': fechaai,
                                         'numeroplanilla': numeroplanilla, 'fechaplanilla': fechaplanilla, 'valortotalplanilla': valortotalplanilla, 'periodoplanilla': periodoplanilla, 'nombresalud': nombresalud, 'valorsalud': valorsalud, 'nombrearl': nombrearl, 'valorarl': valorarl,
                                         'nombrepension': nombrepension, 'valorpension': valorpension, 'lugar': lugar, 'fechaact': fechaact, 'actividadess': actividadess, 'resultadoactividades': resultadoactividades, 'observacionesc': observacionesc, 'numeroacta': numeroacta,

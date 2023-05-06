@@ -98,6 +98,6 @@ admin.site.register(certificadoseguimiento, Cseguimiento)
 
 #cuenta a pasar por el usuario
 class Cuentausuario(admin.ModelAdmin):
-    list_display=('nombre', 'primerapellido', 'segundoapellido','objeto')
+    list_display=('email','cedula')
 admin.site.register(cuentausuario, Cuentausuario)
 #cuenta a pasar por el usuario

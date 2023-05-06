@@ -17,17 +17,34 @@
                         <label for="">Contraseña anterior</label>
                         <input type="text" placeholder="Contraseña anterior" class="form-control">
                     </div>
+
+
                     <div class="col">
-                        <label for="">Contraseña nueva</label>
-                        <input type="text" placeholder="Contraseña nueva" class="form-control">
+                         <div class="col" id="grupo__password">
+              <label class="" for="password">Cambio de contraseña</label>
+              <div class="formulario__grupo-input">
+                <input type="password" class="form-control formulario__input" name="password" id="password" placeholder="Digite contraseña nueva" required>
+                <i class="formulario__validacion-estado fas fa-time-circle"></i>
+              </div>
+              <!--
+              <p class="formulario__input-error">La contraseña debe ser de 4 a 12 digitos</p> 
+              -->
+           </div>
                     </div>
                     <div class="col">
-                        <label for="">Contraseña nueva</label>
-                        <input type="text" placeholder="Confirmar contraseña nueva" class="form-control">
+                        <div class="col" id=grupo__password2>
+                            <label for="password2" class="">Cambio de contraseña</label>
+                            <div class="formulario__grupo-input">
+                            <input type="password" class="form-control formulario__input" name="password2" id="password2" placeholder="Repetir contraseña nueva" required>
+                            <i class="formulario__validacion-estado fas fa-time-circle"></i>
+                            </div>
+                            <!--
+                            <p class="formulario__input-error">Ambas contraseñas deben ser iguales</p> 
+                          --></div>
                     </div>
             
                 </div>
-                <br>
+            
                 <center>
                 <button class="btn btn-success">ACTUALIZAR</button>
                 </center>

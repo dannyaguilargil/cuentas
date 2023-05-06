@@ -76,3 +76,9 @@ class Cusuario(forms.ModelForm):
     class Meta:
         model = cuentausuario
         fields = '__all__'
+        
+###FORMULARIO MODIFICADO DE CUENTA USUARIO PERO PUEDO IR AGREGANDO POCO A POCO LOS DATOS D ELA CUENTA #####        
+class InsertForm(forms.ModelForm):
+    class Meta:
+        model = cuentausuario
+        fields = ['cedula', 'email']
