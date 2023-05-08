@@ -1,4 +1,4 @@
-{% extends 'base_layout_gescon4.html' %}
+{% extends 'base_layout_gescon5.html' %}
 {% block titulo %}Usuario pendiente{% endblock titulo %}
 {% block contenido %}
    <center>
@@ -22,26 +22,38 @@
           </tr>
       </thead>
       <tbody id="tabla-usuarios">
-        {% for i in usuarios %}
+        {% for objeto in datos %}
+        
         <tr>
-            <td>{{ j.nombre }}</td>
-            <td>{{ j.apellido }}</td>
-            <td>{{ j.cedula }}</td>
-            <td>{{ j.correo }}</td>
-            <td>{{ j.fecha }}</td>
-            <td>
-                <a class="btn btn-outline-danger" href="#" onclick="eliminar({{ j.id }})">Eliminar</a>
+            <td>{{forloop.counter}}</td>
+            <td>{{objeto.nombre}}</td>
+            <td>{{objeto.segundonombre}}</td>
+            <td>{{objeto.primerapellido}}</td>
+            <td>{{objeto.segundoapellido}}</td>
+            <td>{{objeto.cedula}}</td>
+            <td><button  name="ver" class="fa fa-eye btn btn-outline-success ver" 
+                data-nombre="{{objeto.nombre}}"
+                data-segundonombre="{{objeto.segundonombre}}"
+                data-primerapellido="{{objeto.primerapellido}}"
+                data-segundoapellido="{{objeto.segundoapellido}}" 
+                data-cedula="{{objeto.cedula}}"
+                data-cargo="{{objeto.cargo}}"
+                data-email="{{objeto.email}}"
+                data-supervisor="{{objeto.supervisor}}"
+                data-tipodocumento="{{objeto.tipodocumento}}"
+                data-bs-toggle="modal"
+                data-bs-target="#ex" >Ver
+                </button>
             </td>
         </tr>
     {% endfor %}
-
 
       </tbody>
     </table>
 </div>
  
   <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="ex" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -49,15 +61,17 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+          <form action="" method="POST">
+            {% csrf_token %}
           <div class="row">
             <div class="col">
                 <label for="">Nombre</label>
-                <input type="text" class="form-control" name="nombre" id="nombre" >
+                <input type="text" name="nombre" id="nombre" class="form-control" >
             </div>
 
             <div class="col">
                 <label for=""> Segundo nombre</label>
-                <input type="text" class="form-control" name="segundonombre" id="segundonombre" value="{{usuario.segundonombre}}">
+                <input type="text" class="form-control" name="segundonombre" id="segundonombre">
             </div>
           </div>
 
@@ -65,43 +79,43 @@
           <div class="row">
             <div class="col">
                 <label for="">Primer apellido</label>
-                <input type="text" class="form-control" name="primerapellido" id="primerapellido" value="{{usuario.primerapellido}}">
+                <input type="text" class="form-control" name="primerapellido" id="primerapellido" >
             </div>
 
             <div class="col">
                 <label for=""> Segundo apellido</label>
-                <input type="text" class="form-control" name="segundoapellido" id="segundoapellido" value="{{usuario.segundoapellido}}">
+                <input type="text" class="form-control" name="segundoapellido" id="segundoapellido">
             </div>
           </div>
 
           <div class="row">
             <div class="col">
                 <label for="">Cargo </label>
-                <input type="text" class="form-control" name="cargo" id="cargo" value="{{usuario.cargo}}">
+                <input type="text" class="form-control" name="cargo" id="cargo" >
             </div>
 
             <div class="col">
                 <label for="">Email</label>
-                <input type="text" class="form-control" name="email" id="email" value="{{usuario.email}}">
+                <input type="text" class="form-control" name="email" id="email">
             </div>
           </div>
 
           <div class="row">
             <div class="col">
                 <label for="">Supervisor</label>
-                <input type="text" class="form-control" name="supervisor" id="supervisor" value="{{usuario.supervisor}}">
+                <input type="text" class="form-control" name="supervisor" id="supervisor">
             </div>
 
             <div class="col">
                 <label for="">Tipo documento</label>
-                <input type="text" class="form-control" name="tipodocumento" id="tipodocumento" value="{{usuario.tipodocumento}}">
+                <input type="text" class="form-control" name="tipodocumento" id="tipodocumento">
             </div>
           </div>
 
           <div class="row">
             <div class="col">
                 <label for="">Cedula</label>
-                <input type="text" class="form-control" name="cedula" id="cedula" value="{{usuario.cedula}}">
+                <input type="text" class="form-control" name="cedula" id="cedula">
             </div>
 
             <div class="col">
@@ -118,8 +132,9 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
           <button type="button" class="btn btn-success">Guardarlo</button>
-          <button type="button" class="btn btn-danger">Eliminarlo</button>
+          <button type="submit" class="btn btn-danger" id="eliminar">Eliminarlo</button>
         </div>
+    </form>
       </div>
     </div>
   </div>

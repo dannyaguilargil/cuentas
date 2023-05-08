@@ -3,7 +3,8 @@ from django.shortcuts import render, redirect
 #para el uso de datatables
 from django.http.response import JsonResponse
 from django.http import JsonResponse
-
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponseNotAllowed
 from gestion_usuarios.models import usuario
 from gestion_usuarios.models import usolicitudes
 from gestion_usuarios.models import cuentausuario
@@ -20,6 +21,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_GET
 from django_datatables_view.base_datatable_view import BaseDatatableView
 
 #def  usuarios(request):
@@ -454,7 +456,7 @@ def usuarios_pendientes(request):
 def eliminar(request, cedula):
     usolicitudes = usolicitudes.objects.get(cedula=cedula)
     usolicitudes.delete()
-    return redirect('usuarios')
+    return redirect('usuario_pendiente')
 #opcion de eliminar aqui   
 
 def usolicitud(request):
@@ -489,20 +491,54 @@ def logout(request):
 
 #USUARIOS PENDIENTES SIN DATATABLE
 def usuario_pendiente(request):
+    #usuario = {
+        #'nombre': '',
+        #'segundonombre': '',
+        #'primerapellido': '',
+        #'segundoapellido': '',
+        #'cargo': '',
+        #'email': '',
+        #'supervisor': '',
+        #'tipodocumento': '',
+        #'cedula': '',
+        #'rol': ''
+    #}
     return render(request, 'usuariopendiente.html')
 
-#def usuario_pendiente(BaseDatatableView):
-#     data = []
-#     usolicitudes = usolicitudes.objects.all()
 
-#     for usolicitud in usolicitudes:
-#        data.append({
-#            'cedula': usolicitud.cedula,
-#            'nombre': usolicitud.nombre,
-#            'primerapellido': usolicitud.primerapellido,
-#            'cargo': usolicitud.cargo,
-#            'email': usolicitud.email,
-#            'supervisor': usolicitud.supervisor,
-#        })
+def obtenercedula(request, cedula):
+    usuarios = get_object_or_404(usolicitudes, cedula=cedula)
+    data = {
+        'nombre': usuarios.nombre,
+        'segundonombre': usuarios.segundonombre,
+        'primerapellido': usuarios.primerapellido,
+        'segundoapellido': usuarios.segundoapellido,
+        'cedula': usuarios.cedula,
+        'cargo': usuarios.cargo,
+        'email': usuarios.email,
+        'supervisor': usuarios.supervisor,
+        'tipo_documento': usuarios.tipo_documento,
+        'rol': usuarios.rol,
+    }
+    return JsonResponse(data)
 
-#     return JsonResponse({'data': data})
+
+def eliminarregistro(request, cedula):
+    if request.method == 'DELETE':
+        usuario = get_object_or_404(usolicitudes, cedula=cedula)
+        usuario.delete()
+        return JsonResponse({'mensaje': 'Registro eliminado correctamente.'}, status=200)
+    else:
+        return HttpResponseNotAllowed(['DELETE'])
+    
+def usuarios_pendient(request):
+    datos = usolicitudes.objects.values()
+    return render(request, 'usuariospendient.html', {'datos': datos})
+
+def eliminador(request, cedula):
+    usuario = usolicitudes.objects.get(cedula=cedula)
+    form_elimina = Users(request.POST or None, instance=usuario)
+    if request.method == 'POST' and form_elimina.is_valid():
+        usuario.delete()
+        return redirect('usuario_pendiente')
+    return render(request, 'eliminar_usuario.html', {'form_elimina': form_elimina, 'usuario': usuario})
