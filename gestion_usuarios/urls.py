@@ -21,13 +21,17 @@ urlpatterns = [
     path('usuarios/pendientes', views.usuarios_pendientes, name='usuarios_pendientes'),
     path('list_pendientes', views.usolicitud, name='list_pendientes'),
     ##########ELIMINAR EL REGISTRO ###################################### 
-    path('usuarios/pendient/eliminar/<int:cedula>/', views.eliminar, name='eliminar'), 
+    path('usuarios/pendient/eliminar/<int:cedula>', views.eliminar, name='eliminar'), 
+    path('usuarios/pendient/guardar/<int:cedula>', views.guardar, name='guardar'),
     #path('usuarios/documentos/registro', views.registro, name='registro'), 
     ##########GESTION DE USUARIOS PENDIENTES ### CRUD DIFERENTE
     path('usuarios/pendiente/', views.usuario_pendiente, name='usuario_pendiente'),
     path('usuarios/pendiente/<int:cedula>', views.obtenercedula, name='obtenercedula'),
     path('eliminarregistro/', views.eliminarregistro, name='eliminarregistro'),
     path('usuarios/pendient/', views.usuarios_pendient, name='usuario_pendient'),
-    path('eliminador/<int:cedula>/', views.eliminador, name='eliminador')
+    path('eliminador/<int:cedula>/', views.eliminador, name='eliminador'),
+    
+    #path('admin/', admin.site.urls,name='admin'),
+    #path('usuarios/pendient/guardar/<int:cedula>', views.eliminar, name='eliminar'), 
   
 ]

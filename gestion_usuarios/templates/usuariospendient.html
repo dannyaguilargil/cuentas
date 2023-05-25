@@ -6,6 +6,8 @@
    </center>
    
    <div class="table-responsive"> 
+    <form method="post" action="">
+    {% csrf_token %}
     <table id="tabla-usuarios" class="table table-bordered table-hover">
       <caption>
          Usuarios pendientes
@@ -13,24 +15,24 @@
       <thead>
           <tr>
               <th class="centered">#</th>
-              <th class="centered">Nombre</th>
-              <th class="centered">Segundo nombre</th>
-              <th class="centered">Primer apellido</th>
-              <th class="centered">Segundo apellido</th>
-              <th class="centered">Cedula</th>
-              <th class="centered">Accion</th>
+              <th class="text-center centered">Nombre</th>
+              <th class="text-center centered">Segundo nombre</th>
+              <th class="text-center centered">Primer apellido</th>
+              <th class="text-center centered">Segundo apellido</th>
+              <th class="text-center centered">Cedula</th>
+              <th class="text-center centered">Accion</th>
           </tr>
       </thead>
       <tbody id="tabla-usuarios">
         {% for objeto in datos %}
         
-        <tr>
+        <tr> <!-- SE REMPLAZA CON INPUTS PARA OBTENER LOS DATOS DE ESE INPUT-->
             <td>{{forloop.counter}}</td>
-            <td>{{objeto.nombre}}</td>
-            <td>{{objeto.segundonombre}}</td>
-            <td>{{objeto.primerapellido}}</td>
-            <td>{{objeto.segundoapellido}}</td>
-            <td>{{objeto.cedula}}</td>
+            <td> <input type="text" class="text-center form-control form-control-sm" name="nombre" id="nombre" value="{{objeto.nombre}}"></td>
+            <td><input type="text" class="text-center form-control form-control-sm"  name="segundonombre" id="segundonombre" value="{{objeto.segundonombre}}"></td>
+            <td><input type="text" class="text-center form-control form-control-sm"  name="primerapellido" id="primerapellido" value="{{objeto.primerapellido}}"></td>
+            <td><input type="text" class="text-center form-control form-control-sm"  name="segundoapellido" id="segundoapellido" value="{{objeto.segundoapellido}}"></td>
+            <td><input type="text" class="text-center form-control form-control-sm"  name="cedula" id="cedula" value="{{objeto.cedula}}"></td>
             <td><button  name="ver" class="fa fa-eye btn btn-outline-success ver" 
                 data-nombre="{{objeto.nombre}}"
                 data-segundonombre="{{objeto.segundonombre}}"
@@ -42,14 +44,21 @@
                 data-supervisor="{{objeto.supervisor}}"
                 data-tipodocumento="{{objeto.tipodocumento}}"
                 data-bs-toggle="modal"
-                data-bs-target="#ex" >Ver
+                data-bs-target="#ex" >
                 </button>
+                <button  class="fa fa-save btn btn-outline-secondary" type="submit"></button>
+                <a  class="fa fa-eraser btn btn-outline-danger" 
+                data-cedula="{{objeto.cedula}}"
+                href="{% url 'eliminar' objeto.cedula %}"
+                 >
+              </a>
             </td>
         </tr>
     {% endfor %}
 
       </tbody>
     </table>
+  </form>
 </div>
  
   <!-- Modal -->
@@ -131,8 +140,11 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-success">Guardarlo</button>
-          <button type="submit" class="btn btn-danger" id="eliminar">Eliminarlo</button>
+         
+         <!-- <button type="button" class="btn btn-success">Guardarlo</button>
+          <button type="submit" class="btn btn-danger" id="eliminar">
+            Eliminarlo
+          </button>-->
         </div>
     </form>
       </div>

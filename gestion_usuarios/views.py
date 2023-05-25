@@ -12,7 +12,7 @@ from gestion_usuarios.models import prueba
 from gestion_usuarios.models import contrato,rp,actainicio,planilla
 from gestion_usuarios.models import actividades,actapago,certificadoseguimiento
 from gestion_usuarios.forms import Users
-from gestion_usuarios.forms import Usuario, InsertForm
+from gestion_usuarios.forms import Usuario, InsertForm, InsertFormU
 from gestion_usuarios.forms import Contrato, Rp, Actainicio, Planilla, Actividades, Actapago, Certificadoseguimiento, Cusuario,Contratou
 from django.contrib import messages
 #gestion del usuario
@@ -454,11 +454,22 @@ def usuarios_pendientes(request):
 
 #opcion de eliminar aqui
 def eliminar(request, cedula):
-    usolicitudes = usolicitudes.objects.get(cedula=cedula)
-    usolicitudes.delete()
-    return redirect('usuario_pendiente')
+    us = usolicitudes.objects.get(cedula=cedula)
+    us.delete()
+    return redirect('usuario_pendient')
 #opcion de eliminar aqui   
 
+#primero guardar la solicitud en usuarios registrados
+##segundo asignarle valores al usuario registrado
+#tercero eliminarlo la solicitud
+def guardar(request):
+    formpers = InsertFormU(request.POST or None)
+    if formpers.is_valid():
+        formpers.save()
+        return redirect('usuario_pendient')
+    return render(request, 'usuariospendient.html', {'formpers': formpers})
+    
+    
 def usolicitud(request):
     usuarios = list(usolicitudes.objects.values())
     data = {'usuarios': usuarios}
@@ -531,9 +542,14 @@ def eliminarregistro(request, cedula):
     else:
         return HttpResponseNotAllowed(['DELETE'])
     
+#usuarios pendientes opcion de guardado    
 def usuarios_pendient(request):
     datos = usolicitudes.objects.values()
-    return render(request, 'usuariospendient.html', {'datos': datos})
+    formpers = InsertFormU(request.POST or None)
+    if formpers.is_valid():
+        formpers.save()
+        return redirect('usuario_pendient')
+    return render(request, 'usuariospendient.html', {'datos': datos, 'formpers': formpers})
 
 def eliminador(request, cedula):
     usuario = usolicitudes.objects.get(cedula=cedula)

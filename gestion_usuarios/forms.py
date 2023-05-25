@@ -82,3 +82,9 @@ class InsertForm(forms.ModelForm):
     class Meta:
         model = cuentausuario
         fields = ['cedula', 'email']
+        
+##FORMULARIO DE GUARDADO DE SOLICITUD DE USUARIO A USUARIO REGISTRADOS
+class InsertFormU(forms.ModelForm):
+    class Meta:
+        model = usuario
+        fields = ['cedula']
