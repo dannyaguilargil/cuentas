@@ -1,10 +1,10 @@
 <div class="table-responsive"> 
-<table id="datatable-programmers" class="table table-hover table-bordered table-responsive">
+<table id="datatable-programmers" class="table table-hover table-bordered table-responsive table-striped">
  
   <thead>
       <tr>
           <th class="centered">#</th>
-          <th class="centered">Nombre</th>
+          <th class="centered">Primer nombre</th>
           <th class="centered">Segundo nombre</th>
           <th class="centered">Primer apellido</th>
           <th class="centered">Segundo apellido</th>
@@ -12,7 +12,11 @@
           <th class="centered">Acciones</th>
       </tr>
   </thead>
-  <tbody id="tableBody_programmers"></tbody>
+
+  <tbody id="tableBody_programmers">
+    {% for objeto in datos %}
+    {% endfor %}
+  </tbody>
 </table>
 </div>
 
@@ -28,7 +32,7 @@
         <div class="row">
           <div class="col">
               <label for="nombre">Primer nombre</label>
-              <input type="text"name="nombre" id="nombre" class="form-control">
+              <input type="text"name="nombre" id="nombre" class="form-control" value="{usuario.nombre}">
           </div>
 
           <div class="col">

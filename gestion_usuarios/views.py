@@ -12,7 +12,7 @@ from gestion_usuarios.models import prueba
 from gestion_usuarios.models import contrato,rp,actainicio,planilla
 from gestion_usuarios.models import actividades,actapago,certificadoseguimiento
 from gestion_usuarios.forms import Users
-from gestion_usuarios.forms import Usuario, InsertForm, InsertFormU
+from gestion_usuarios.forms import Usuario, InsertForm, InsertFormU, InsertFormUE
 from gestion_usuarios.forms import Contrato, Rp, Actainicio, Planilla, Actividades, Actapago, Certificadoseguimiento, Cusuario,Contratou
 from django.contrib import messages
 #gestion del usuario
@@ -545,11 +545,26 @@ def eliminarregistro(request, cedula):
 #usuarios pendientes opcion de guardado    
 def usuarios_pendient(request):
     datos = usolicitudes.objects.values()
-    formpers = InsertFormU(request.POST or None)
-    if formpers.is_valid():
-        formpers.save()
+    forupendiente = InsertFormU(request.POST or None)
+    foruelimina = Users(request.POST or None)
+    
+    if forupendiente.is_valid():
+        forupendiente.save()
+        messages.success(request, 'Usuario agregado')
+        username = forupendiente.cleaned_data.get('usuario')
+        email = forupendiente.cleaned_data.get('email')
+        password = forupendiente.cleaned_data.get('contrasena')
+        new_user = User.objects.create_user(username=username, email=email, password=password)      # Crear un nuevo usuario
+        new_user.save()
+        user = authenticate(username=username, password=password)       #autenticar el usuario
+       
+    #CODIGO PARA ELIMINAR LA SOLICITUD DE USUARIO  
+    elif foruelimina.is_valid():
+        cedula = foruelimina.cleaned_data.get('cedula')
+        cuenta = usolicitudes.objects.filter(cedula=cedula)
+        cuenta.delete()
         return redirect('usuario_pendient')
-    return render(request, 'usuariospendient.html', {'datos': datos, 'formpers': formpers})
+    return render(request, 'usuariospendient.html', {'datos': datos, 'forupendiente': forupendiente, 'foruelimina': 'foruelimina'})
 
 def eliminador(request, cedula):
     usuario = usolicitudes.objects.get(cedula=cedula)

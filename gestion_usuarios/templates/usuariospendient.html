@@ -5,17 +5,18 @@
    <h5> Usuarios Pendientes </h5>
    </center>
    
+
+
    <div class="table-responsive"> 
-    <form method="post" action="">
-    {% csrf_token %}
-    <table id="tabla-usuarios" class="table table-bordered table-hover">
+
+    <table id="tabla-usuarios" class="table table-bordered table-hover table-striped">
       <caption>
          Usuarios pendientes
       </caption>
       <thead>
           <tr>
               <th class="centered">#</th>
-              <th class="text-center centered">Nombre</th>
+              <th class="text-center centered">Primer nombre</th>
               <th class="text-center centered">Segundo nombre</th>
               <th class="text-center centered">Primer apellido</th>
               <th class="text-center centered">Segundo apellido</th>
@@ -25,15 +26,14 @@
       </thead>
       <tbody id="tabla-usuarios">
         {% for objeto in datos %}
-        
         <tr> <!-- SE REMPLAZA CON INPUTS PARA OBTENER LOS DATOS DE ESE INPUT-->
             <td>{{forloop.counter}}</td>
-            <td> <input type="text" class="text-center form-control form-control-sm" name="nombre" id="nombre" value="{{objeto.nombre}}"></td>
-            <td><input type="text" class="text-center form-control form-control-sm"  name="segundonombre" id="segundonombre" value="{{objeto.segundonombre}}"></td>
-            <td><input type="text" class="text-center form-control form-control-sm"  name="primerapellido" id="primerapellido" value="{{objeto.primerapellido}}"></td>
-            <td><input type="text" class="text-center form-control form-control-sm"  name="segundoapellido" id="segundoapellido" value="{{objeto.segundoapellido}}"></td>
-            <td><input type="text" class="text-center form-control form-control-sm"  name="cedula" id="cedula" value="{{objeto.cedula}}"></td>
-            <td><button  name="ver" class="fa fa-eye btn btn-outline-success ver" 
+            <td><center>{{objeto.nombre}}</center></td>
+            <td><center>{{objeto.segundonombre}}</center></td>
+            <td><center>{{objeto.primerapellido}}</center></td>
+            <td><center>{{objeto.segundoapellido}}</center></td>
+            <td><center>{{objeto.cedula}}</center></td>
+            <td><a  name="ver" class="fa fa-eye btn btn-outline-success ver" 
                 data-nombre="{{objeto.nombre}}"
                 data-segundonombre="{{objeto.segundonombre}}"
                 data-primerapellido="{{objeto.primerapellido}}"
@@ -45,8 +45,8 @@
                 data-tipodocumento="{{objeto.tipodocumento}}"
                 data-bs-toggle="modal"
                 data-bs-target="#ex" >
-                </button>
-                <button  class="fa fa-save btn btn-outline-secondary" type="submit"></button>
+            </a>
+              <!-- <button  class="fa fa-save btn btn-outline-secondary" type="submit"></button> --> 
                 <a  class="fa fa-eraser btn btn-outline-danger" 
                 data-cedula="{{objeto.cedula}}"
                 href="{% url 'eliminar' objeto.cedula %}"
@@ -58,7 +58,7 @@
 
       </tbody>
     </table>
-  </form>
+
 </div>
  
   <!-- Modal -->
@@ -70,12 +70,12 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="" method="POST">
+          <form action="" method="POST" >
             {% csrf_token %}
           <div class="row">
             <div class="col">
                 <label for="">Nombre</label>
-                <input type="text" name="nombre" id="nombre" class="form-control" >
+                <input type="text" name="nombre" id="nombre" class="form-control">
             </div>
 
             <div class="col">
@@ -136,15 +136,26 @@
                 </select>
             </div>
           </div>
+
+          <div class="row">
+            <div class="col">
+              <label for="">Usuario</label>
+              <input type="text" class="form-control" name="usuario" id="usuario" autofocus>
+            </div>
+
+            <div class="col">
+              <label for="">Contraseña</label>
+              <input type="text" class="form-control" name="contrasena" id="contrasena">
+            </div>
+          </div>
  <br>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-         
-         <!-- <button type="button" class="btn btn-success">Guardarlo</button>
-          <button type="submit" class="btn btn-danger" id="eliminar">
-            Eliminarlo
-          </button>-->
+          <button class=" fas fa-save btn btn-outline-success" type="submit">Guardar</button>
+          <a  class="fa fa-eraser btn btn-outline-danger" 
+           >Eliminar
+        </a>
         </div>
     </form>
       </div>
@@ -152,5 +163,13 @@
   </div>
  
   <!-- AQUI DEBE ASIGNAR EL MISMO SISTEMA EL NOMBRE DE USUARIO Y POR DEFECTO LA CONTRASEÑA ES LA CEDULA-->
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-sm">
+         {{ message }}
+        </div>
+   {% endfor %}
+
+{% endif %}
 
 {% endblock contenido %}
