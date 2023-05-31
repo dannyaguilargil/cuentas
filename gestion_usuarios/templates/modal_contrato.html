@@ -26,7 +26,7 @@
                         {% endfor %}
                     </select>
                 {% elif campo.field.widget.input_type == 'file' %}
-                    <input type="file" class="form-control" name="{{ campo.html_name }}" id="{{ campo.auto_id }}">
+                    <input type="file" class="form-control" name="pdffFile" id="pdffFile">
                 {% else %}
                     <input type="{{ campo.field.widget.input_type }}"
                            class="form-control"

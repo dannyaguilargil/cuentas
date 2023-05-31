@@ -136,4 +136,6 @@ a{
 .formulario__grupo-incorrecto .formulario__input {
 	border: 3px solid #bb2929;
 }
-
+a:hover{
+	color: grey;
+}

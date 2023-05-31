@@ -76,11 +76,7 @@
                 <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion" style="background: #1d985a; color: white;">
                     <div class="sb-sidenav-menu" style="background: #1d985a; color: white;">
                         <div class="nav" style="background: #1d985a; color: white;">
-                            <div class="sb-sidenav-menu-heading" >Perfil</div>
-                            <a class="nav-link" href="index.html" style="background: #1d985a; color: white;">
-                                <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
-                                Actualizar perfil
-                            </a>
+                          
                             <!--SEGUNDA OPCION
                             <div class="sb-sidenav-menu-heading">Interface</div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
@@ -105,8 +101,25 @@
                             <div class="sb-sidenav-menu-heading" >Gestionar cuenta</div>
                             <a class="nav-link" href=" {% url 'perfil' %} " style="background: #1d985a; color: white;">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Pasar cuenta
+                                flujo de cuenta
                             </a>
+                            <a class="nav-link" href=" {% url 'perfil' %} " style="background: #1d985a; color: white;">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                Historial de cuentas
+                            </a>
+                            
+                            <div class="sb-sidenav-menu-heading">Gestion de usuarios</div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts" style="background: #1d985a; color: white;">
+                                <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                                Usuarios
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href=" {% url 'usuarios' %} "  style="color: white;">Registrados</a>
+                                 
+                                </nav>
+                            </div>
                           
                         </div>
                     </div>

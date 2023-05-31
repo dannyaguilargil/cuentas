@@ -57,7 +57,6 @@ class contrato(models.Model):
     numero = models.IntegerField(primary_key=True, verbose_name='Numero')
     numeroproceso = models.IntegerField(verbose_name='Numero de proceso')
     objeto = models.CharField(max_length=300, verbose_name='Objeto')
-    #fechasuscripcion = models.CharField(max_length=300, verbose_name='Fecha de suscripcion')
     fechaperfeccionamiento = models.CharField(max_length=300, verbose_name='Fecha de perfeccionamiento')
     valor = models.CharField(max_length=300, verbose_name='Valor del contrato')
     fechacontrato = models.CharField(max_length=300, verbose_name='Fecha inicial del  contrato')
@@ -164,7 +163,7 @@ class cuentausuario(models.Model): #la idea es no mostrar todo los datos de la c
     ###########################################################################
     ########## SOLO PLANILLA Y ACTIVIDADES SE SUBEN LO DEMAS LO HACE EL SISTEMA
     ###########################################################################
-    #nombre = models.CharField(max_length=40, verbose_name='Primer nombre')
+    nombre = models.CharField(max_length=100, verbose_name='Nombre')
     #segundonombre = models.CharField(max_length=40, verbose_name='Segundo nombre')
     #primerapellido = models.CharField(max_length=40, verbose_name='Primer apellido')
     #segundoapellido = models.CharField(max_length=40, verbose_name='Segundo apellido')
@@ -176,7 +175,8 @@ class cuentausuario(models.Model): #la idea es no mostrar todo los datos de la c
     #sexo = models.CharField(max_length=40, verbose_name='Sexo', choices=sexos, default='F')
     #gestion de contratacion, tener en cuenta el pdf
     #numero = models.IntegerField(verbose_name='Numero del contrato')
-    #objeto = models.CharField(max_length=300, verbose_name='Objeto') # este objeto de contrato debe remplazar al cargo en usuario
+    objeto = models.CharField(max_length=400, verbose_name='Objeto')
+    # este objeto de contrato debe remplazar al cargo en usuario
     #fechaperfeccionamiento = models.CharField(max_length=300, verbose_name='Fecha de perfeccionamiento')
     #valor = models.CharField(max_length=300, verbose_name='Valor del contrato')
     #fechacontrato = models.CharField(max_length=40, verbose_name='Fecha del contrato')

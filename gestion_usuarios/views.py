@@ -31,8 +31,9 @@ def  base(request):
      return render(request, 'base_layout_usuarios.html') #archivo base de usuarios
 
 def  usuarios(request):
+     datosu = usuario.objects.values()
      username = request.user.username #validar esto
-     return render(request, 'usuarios.html', {'username': username}) # se modifica esto con lo anterior pero para no poner toda la ruta, cambiando en settin.py insatllerds app poniendo la ruta
+     return render(request, 'usuarios.html', {'username': username, 'datosu': datosu}) # se modifica esto con lo anterior pero para no poner toda la ruta, cambiando en settin.py insatllerds app poniendo la ruta
 
 ################LOGIN####################
 def home(request):
@@ -75,9 +76,6 @@ def solicitud_usuario(request):
 def documentos(request):
     form = Contrato(request.POST ,request.FILES)
     if form.is_valid():
-        #### AQUI IRA LA PARTE DEL ANALISIS DE DOCUMENTO ####
-        #### AQUI IRA LA PARTE DEL ANALISIS DE DOCUMENTO ####
-        #archivo = request.FILES.get('archivo')
         form.save()
         messages.success(request, 'Documento cargado')
         return render(request, 'sdocumentos.html')
@@ -554,11 +552,10 @@ def usuarios_pendient(request):
         username = forupendiente.cleaned_data.get('usuario')
         email = forupendiente.cleaned_data.get('email')
         password = forupendiente.cleaned_data.get('contrasena')
-        new_user = User.objects.create_user(username=username, email=email, password=password)      # Crear un nuevo usuario
+        new_user = User.objects.create_user(username=username, email=email, password=password) 
         new_user.save()
-        user = authenticate(username=username, password=password)       #autenticar el usuario
+        user = authenticate(username=username, password=password)     
        
-    #CODIGO PARA ELIMINAR LA SOLICITUD DE USUARIO  
     elif foruelimina.is_valid():
         cedula = foruelimina.cleaned_data.get('cedula')
         cuenta = usolicitudes.objects.filter(cedula=cedula)

@@ -1,5 +1,4 @@
 <form  action="" method="POST" autocomplete="off" style="font-family: Lato;">
-    <!-- CREANDO FORMULARIO DINAMICOS-->
     {% csrf_token %}
     <div class="row">
         {% for campo in formularios %}
@@ -25,9 +24,6 @@
     </div>
     
     
-    <div class="col-12">{{ campo.errors }}</div>
-     </div>
-
         <div class="col text-center">
         {%if messages %}
             {% for message in messages %}

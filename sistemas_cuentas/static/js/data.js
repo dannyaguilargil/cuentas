@@ -56,8 +56,12 @@ const listProgrammers = async () => {
                     <td>${usuario.segundoapellido}</td>
                     <td>${usuario.cedula}</td>
                     <td>
-                    <button class='btn btn-sm btn-outline-success' data-bs-toggle="modal" data-bs-target="#exampleModal" ><i class='fas fa-eye'></i></button>
-                    <button class='btn btn-sm btn-outline-primary' data-bs-toggle="modal" data-bs-target="#exampleModal" ><i class='fas fa-user-edit'></i></button>
+                    <a class='btn btn-sm btn-outline-success'
+                    data-nombre="{{objeto.nombre}}"
+                    data-segundonombre="{{objeto.segundonombre}}"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">
+                    <i class='fas fa-eye'></i></a>
                     </td>
                    
                 </tr>`;

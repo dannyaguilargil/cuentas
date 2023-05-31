@@ -8,6 +8,7 @@
           | |          |  |      | |      #      #
 ----------| |          | |        #   ---------  #
 ################################################## 
+######ESTA BASE ES PARA ADMINISTRADOR Y PARA GESCON
 -->
 
 {% load static %}
@@ -101,9 +102,9 @@
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href=" {% url 'usuarios' %} ">Registrados</a>
-                                    <a class="nav-link" href=" {% url 'usuario_pendient' %} ">Pendientes</a>
-                                    <a class="nav-link" href=" {% url 'crear' %} ">Crear</a>
+                                    <a class="nav-link" href=" {% url 'usuarios' %} " style="color: white;">Registrados</a>
+                                    <a class="nav-link" href=" {% url 'usuario_pendient' %} "  style="color: white;">Pendientes</a>
+                                    <a class="nav-link" href=" {% url 'crear' %} "  style="color: white;">Crear</a>
                                 </nav>
                             </div>
                            
@@ -120,14 +121,10 @@
                                 Ver flujo
                             </a>
 
-                            <div class="sb-sidenav-menu-heading" >Gestionar perfil</div>
-                            <a class="nav-link" href=" {% url 'perfil' %}" style="background: #1d985a; color: white;">
-                                <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
-                                Mi perfil
-                            </a>
+                       
 
-                            <div class="sb-sidenav-menu-heading" >Panel de administracion gescon</div>
-                            <a class="nav-link" href="  " style="background: #1d985a; color: white;">
+                            <div class="sb-sidenav-menu-heading" >Panel de administracion</div>
+                            <a class="nav-link" href="http://127.0.0.1:8000/admin" style="background: #1d985a; color: white;">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 Ver panel
                             </a>
