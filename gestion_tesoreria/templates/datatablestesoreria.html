@@ -1,29 +1,156 @@
-<table class="table">
+<div class="table-responsive"> 
+
+  <table id="tabla-usuarios" class="table table-bordered table-hover table-striped">
+    <caption>
+       GESTION DE CUENTAS DE TESORERIA
+    </caption>
     <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
-      </tr>
+        <tr>
+            <th class="centered">#</th>
+            <th class="text-center centered">Nombre completo</th>
+            <th class="text-center centered">Cedula</th>
+            <th class="text-center centered">Objeto del contrato</th>
+            <th class="text-center centered">Dependencia</th>
+        
+         
+            <th class="text-center centered">Accion</th>
+        </tr>
     </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
+    <tbody id="tabla-usuarios">
+      {% for objeto in datos %}
+      <tr> <!-- SE REMPLAZA CON INPUTS PARA OBTENER LOS DATOS DE ESE INPUT-->
+          <td>{{forloop.counter}}</td>
+          <td><center>{{objeto.nombre}}</center></td>
+          <td><center>{{objeto.cedula}}</center></td>
+          <td><center>{{objeto.objeto}}</center></td>
+          <td><center>{{objeto.dependencia}}</center></td>
+     
+          <td><a  name="ver" class="fa fa-eye btn btn-outline-success ver" 
+              data-nombre="{{objeto.nombre}}"
+              data-segundonombre="{{objeto.segundonombre}}"
+              data-primerapellido="{{objeto.primerapellido}}"
+              data-segundoapellido="{{objeto.segundoapellido}}" 
+              data-cedula="{{objeto.cedula}}"
+              data-cargo="{{objeto.cargo}}"
+              data-email="{{objeto.email}}"
+              data-supervisor="{{objeto.supervisor}}"
+              data-tipodocumento="{{objeto.tipodocumento}}"
+              data-bs-toggle="modal"
+              data-bs-target="#ex" >
+          </a>
+            <!-- <button  class="fa fa-save btn btn-outline-secondary" type="submit"></button> --> 
+             <!-- <a  class="fa fa-eraser btn btn-outline-danger" 
+              data-cedula="{{objeto.cedula}}"
+              href="{% url 'eliminar' objeto.cedula %}"
+               >
+            </a>-->
+          </td>
       </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td colspan="2">Larry the Bird</td>
-        <td>@twitter</td>
-      </tr>
+  {% endfor %}
+
     </tbody>
   </table>
+
+</div>
+  <!-- Modal -->
+  <div class="modal fade" id="ex" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Cuenta de: Nombre de usuario</h1>
+
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="POST" >
+            {% csrf_token %}
+          <div class="row">
+            <div class="col">
+                <center>
+                  INFORME DE ACTIVIDADES
+                </center>
+
+             
+            </div>
+
+            <div class="col">
+              <center>
+                ACTA DE PAGO
+              </center>
+            </div>
+
+            <div class="col">
+              <center>
+                PLANILLA
+              </center>
+            </div>
+          </div>
+
+
+
+          <div class="row">
+            <div class="col">
+              
+            </div>
+
+            <div class="col">
+         
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+          
+            </div>
+
+            <div class="col">
+        
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              
+            </div>
+
+            <div class="col">
+              
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+       
+            </div>
+
+            <div class="col">
+            
+            </div>
+          </div>
+ <br>
+        </div>
+       
+        <div class="modal-footer">
+          <div class="col">
+       
+              <button type="button" class="fas fa-x btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+              <button class="fas fa-save btn btn-outline-success" type="submit">Aprobar</button>
+     
+          </div>
+          <div class="col">
+
+          </div>
+          <div class="col">
+            
+          </div>
+          <div class="col">
+           <!--<input type="text" value="" class="form-control">--> 
+            <a class="fa fa-eraser btn btn-outline-danger">Devolver</a>
+            
+          </div>
+        </div>
+    </form>
+      </div>
+    </div>
+  </div>
+ 

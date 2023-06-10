@@ -66,13 +66,15 @@ class contrato(models.Model):
 
     #pendiente validar como muestra la llave foranea
     usuario=models.ForeignKey(usuario,null=True,blank=True,on_delete=models.CASCADE)
-   
+###################################################################################################
+################ SOLO TENIA ARCHIVO EN CONTRATO ###################################################
     
 class rp(models.Model):
     numero = models.IntegerField(primary_key=True, verbose_name='Numero del rp')
     fecha = models.CharField(max_length=300, verbose_name='Fecha del rp')
     duracion = models.CharField(max_length=40, verbose_name='Duracion del contrato')
     valor = models.CharField(max_length=300, verbose_name='Valor del contrato')
+    archivo = models.FileField(upload_to='pdfs/', default='NO CARGADO', verbose_name='archivo')#LO AGREGUE REVISAR
     #llave foranea
     usuario=models.ForeignKey(usuario,null=True,blank=True,on_delete=models.CASCADE)
 
@@ -84,6 +86,7 @@ class actainicio(models.Model):
     fecha = models.CharField(max_length=300, verbose_name='Fecha de acta de inicio')
     duracion = models.CharField(max_length=40, verbose_name='Duracion del contrato')
     valor = models.CharField(max_length=300, verbose_name='Valor del contrato')
+    archivo = models.FileField(upload_to='pdfs/', default='NO CARGADO', verbose_name='archivo')#LO AGREGUE REVISAR
     usuario=models.ForeignKey(usuario,null=True,blank=True,on_delete=models.CASCADE)
     #llave foranea
     
@@ -102,6 +105,7 @@ class planilla(models.Model):
     valorsalud = models.CharField(max_length=300, verbose_name='Valor de la salud')
     nombrearl = models.CharField(max_length=300, verbose_name='Nombre de la entidad de arl')
     valorarl = models.CharField(max_length=300, verbose_name='Valor de arl')
+    archivo = models.FileField(upload_to='pdfs/', default='NO CARGADO', verbose_name='archivo')#LO AGREGUE REVISAR
     usuario=models.ForeignKey(usuario,null=True,blank=True,on_delete=models.CASCADE)
     #llave foranea
 
@@ -115,6 +119,7 @@ class actividades(models.Model):
     actividades = models.CharField(max_length=600, verbose_name='Actividades a realizar ')
     resultadoactvidades = models.CharField(max_length=600, verbose_name='Resultado de las actividades')
     #llave foranea
+    archivo = models.FileField(upload_to='pdfs/', default='NO CARGADO', verbose_name='archivo')#LO AGREGUE REVISAR
     usuario=models.ForeignKey(usuario,null=True,blank=True,on_delete=models.CASCADE)
 
     def __str__(self):
@@ -129,6 +134,7 @@ class actapago(models.Model):
     fechacuenta = models.CharField(max_length=600, verbose_name='Fecha en la que pasa la cuenta') #aqui tomar el mes automaticamente y dia
     periodo = models.IntegerField( verbose_name='Periodo de pago')
     #llave foranea
+    archivo = models.FileField(upload_to='pdfs/', default='NO CARGADO', verbose_name='archivo')#LO AGREGUE REVISAR
     usuario=models.ForeignKey(usuario,null=True,blank=True,on_delete=models.CASCADE)
 
     def __str__(self):
@@ -152,6 +158,7 @@ class certificadoseguimiento(models.Model):
     cuentapago = models.CharField(max_length=40,verbose_name='Nombre de la entidad bancaria')
     numerocuentapago = models.IntegerField( verbose_name='Numero de la entidad bancaria')
     #llave foranea
+    archivo = models.FileField(upload_to='pdfs/', default='NO CARGADO', verbose_name='archivo')#LO AGREGUE REVISAR
     usuario=models.ForeignKey(usuario,null=True,blank=True,on_delete=models.CASCADE)
 
     def __str__(self):
@@ -168,10 +175,10 @@ class cuentausuario(models.Model): #la idea es no mostrar todo los datos de la c
     #primerapellido = models.CharField(max_length=40, verbose_name='Primer apellido')
     #segundoapellido = models.CharField(max_length=40, verbose_name='Segundo apellido')
     email = models.CharField(max_length=40, verbose_name='Email')
-    #supervisor = models.CharField(max_length=40, verbose_name='Supervisor')
+    supervisor = models.CharField(max_length=40, verbose_name='Supervisor', default='No asignado')
     #tipodocumento = models.CharField(max_length=40, verbose_name='Tipo de documento',choices=tipodocumento, default='CC')
     cedula = models.IntegerField(verbose_name='Cedula')#llevarlo por id de cuenta y relacionarlo con usuario
-    #dependencia = models.CharField(max_length=40, verbose_name='Dependencia')
+    dependencia = models.CharField(max_length=40, verbose_name='Dependencia', default='No asignado')
     #sexo = models.CharField(max_length=40, verbose_name='Sexo', choices=sexos, default='F')
     #gestion de contratacion, tener en cuenta el pdf
     #numero = models.IntegerField(verbose_name='Numero del contrato')

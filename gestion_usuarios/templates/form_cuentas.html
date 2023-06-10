@@ -1,0 +1,178 @@
+<form id="myForm" method="POST" class="form-control">
+  {% csrf_token %}
+  <!-- VALIDAR CONTRATOS Y ADICCIONES-->
+  <!-- GESTION DE CONTRATOS-->
+
+
+
+
+  <div class="row">
+    <div class="col">
+      <label type="button" id="showButton" class="fal fa-folder">
+          Contrato # del 2023
+        <!-- Button trigger modal -->
+                          <button type="button" class="btn btn-white fas fa-eye" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                           
+                          </button>
+
+                          <!-- Modal -->
+                          <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-fullscreen">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Informacion de contratacion</h1>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <h6><b>Informacion del contrato</b></h6> 
+                                  <div class="row">
+
+                                    <div class="col">
+                                      <label for="">Numero del contrato:</label>
+                                      <input type="number" placeholder="Numero del contrato" class="form-control">
+                                    </div>
+                                    <div class="col">
+                                      <label for="">Numero del proceso:</label>
+                                      <input type="number" placeholder="Numero del contrato" class="form-control">
+                                    </div>
+                                    <div class="col">
+                                      <label for="">Fecha perfeccion:</label>
+                                      <input type="text" placeholder="Fecha de perfeccionamiento" class="form-control">
+                                    </div>
+                                    <div class="col">
+                                      <label for="">Valor del contrato:</label>
+                                      <input type="number" placeholder="Valor del contrato" class="form-control">
+                                    </div>
+                                    <div class="col">
+                                     <br>
+                                     <center>
+                                      <a href="" class="fas fa-eye">Ver contrato</a>
+                                     </center>
+                                    
+                                    </div>
+                                  </div>
+
+<br>
+                                  <div class="row">
+                                    
+
+                                    <div class="col">
+                                      <label for="">Fecha inicial:</label>
+                                      <input type="text" placeholder="Fecha inicial del contrato" class="form-control">
+                                    </div>
+
+                                    <div class="col">
+                                      <label for="">Fecha final:</label>
+                                      <input type="text" placeholder="Fecha final del contrato" class="form-control">
+                                    </div>
+
+                                    <div class="col">
+                                      <label for="">Duraccion:</label>
+                                      <input type="text" placeholder="Duraccion" class="form-control">
+                                    </div>
+
+                                    <div class="col">
+                                      <label for="">Supervisor:</label>
+                                      <input type="text" placeholder="Duraccion" class="form-control">
+                                    </div>
+                                  </div>
+<br>
+                                  <div class="row">
+                                    <div class="col">
+                                      <label for="">Objeto del contrato:</label>
+                                      <input type="text" placeholder="Objeto del contrato" class="form-control">
+                                    </div>
+                                  </div>
+<hr>
+<h6><b>Informacion adiccional</b></h6> 
+<div class="row">
+  <div class="col">
+    <label for="">Numero del registro presupuestal:</label>
+    <input type="text" placeholder="Numero del rp" class="form-control">
+  </div>
+  <div class="col">
+    <label for="">Fecha del registro presupuestal:</label>
+    <input type="text" placeholder="Fecha del rp" class="form-control">
+  </div>
+  <div class="col">
+    <br>
+    <center>
+     <a href="" class="fas fa-eye">Ver rp</a>
+    </center>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col">
+    <label for="">Numero del proceso acta de inicio:</label>
+    <input type="text" placeholder="Numero del proceso de acta de inicio" class="form-control">
+  </div>
+  <div class="col">
+    <label for="">Fecha del acta de inicio:</label>
+    <input type="text" placeholder="Fecha del acta de inicio" class="form-control">
+  </div>
+  <div class="col">
+    <br>
+    <center>
+     <a href="" class="fas fa-eye">Ver acta de inicio</a>
+    </center>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col">
+    Documento certificado de seguimientos de Cuentas <br>
+    <button class="btn btn-white">Generar</button>
+  </div>
+  <div class="col">
+    Documento acta de pago <br>
+    <button class="btn btn-white">Generar</button>
+  </div>
+  <div class="col">
+    Documento actividades <br>
+    <button class="btn btn-white">Generar</button>
+  </div>
+</div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                               
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+        
+      </label> 
+    </div>
+    <div class="col">
+
+    </div>
+    <div class="col">
+     
+      <div class="progress" role="progressbar" aria-label="Success striped example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+       
+        <div class="progress-bar progress-bar-striped bg-secondary  progress-bar-animated" style="width: 25%">Avance %25</div>
+      </div>
+    </div>
+
+
+  </div>
+
+
+
+
+
+
+
+
+
+  <!--- DEBE DESER DESPLEGABLE CON LO DE ABAJO-->
+  <!-- SEGUN LA DURACION DE CONTRATO VER LA CANTIDAD DE CUENTAS QUE SE PUEDEN PASAR Y GENERASR LAS LISTAS-->
+  <!-- HACER UN CICLO CON PYTHON QUE IMPRIMA LAS LISTAS-->
+  <!-- GESTION DE CUENTAS-->
+  <h6> Cuentas</h6>
+  <ul>
+                <li> Cuenta #
+                  <a href="" class="btn btn-white fas fa-share"></a>
+                </li> <!-- POR AHORA HACER EJEMPLO CON UNA CUENTA-->
+  </ul>

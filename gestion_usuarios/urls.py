@@ -9,8 +9,8 @@ urlpatterns = [
     #path('admin/', admin.site.urls),
     path('base', views.base, name='base'),
     path('prueba', views.prueba, name='prueba'),
-    path('', views.home, name='inicio'),
-    path('', views.logout, name='logout'),
+    path('login', views.home, name='inicio'),
+    path('login', views.logout, name='logout'),
     path('usuarios', views.usuarios, name='usuarios'), 
     path('usuarios/solicitud', views.solicitud_usuario, name='solicitud_usuario'), 
     path('usuarios/crear', views.crear, name='crear'), 
@@ -30,8 +30,13 @@ urlpatterns = [
     path('eliminarregistro/', views.eliminarregistro, name='eliminarregistro'),
     path('usuarios/pendient/', views.usuarios_pendient, name='usuario_pendient'),
     path('eliminador/<int:cedula>/', views.eliminador, name='eliminador'),
-    
-    #path('admin/', admin.site.urls,name='admin'),
+       #path('admin/', admin.site.urls,name='admin'),
     #path('usuarios/pendient/guardar/<int:cedula>', views.eliminar, name='eliminar'), 
+    
+    
+    #################### nuevos cambios
+    path('contratista/perfil', views.ops, name='ops'),
+    path('contratista/cuentas', views.cuentas, name='cuentas'),
+ 
   
 ]

@@ -1,9 +1,12 @@
 
 from django.shortcuts import render
-
+from gestion_usuarios.models import usolicitudes,cuentausuario
+from gestion_usuarios.forms import Users
 
 def  supervisor(request):
-     return render(request, 'supervisor.html') # se modifica esto con lo anterior pero para no poner toda la ruta, cambiando en settin.py insatllerds app poniendo la ruta
+     username = request.user.username
+     datos = cuentausuario.objects.values()
+     return render(request, 'supervisor.html', {'datos': datos }) 
 
 
 

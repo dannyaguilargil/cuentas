@@ -49,7 +49,7 @@ def home(request):
                      return redirect('usuarios')
                 else:
                      login(request, user)
-                     return redirect('perfil')
+                     return redirect('ops')
             else:
                 messages.error(request, 'Las credenciales de inicio de sesión son inválidas.')
                 return redirect('inicio')
@@ -495,8 +495,7 @@ def crear(request):
 
 #logout de la pagina
 def logout(request):
-    logout(request)
-    return redirect('inicio')
+    return redirect('login')
 
 #USUARIOS PENDIENTES SIN DATATABLE
 def usuario_pendiente(request):
@@ -570,3 +569,12 @@ def eliminador(request, cedula):
         usuario.delete()
         return redirect('usuario_pendiente')
     return render(request, 'eliminar_usuario.html', {'form_elimina': form_elimina, 'usuario': usuario})
+
+#############CAMBIOS NUEVOS ##################
+def ops(request):
+    username = request.user.username
+    return render(request, 'ops.html', {'username': username})
+
+def cuentas(request):
+    username = request.user.username
+    return render(request, 'cuentas.html', {'username': username})
