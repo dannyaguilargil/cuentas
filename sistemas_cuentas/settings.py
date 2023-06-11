@@ -15,8 +15,10 @@ import os #lo agregue
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 #################PARA EL MANEJO DE PDFS###################
-MEDIA_ROOT = os.path.join(BASE_DIR, 'sistemas_cuentas/')
-MEDIA_URL = 'sistemas_cuentas/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'sistemas_cuentas/static/') #desde static
+MEDIA_URL = 'sistemas_cuentas/static/'
+##MEDIA_ROOT = os.path.join(BASE_DIR, 'sistemas_cuentas/') ##directamente desde la carpeta media
+#MEDIA_URL = 'sistemas_cuentas/'
 ######lo agregue
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
@@ -154,9 +156,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static') # LO AGREGUE PARA LA LECTURA DE PDF OJO
 #AGREGAR LA RUTA ACTUAL DONDE SE ENCUENTRA LA CARPETA
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'sistemas_cuentas/static'),)
-
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+#STATICFILES_DIRS = (os.path.join(BASE_DIR, 'sistemas_cuentas/static'),)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

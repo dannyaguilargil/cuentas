@@ -17,6 +17,8 @@ class usuario(models.Model):
     sexo = models.CharField(max_length=40, verbose_name='Sexo', choices=sexos, default='F')
     usuario = models.CharField(max_length=40, verbose_name='Usuario')
     contrasena = models.CharField(max_length=40, verbose_name='Contrasena')
+    telefono = models.IntegerField(verbose_name='Telefono' ,default=0)
+    direccion = models.CharField(max_length=40, verbose_name='Direccion', default='')
     rol = models.CharField(max_length=40, verbose_name='Rol',choices=rol, default='CONTRATISTA')
     
     #Dependiendo de como se muestre aqui se muestra en la relacion de la llave foranera
@@ -198,4 +200,16 @@ class cuentausuario(models.Model): #la idea es no mostrar todo los datos de la c
     #numeroactainicio = models.IntegerField(verbose_name='Numero proceso del acta de inicio')
     #fechaactainicio = models.CharField(max_length=300, verbose_name='Fecha de acta de inicio')
     #gestion de acta de inicio, tener en cuenta el pdf  
-    
+
+#PRIMERO ME TRAIGO LA INFORMACION    
+#class perfil(models.Model):
+#    nombre = models.CharField(max_length=40, verbose_name='Nombre completo')
+#    apellidos = models.CharField(max_length=40, verbose_name='Apellidos')
+#    cedula = models.IntegerField(verbose_name='Cedula')
+#    email = models.CharField(verbose_name='Email')
+
+class cuentabancaria(models.Model):
+    numero = models.IntegerField(primary_key=True, verbose_name='Numero de cuenta bancaria')
+    tipocuenta = models.CharField(max_length=40, verbose_name='Tipo de cuenta bancaria')
+    nombrecb = models.CharField(max_length=40, verbose_name='Nombre de cuenta bancaria')
+    usuario=models.ForeignKey(usuario,null=True,blank=True,on_delete=models.CASCADE)

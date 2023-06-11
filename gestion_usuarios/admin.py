@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import  usuario, usolicitudes, contrato, rp, actainicio, prueba, planilla, actividades, actapago, certificadoseguimiento, cuentausuario
-
+from .models import  usuario, usolicitudes, contrato, rp, actainicio, prueba, planilla, actividades, actapago, certificadoseguimiento, cuentausuario, cuentabancaria
+#from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 import os
@@ -37,6 +37,8 @@ class Cont(admin.ModelAdmin):
     def display_archivo(self, obj):
         if obj.archivo:
             file_url = obj.archivo.url
+            file_url = file_url.replace('/sistemas_cuentas/', '/')
+            #file_url = reverse('sistemas_cuentas:archivo', args=[obj.numero])
             return format_html('<a href="{}" target="_blank">Ver pdf</a>', file_url)
         else:
             return '-'
@@ -102,3 +104,5 @@ class Cuentausuario(admin.ModelAdmin):
     list_display=('email','cedula')
 admin.site.register(cuentausuario, Cuentausuario)
 #cuenta a pasar por el usuario
+
+admin.site.register(cuentabancaria)

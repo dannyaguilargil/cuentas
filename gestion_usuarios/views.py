@@ -10,7 +10,7 @@ from gestion_usuarios.models import usolicitudes
 from gestion_usuarios.models import cuentausuario
 from gestion_usuarios.models import prueba
 from gestion_usuarios.models import contrato,rp,actainicio,planilla
-from gestion_usuarios.models import actividades,actapago,certificadoseguimiento
+from gestion_usuarios.models import actividades,actapago,certificadoseguimiento,cuentabancaria
 from gestion_usuarios.forms import Users
 from gestion_usuarios.forms import Usuario, InsertForm, InsertFormU, InsertFormUE
 from gestion_usuarios.forms import Contrato, Rp, Actainicio, Planilla, Actividades, Actapago, Certificadoseguimiento, Cusuario,Contratou
@@ -22,7 +22,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_GET
-from django_datatables_view.base_datatable_view import BaseDatatableView
+#from django_datatables_view.base_datatable_view import BaseDatatableView
 
 #def  usuarios(request):
 #     return render(request, 'C:/xampp/htdocs/sistemas_cuentas/gestion_usuarios/templates/index.html')
@@ -572,9 +572,62 @@ def eliminador(request, cedula):
 
 #############CAMBIOS NUEVOS ##################
 def ops(request):
+    nombre = ""
+    segundo_nombre = ""
+    primer_apellido = ""
+    segundo_apellido = ""
+    email = ""
+    cedula = ""
+    telefono = ""
+    direccion = ""
+    numerocb = ""
+    tipocuenta = ""
+    nombrecb = ""
+    numeroplanilla = ""
+    fechaplanilla = ""
+    valortotalplanilla = ""
+    periodoplanilla = ""
+    nombresalud = ""
+    valorsalud = ""
+    nombrearl = ""
+    valorarl = ""
+    nombrepension = ""
+    valorpension = ""
     username = request.user.username
-    return render(request, 'ops.html', {'username': username})
+    usuario_obj = usuario.objects.filter(usuario=username).first()
+    if usuario.objects.filter(usuario=username).exists():
+        nombre = usuario_obj.nombre
+        segundo_nombre = usuario_obj.segundonombre #HASTA AQUI VA BIEN
+        primer_apellido = usuario_obj.primerapellido
+        segundo_apellido = usuario_obj.segundoapellido
+        email = usuario_obj.email
+        cedula = usuario_obj.cedula
+        telefono = usuario_obj.telefono
+        direccion = usuario_obj.direccion
+        cuentb = cuentabancaria.objects.filter(usuario_id=cedula).first()
+        if cuentabancaria.objects.filter(usuario_id=cedula).exists():
+             numerocb = cuentb.numero
+             tipocuenta = cuentb.tipocuenta
+             nombrecb = cuentb.nombrecb
+             plan = planilla.objects.filter(usuario_id=cedula).first()
+             if planilla.objects.filter(usuario_id=cedula).exists():
+                  numeroplanilla = plan.numero
+                  fechaplanilla = plan.fecha
+                  valortotalplanilla = plan.valortotal
+                  periodoplanilla = plan.periodo
+                  nombresalud = plan.nombresalud
+                  valorsalud = plan.valorsalud
+                  nombrearl = plan.nombrearl
+                  valorarl = plan.valorarl
+                  nombrepension = plan.nombrepension
+                  valorpension = plan.valorpension
+    return render(request, 'ops.html', {'username': username, 'nombre': nombre, 'segundo_nombre': segundo_nombre, 'primer_apellido': primer_apellido, 'segundo_apellido': segundo_apellido, 'cedula': cedula,
+                                        'email': email, 'telefono': telefono, 'direccion': direccion, 'numerocb': numerocb, 'tipocuenta': tipocuenta, 'nombrecb': nombrecb, 'numeroplanilla': numeroplanilla,
+                                        'fechaplanilla': fechaplanilla, 'valortotalplanilla': valortotalplanilla, 'periodoplanilla': periodoplanilla, 'nombresalud': nombresalud, 'valorsalud': valorsalud,
+                                        'nombrearl': nombrearl, 'valorarl': valorarl, 'nombrepension': nombrepension, 'valorpension': valorpension})
 
 def cuentas(request):
     username = request.user.username
+    #SELECT count(*) from gestion_usuarios_contrato where usuario_id=1090492324;
+   
     return render(request, 'cuentas.html', {'username': username})

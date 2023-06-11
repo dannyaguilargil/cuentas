@@ -36,7 +36,7 @@ urlpatterns = [
    path('', include('gestion_tesoreria.urls')),
    
    #parte administrativa
-   path('admin/', admin.site.urls,name='admin'),
+   path('admin/', admin.site.urls, name='admin'),
 
    
 

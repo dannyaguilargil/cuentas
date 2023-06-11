@@ -4,6 +4,8 @@ from django.urls import path
 #from .views import home
 from . import views
 from django.shortcuts import render
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     #path('admin/', admin.site.urls),
@@ -30,6 +32,7 @@ urlpatterns = [
     path('eliminarregistro/', views.eliminarregistro, name='eliminarregistro'),
     path('usuarios/pendient/', views.usuarios_pendient, name='usuario_pendient'),
     path('eliminador/<int:cedula>/', views.eliminador, name='eliminador'),
+    path('eliminador/<int:cedula>/', views.eliminador, name='eliminador'),
        #path('admin/', admin.site.urls,name='admin'),
     #path('usuarios/pendient/guardar/<int:cedula>', views.eliminar, name='eliminar'), 
     
@@ -37,6 +40,9 @@ urlpatterns = [
     #################### nuevos cambios
     path('contratista/perfil', views.ops, name='ops'),
     path('contratista/cuentas', views.cuentas, name='cuentas'),
+    
+    
+    #ruta de pdf
  
   
-]
+] + static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)

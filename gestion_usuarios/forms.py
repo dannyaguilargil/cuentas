@@ -94,3 +94,9 @@ class InsertFormUE(forms.ModelForm):
     class Meta:
         model = usolicitudes
         fields = ['cedula']
+        
+################ CAMBIOS EN EL SISTEMA SCRUM ####################
+#class perfila(forms.ModelForm):
+#    class Meta:
+#        model = cuentausuario
+#        fields = ['nombre','cedula', 'email','supervisor','objeto']
