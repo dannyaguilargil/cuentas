@@ -42,6 +42,7 @@ ALLOWED_HOSTS = [] #direcciones que tiene permitido consultar al servidor
 # Application definition
 
 INSTALLED_APPS = [
+    'admin_interface', #AGREGUEE PARA CAMBIAR ESTILOS
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -55,8 +56,11 @@ INSTALLED_APPS = [
     'gestion_tesoreria',
     'django_datatables_view',
     'filebrowser',
+    'colorfield', #AGREGUEE PARA CAMBIAR ESTILOS
    # 'sistemas_cuentas',
 ]
+
+X_FRAME_OPTIONS = 'SAMEORIGIN' #PARA CAMBIAR ESTILOS AL PANEL ADMIN
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -158,7 +162,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 #STATIC_ROOT = os.path.join(BASE_DIR, 'static') # LO AGREGUE PARA LA LECTURA DE PDF OJO
 #AGREGAR LA RUTA ACTUAL DONDE SE ENCUENTRA LA CARPETA
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'sistemas_cuentas/static'),)
 #STATICFILES_DIRS = (os.path.join(BASE_DIR, 'sistemas_cuentas/static'),)
 
 # Default primary key field type
