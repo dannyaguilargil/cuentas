@@ -95,27 +95,19 @@
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href=" {% url 'usuarios' %} " style="color: white;">Registrados</a>
-                                    <a class="nav-link" href=" {% url 'usuario_pendient' %} " style="color: white;">Pendientes</a>
-                                    <a class="nav-link" href=" {% url 'crear' %} " style="color: white;">Crear</a>
+                                    <a class="nav-link" href=" {% url 'crear' %} " style="color: white;">Registrar un usuario</a>
+                                    <a class="nav-link" href=" {% url 'usuario_pendient' %} " style="color: white;">Usuarios pendientes</a>
+                                    <a class="nav-link" href=" {% url 'documentos' %} " style="color: white;">Registrar documentos</a>
                                 </nav>
                             </div>
                            
                             
-                            <div class="sb-sidenav-menu-heading" >Gestionar documentos</div>
-                            <a class="nav-link" href="{% url 'documentos' %} " style="background: #1d985a; color: white;">
-                                <div class="sb-nav-link-icon"><i class="fas fa-id-card"></i></div>
-                                Registrar
-                            </a>
+                           
 
-                            <div class="sb-sidenav-menu-heading" >Gestionar cuenta</div>
-                            <a class="nav-link" href="charts.html" style="background: #1d985a; color: white;">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Ver flujo
-                            </a>
+                        
 
                             <div class="sb-sidenav-menu-heading" >Panel de administracion</div>
-                            <a class="nav-link" href="" style="background: #1d985a; color: white;">
+                            <a class="nav-link" href="/admin/" style="background: #1d985a; color: white;">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 Ver panel
                             </a>
@@ -133,9 +125,9 @@
               
                 <div class="container">
                     <center>
-                        <img  src=" {% static 'imgs/logocompleto.png' %} "  alt="" style="width: 170px; text-align: center;height: 70px">
+                        <img  src=" {% static 'imgs/logocompleto.png' %} "  alt="" style="width: 120px; text-align: center;height: 45px">
                     </center> 
-                {% include 'actualizar_perfil.html' %}
+             
                 {% block contenido %}
                 {% endblock contenido %}
          
@@ -146,7 +138,7 @@
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
                             <!---->
-                            <div class="text-muted">Todo los derechos reservados IMSALUD</div>
+                            <div class="text-muted">"Intentando lo Imposible es como se Realiza lo Posible"</div>
                             <div>
                                 <a href="#" style="color: grey;">Politica de privacidad</a>
                                 &middot;

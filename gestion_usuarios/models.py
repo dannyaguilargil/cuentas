@@ -64,6 +64,7 @@ class contrato(models.Model):
     fechacontrato = models.CharField(max_length=300, verbose_name='Fecha inicial del  contrato')
     fechaterminacion = models.CharField(max_length=300, verbose_name='Fecha final del contrato')
     duracion = models.CharField(max_length=40, verbose_name='Duracion del contrato')
+    supervisor = models.CharField(max_length=40, verbose_name='Supervisor', default='')
     archivo = models.FileField(upload_to='pdfs/', default=obtener_archivo_predeterminado, verbose_name='archivo')
 
     #pendiente validar como muestra la llave foranea

@@ -19,14 +19,6 @@ from django.urls import path, include
 from sistemas_cuentas.views import index
 from sistemas_cuentas.views import saludo #DESDE LA MISMA CARPETA
 
-
-#from sistemas_cuentas.views import despedida
-#from sistemas_cuentas.views import calculaEdad
-#from sistemas_cuentas.views import saludo3, plantillas
-#from sistemas_cuentas.views import home
-#ejemplo con parametros
-#from sistemas_cuentas.views import fecha
-
 urlpatterns = [  
    path('', include('gestion_usuarios.urls')), #para acedder a otra ruta en otra carpeta
    path('index/', index), #de la misma carpeta

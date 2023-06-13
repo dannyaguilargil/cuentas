@@ -46,7 +46,7 @@ def home(request):
             if user is not None:
                 if user.is_staff:
                      login(request, user)
-                     return redirect('usuarios')
+                     return redirect('crear')
                 else:
                      login(request, user)
                      return redirect('ops')
@@ -628,6 +628,54 @@ def ops(request):
 
 def cuentas(request):
     username = request.user.username
+    numero = 1
+    numeroproceso = 1
+    fechaperfeccionamiento = ""
+    fechacontrato = ""
+    archivo = ""
+    archivorp = ""
+    objeto = ""
+    valor = ""
+    fechaterminacion = ""
+    duracion = ""
+    numerorp = ""
+    archivoinicio = ""
+    fecharp = ""
+    numeroai = ""
+    fechaai = ""
+    supervisor = ""
+    numeroplanilla = ""
+    usuario_obj = usuario.objects.filter(usuario=username).first()
+    if usuario.objects.filter(usuario=username).exists():
+        cedula = usuario_obj.cedula
+        usuario_obj2 = contrato.objects.filter(usuario_id=cedula).first()
+        if contrato.objects.filter(usuario_id=cedula).exists():
+            numero = usuario_obj2.numero
+            numeroproceso = usuario_obj2.numeroproceso
+            fechaperfeccionamiento = usuario_obj2.fechaperfeccionamiento
+            fechacontrato = usuario_obj2.fechacontrato
+            supervisor = usuario_obj2.supervisor
+            archivo = usuario_obj2.archivo
+            #archivo2 = archivo.replace('contratista', 'static')
+            objeto = usuario_obj2.objeto
+            valor = usuario_obj2.valor
+            fechaterminacion = usuario_obj2.fechaterminacion
+            duracion = usuario_obj2.duracion
+            usuario_objr3 = rp.objects.filter(usuario_id=cedula).first()
+            if rp.objects.filter(usuario_id=cedula).exists():
+                numerorp = usuario_objr3.numero
+                fecharp = usuario_objr3.fecha
+                archivorp = usuario_objr3.archivo
+                usuario_objr4 = actainicio.objects.filter(usuario_id=cedula).first()
+                if actainicio.objects.filter(usuario_id=cedula).exists():
+                    numeroai = usuario_objr4.numero
+                    fechaai = usuario_objr4.fecha
+                    archivoinicio = usuario_objr4.archivo
+                    plan = planilla.objects.filter(usuario_id=cedula).first()
+                    if planilla.objects.filter(usuario_id=cedula).exists():
+                         numeroplanilla = plan.numero
+    return render(request, 'cuentas.html', {'username': username, 'numero': numero, 'objeto': objeto, 'valor': valor, 'fechaterminacion': fechaterminacion, 'duracion': duracion, 'numeroproceso': numeroproceso,
+                                            'fechaperfeccionamiento': fechaperfeccionamiento, 'valor': valor, 'fechacontrato': fechacontrato, 'fechaterminacion': fechaterminacion, 'duracion': duracion,
+                                            'archivo': archivo, 'supervisor': supervisor, 'objeto': objeto, 'numerorp': numerorp, 'fecharp': fecharp, 'numeroai': numeroai, 'fechaai': fechaai, 'archivorp': archivorp,
+                                            'archivoinicio': archivoinicio, 'numeroplanilla': numeroplanilla})
     #SELECT count(*) from gestion_usuarios_contrato where usuario_id=1090492324;
-   
-    return render(request, 'cuentas.html', {'username': username})

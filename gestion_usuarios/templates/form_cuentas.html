@@ -1,10 +1,15 @@
 <form id="myForm" method="POST" class="form-control">
+  {% load static %}
   {% csrf_token %}
   <!-- VALIDAR CONTRATOS Y ADICCIONES-->
-  <!-- GESTION DE CONTRATOS-->  
+  <!-- GESTION DE CONTRATOS--> 
+  <center> 
+  <h5>Gestionar cuenta</h5>
+  </center>
   <div class="row">
-    <div class="col">
-      <p class=" fal fa-folder">     Contrato # del 2023</p>
+    
+    <div class="col-6">
+      <p class=" fal fa-folder">     Contrato #{{numero}} del 2023</p>
 
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-white fas fa-eye" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
@@ -25,24 +30,25 @@
 
                                     <div class="col">
                                       <label for="">Numero del contrato:</label>
-                                      <input type="number" placeholder="Numero del contrato" class="form-control">
+                                      <input type="number" placeholder="Numero del contrato" class="form-control" value="{{numero}}">
                                     </div>
                                     <div class="col">
                                       <label for="">Numero del proceso:</label>
-                                      <input type="number" placeholder="Numero del contrato" class="form-control">
+                                      <input type="number" placeholder="Numero del proceso" class="form-control" value="{{numeroproceso}}">
                                     </div>
                                     <div class="col">
                                       <label for="">Fecha perfeccion:</label>
-                                      <input type="text" placeholder="Fecha de perfeccionamiento" class="form-control">
+                                      <input type="text" placeholder="Fecha de perfeccionamiento" class="form-control" value="{{fechaperfeccionamiento}}">
                                     </div>
                                     <div class="col">
                                       <label for="">Valor del contrato:</label>
-                                      <input type="number" placeholder="Valor del contrato" class="form-control">
+                                      <input type="number" placeholder="Valor del contrato" class="form-control" value="{{valor}}">
                                     </div>
                                     <div class="col">
                                      <br>
                                      <center>
-                                      <a href="" class="fas fa-eye">Ver contrato</a>
+                                      <a href="{% static archivo %}" target="_blank" class="fas fa-file-pdf" style="color: grey;">Ver PDF del contrato</a>
+
                                      </center>
                                     
                                     </div>
@@ -54,67 +60,68 @@
 
                                     <div class="col">
                                       <label for="">Fecha inicial:</label>
-                                      <input type="text" placeholder="Fecha inicial del contrato" class="form-control">
+                                      <input type="text" placeholder="Fecha inicial del contrato" class="form-control" value="{{fechacontrato}}">
                                     </div>
 
                                     <div class="col">
                                       <label for="">Fecha final:</label>
-                                      <input type="text" placeholder="Fecha final del contrato" class="form-control">
+                                      <input type="text" placeholder="Fecha final del contrato" class="form-control" value="{{fechaterminacion}}">
                                     </div>
 
                                     <div class="col">
-                                      <label for="">Duraccion:</label>
-                                      <input type="text" placeholder="Duraccion" class="form-control">
+                                      <label for="">Duracion:</label>
+                                      <input type="text" placeholder="Duracion" class="form-control" value="{{duracion}}">
                                     </div>
 
                                     <div class="col">
                                       <label for="">Supervisor:</label>
-                                      <input type="text" placeholder="Duraccion" class="form-control">
+                                      <input type="text" placeholder="Supervisor" class="form-control" value="{{supervisor}}">
                                     </div>
                                   </div>
 <br>
                                   <div class="row">
                                     <div class="col">
                                       <label for="">Objeto del contrato:</label>
-                                      <input type="text" placeholder="Objeto del contrato" class="form-control">
+                                      <input type="text" placeholder="Objeto del contrato" class="form-control" value="{{objeto}}">
                                     </div>
                                   </div>
-<hr>
-<h6><b>Informacion adiccional</b></h6> 
-<div class="row">
-  <div class="col">
-    <label for="">Numero del registro presupuestal:</label>
-    <input type="text" placeholder="Numero del rp" class="form-control">
-  </div>
-  <div class="col">
-    <label for="">Fecha del registro presupuestal:</label>
-    <input type="text" placeholder="Fecha del rp" class="form-control">
-  </div>
-  <div class="col">
-    <br>
-    <center>
-     <a href="" class="fas fa-eye">Ver rp</a>
-    </center>
-  </div>
-</div>
+                                  <hr>
+                                  <h6><b>Informacion adiccional</b></h6> 
+                                  <div class="row">
+                                  <div class="col">
+                                    <label for="">Numero del registro presupuestal:</label>
+                                    <input type="text" placeholder="Numero del rp" class="form-control" value="{{numerorp}}">
+                                  </div>
+                                  <div class="col">
+                                    <label for="">Fecha del registro presupuestal:</label>
+                                    <input type="text" placeholder="Fecha del rp" class="form-control" value="{{fecharp}}">
+                                  </div>
+                                  <div class="col">
+                                    <br>
+                                    <center>
+                                      <a href="{% static archivorp %}" target="_blank" class="fas fa-file-pdf" style="color: grey;">Ver PDF del registro presupuestal</a>
+                                    </center>
+                                  </div>
+                                </div>
 <br>
 <div class="row">
   <div class="col">
     <label for="">Numero del proceso acta de inicio:</label>
-    <input type="text" placeholder="Numero del proceso de acta de inicio" class="form-control">
+    <input type="text" placeholder="Numero del proceso de acta de inicio" class="form-control" value="{{numeroai}}">
   </div>
   <div class="col">
     <label for="">Fecha del acta de inicio:</label>
-    <input type="text" placeholder="Fecha del acta de inicio" class="form-control">
+    <input type="text" placeholder="Fecha del acta de inicio" class="form-control" value="{{fechaai}}">
   </div>
   <div class="col">
     <br>
     <center>
-     <a href="" class="fas fa-eye">Ver acta de inicio</a>
+      <a href="{% static archivoinicio %}" target="_blank" class="fas fa-file-pdf" style="color: grey;">Ver PDF del acta de inicio</a>
     </center>
   </div>
 </div>
-<br>
+
+<!--
 <div class="row">
   <div class="col">
     Documento certificado de seguimientos de Cuentas <br>
@@ -129,6 +136,7 @@
     <button class="btn btn-white">Generar</button>
   </div>
 </div>
+-->
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -154,21 +162,97 @@
 
   </div>
 
-
-
-
-
-
-
-
-
   <!--- DEBE DESER DESPLEGABLE CON LO DE ABAJO-->
   <!-- SEGUN LA DURACION DE CONTRATO VER LA CANTIDAD DE CUENTAS QUE SE PUEDEN PASAR Y GENERASR LAS LISTAS-->
   <!-- HACER UN CICLO CON PYTHON QUE IMPRIMA LAS LISTAS-->
   <!-- GESTION DE CUENTAS-->
-  <h6> Cuentas</h6>
+  <!-- POR AHORA HARE EL EJEMPLO CON LA PRIMERA CUENTA A PASAR, PERO DEBE GESTIONAR SEGUN LA CANTIDAD DE CUENTA-->
+ 
   <ul>
-                <li> Cuenta #
-                  <a href="" class="btn btn-white fas fa-share"></a>
-                </li> <!-- POR AHORA HACER EJEMPLO CON UNA CUENTA-->
+                <li>  <h5> Cuentas del contrato #{{numero}} del 2023</h5>
+                  <div class="accordion" id="accordionPanelsStayOpenExample">
+                    <div class="accordion-item">
+                      
+                     <!-- <h2 class="accordion-header"> </h2>-->
+
+                        <div class="row">
+                          <div class="col">
+                            
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                              Cuenta #1 
+                            </button>
+
+                        </div>
+                        </div>
+                      <form action="">
+                     
+                      <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                        <div class="accordion-body">
+                          
+                          <div class="row">
+                            <div class="col">
+                              <label for="">Numero de planilla:</label>
+                              <input type="text" placeholder="Cargar planilla en perfil" value="{{numeroplanilla}}" class="form-control">
+                            </div>
+
+                            <div class="col">
+                              <label for="" >Cargar acta de pago:</label> <br>
+                                <a href=""> Generar acta de pago</a>
+                                <input type="file" name="" id="" class="form-control">
+                            </div>
+
+                            <div class="col">
+                              <label for="">Certificado de cuentas:</label> <br>
+                              <a href=""> Ver certificado de seguimiento</a>
+                            </div>
+
+                            <div class="col">
+                              <label for="">Cargar evidencias:</label> <br>
+                              <input type="file" name="" id="" class="form-control">
+                            </div>
+                          </div>
+
+<br>
+                            <center>
+                              <button class="btn btn-outline-success">Pasar cuenta</button>
+                            </center>
+                           
+                        
+                        
+                        
+                        </form>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- ESTO DE AQUI DEBE GENERARSE AUTOMATICAMENTE CUANDO EL USUARIO YA PASO UNA CUENTA, DEBE GENERAR LA SIGUIENTE Y ESTA PASAR A PAGADA-->
+                   <!--
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                          Cuenta #2
+                        </button>
+                      </h2>
+                      <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                          <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                          Cuenta #3
+                        </button>
+                      </h2>
+                      <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                          <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                
+                --><!-- POR AHORA HACER EJEMPLO CON UNA CUENTA-->
   </ul>

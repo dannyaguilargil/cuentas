@@ -1,14 +1,16 @@
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 #from .views import home
 from . import views
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     #path('admin/', admin.site.urls),
+   
+    #path('admin-redireccion/', lambda request: redirect('admin/')),
     path('base', views.base, name='base'),
     path('prueba', views.prueba, name='prueba'),
     path('login', views.home, name='inicio'),
@@ -40,8 +42,8 @@ urlpatterns = [
     #################### nuevos cambios
     path('contratista/perfil', views.ops, name='ops'),
     path('contratista/cuentas', views.cuentas, name='cuentas'),
-    
-    
+    #path('admin/', include('django.contrib.admin.urls')),
+    #path('admin/', admin.site.urls, name='admin'),
     #ruta de pdf
  
   

@@ -39,7 +39,7 @@ class Cont(admin.ModelAdmin):
             file_url = obj.archivo.url
             file_url = file_url.replace('/sistemas_cuentas/', '/')
             #file_url = reverse('sistemas_cuentas:archivo', args=[obj.numero])
-            return format_html('<a href="{}" target="_blank">Ver pdf</a>', file_url)
+            return format_html('<a href="{}" target="_blank" style="color: #E74C3C;">Ver pdf</a>', file_url)
         else:
             return '-'
     display_archivo.short_description = 'Archivo'
@@ -54,14 +54,41 @@ admin.site.register(contrato, Cont)
 class Rps(admin.ModelAdmin):
     list_display= ('numero', 'fecha', 'duracion', 'valor','usuario_id')
     search_fields = ('numero',)
+    
+    def display_archivo(self, obj):
+        if obj.archivo:
+            file_url = obj.archivo.url
+            file_url = file_url.replace('/sistemas_cuentas/', '/')
+            #file_url = reverse('sistemas_cuentas:archivo', args=[obj.numero])
+            return format_html('<a href="{}" target="_blank" style="color: #E74C3C;">Ver pdf</a>', file_url)
+        else:
+            return '-'
+    display_archivo.short_description = 'Archivo'
+    
+    list_display = ['numero', 'fecha', 'duracion', 'valor', 'usuario_id', 'display_archivo']
+    
 admin.site.register(rp, Rps)
 #listar por tablas usuarios
 
 #listar por tabla las acta de inicio en el panel de administracion
 class Actainicio(admin.ModelAdmin):
     #aqui va el nombe o cedula de la persona que pasa el acta de inicio
-    list_display=('fecha','duracion', 'valor','usuario_id')
-    search_fields = ('fecha',)
+    list_display=('numero','fecha','duracion', 'valor','usuario_id')
+    search_fields = ('numero',)
+    
+    def display_archivo(self, obj):
+        if obj.archivo:
+            file_url = obj.archivo.url
+            file_url = file_url.replace('/sistemas_cuentas/', '/')
+            #file_url = reverse('sistemas_cuentas:archivo', args=[obj.numero])
+            return format_html('<a href="{}" target="_blank" style="color: #E74C3C;">Ver pdf</a>', file_url)
+        else:
+            return '-'
+    display_archivo.short_description = 'Archivo'
+    
+    list_display = ['numero', 'fecha', 'duracion', 'valor', 'usuario_id', 'display_archivo']
+    
+    
 admin.site.register(actainicio, Actainicio)
 #listar por tabla las acta de inicio en el panel de administracion
 
