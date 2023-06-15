@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect
 from django.conf import settings
 from django.conf.urls.static import static
 
+
 urlpatterns = [
     #path('admin/', admin.site.urls),
    
@@ -34,7 +35,7 @@ urlpatterns = [
     path('eliminarregistro/', views.eliminarregistro, name='eliminarregistro'),
     path('usuarios/pendient/', views.usuarios_pendient, name='usuario_pendient'),
     path('eliminador/<int:cedula>/', views.eliminador, name='eliminador'),
-    path('eliminador/<int:cedula>/', views.eliminador, name='eliminador'),
+    #path('eliminador/<int:cedula>/', views.eliminador, name='eliminador'),
        #path('admin/', admin.site.urls,name='admin'),
     #path('usuarios/pendient/guardar/<int:cedula>', views.eliminar, name='eliminar'), 
     
@@ -42,6 +43,10 @@ urlpatterns = [
     #################### nuevos cambios
     path('contratista/perfil', views.ops, name='ops'),
     path('contratista/cuentas', views.cuentas, name='cuentas'),
+    path('contratista/actapago/<int:cedula>/', views.pruebapdf, name='actapago'),
+    path('contratista/actapagohtml', views.pruebapdfactapago, name='pruebapdfactapago'),
+    path('contratista/seguimientohtml', views.seguimientohtml, name='seguimientohtml'),
+    path('contratista/seguimiento', views.seguimiento, name='seguimiento'),
     #path('admin/', include('django.contrib.admin.urls')),
     #path('admin/', admin.site.urls, name='admin'),
     #ruta de pdf

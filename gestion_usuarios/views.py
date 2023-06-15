@@ -22,6 +22,11 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_GET
+####### GESTION DE ARCHIVOS PDF
+from django.http import HttpResponse
+from xhtml2pdf import pisa
+
+
 #from django_datatables_view.base_datatable_view import BaseDatatableView
 
 #def  usuarios(request):
@@ -677,5 +682,51 @@ def cuentas(request):
     return render(request, 'cuentas.html', {'username': username, 'numero': numero, 'objeto': objeto, 'valor': valor, 'fechaterminacion': fechaterminacion, 'duracion': duracion, 'numeroproceso': numeroproceso,
                                             'fechaperfeccionamiento': fechaperfeccionamiento, 'valor': valor, 'fechacontrato': fechacontrato, 'fechaterminacion': fechaterminacion, 'duracion': duracion,
                                             'archivo': archivo, 'supervisor': supervisor, 'objeto': objeto, 'numerorp': numerorp, 'fecharp': fecharp, 'numeroai': numeroai, 'fechaai': fechaai, 'archivorp': archivorp,
-                                            'archivoinicio': archivoinicio, 'numeroplanilla': numeroplanilla})
+                                            'archivoinicio': archivoinicio, 'numeroplanilla': numeroplanilla, 'cedula': cedula})
     #SELECT count(*) from gestion_usuarios_contrato where usuario_id=1090492324;
+    
+#ASIGNARLE CEDULA A LOS PDF PARA EXTRAER LOS DATOS
+def pruebapdf(request, cedula):
+    nombre = "" #Lo remplazo con el que traiga del modelo
+    segundonombre = ""
+    
+    context = {'nombre': nombre, 'segundonombre': segundonombre, 'cedula': cedula}
+    template = render(request, 'actapago.html', context)
+    
+    # Crear un objeto HttpResponse con tipo de contenido PDF
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="actapago.pdf"'
+    
+    # Convertir la plantilla XHTML a PDF
+    pisa_status = pisa.CreatePDF(template.content, dest=response)
+    
+    if pisa_status.err:
+        return HttpResponse('Ocurrió un error al generar el PDF')
+    return response
+
+def pruebapdfactapago(request):
+    nombre = ""
+    return render(request, 'actapago.html', {'nombre': nombre})
+
+def seguimientohtml(request):
+    nombre = ""
+    return render(request, 'seguimiento.html', {'nombre': nombre})
+    
+    #SELECT count(*) from gestion_usuarios_contrato where usuario_id=1090492324;
+    
+def seguimiento(request):
+    nombre = "" #Lo remplazo con el que traiga del modelo
+    segundonombre = ""
+    context = {'nombre': nombre, 'segundonombre': segundonombre}
+    template = render(request, 'seguimiento.html', context)
+    
+    # Crear un objeto HttpResponse con tipo de contenido PDF
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="seguimiento.pdf"'
+    
+    # Convertir la plantilla XHTML a PDF
+    pisa_status = pisa.CreatePDF(template.content, dest=response)
+    
+    if pisa_status.err:
+        return HttpResponse('Ocurrió un error al generar el PDF')
+    return response
