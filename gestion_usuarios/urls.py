@@ -6,6 +6,7 @@ from . import views
 from django.shortcuts import render, redirect
 from django.conf import settings
 from django.conf.urls.static import static
+from .views import extraer_texto
 
 
 urlpatterns = [
@@ -50,6 +51,7 @@ urlpatterns = [
     #path('admin/', include('django.contrib.admin.urls')),
     #path('admin/', admin.site.urls, name='admin'),
     #ruta de pdf
- 
+    path('extraer/', extraer_texto, name='extraer_texto'),
+    #path('extraer2/', views.extraer_texto2, name='extraer_texto2'),
   
 ] + static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)

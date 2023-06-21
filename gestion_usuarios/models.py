@@ -20,6 +20,7 @@ class usuario(models.Model):
     telefono = models.IntegerField(verbose_name='Telefono' ,default=0)
     direccion = models.CharField(max_length=40, verbose_name='Direccion', default='')
     rol = models.CharField(max_length=40, verbose_name='Rol',choices=rol, default='CONTRATISTA')
+    #imagen
     
     #Dependiendo de como se muestre aqui se muestra en la relacion de la llave foranera
     def __str__(self):

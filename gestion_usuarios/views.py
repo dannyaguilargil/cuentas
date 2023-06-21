@@ -25,7 +25,15 @@ from django.views.decorators.http import require_GET
 ####### GESTION DE ARCHIVOS PDF
 from django.http import HttpResponse
 from xhtml2pdf import pisa
-
+from PyPDF2 import PdfReader
+import tempfile
+import os
+import pytesseract
+import PyPDF2
+import nltk
+from nltk.tokenize import word_tokenize
+nltk.download('punkt')
+import re
 
 #from django_datatables_view.base_datatable_view import BaseDatatableView
 
@@ -634,6 +642,7 @@ def ops(request):
 def cuentas(request):
     username = request.user.username
     numero = 1
+    cedula = 1
     numeroproceso = 1
     fechaperfeccionamiento = ""
     fechacontrato = ""
@@ -730,3 +739,77 @@ def seguimiento(request):
     if pisa_status.err:
         return HttpResponse('Ocurrió un error al generar el PDF')
     return response
+##############################################################
+########## ESTOS EJEMPLOS HACEN COMVERSIONES CON PDFS QUE NO SON ESCANEADAS ############################
+def extraer_texto_pdf(nombre_archivo):
+    with open(nombre_archivo, 'rb') as archivo:
+        lector_pdf = PdfReader(archivo)
+        num_paginas = len(lector_pdf.pages)
+
+        texto = ''
+        for pagina in range(num_paginas):
+            pagina_pdf = lector_pdf.pages[pagina]
+            texto += pagina_pdf.extract_text()
+
+        return texto
+###########VISTA NECESARIA PARA LEER EL PDF Y EXTRAERLO ##############
+
+def extraer_texto(request):
+    if request.method == 'POST' and 'archivo_pdf' in request.FILES:
+        archivo_pdf = request.FILES['archivo_pdf']
+
+        # Guardar temporalmente el archivo PDF
+        with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+            temp_file.write(archivo_pdf.read())
+            nombre_archivo = temp_file.name
+
+        # Extraer el texto del archivo PDF
+        texto_extraido = extraer_texto_pdf(nombre_archivo)
+
+        # Realizar la búsqueda en el texto extraído
+        palabra_buscada = 'CONTRATO'
+        resultado_busqueda = buscar_palabra(texto_extraido, palabra_buscada)
+
+        # Eliminar el archivo temporal
+        temp_file.close()
+        os.unlink(temp_file.name)
+
+        return render(request, 'resultado.html', {'texto_extraido': texto_extraido, 'resultado_busqueda': resultado_busqueda})
+
+    return render(request, 'extraer_texto.html')
+
+def buscar_palabra(texto, palabra):
+    tokens = word_tokenize(texto)
+    if palabra in tokens:
+        indice_palabra = tokens.index(palabra)
+        if indice_palabra + 1 < len(tokens):
+            siguiente_token = tokens[indice_palabra + 1]
+            caracteres_despues = re.findall(r'[A-Za-z0-9]+', siguiente_token)[0][:15]
+            return caracteres_despues
+    return None
+
+##############################################################
+########## ESTOS EJEMPLOS HACEN CONVERSIONES CON PDF QUE NO SON ESCANEADAS  ############################
+######################################################################################################
+################EJEMPLOS SIGUIENTES CON OCR ##########################################################
+#def extraer_texto_pdf(archivo_pdf):
+#    with archivo_pdf as archivo:
+#        lector_pdf = PdfReader(archivo)
+#        num_paginas = len(lector_pdf.pages)
+
+#        texto = ''
+#        for pagina in range(num_paginas):
+#            pagina_pdf = lector_pdf.pages[pagina]
+#            imagen = pagina_pdf.extract_text()
+#            texto += pytesseract.image_to_string(imagen)
+
+#    return texto
+
+#def extraer_texto(request):
+#    if request.method == 'POST':
+#        archivo_pdf = request.FILES['archivo']
+#        texto_extraido = extraer_texto_pdf(archivo_pdf)
+#        return render(request, 'extraer_texto.html', {'texto_extraido': texto_extraido})
+
+#    return render(request, 'extraer_texto.html')
+#############EJEMPLOS CON OCR #########################################################################

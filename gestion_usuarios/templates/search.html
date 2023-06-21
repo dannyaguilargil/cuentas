@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Page</title>
+</head>
+<body>
+    <h1>Search</h1>
+    <form method="post" action="{% url 'search' %}">
+        {% csrf_token %}
+        <label for="query">Query:</label>
+        <input type="text" name="query" id="query"><br><br>
+        <label for="documents">Documents:</label><br>
+        <textarea name="documents" id="documents" rows="5" cols="40"></textarea><br><br>
+        <input type="submit" value="Search">
+    </form>
+    <h2>Search Results:</h2>
+    {% if search_results %}
+        <ul>
+            {% for result in search_results %}
+                <li>{{ result }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <h2>Classified Results:</h2>
+    {% if classified_results %}
+    <ul>
+    {% for result in classified_results %}
+    <li>{{ result }}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    
+    </body>
+    </html>

@@ -21,6 +21,7 @@ MEDIA_URL = 'sistemas_cuentas/static/'
 #MEDIA_URL = 'sistemas_cuentas/'
 ######lo agregue
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+#TESSERACT_PATH = 'C:\Program Files\Tesseract-OCR'  # Reemplaza con la ruta correcta en tu sistema
 
 
 

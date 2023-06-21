@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<!--
+<html>
+<head>
+    <title>Resultado de la extracción de texto</title>
+</head>
+<body>
+    <h1>Resultado de la extracción de texto</h1>
+    <pre>{{ texto_extraido }}</pre>
+</body>
+</html>
+
+-->
+<p>Texto extraído:</p>
+<p>{{ texto_extraido }}</p>
+
+{% if resultado_busqueda %}
+    <p>Los 15 caracteres después de "contrato": {{ resultado_busqueda }}</p>
+{% else %}
+    <p>La palabra "contrato" no se encontró en el texto extraído.</p>
+{% endif %}

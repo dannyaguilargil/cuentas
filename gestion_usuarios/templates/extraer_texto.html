@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!-- 
+<html>
+<head>
+    <title>Extracción de texto de PDF</title>
+</head>
+<body>
+    <h1>Extracción de texto de PDF</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="archivo_pdf">
+        <input type="submit" value="Extraer texto">
+    </form>
+</body>
+</html>
+
+-->
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="archivo_pdf" required>
+    <button type="submit">Extraer texto</button>
+  </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+<html>
+<head>
+    <title>Extraer texto de PDF</title>
+</head>
+<body>
+    <h1>Extraer texto de PDF</h1>
+    <form method="POST" enctype="multipart/form-data" action="{% url 'extraer_texto' %}">
+        {% csrf_token %}
+        <input type="file" name="archivo" accept=".pdf" required>
+        <br><br>
+        <button type="submit">Extraer texto</button>
+    </form>
+    {% if texto_extraido %}
+        <hr>
+        <h2>Texto extraído:</h2>
+        <pre>{{ texto_extraido }}</pre>
+    {% endif %}
+</body>
+</html>
+-->
