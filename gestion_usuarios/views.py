@@ -606,6 +606,7 @@ def ops(request):
     valorarl = ""
     nombrepension = ""
     valorpension = ""
+    imagenperfil = "imgs/sinfoto.jpeg"
     username = request.user.username
     usuario_obj = usuario.objects.filter(usuario=username).first()
     if usuario.objects.filter(usuario=username).exists():
@@ -617,6 +618,7 @@ def ops(request):
         cedula = usuario_obj.cedula
         telefono = usuario_obj.telefono
         direccion = usuario_obj.direccion
+        imagenperfil = usuario_obj.imagen
         cuentb = cuentabancaria.objects.filter(usuario_id=cedula).first()
         if cuentabancaria.objects.filter(usuario_id=cedula).exists():
              numerocb = cuentb.numero
@@ -637,7 +639,7 @@ def ops(request):
     return render(request, 'ops.html', {'username': username, 'nombre': nombre, 'segundo_nombre': segundo_nombre, 'primer_apellido': primer_apellido, 'segundo_apellido': segundo_apellido, 'cedula': cedula,
                                         'email': email, 'telefono': telefono, 'direccion': direccion, 'numerocb': numerocb, 'tipocuenta': tipocuenta, 'nombrecb': nombrecb, 'numeroplanilla': numeroplanilla,
                                         'fechaplanilla': fechaplanilla, 'valortotalplanilla': valortotalplanilla, 'periodoplanilla': periodoplanilla, 'nombresalud': nombresalud, 'valorsalud': valorsalud,
-                                        'nombrearl': nombrearl, 'valorarl': valorarl, 'nombrepension': nombrepension, 'valorpension': valorpension})
+                                        'nombrearl': nombrearl, 'valorarl': valorarl, 'nombrepension': nombrepension, 'valorpension': valorpension, 'imagenperfil': imagenperfil})
 
 def cuentas(request):
     username = request.user.username
