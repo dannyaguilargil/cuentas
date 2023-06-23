@@ -700,8 +700,46 @@ def cuentas(request):
 def pruebapdf(request, cedula):
     nombre = "" #Lo remplazo con el que traiga del modelo
     segundonombre = ""
+    primerapellido = ""
+    segundoapellidos = ""
+    numerocontratos = ""
+    numeroproceso = ""
+    supervisor = ""
+    objetocontrato = ""
+    fechaperfeccionamientos = ""
+    duracion = ""
+    dependenciausuario = ""
+    duracioncontrato = ""
+    valorpagar = 0
+    cuenta = 1 #remplazar por el numero de cuenta recibida
+    ##############EXTRACCION DE DATOS APARTIR DE LA CEDULA############
+    usuario_obj = usuario.objects.filter(cedula=cedula).first()
+    if usuario.objects.filter(cedula=cedula).exists():
+         nombre = usuario_obj.nombre
+         segundonombre = usuario_obj.segundonombre
+         primerapellido = usuario_obj.primerapellido
+         segundoapellidos = usuario_obj.segundoapellido
+         dependenciausuario = usuario_obj.dependencia
+         usuario_obj2 = contrato.objects.filter(usuario_id=cedula).first()
+         if contrato.objects.filter(usuario_id=cedula).exists():
+            numerocontratos = usuario_obj2.numero
+            numeroproceso = usuario_obj2.numeroproceso
+            fechaperfeccionamientos = usuario_obj2.fechaperfeccionamiento
+            fechacontrato = usuario_obj2.fechacontrato
+            supervisor = usuario_obj2.supervisor
+            archivo = usuario_obj2.archivo
+            #archivo2 = archivo.replace('contratista', 'static')
+            objetocontrato = usuario_obj2.objeto
+            valorcontrato = usuario_obj2.valor
+            fechaterminacion = usuario_obj2.fechaterminacion
+            duracioncontrato = usuario_obj2.duracion
+            cuenta = 1
+            #valorpagar=valorcontrato/duracioncontrato
+            #########para valor a pagar es aux=valor/duracion
+    ##############EXTRACCION DE DATOS APARTIR DE LA CEDULA############
     
-    context = {'nombre': nombre, 'segundonombre': segundonombre, 'cedula': cedula}
+    context = {'nombre': nombre, 'segundonombre': segundonombre, 'cedula': cedula, 'primerapellido': primerapellido, 'objetocontrato': objetocontrato, 'numerocontratos': numerocontratos, 'segundoapellidos': segundoapellidos,
+               'fechaperfeccionamientos': fechaperfeccionamientos,'cuenta': cuenta,'duracion': duracion,'dependenciausuario': dependenciausuario,}
     template = render(request, 'actapago.html', context)
     
     # Crear un objeto HttpResponse con tipo de contenido PDF

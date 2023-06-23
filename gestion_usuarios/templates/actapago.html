@@ -8,13 +8,13 @@
 </head>
 <body>
     <center>
-        <h4> <b>ORDEN DE PRESTACION DE SERVICIOS No. #NUMEROCONTRATO <br>
-            FECHA DE PERFECCIONAMIENTO: #FECHAPERFECCIONAMIENTO <br>
-            ACTA DE PAGO No. #/#</b>
+        <h4> <b>ORDEN DE PRESTACION DE SERVICIOS No. {{numerocontratos}} <br>
+            FECHA DE PERFECCIONAMIENTO: {{fechaperfeccionamientos}} <br>
+            ACTA DE PAGO No. {{cuenta}}/{{duracion}}</b>
         </h4>
     </center>
 <br>
-<p>CONTRATISTA: <strong> {{nombre}}</strong><br>
+<p>CONTRATISTA: <strong> {{nombre}} {{segundonombre}} {{primerapellido}} {{segundoapellidos}}</strong><br>
                 <span>IDENTIFICADO CON LA CEDULA DE CIUDADANIA: {{cedula}}
                       
                 </span>
@@ -23,14 +23,14 @@
 <p>NIT: {{cedula}}-1 <br>
 </p> 
 
-<p>OBJETO: <span>#OBJETOCONTRATO</span><br>
+<p>OBJETO: <span><strong> {{objetocontrato}} </strong></span><br>
 </p>
 
-<p>LUGAR: <span>#LUGAR</span><br>
+<p>LUGAR: <span>{{dependenciausuario}}</span><br>
 </p>
 
 <!--AQUI DEBO DIVIDIR EL TOTAL DEL CONTRATO SOBRE LA DURACION DEL CONTRATO PARA SACR EL VALOR-->
-<p>VALOR A PAGAR: <span>#VALOR</span> <br>
+<p>VALOR A PAGAR: <span>{{valorpagar}}</span> <br>
 </p>                       
  
 <!-- AQUI DEBO VALIDAR DE QUE FECHA HASTA QUE FECHA VA LA CUENTA-->

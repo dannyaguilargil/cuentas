@@ -78,7 +78,7 @@ class rp(models.Model):
     fecha = models.CharField(max_length=300, verbose_name='Fecha del rp')
     duracion = models.CharField(max_length=40, verbose_name='Duracion del contrato')
     valor = models.CharField(max_length=300, verbose_name='Valor del contrato')
-    archivo = models.FileField(upload_to='pdfs/', default='NO CARGADO', verbose_name='archivo')#LO AGREGUE REVISAR
+    archivo = models.FileField(upload_to='pdfs/', default='No cargado', verbose_name='archivo')#LO AGREGUE REVISAR
     #llave foranea
     usuario=models.ForeignKey(usuario,null=True,blank=True,on_delete=models.CASCADE)
 

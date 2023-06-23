@@ -10,8 +10,8 @@
           
         
             <center>
-              <h6>Visualizacion del pdf a cargar...</h6>
-              <embed id="vistaPrevia" type="application/pdf" width="350" height="350"> <br> 
+             <!-- <h6>Visualizacion del pdf a cargar...</h6>-->
+             <!-- <embed id="vistaPrevia" type="application/pdf" width="350" height="350"> <br> -->
             </center>
           <form action="" method="POST" enctype="multipart/form-data">
           {% csrf_token %}
@@ -26,7 +26,14 @@
                         {% endfor %}
                     </select>
                 {% elif campo.field.widget.input_type == 'file' %}
-                    <input type="file" class="form-control" name="pdffFile" id="pdffFile">
+                    <input type="file" class="form-control" name="{{ campo.html_name }}" id="{{ campo.auto_id }}">
+                {% elif campo.name == 'duracion' %}
+                    <input type="number"  
+                           class="form-control"
+                           name="{{ campo.html_name }}"
+                           id="{{ campo.auto_id }}"
+                           placeholder="Digite {{ campo.label }}"
+                    >
                 {% else %}
                     <input type="{{ campo.field.widget.input_type }}"
                            class="form-control"
@@ -38,6 +45,8 @@
                 <br>
             </div>
         {% endfor %}
+        
+        <!-- REVISAR PORQUE NO DEJA SUBIR DOCUEMNTOS-->
         </div>
         
         
