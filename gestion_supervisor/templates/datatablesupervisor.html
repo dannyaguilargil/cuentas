@@ -1,6 +1,6 @@
 <div class="table-responsive"> 
 
-  <table id="tabla-usuarios" class="table table-bordered table-hover table-striped">
+  <table id="tabla-usuarios" class="table  table-hover table-bordered">
     <caption>
        GESTION DE CUENTAS DEL SUPERVISOR
     </caption>
@@ -11,53 +11,40 @@
             <th class="text-center centered">Cedula</th>
             <th class="text-center centered">Objeto del contrato</th>
             <th class="text-center centered">N° planilla</th>
-        
-         
             <th class="text-center centered">Accion</th>
         </tr>
     </thead>
     <tbody id="tabla-usuarios">
       {% for objeto in datos %}
-      <tr> <!-- SE REMPLAZA CON INPUTS PARA OBTENER LOS DATOS DE ESE INPUT-->
-          <td>{{forloop.counter}}</td>
-          <td><center>{{objeto.nombre}}</center></td>
-          <td><center>{{objeto.cedula}}</center></td>
-          <td><center>{{objeto.objeto}}</center></td>
-          <td><center>{{objeto.dependencia}}</center></td>
-     
-          <td><a  name="ver" class="fa fa-eye btn btn-outline-success ver" 
-              data-nombre="{{objeto.nombre}}"
-              data-segundonombre="{{objeto.segundonombre}}"
-              data-primerapellido="{{objeto.primerapellido}}"
-              data-segundoapellido="{{objeto.segundoapellido}}" 
-              data-cedula="{{objeto.cedula}}"
-              data-cargo="{{objeto.cargo}}"
-              data-email="{{objeto.email}}"
-              data-supervisor="{{objeto.supervisor}}"
-              data-tipodocumento="{{objeto.tipodocumento}}"
-              data-bs-toggle="modal"
-              data-bs-target="#ex" >
-          </a>
-            <!-- <button  class="fa fa-save btn btn-outline-secondary" type="submit"></button> --> 
-             <!-- <a  class="fa fa-eraser btn btn-outline-danger" 
-              data-cedula="{{objeto.cedula}}"
-              href="{% url 'eliminar' objeto.cedula %}"
-               >
-            </a>-->
-          </td>
-      </tr>
-  {% endfor %}
+      <tr>
+      <td>{{forloop.counter}}</td>
+      <td><center>{{objeto.nombrecompleto}}</center></td>
+      <td><center>{{objeto.cedula}}</center></td>
+      <td><center>Objeto</center></td>
+      <td><center>N° planilla</center></td>
+      <td><center>
 
+        <a  name="ver" class="fa fa-eye btn btn-outline-success ver" 
+        data-nombrecompleto="{{objeto.nombrecompleto}}"
+        data-cedula="{{objeto.cedula}}"
+        data-bs-toggle="modal"
+        data-bs-target="#ex">
+        </a>
+
+
+      </center></td>
+      </tr>
     </tbody>
+    {% endfor %}
   </table>
 
 </div>
   <!-- Modal -->
-  <div class="modal fade" id="ex" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-fullscreen">
+  <div class="modal" id="ex" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-static modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Cuenta de: Nombre de usuario</h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Informacion de cuenta del contratista</h1>
 
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
@@ -66,88 +53,67 @@
             {% csrf_token %}
           <div class="row">
             <div class="col">
-                <center>
-                  INFORME DE ACTIVIDADES
-                </center>
-
+              <h6><b>Informacion basica:</b></h6>
+              <label for="">Nombre completo:</label>
+              <input type="text" class="form-control" name="nombrecompleto" id="nombrecompleto">
+              <label for="">Identificacion:</label>
+              <input type="text" class="form-control" name="cedula" id="cedula">
+              <label for="">Objeto del contrato:</label>
+              <input type="text" class="form-control"> <br>
+              <!--
+              <label for="">Cuenta n°:</label>
+              <input type="text" class="form-control">-->
+              <label for="">Ver contrato:</label> <br>
+              <a href="" style="color: grey" data-bs-toggle="tooltip">Contrato</a> <br> <br>
+              <label for="">Ver Registro presupuestal:</label> <br>
+              <a href="" style="color: grey">Registro presupuestal</a> <br> <br>
+              <label for="">Ver acta de inicio:</label> <br>
+              <a href="" style="color: grey">Acta de inicio</a>
              
             </div>
 
             <div class="col">
               <center>
-                ACTA DE PAGO
+                <label for="">Acta de pago:</label><br>
+                <a href="" style="color:grey">ver acta de pago</a> <br> <br>
+
+                <label for="">Certificado de seguimiento de cuentas:</label><br>
+                <a href="" style="color:grey">ver certificado</a> <br> <br>
+
+                <label for="">Planilla:</label><br>
+                <a href="" style="color: grey">ver planilla</a> <br> <br>
+
+                <label for="">Actividades:</label><br>
+                <a href="" style="color:grey">ver actividades</a> <br> <br>
               </center>
-            </div>
-
-            <div class="col">
-              <center>
-                PLANILLA
-              </center>
-            </div>
-          </div>
-
-
-
-          <div class="row">
-            <div class="col">
-              
-            </div>
-
-            <div class="col">
-         
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col">
-          
-            </div>
-
-            <div class="col">
-        
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col">
-              
-            </div>
-
-            <div class="col">
-              
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col">
        
             </div>
 
-            <div class="col">
             
-            </div>
           </div>
- <br>
+
+
+
         </div>
        
         <div class="modal-footer">
+
           <div class="col">
-       
-              <button type="button" class="fas fa-x btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-              <button class="fas fa-save btn btn-outline-success" type="submit">Aprobar</button>
-     
+            <button class="btn btn-danger">Rechazar</button>
           </div>
+             <div class="col">
+
+             </div>
+
+             <div class="col-8">
+
+             </div>
           <div class="col">
+            <button class="btn btn-success">Aceptar</button>
+            <!-- <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button> -->
 
           </div>
-          <div class="col">
-            
-          </div>
-          <div class="col">
-           <!--<input type="text" value="" class="form-control">--> 
-            <a class="fa fa-eraser btn btn-outline-danger">Devolver</a>
-            
-          </div>
+       
         </div>
     </form>
       </div>

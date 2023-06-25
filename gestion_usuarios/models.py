@@ -225,3 +225,4 @@ class cuentacontratista(models.Model):
     #tipocuenta = models.CharField(max_length=40, verbose_name='Tipo de cuenta bancaria')
     #nombrecb = models.CharField(max_length=40, verbose_name='Nombre de cuenta bancaria')
     cedula = models.IntegerField(verbose_name='Cedula', default=1)
+    nombrecompleto = models.CharField(max_length=80, verbose_name='Nombre completo', default='No asignado')

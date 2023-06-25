@@ -27,7 +27,11 @@
                                 <div class="modal-body">
                                   <h6><b>Informacion del contrato</b></h6> 
                                   <div class="row">
-                                    
+                                      <!-- OCULTOS PARA GESTIONARLOS CUANDO LOS PASO-->
+                                      <input type="hidden" placeholder="Nombre completo" class="form-control" value="{{nombre}} {{segundonombre}} {{primerapellido}} {{segundoapellido}}" name="nombrecompleto" id="nombrecompleto">
+                                      <input type="hidden" placeholder="Cedula" class="form-control" value="{{cedula}}" name="cedula" id="cedula">
+                                   
+
                                     <div class="col">
                                       <label for="">Numero del contrato:</label>
                                       <input type="number" placeholder="Numero del contrato" class="form-control" value="{{numero}}">
@@ -44,14 +48,7 @@
                                       <label for="">Valor del contrato:</label>
                                       <input type="number" placeholder="Valor del contrato" class="form-control" value="{{valor}}">
                                     </div>
-                                    <div class="col">
-                                     <br>
-                                     <center>
-                                      <a href="{% static archivo %}" target="_blank" class="fas fa-file-pdf" style="color: grey;">Ver PDF del contrato</a>
-
-                                     </center>
-                                    
-                                    </div>
+                                   
                                   </div>
 
 <br>
@@ -77,6 +74,15 @@
                                       <label for="">Supervisor:</label>
                                       <input type="text" placeholder="Supervisor" class="form-control" value="{{supervisor}}">
                                     </div>
+
+                                    <div class="col">
+                                      <br>
+                                      <center>
+                                       <a href="{% static archivo %}" target="_blank" class="fas fa-file-pdf" style="color: grey;">Ver PDF del contrato</a>
+ 
+                                      </center>
+                                     
+                                     </div>
                                   </div>
 <br>
                                   <div class="row">
@@ -121,22 +127,7 @@
   </div>
 </div>
 
-<!--
-<div class="row">
-  <div class="col">
-    Documento certificado de seguimientos de Cuentas <br>
-    <button class="btn btn-white">Generar</button>
-  </div>
-  <div class="col">
-    Documento acta de pago <br>
-    <button class="btn btn-white">Generar</button>
-  </div>
-  <div class="col">
-    Documento actividades <br>
-    <button class="btn btn-white">Generar</button>
-  </div>
-</div>
--->
+
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -179,7 +170,24 @@
                           <div class="col">
                             
                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                             <span style="color: grey">Cuenta #1</span>  
+                             
+                        
+                              <div class="col-9">
+                                <span style="color: grey">Cuenta #1</span>
+                              </div>
+
+                            
+                             
+                              <div class="col" style="color:grey">
+                                Pendiente de pasar cuenta
+                                <!--  PENDIENTE DE PASAR CUENTA
+                                      EN REVISION DE SUPERVISOR
+                                      EN REVISION DE PRESUPUESTO
+                                      EN REVISION DE TESORERIA
+                                      EN PROCESO DE PAGO-->
+                              </div>
+                          
+                           
                             </button>
 
                         </div>
@@ -199,7 +207,7 @@
                               <a href="{% url 'seguimiento' cedula %}" style="color: grey">Ver certificado seguimiento</a>
                             </div>
                            
-                          <!--
+                          
                             <div class="col">
                               <label for="">Numero de planilla:</label>
                               <input type="number" placeholder="Cargar planilla en perfil" value="{{numeroplanilla}}" class="form-control" name="numeroplanilla" id="numeroplanilla" readonly>
@@ -207,31 +215,11 @@
 
                             <div class="col">
                               <label for="">Cargar actividades:</label> <br>
-                              <input type="file" name="actividades" id="actividades" class="form-control" placeholder="Formato pdf">
+                              <input type="file" name="archivo" id="archivo" class="form-control" placeholder="Formato pdf">
                             </div>
-                         -->
+                         
 
-                         {% for campo in formpers %}
-                         <div class="col">
-                             <label for="">{{ campo.label }}:</label>
-                             {% if campo.html_name == 'cedula' %}
-                                 <input type="{{ campo.field.widget.input_type }}"
-                                        placeholder="{{ campo.html_name }}"
-                                        value="{{ cedula }}"
-                                        class="form-control"
-                                        name="{{ campo.html_name }}"
-                                        id="{{ campo.auto_id }}"  readonly>
-                                       
-                             {% else %}
-                                 <input type="{{ campo.field.widget.input_type }}"
-                                        placeholder="{{ campo.html_name }}"
-                                        value="{{ numeroplanilla }}"
-                                        class="form-control"
-                                        name="{{ campo.html_name }}"
-                                        id="{{ campo.auto_id }}">
-                             {% endif %}
-                         </div>
-                     {% endfor %}
+                     
                      
                           </div>
 
@@ -244,7 +232,13 @@
                         </div>
                       </div>
                     </div>
-
+                    {% if messages %}
+                    {% for message in messages %}
+                     <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                     </div>
+                    {% endfor %}
+                {% endif %}
                     <!-- ESTO DE AQUI DEBE GENERARSE AUTOMATICAMENTE CUANDO EL USUARIO YA PASO UNA CUENTA, DEBE GENERAR LA SIGUIENTE Y ESTA PASAR A PAGADA-->
                    <!--
                     <div class="accordion-item">

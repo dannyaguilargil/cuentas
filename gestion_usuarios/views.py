@@ -666,6 +666,10 @@ def cuentas(request):
     fechaai = ""
     supervisor = ""
     numeroplanilla = ""
+    nombre = ""
+    segundonombre = ""
+    primerapellido = ""
+    segundoapellido = ""
      ### username = formularios.cleaned_data.get('usuario')##
     formpers = InsertFormc(request.POST, request.FILES)
     if formpers.is_valid():
@@ -675,6 +679,10 @@ def cuentas(request):
     usuario_obj = usuario.objects.filter(usuario=username).first()
     if usuario.objects.filter(usuario=username).exists():
         cedula = usuario_obj.cedula
+        nombre = usuario_obj.nombre
+        segundonombre = usuario_obj.segundonombre
+        primerapellido = usuario_obj.primerapellido
+        segundoapellido = usuario_obj.segundoapellido
         usuario_obj2 = contrato.objects.filter(usuario_id=cedula).first()
         if contrato.objects.filter(usuario_id=cedula).exists():
             numero = usuario_obj2.numero
@@ -704,7 +712,8 @@ def cuentas(request):
     return render(request, 'cuentas.html', {'username': username, 'numero': numero, 'objeto': objeto, 'valor': valor, 'fechaterminacion': fechaterminacion, 'duracion': duracion, 'numeroproceso': numeroproceso,
                                             'fechaperfeccionamiento': fechaperfeccionamiento, 'valor': valor, 'fechacontrato': fechacontrato, 'fechaterminacion': fechaterminacion, 'duracion': duracion,
                                             'archivo': archivo, 'supervisor': supervisor, 'objeto': objeto, 'numerorp': numerorp, 'fecharp': fecharp, 'numeroai': numeroai, 'fechaai': fechaai, 'archivorp': archivorp,
-                                            'archivoinicio': archivoinicio, 'numeroplanilla': numeroplanilla, 'cedula': cedula, 'formpers': formpers})
+                                            'archivoinicio': archivoinicio, 'numeroplanilla': numeroplanilla, 'cedula': cedula, 'formpers': formpers, 'nombre': nombre, 'segundonombre': segundonombre, 'primerapellido': primerapellido,
+                                            'segundoapellido': segundoapellido})
     #SELECT count(*) from gestion_usuarios_contrato where usuario_id=1090492324;
     
 #ASIGNARLE CEDULA A LOS PDF PARA EXTRAER LOS DATOS
