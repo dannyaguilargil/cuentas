@@ -12,7 +12,7 @@ from gestion_usuarios.models import prueba
 from gestion_usuarios.models import contrato,rp,actainicio,planilla
 from gestion_usuarios.models import actividades,actapago,certificadoseguimiento,cuentabancaria
 from gestion_usuarios.forms import Users
-from gestion_usuarios.forms import Usuario, InsertForm, InsertFormU, InsertFormUE
+from gestion_usuarios.forms import Usuario, InsertForm, InsertFormU, InsertFormUE, InsertFormc
 from gestion_usuarios.forms import Contrato, Rp, Actainicio, Planilla, Actividades, Actapago, Certificadoseguimiento, Cusuario,Contratou
 from django.contrib import messages
 #gestion del usuario
@@ -34,6 +34,11 @@ import nltk
 from nltk.tokenize import word_tokenize
 nltk.download('punkt')
 import re
+from datetime import datetime
+import calendar
+import locale, inflect
+
+
 
 #from django_datatables_view.base_datatable_view import BaseDatatableView
 
@@ -661,6 +666,12 @@ def cuentas(request):
     fechaai = ""
     supervisor = ""
     numeroplanilla = ""
+     ### username = formularios.cleaned_data.get('usuario')##
+    formpers = InsertFormc(request.POST, request.FILES)
+    if formpers.is_valid():
+        formpers.save()
+        messages.success(request, 'Cuenta solicitada') #falta la gestion del mensaje
+        return redirect('cuentas')
     usuario_obj = usuario.objects.filter(usuario=username).first()
     if usuario.objects.filter(usuario=username).exists():
         cedula = usuario_obj.cedula
@@ -693,7 +704,7 @@ def cuentas(request):
     return render(request, 'cuentas.html', {'username': username, 'numero': numero, 'objeto': objeto, 'valor': valor, 'fechaterminacion': fechaterminacion, 'duracion': duracion, 'numeroproceso': numeroproceso,
                                             'fechaperfeccionamiento': fechaperfeccionamiento, 'valor': valor, 'fechacontrato': fechacontrato, 'fechaterminacion': fechaterminacion, 'duracion': duracion,
                                             'archivo': archivo, 'supervisor': supervisor, 'objeto': objeto, 'numerorp': numerorp, 'fecharp': fecharp, 'numeroai': numeroai, 'fechaai': fechaai, 'archivorp': archivorp,
-                                            'archivoinicio': archivoinicio, 'numeroplanilla': numeroplanilla, 'cedula': cedula})
+                                            'archivoinicio': archivoinicio, 'numeroplanilla': numeroplanilla, 'cedula': cedula, 'formpers': formpers})
     #SELECT count(*) from gestion_usuarios_contrato where usuario_id=1090492324;
     
 #ASIGNARLE CEDULA A LOS PDF PARA EXTRAER LOS DATOS
@@ -777,9 +788,23 @@ def seguimiento(request,cedula):
     duracion = ""
     dependenciausuario = ""
     duracioncontrato = ""
+    numerorp = ""
     fechacontrato = ""
     fechaterminacion = ""
     valorpagar = 1
+    numeroplanilla = ""
+    nombresalud = ""
+    valorsalud = ""
+    nombrepension = ""
+    valorpension = ""
+    nombrearl = ""
+    valorarl = ""
+    numerocuentabancaria = ""
+    tipocuenta = ""
+    nombrecb = ""
+    nombre_mes = ""
+    dia = ""
+    año = ""
     cuenta = 1 #remplazar por el numero de cuenta recibida
     ##############EXTRACCION DE DATOS APARTIR DE LA CEDULA############
     usuario_obj = usuario.objects.filter(cedula=cedula).first()
@@ -806,8 +831,33 @@ def seguimiento(request,cedula):
             usuario_obj3 = rp.objects.filter(usuario_id=cedula).first()
             if rp.objects.filter(usuario_id=cedula).exists():
                   numerorp = usuario_obj3.numero
+                  usuario_obj4 = planilla.objects.filter(usuario_id=cedula).first()
+                  if planilla.objects.filter(usuario_id=cedula).exists():
+                      numeroplanilla = usuario_obj4.numero
+                      nombresalud = usuario_obj4.nombresalud
+                      valorsalud = usuario_obj4.valorsalud
+                      nombrepension = usuario_obj4.nombrepension
+                      valorpension = usuario_obj4.valorpension
+                      nombrearl = usuario_obj4.nombrearl
+                      valorarl = usuario_obj4.valorarl
+                      usuario_obj5 = cuentabancaria.objects.filter(usuario_id=cedula).first()
+                      if cuentabancaria.objects.filter(usuario_id=cedula).exists():
+                          numerocuentabancaria = usuario_obj5.numero
+                          tipocuenta = usuario_obj5.tipocuenta
+                          nombrecb = usuario_obj5.nombrecb
+                          fecha_actual = datetime.now()
+                          locale.setlocale(locale.LC_TIME, 'es_ES')
+                          nombre_mes = fecha_actual.strftime('%B')
+                          #mes = fecha_actual.month
+                          dia = fecha_actual.day
+                          año = fecha_actual.year
+                          # Establecer el idioma en español
+                      
+                      
     context = {'nombre': nombre, 'segundonombre': segundonombre, 'numerocontratos': numerocontratos, 'primerapellido': primerapellido, 'segundoapellidos': segundoapellidos, 'aux': aux,
-               'objetocontrato': objetocontrato, 'numerorp': numerorp, 'fechacontrato': fechacontrato, 'fechaterminacion': fechaterminacion}
+               'objetocontrato': objetocontrato, 'numerorp': numerorp, 'fechacontrato': fechacontrato, 'fechaterminacion': fechaterminacion, 'supervisor': supervisor, 'numeroplanilla': numeroplanilla,
+               'nombresalud': nombresalud, 'valorsalud': valorsalud, 'nombrepension': nombrepension, 'valorpension': valorpension, 'nombrearl': nombrearl, 'valorarl': valorarl, 'numerocuentabancaria': numerocuentabancaria,
+               'tipocuenta': tipocuenta, 'nombrecb': nombrecb, 'nombre_mes': nombre_mes, 'dia': dia, 'año': año}
     template = render(request, 'seguimiento.html', context)
     
     # Crear un objeto HttpResponse con tipo de contenido PDF
@@ -894,3 +944,7 @@ def buscar_palabra(texto, palabra):
 
 #    return render(request, 'extraer_texto.html')
 #############EJEMPLOS CON OCR #########################################################################
+def actualizarperfil(request):
+    #por ahora me preocupa actualizar planilla y la foto no mas
+    nombre = ""
+    return render(request, 'actapago.html', {'nombre': nombre})

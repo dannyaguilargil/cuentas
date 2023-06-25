@@ -9,7 +9,7 @@ from .models import actividades
 from .models import actapago
 from .models import certificadoseguimiento
 from .models import prueba
-from .models import cuentausuario
+from .models import cuentausuario,cuentacontratista
 
 class Users(forms.ModelForm):
     class Meta:
@@ -100,3 +100,9 @@ class InsertFormUE(forms.ModelForm):
 #    class Meta:
 #        model = cuentausuario
 #        fields = ['nombre','cedula', 'email','supervisor','objeto']
+
+##GESTION DE CUENTA DEL CONTRATISTA
+class InsertFormc(forms.ModelForm):
+    class Meta:
+        model = cuentacontratista
+        fields = '__all__'

@@ -1,4 +1,4 @@
-<form id="myForm" method="POST" class="form-control">
+<form  method="POST" class="form-control" enctype="multipart/form-data">
   {% load static %}
   {% csrf_token %}
   <!-- VALIDAR CONTRATOS Y ADICCIONES-->
@@ -184,41 +184,62 @@
 
                         </div>
                         </div>
-                      <form action="">
-                     
+            
                       <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
                         <div class="accordion-body">
                           
                           <div class="row">
                             <div class="col">
-                              <label for="">Numero de planilla:</label>
-                              <input type="text" placeholder="Cargar planilla en perfil" value="{{numeroplanilla}}" class="form-control">
-                            </div>
-
-                            <div class="col">
-                              <label for="" >Cargar acta de pago:</label> <br>
+                              <label for="" >Descargar acta de pago:</label> <br>
                                 <a href="{% url 'actapago' cedula %}" style="color: grey">Ver acta de pago</a>
                             </div>
 
                             <div class="col">
-                              <label for="">Certificado de cuentas:</label> <br>
+                              <label for="">Descargar seguimiento cuentas:</label> <br>
                               <a href="{% url 'seguimiento' cedula %}" style="color: grey">Ver certificado seguimiento</a>
+                            </div>
+                           
+                          <!--
+                            <div class="col">
+                              <label for="">Numero de planilla:</label>
+                              <input type="number" placeholder="Cargar planilla en perfil" value="{{numeroplanilla}}" class="form-control" name="numeroplanilla" id="numeroplanilla" readonly>
                             </div>
 
                             <div class="col">
-                              <label for="">Cargar evidencias:</label> <br>
-                              <input type="file" name="" id="" class="form-control">
+                              <label for="">Cargar actividades:</label> <br>
+                              <input type="file" name="actividades" id="actividades" class="form-control" placeholder="Formato pdf">
                             </div>
+                         -->
+
+                         {% for campo in formpers %}
+                         <div class="col">
+                             <label for="">{{ campo.label }}:</label>
+                             {% if campo.html_name == 'cedula' %}
+                                 <input type="{{ campo.field.widget.input_type }}"
+                                        placeholder="{{ campo.html_name }}"
+                                        value="{{ cedula }}"
+                                        class="form-control"
+                                        name="{{ campo.html_name }}"
+                                        id="{{ campo.auto_id }}"  readonly>
+                                       
+                             {% else %}
+                                 <input type="{{ campo.field.widget.input_type }}"
+                                        placeholder="{{ campo.html_name }}"
+                                        value="{{ numeroplanilla }}"
+                                        class="form-control"
+                                        name="{{ campo.html_name }}"
+                                        id="{{ campo.auto_id }}">
+                             {% endif %}
+                         </div>
+                     {% endfor %}
+                     
                           </div>
 
 <br>
                             <center>
-                              <button class="btn btn-outline-success">Pasar cuenta</button>
+                              <button type="submit" class="btn btn-outline-success">Pasar cuenta</button>
                             </center>
-                           
-                        
-                        
-                        
+                          
                         </form>
                         </div>
                       </div>

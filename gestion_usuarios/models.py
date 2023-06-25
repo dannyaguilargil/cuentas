@@ -215,3 +215,13 @@ class cuentabancaria(models.Model):
     tipocuenta = models.CharField(max_length=40, verbose_name='Tipo de cuenta bancaria')
     nombrecb = models.CharField(max_length=40, verbose_name='Nombre de cuenta bancaria')
     usuario=models.ForeignKey(usuario,null=True,blank=True,on_delete=models.CASCADE)
+    
+class cuentacontratista(models.Model):
+    id = models.AutoField(primary_key=True)
+    numeroplanilla = models.CharField(max_length=40, default='001', verbose_name='Numero de planilla')
+#    #email = models.CharField(max_length=40, verbose_name='Email')
+#    #supervisor = models.CharField(max_length=40, verbose_name='Supervisor', default='No asignado')
+    archivo = models.FileField(upload_to='pdfs/', default='pdfs/NOCARGADO', verbose_name='archivo')
+    #tipocuenta = models.CharField(max_length=40, verbose_name='Tipo de cuenta bancaria')
+    #nombrecb = models.CharField(max_length=40, verbose_name='Nombre de cuenta bancaria')
+    cedula = models.IntegerField(verbose_name='Cedula', default=1)

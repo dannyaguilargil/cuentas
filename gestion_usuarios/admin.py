@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import  usuario, usolicitudes, contrato, rp, actainicio, prueba, planilla, actividades, actapago, certificadoseguimiento, cuentausuario, cuentabancaria
+from .models import  usuario, usolicitudes, contrato, rp, actainicio, prueba, planilla, actividades, actapago, certificadoseguimiento, cuentausuario, cuentabancaria, cuentacontratista
 #from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
@@ -132,4 +132,10 @@ class Cuentausuario(admin.ModelAdmin):
 admin.site.register(cuentausuario, Cuentausuario)
 #cuenta a pasar por el usuario
 
-admin.site.register(cuentabancaria)
+class CuentaBancaria(admin.ModelAdmin):
+    list_display=('numero','tipocuenta','nombrecb','usuario_id')
+admin.site.register(cuentabancaria, CuentaBancaria)
+
+class CuentaContratista(admin.ModelAdmin):
+    list_display=('id','numeroplanilla','archivo','cedula')
+admin.site.register(cuentacontratista, CuentaContratista )

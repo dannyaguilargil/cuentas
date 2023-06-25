@@ -16,7 +16,7 @@
 
 <br> 
     
-    <p> <span>FECHA: DIA # </span>  <span>MES: # </span> AÑO: 2023</p>
+    <p> <span>FECHA: {{dia}}  </span>  <span>MES: {{nombre_mes}} </span> AÑO: 2023</p>
     
     <style>
         table {
@@ -35,7 +35,7 @@
         <thead>
             
             <center>
-  <h4>Generalidades del contrato</h4>
+  <h2>Generalidades del contrato</h2>
             </center>
         
         </thead>
@@ -69,50 +69,50 @@
             <td>#VALORMENSUAL #CIFRAVALORMENSUAL</td>
           </tr>
           <tr>
-            <td>FECHA DE SUSCRIPCION DEL CONTRATO</td>
+            <td><b>FECHA DE SUSCRIPCION DEL CONTRATO</b></td>
             <td>{{fechacontrato}}</td>
           </tr>
           <tr>
-            <td>FECHA DE TERMINACION DEL CONTRATO</td>
+            <td><b>FECHA DE TERMINACION DEL CONTRATO</b></td>
             <td>{{fechaterminacion}}</td>
           </tr>
           <tr>
-            <td>NOMBRE Y CARGO DEL SUPERVISOR</td>
-            <td>#SUPERVISOR #CARGOSUPERVISOR</td>
+            <td><b>NOMBRE Y CARGO DEL SUPERVISOR</b></td>
+            <td>{{supervisor}} #CARGOSUPERVISOR</td>
           </tr>
           <tr>
-            <td>MES O PERIODO A COBRAR</td>
-            <td>#PERIODOPAGO</td>
+            <td><b>MES O PERIODO A COBRAR</b></td>
+            <td>{{nombre_mes}}</td>
           </tr>
           <!-- Agrega más filas según sea necesario -->
         </tbody>
       </table>
       
-
-      <p>APORTES A SEGURIDAD SOCIAL:</p> <br>
-      <p>PLANILLA N° #NUMEROPLANILLA</p>
+<hr>
+      <h3>APORTES A SEGURIDAD SOCIAL:</h3> 
+      <p><b> PLANILLA N° {{numeroplanilla}} </b></p>
 
       <table>
         <thead>
-           <td>APORTES</td>
-           <td>ENTIDAD</td>
-           <td>VALOR</td>
+           <td><b>APORTES</b></td>
+           <td><b>ENTIDAD</b></td>
+           <td><b>VALOR</b></td>
         </thead>
   <tbody>
     <tr>
-      <td>SALUD</td>
-      <td>#NOMBRESALUD</td>
-      <td>#VALORSALUD</td>
+      <td><b>SALUD</b></td>
+      <td>{{nombresalud}}</td>
+      <td>{{valorsalud}}</td>
     </tr>
     <tr>
-      <td>PENSION</td>
-      <td>#NOMBREPENSION</td>
-      <td>#VALORPENSION</td>
+      <td><b>PENSION</b></td>
+      <td>{{nombrepension}}</td>
+      <td>{{valorpension}}</td>
     </tr>
     <tr>
-        <td>ARL</td>
-        <td>#NOMBREARL</td>
-        <td>#VALORARL</td>
+        <td><b>ARL</b></td>
+        <td>{{nombrearl}}</td>
+        <td>{{valorarl}}</td>
       </tr>
     <!-- Agrega más filas según sea necesario -->
   </tbody>
@@ -120,6 +120,7 @@
  
 <br>
 
+<!--
 <table>
     <thead>
        <td>ENTIDAD</td>
@@ -142,13 +143,14 @@
     <td>N/A</td>
     <td>N/A</td>
   </tr>
-<!-- Agrega más filas según sea necesario -->
+Agrega más filas según sea necesario 
 </tbody>
 </table>
+-->
 <br>
-<p>CUENTA A CONSIGNAR PAGOS: No #NUMEROCUENTA BANCO: #NOMBREENTIDADBANCARIA</p> <br>
+<p>CUENTA A CONSIGNAR PAGOS: No {{numerocuentabancaria}} BANCO: {{nombrecb}} {{tipocuenta}}</p> <br>
 
-<p>CONTRATISTA: #NOMBRE <span>SUPERVISOR: #SUPERVISOR</span></p>
+<p>CONTRATISTA: {{nombre}} {{segundonombre}} {{primerapellido}} {{segundoapellidos}} <span>SUPERVISOR: {{supervisor}}</span></p>
     
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
