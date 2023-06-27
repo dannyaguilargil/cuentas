@@ -9,7 +9,7 @@
   <div class="row">
     
     <div class="col-6">
-      <p class=" fal fa-folder">     Contrato #{{numero}} del 2023</p>
+      <p class=" fal fa-folder">Contrato #{{numero}} del 2023</p>
 
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-white fas fa-eye" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
@@ -30,8 +30,6 @@
                                       <!-- OCULTOS PARA GESTIONARLOS CUANDO LOS PASO-->
                                       <input type="hidden" placeholder="Nombre completo" class="form-control" value="{{nombre}} {{segundonombre}} {{primerapellido}} {{segundoapellido}}" name="nombrecompleto" id="nombrecompleto">
                                       <input type="hidden" placeholder="Cedula" class="form-control" value="{{cedula}}" name="cedula" id="cedula">
-                                   
-
                                     <div class="col">
                                       <label for="">Numero del contrato:</label>
                                       <input type="number" placeholder="Numero del contrato" class="form-control" value="{{numero}}">
@@ -48,39 +46,32 @@
                                       <label for="">Valor del contrato:</label>
                                       <input type="number" placeholder="Valor del contrato" class="form-control" value="{{valor}}">
                                     </div>
-                                   
                                   </div>
 
 <br>
                                   <div class="row">
-                                    
-
                                     <div class="col">
                                       <label for="">Fecha inicial:</label>
                                       <input type="text" placeholder="Fecha inicial del contrato" class="form-control" value="{{fechacontrato}}">
                                     </div>
-
                                     <div class="col">
                                       <label for="">Fecha final:</label>
                                       <input type="text" placeholder="Fecha final del contrato" class="form-control" value="{{fechaterminacion}}">
                                     </div>
-
                                     <div class="col">
                                       <label for="">Duracion:</label>
                                       <input type="text" placeholder="Duracion" class="form-control" value="{{duracion}}">
                                     </div>
-
                                     <div class="col">
                                       <label for="">Supervisor:</label>
                                       <input type="text" placeholder="Supervisor" class="form-control" value="{{supervisor}}">
                                     </div>
-
                                     <div class="col">
                                       <br>
                                       <center>
                                         <input type="hidden" value="{{archivo}}" name="pdfcontrato" id="pdfcontrato">
+                                        <input type="hidden" placeholder="pdf de la planilla" class="form-control" value="{{pdfplanilla}}" name="pdfplanilla" id="pdfplanilla">
                                        <a href="{% static archivo %}" target="_blank" class="fas fa-file-pdf" style="color: grey;">Ver PDF del contrato</a>
- 
                                       </center>
                                      
                                      </div>

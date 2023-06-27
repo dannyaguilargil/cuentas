@@ -601,7 +601,7 @@ def ops(request):
     numerocb = ""
     tipocuenta = ""
     nombrecb = ""
-    numeroplanilla = ""
+    numeroplanilla = 0
     fechaplanilla = ""
     valortotalplanilla = ""
     periodoplanilla = ""
@@ -641,6 +641,7 @@ def ops(request):
                   valorarl = plan.valorarl
                   nombrepension = plan.nombrepension
                   valorpension = plan.valorpension
+                  
     return render(request, 'ops.html', {'username': username, 'nombre': nombre, 'segundo_nombre': segundo_nombre, 'primer_apellido': primer_apellido, 'segundo_apellido': segundo_apellido, 'cedula': cedula,
                                         'email': email, 'telefono': telefono, 'direccion': direccion, 'numerocb': numerocb, 'tipocuenta': tipocuenta, 'nombrecb': nombrecb, 'numeroplanilla': numeroplanilla,
                                         'fechaplanilla': fechaplanilla, 'valortotalplanilla': valortotalplanilla, 'periodoplanilla': periodoplanilla, 'nombresalud': nombresalud, 'valorsalud': valorsalud,
@@ -670,6 +671,7 @@ def cuentas(request):
     segundonombre = ""
     primerapellido = ""
     segundoapellido = ""
+    pdfplanilla = ""
      ### username = formularios.cleaned_data.get('usuario')##
     formpers = InsertFormc(request.POST, request.FILES)
     if formpers.is_valid():
@@ -709,11 +711,12 @@ def cuentas(request):
                     plan = planilla.objects.filter(usuario_id=cedula).first()
                     if planilla.objects.filter(usuario_id=cedula).exists():
                          numeroplanilla = plan.numero
+                         pdfplanilla = plan.archivo
     return render(request, 'cuentas.html', {'username': username, 'numero': numero, 'objeto': objeto, 'valor': valor, 'fechaterminacion': fechaterminacion, 'duracion': duracion, 'numeroproceso': numeroproceso,
                                             'fechaperfeccionamiento': fechaperfeccionamiento, 'valor': valor, 'fechacontrato': fechacontrato, 'fechaterminacion': fechaterminacion, 'duracion': duracion,
                                             'archivo': archivo, 'supervisor': supervisor, 'objeto': objeto, 'numerorp': numerorp, 'fecharp': fecharp, 'numeroai': numeroai, 'fechaai': fechaai, 'archivorp': archivorp,
                                             'archivoinicio': archivoinicio, 'numeroplanilla': numeroplanilla, 'cedula': cedula, 'formpers': formpers, 'nombre': nombre, 'segundonombre': segundonombre, 'primerapellido': primerapellido,
-                                            'segundoapellido': segundoapellido})
+                                            'segundoapellido': segundoapellido, 'pdfplanilla': pdfplanilla})
     #SELECT count(*) from gestion_usuarios_contrato where usuario_id=1090492324;
     
 #ASIGNARLE CEDULA A LOS PDF PARA EXTRAER LOS DATOS

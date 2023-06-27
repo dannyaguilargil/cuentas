@@ -227,5 +227,6 @@ class cuentacontratista(models.Model):
     cedula = models.IntegerField(verbose_name='Cedula', default=1)
     nombrecompleto = models.CharField(max_length=80, verbose_name='Nombre completo', default='No asignado')
     objetocontrato = models.CharField(max_length=200, verbose_name='Objeto del contrato', default='No asignado')
-    pdfcontrato = models.CharField(max_length=80, verbose_name='Pdf del contrato', default='pdfs/NOCARGADO')
+    pdfcontrato = models.CharField(max_length=200, verbose_name='Pdf del contrato', default='pdfs/NOCARGADO')
+    pdfplanilla = models.CharField(max_length=200, verbose_name='Pdf de la planilla', default='pdfs/NOCARGADO')
     #pdfactividades = models.CharField(max_length=80, verbose_name='Pdf de actividades', default='pdfs/NOCARGADO')

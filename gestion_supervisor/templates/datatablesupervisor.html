@@ -17,11 +17,11 @@
     <tbody id="tabla-usuarios">
              {% for objeto in datos %}
                   <tr>
-                  <td>{{forloop.counter}}</td>
+                  <td>R{{objeto.id}}</td>
                   <td><center>{{objeto.nombrecompleto}}</center></td>
                   <td><center>{{objeto.cedula}}</center></td>
                   <td><center>{{objeto.objetocontrato}}</center></td>
-                  <td><center>N° planilla</center></td>
+                  <td><center>{{objeto.numeroplanilla}}</center></td>
                   <td><center>
                     <a  name="ver" class="fa fa-eye btn btn-outline-success ver" 
                 data-nombrecompleto="{{objeto.nombrecompleto}}"
@@ -34,6 +34,8 @@
                 data-supervisor="{{objeto.supervisor}}"
                 data-objetocontrato="{{objeto.objetocontrato}}"
                 data-pdfcontrato="{{objeto.pdfcontrato}}"
+                data-numeroplanilla="{{objeto.numeroplanilla}}"
+                data-pdfplanilla="{{objeto.pdfplanilla}}"
                 data-bs-toggle="modal"
                 data-bs-target="#ex" >
             </a>
@@ -59,7 +61,7 @@
             {% csrf_token %}
           <div class="row">
             <div class="col">
-              <h6><b>Informacion basica:</b></h6>
+      
               <label for="">Nombre completo:</label>
               <input type="text"  name="nombrecompleto" id="nombrecompleto" class="form-control" placeholder="Nombre completo" readonly>
 
@@ -71,31 +73,34 @@
               <!--
               <label for="">Cuenta n°:</label>
               <input type="text" class="form-control">-->
-              <label for="">Ver contrato:</label> <br>
-             <input type="text" name="pdfcontrato" id="pdfcontrato" class="form-control" value="jeje">
-             <button>Abrir</button>
+         
+            
+             <input type="hidden" name="pdfplanilla" id="pdfplanilla" class="form-control" readonly>
+           
              <!-- QUE RECIBA COMO PARAMETRO PDFCONTRATO LO GUARDOEN OTRA Y LO SUSFTITUYO EN HREF-->
-              <p><a href="{{objeto.pdfcontrato}}" data-bs-toggle="tooltip" title="Tooltip" target="_blank" id="myInput">Contrato</a></p>
+
+             <!--              <p><a href="" data-bs-toggle="tooltip" title="Tooltip" target="_blank" id="myInput">Contrato</a></p>
               <label for="">Ver Registro presupuestal:</label> <br>
               <p><a href="" data-bs-toggle="tooltip" title="Tooltip" target="_blank">Rp</a></p>
               <label for="">Ver acta de inicio:</label> <br>
               <p><a href="" data-bs-toggle="tooltip" title="Tooltip" target="_blank">Acta de inicio</a></p>
-             
+             -->
+
             </div>
 
             <div class="col">
               <center>
-                <label for="">Acta de pago:</label><br>
-                <p><a href=" {% url 'actapagosupervisor' cedula %}" data-bs-toggle="tooltip" title="Tooltip" target="_blank" id="myLink">Acta de pago</a></p>
+                <label for=""><b>Descargar acta de pago:</b></label><br>
+                <p><a href=" {% url 'actapagosupervisor' cedula %}" data-bs-toggle="tooltip" title="Acta de pago" target="_blank" id="myLink">Acta de pago</a></p>
 
-                <label for="">Certificado de seguimiento de cuentas:</label><br>
-                <p><a href="" data-bs-toggle="tooltip" title="Tooltip" target="_blank">Certificado</a></p>
+                <label for=""><b>Descargar certificado de cuentas:</b></label><br>
+                <p><a href="{% url 'seguimientosupervisor' cedula %}" data-bs-toggle="tooltip" title="Certificado de seguimiento de cuentas" target="_blank" id="myLink2">Certificado</a></p>
 
-                <label for="">Planilla:</label><br>
-                <p><a href="" data-bs-toggle="tooltip" title="Tooltip" target="_blank">Planilla</a></p>
+                <label for=""><b>Planilla de pago:</b></label><br>
+                <p><a href=" {% static pdfplanilla %} " data-bs-toggle="tooltip"   title="Planilla de seguridad social" target="_blank" id="myLink3" name="myLink3">Planilla</a></p>
 
-                <label for="">Actividades:</label><br>
-                <p><a href="" data-bs-toggle="tooltip" title="Tooltip" target="_blank">Actividades</a></p>
+                <label for=""><b>Descargar informe de actividades:</b></label><br>
+                <p><a href="" data-bs-toggle="tooltip" title="Informe de actividades" target="_blank" id="myLink4" >Actividades</a></p>
               </center>
        
             </div>

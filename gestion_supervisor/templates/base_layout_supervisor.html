@@ -150,27 +150,26 @@
                 var tipodocumento = $(this).data("tipodocumento");
                 var objetocontrato = $(this).data("objetocontrato");
                 var pdfcontrato = $(this).data("pdfcontrato");
+                var id = $(this).data("id");
+                var pdfplanilla = $(this).data("pdfplanilla");
             
                 $("#nombre").val(nombre);
                 $("#nombrecompleto").val(nombrecompleto);
                 $("#segundonombre").val(segundonombre);
                 $("#primerapellido").val(primerapellido);
                 $("#segundoapellido").val(segundoapellido);
-                //var cedula = $("#cedula").val(); // Obtener el valor original como cadena
-                //var cedulaValorEntero = parseInt(cedula, 10); // Convertir a entero
-              
                 $("#cargo").val(cargo);
                 $("#email").val(email);
                 $("#supervisor").val(supervisor);
                 $("#tipodocumento").val(tipodocumento);
                 $("#objetocontrato").val(objetocontrato);
                 $("#pdfcontrato").val(pdfcontrato);
-                $("#exampleModal").modal("show");
                 $("#cedula").val(cedula);
-                //var cedula = $("#cedula").val();
-                //console.log(cedula);
-                //var url = "{% url 'actapagosupervisor' cedula=cedula %}"; 
-                //$("#myLink").attr("href", url);
+                $("#id").val(id);
+                $("#pdfplanilla").val(pdfplanilla);
+                $("#exampleModal").modal("show");
+               
+          
                 $("#myLink").click(function(e) {
                     e.preventDefault();
                     var cedula = $("#cedula").val();
@@ -178,6 +177,19 @@
                     window.location.href = url;
                   });
 
+                  $("#myLink2").click(function(e) {
+                    e.preventDefault();
+                    var cedula = $("#cedula").val();
+                    var url = "supervisor/seguimiento/" + cedula ;
+                    window.location.href = url;
+                  });
+
+                  $("#myLink3").click(function(e) {
+                    e.preventDefault();
+                    var pdfplanilla = $("#pdfplanilla").val();
+                    var url = "static/" + pdfplanilla ;
+                    window.open(url, "_blank"); // de esta forma me lo abre en otra perstaña del navegador
+                  });
 
 
             });
