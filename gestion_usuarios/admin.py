@@ -137,5 +137,5 @@ class CuentaBancaria(admin.ModelAdmin):
 admin.site.register(cuentabancaria, CuentaBancaria)
 
 class CuentaContratista(admin.ModelAdmin):
-    list_display=('id','numeroplanilla','archivo','cedula')
+    list_display=('id','numeroplanilla','archivo','objetocontrato','cedula')
 admin.site.register(cuentacontratista, CuentaContratista )

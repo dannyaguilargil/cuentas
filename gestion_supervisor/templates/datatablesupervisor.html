@@ -1,13 +1,13 @@
+{% load static %}
 <div class="table-responsive"> 
-
   <table id="tabla-usuarios" class="table  table-hover table-bordered">
     <caption>
-       GESTION DE CUENTAS DEL SUPERVISOR
+       Gestion de cuentas del supervisor
     </caption>
     <thead>
         <tr>
             <th class="centered">#</th>
-            <th class="text-center centered">Nombre completo</th>
+            <th class="text-center centered">Nombre</th>
             <th class="text-center centered">Cedula</th>
             <th class="text-center centered">Objeto del contrato</th>
             <th class="text-center centered">N° planilla</th>
@@ -15,33 +15,39 @@
         </tr>
     </thead>
     <tbody id="tabla-usuarios">
-      {% for objeto in datos %}
-      <tr>
-      <td>{{forloop.counter}}</td>
-      <td><center>{{objeto.nombrecompleto}}</center></td>
-      <td><center>{{objeto.cedula}}</center></td>
-      <td><center>Objeto</center></td>
-      <td><center>N° planilla</center></td>
-      <td><center>
-
-        <a  name="ver" class="fa fa-eye btn btn-outline-success ver" 
-        data-nombrecompleto="{{objeto.nombrecompleto}}"
-        data-cedula="{{objeto.cedula}}"
-        data-bs-toggle="modal"
-        data-bs-target="#ex">
-        </a>
-
-
-      </center></td>
-      </tr>
-    </tbody>
-    {% endfor %}
+             {% for objeto in datos %}
+                  <tr>
+                  <td>{{forloop.counter}}</td>
+                  <td><center>{{objeto.nombrecompleto}}</center></td>
+                  <td><center>{{objeto.cedula}}</center></td>
+                  <td><center>{{objeto.objetocontrato}}</center></td>
+                  <td><center>N° planilla</center></td>
+                  <td><center>
+                    <a  name="ver" class="fa fa-eye btn btn-outline-success ver" 
+                data-nombrecompleto="{{objeto.nombrecompleto}}"
+                data-segundonombre="{{objeto.segundonombre}}"
+                data-primerapellido="{{objeto.primerapellido}}"
+                data-segundoapellido="{{objeto.segundoapellido}}" 
+                data-cedula="{{objeto.cedula}}"
+                data-cargo="{{objeto.cargo}}"
+                data-email="{{objeto.email}}"
+                data-supervisor="{{objeto.supervisor}}"
+                data-objetocontrato="{{objeto.objetocontrato}}"
+                data-pdfcontrato="{{objeto.pdfcontrato}}"
+                data-bs-toggle="modal"
+                data-bs-target="#ex" >
+            </a>
+                  </center></td>
+                  </tr>
+              
+            {% endfor %}
+          </tbody>
   </table>
 
 </div>
   <!-- Modal -->
   <div class="modal" id="ex" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-static modal-lg">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="exampleModalLabel">Informacion de cuenta del contratista</h1>
@@ -55,36 +61,41 @@
             <div class="col">
               <h6><b>Informacion basica:</b></h6>
               <label for="">Nombre completo:</label>
-              <input type="text" class="form-control" name="nombrecompleto" id="nombrecompleto">
+              <input type="text"  name="nombrecompleto" id="nombrecompleto" class="form-control" placeholder="Nombre completo" readonly>
+
               <label for="">Identificacion:</label>
-              <input type="text" class="form-control" name="cedula" id="cedula">
+              <input type="text" name="cedula" id="cedula" class="form-control" placeholder="identificacion" readonly>
+
               <label for="">Objeto del contrato:</label>
-              <input type="text" class="form-control"> <br>
+              <input type="text" class="form-control" placeholder="Objeto del contrato" readonly name="objetocontrato" id="objetocontrato"> <br>
               <!--
               <label for="">Cuenta n°:</label>
               <input type="text" class="form-control">-->
               <label for="">Ver contrato:</label> <br>
-              <a href="" style="color: grey" data-bs-toggle="tooltip">Contrato</a> <br> <br>
+             <input type="text" name="pdfcontrato" id="pdfcontrato" class="form-control" value="jeje">
+             <button>Abrir</button>
+             <!-- QUE RECIBA COMO PARAMETRO PDFCONTRATO LO GUARDOEN OTRA Y LO SUSFTITUYO EN HREF-->
+              <p><a href="{{objeto.pdfcontrato}}" data-bs-toggle="tooltip" title="Tooltip" target="_blank" id="myInput">Contrato</a></p>
               <label for="">Ver Registro presupuestal:</label> <br>
-              <a href="" style="color: grey">Registro presupuestal</a> <br> <br>
+              <p><a href="" data-bs-toggle="tooltip" title="Tooltip" target="_blank">Rp</a></p>
               <label for="">Ver acta de inicio:</label> <br>
-              <a href="" style="color: grey">Acta de inicio</a>
+              <p><a href="" data-bs-toggle="tooltip" title="Tooltip" target="_blank">Acta de inicio</a></p>
              
             </div>
 
             <div class="col">
               <center>
                 <label for="">Acta de pago:</label><br>
-                <a href="" style="color:grey">ver acta de pago</a> <br> <br>
+                <p><a href=" {% url 'actapagosupervisor' cedula %}" data-bs-toggle="tooltip" title="Tooltip" target="_blank" id="myLink">Acta de pago</a></p>
 
                 <label for="">Certificado de seguimiento de cuentas:</label><br>
-                <a href="" style="color:grey">ver certificado</a> <br> <br>
+                <p><a href="" data-bs-toggle="tooltip" title="Tooltip" target="_blank">Certificado</a></p>
 
                 <label for="">Planilla:</label><br>
-                <a href="" style="color: grey">ver planilla</a> <br> <br>
+                <p><a href="" data-bs-toggle="tooltip" title="Tooltip" target="_blank">Planilla</a></p>
 
                 <label for="">Actividades:</label><br>
-                <a href="" style="color:grey">ver actividades</a> <br> <br>
+                <p><a href="" data-bs-toggle="tooltip" title="Tooltip" target="_blank">Actividades</a></p>
               </center>
        
             </div>
@@ -98,25 +109,29 @@
        
         <div class="modal-footer">
 
-          <div class="col">
-            <button class="btn btn-danger">Rechazar</button>
+          <div class="col-2">
+            <button class="btn btn-danger" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Rechazar</button>
+          
           </div>
-             <div class="col">
-
+             <div class="col-4">
+         
+              <input type="text" id="myInput" placeholder="Observaciones de devolucion:" class="form-control">
+             <!-- <input type="checkbox" id="myCheckbox" onchange="toggleInput()">-->
+            
+             
              </div>
 
-             <div class="col-8">
-
+             <div class="col">
+              
              </div>
           <div class="col">
             <button class="btn btn-success">Aceptar</button>
             <!-- <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button> -->
-
           </div>
        
         </div>
+        
     </form>
       </div>
     </div>
   </div>
- 

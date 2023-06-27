@@ -78,6 +78,7 @@
                                     <div class="col">
                                       <br>
                                       <center>
+                                        <input type="hidden" value="{{archivo}}" name="pdfcontrato" id="pdfcontrato">
                                        <a href="{% static archivo %}" target="_blank" class="fas fa-file-pdf" style="color: grey;">Ver PDF del contrato</a>
  
                                       </center>
@@ -88,7 +89,7 @@
                                   <div class="row">
                                     <div class="col">
                                       <label for="">Objeto del contrato:</label>
-                                      <input type="text" placeholder="Objeto del contrato" class="form-control" value="{{objeto}}">
+                                      <input type="text" placeholder="Objeto del contrato" class="form-control" value="{{objeto}}" name="objetocontrato" id="objetocontrato">
                                     </div>
                                   </div>
                                   <hr>

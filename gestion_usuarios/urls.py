@@ -48,6 +48,7 @@ urlpatterns = [
     path('contratista/actapagohtml', views.pruebapdfactapago, name='pruebapdfactapago'),
     path('contratista/seguimientohtml', views.seguimientohtml, name='seguimientohtml'),
     path('contratista/seguimiento/<int:cedula>/', views.seguimiento, name='seguimiento'),
+    #path('supervisor/actapago', views.pruebapdf, name='actapagosupervisor'),
     #path('admin/', include('django.contrib.admin.urls')),
     #path('admin/', admin.site.urls, name='admin'),
     #ruta de pdf

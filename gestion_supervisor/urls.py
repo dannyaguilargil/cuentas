@@ -11,5 +11,8 @@ urlpatterns = [
 #   path('', views.saludo2),
 #    path('saludo/', views.saludo3),
     path('supervisor', views.supervisor, name='supervisor'),
+    path('supervisor/actapago/<int:cedula>', views.pruebapdf, name='actapagosupervisor'),
+    path('supervisor/actapagohtml', views.pruebapdfactapago, name='pruebapdfactapago'),
+
    
 ]
