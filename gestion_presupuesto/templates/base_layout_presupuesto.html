@@ -8,6 +8,9 @@
           | |          |  |      | |      #      #
 ----------| |          | |        #   ---------  #
 ################################################## 
+
+
+######ESTE ES EL CONTENIDO DE DATATABLE CON DJANGO PERSONALIZADO PARA EL CRUD
 -->
 
 {% load static %}
@@ -16,18 +19,22 @@
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title> {% block titulo %}    {% endblock  %}</title>  
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kodchasan">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+
+       
+        <!-- Bootstrap -->
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
+   <!-- Font Awesome -->
+   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+        
+        <link rel="icon" href=" {% static 'imgs/escudito.ico' %} ">
         <link type="text/css" rel="stylesheet" href=" {% static "css/styles.css"  %} "> 
         <link type="text/css" rel="stylesheet" href=" {% static "css/base2.css"  %} "> 
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
-        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-        <link rel="icon" href=" {% static 'imgs/escudito.ico' %} ">
+        <title> {% block titulo %}    {% endblock  %}</title>  
     </head>
     <body>
         <nav class="sb-topnav navbar navbar-expand" style="background: #1d985a; color: white; ">
@@ -55,7 +62,7 @@
         
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-               Nombre de usuario
+                <span class="typed"></span> presupuesto !
             </form>
 
            
@@ -64,9 +71,9 @@
                 <li class="nav-item dropdown" style="background: #1d985a; color: white;">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="background: #1d985a; color: white;"><i class="fas fa-user fa-fw" ></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" style="background: #1d985a; color: white;">
-                        <li><a class="dropdown-item" href="#!">Actualizar perfil</a></li>
+                        <li><a class="dropdown-item fas fa-user-edit" href=" {% url 'perfil' %} ">Actualizar perfil</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Cerrar sesión</a></li>
+                        <li><a class="dropdown-item fas fa-sign-out-alt" href="#!">Cerrar sesión</a></li>
                     </ul>
                 </li>
             </ul>
@@ -77,14 +84,14 @@
                     <div class="sb-sidenav-menu" style="background: #1d985a; color: white;">
                         <div class="nav" style="background: #1d985a; color: white;">
                             
-                            <div class="sb-sidenav-menu-heading" >Gestionar cuenta</div>
-                            <a class="nav-link" href=" {% url 'perfil' %} " style="background: #1d985a; color: white;">
-                                <div class="sb-nav-link-icon"><i class="fal fa-file-import"></i></div>
+    
+
+                            <div class="sb-sidenav-menu-heading" >Gestion de supervisor</div>
+                            <a class="nav-link" href="/admin/" style="background: #1d985a; color: white;">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 Radicados
                             </a>
-                        
                           
-                           
                         </div>
                     </div>
                     <div class="sb-sidenav-footer" style="background: #1d985a; color: white;">
@@ -95,23 +102,23 @@
             </div>
 
             <div id="layoutSidenav_content">
-                <center>
-                    <img  src=" {% static 'imgs/logocompleto.png' %} "  alt="" style="width: 120px; text-align: center;height: 45px">
-                </center> 
+               
                 <div class="container">
-                {% include 'actualizar_perfil.html' %}
+                    <center>
+                        <img  src=" {% static 'imgs/logocompleto.png' %} "  alt="" style="width: 120px; text-align: center;height: 45px">
+                    </center> 
+        
                 {% block contenido %}
                 {% endblock contenido %}
-                </div>
+         
+           
               
 
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
                             <!---->
-                            <div class="text-muted">
-                                "Intentando lo Imposible es como se Realiza lo Posible"
-                            </div>
+                            <div class="text-muted">"Intentando lo Imposible es como se Realiza lo Posible"</div>
                             <div>
                                 <a href="#" style="color: grey;">Politica de privacidad</a>
                                 &middot;
@@ -125,14 +132,82 @@
 
  </div>
     </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="{% static 'js/scripts.js' %}"></script>
-          <!-- Bootstrap -->
-  <!-- jQuery -->
 
-  <!-- DataTable.js -->
+   
+        
+    <script>
+        $(document).ready(function() {
+            $(".ver").click(function() {
+                var nombrecompleto = $(this).data("nombrecompleto");
+                var cedula = $(this).data("cedula");
+                var cargo = $(this).data("cargo");
+                var email = $(this).data("email");
+                var supervisor = $(this).data("supervisor");
+                var tipodocumento = $(this).data("tipodocumento");
+                var objetocontrato = $(this).data("objetocontrato");
+                var pdfcontrato = $(this).data("pdfcontrato");
+                var id = $(this).data("id");
+                var pdfplanilla = $(this).data("pdfplanilla");
+                var archivo = $(this).data("archivo");
+            
+      
+                $("#nombrecompleto").val(nombrecompleto);
+                $("#cargo").val(cargo);
+                $("#email").val(email);
+                $("#supervisor").val(supervisor);
+                $("#tipodocumento").val(tipodocumento);
+                $("#objetocontrato").val(objetocontrato);
+                $("#pdfcontrato").val(pdfcontrato);
+                $("#cedula").val(cedula);
+                $("#id").val(id);
+                $("#pdfplanilla").val(pdfplanilla);
+                $("#archivo").val(archivo);
+                $("#exampleModal").modal("show");
+               
+          
+                $("#myLink").click(function(e) {
+                    e.preventDefault();
+                    var cedula = $("#cedula").val();
+                    var url = "supervisor/actapago/" + cedula ;
+                    window.location.href = url;
+                  });
 
-  <!--<script src="{% static 'js/usuariospendientes.js' %}"></script>-->
+                  $("#myLink2").click(function(e) {
+                    e.preventDefault();
+                    var cedula = $("#cedula").val();
+                    var url = "supervisor/seguimiento/" + cedula ;
+                    window.location.href = url;
+                  });
+
+                  $("#myLink3").click(function(e) {
+                    e.preventDefault();
+                    var pdfplanilla = $("#pdfplanilla").val();
+                    var url = "static/" + pdfplanilla ;
+                    window.open(url, "_blank"); // de esta forma me lo abre en otra perstaña del navegador
+                  });
+
+                
+
+            });
+            
+
+        });
+        
+    </script>
+    
+
+
+
+  <!-- Bootstrap -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+  <script src="{% static 'js/scripts.js' %}"></script>
+ 
+
+
+         
 
     </body>
 </html>

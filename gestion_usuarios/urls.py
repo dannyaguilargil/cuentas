@@ -48,11 +48,7 @@ urlpatterns = [
     path('contratista/actapagohtml', views.pruebapdfactapago, name='pruebapdfactapago'),
     path('contratista/seguimientohtml', views.seguimientohtml, name='seguimientohtml'),
     path('contratista/seguimiento/<int:cedula>/', views.seguimiento, name='seguimiento'),
-    #path('supervisor/actapago', views.pruebapdf, name='actapagosupervisor'),
-    #path('admin/', include('django.contrib.admin.urls')),
-    #path('admin/', admin.site.urls, name='admin'),
-    #ruta de pdf
     path('extraer/', extraer_texto, name='extraer_texto'),
-    #path('extraer2/', views.extraer_texto2, name='extraer_texto2'),
+    #path('contratista/perfil/<int:cedula>/', views.actualizar_usuario, name='actualizar_usuario'),
   
 ] + static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)

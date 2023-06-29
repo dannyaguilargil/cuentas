@@ -38,3 +38,10 @@ class cuentapresupuesto(models.Model):
     ################################################################
     ############        NO ACTIVIDADES     #########################
     ################################################################
+    
+class cuentapresupuestocontratista(models.Model):
+    nombrecompleto = models.CharField(max_length=80, verbose_name='Nombre completo', default='No asignado')
+    cedula = models.IntegerField(verbose_name='Cedula', default=1)
+    objetocontrato = models.CharField(max_length=200, verbose_name='Objeto del contrato', default='No asignado')
+    pdfplanilla = models.CharField(max_length=200, verbose_name='Pdf de la planilla', default='pdfs/NOCARGADO')
+    ordenpago = models.CharField(max_length=200, verbose_name='Orden de pago', default='No')

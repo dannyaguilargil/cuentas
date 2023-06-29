@@ -17,7 +17,7 @@ class usuario(models.Model):
     sexo = models.CharField(max_length=40, verbose_name='Sexo', choices=sexos, default='F')
     usuario = models.CharField(max_length=40, verbose_name='Usuario')
     contrasena = models.CharField(max_length=40, verbose_name='Contrasena')
-    telefono = models.IntegerField(verbose_name='Telefono' ,default=0)
+    telefono = models.CharField(max_length=40, verbose_name='Telefono' ,default="")
     direccion = models.CharField(max_length=40, verbose_name='Direccion', default='')
     rol = models.CharField(max_length=40, verbose_name='Rol',choices=rol, default='CONTRATISTA')
     #imagen

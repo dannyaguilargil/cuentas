@@ -62,7 +62,7 @@
         
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                <span class="typed"></span> {{ username }}!
+                <span class="typed"></span> supervisor !
             </form>
 
            
@@ -138,11 +138,7 @@
     <script>
         $(document).ready(function() {
             $(".ver").click(function() {
-                var nombre = $(this).data("nombre");
                 var nombrecompleto = $(this).data("nombrecompleto");
-                var segundonombre = $(this).data("segundonombre");
-                var primerapellido = $(this).data("primerapellido");
-                var segundoapellido = $(this).data("segundoapellido");
                 var cedula = $(this).data("cedula");
                 var cargo = $(this).data("cargo");
                 var email = $(this).data("email");
@@ -152,12 +148,10 @@
                 var pdfcontrato = $(this).data("pdfcontrato");
                 var id = $(this).data("id");
                 var pdfplanilla = $(this).data("pdfplanilla");
+                var archivo = $(this).data("archivo");
             
-                $("#nombre").val(nombre);
+      
                 $("#nombrecompleto").val(nombrecompleto);
-                $("#segundonombre").val(segundonombre);
-                $("#primerapellido").val(primerapellido);
-                $("#segundoapellido").val(segundoapellido);
                 $("#cargo").val(cargo);
                 $("#email").val(email);
                 $("#supervisor").val(supervisor);
@@ -167,6 +161,7 @@
                 $("#cedula").val(cedula);
                 $("#id").val(id);
                 $("#pdfplanilla").val(pdfplanilla);
+                $("#archivo").val(archivo);
                 $("#exampleModal").modal("show");
                
           
@@ -191,6 +186,12 @@
                     window.open(url, "_blank"); // de esta forma me lo abre en otra perstaña del navegador
                   });
 
+                  $("#myLink4").click(function(e) {
+                    e.preventDefault();
+                    var archivo = $("#archivo").val();
+                    var url = "static/" + archivo ;
+                    window.open(url, "_blank"); // de esta forma me lo abre en otra perstaña del navegador
+                  });
 
             });
             
@@ -199,14 +200,7 @@
         
     </script>
     
-    <script>
-        //revisar como obtengo cedula como entero para enviarlo como entero
-      </script>
-     
-      
-      
-      
-            
+
 
 
   <!-- Bootstrap -->

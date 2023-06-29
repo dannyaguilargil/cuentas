@@ -1,5 +1,5 @@
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from gestion_usuarios.models import usolicitudes,cuentausuario, cuentacontratista,usuario,contrato,planilla,rp,cuentabancaria
 from gestion_usuarios.forms import Users
 from django.http import HttpResponse
@@ -7,12 +7,19 @@ from xhtml2pdf import pisa
 from datetime import datetime
 import calendar
 import locale, inflect
+from django.contrib import messages
+from gestion_supervisor.forms import InsertForms
 
 def  supervisor(request):
      username = request.user.username
      cedula = 0
      datos = cuentacontratista.objects.values()
-     return render(request, 'supervisor.html', {'datos': datos, 'cedula': cedula }) 
+     formsuper = InsertForms(request.POST, request.FILES)
+     if formsuper.is_valid():
+        formsuper.save()
+        messages.success(request, 'Cuenta registrada por el supervisor') #falta la gestion del mensaje
+        return redirect('supervisor')
+     return render(request, 'supervisor.html', {'datos': datos, 'cedula': cedula, 'formsuper': formsuper }) 
 
 def pruebapdf(request, cedula):
     nombre = "" #Lo remplazo con el que traiga del modelo

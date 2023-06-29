@@ -2,48 +2,39 @@
 
   <table id="tabla-usuarios" class="table table-bordered table-hover table-striped">
     <caption>
-       GESTION DE CUENTAS DEL SUPERVISOR
+       Gestion de cuentas de presupuesto
     </caption>
     <thead>
         <tr>
-            <th class="centered">#</th>
-            <th class="text-center centered">Nombre completo</th>
+         
+            <th class="text-center centered">Radicado</th>
+            <th class="text-center centered">Nombre</th>
             <th class="text-center centered">Cedula</th>
             <th class="text-center centered">Objeto del contrato</th>
-            <th class="text-center centered">Dependencia</th>
-        
-         
             <th class="text-center centered">Accion</th>
         </tr>
     </thead>
     <tbody id="tabla-usuarios">
       {% for objeto in datos %}
       <tr> <!-- SE REMPLAZA CON INPUTS PARA OBTENER LOS DATOS DE ESE INPUT-->
-          <td>{{forloop.counter}}</td>
-          <td><center>{{objeto.nombre}}</center></td>
+          <td>R-{{forloop.counter}}</td>
+          <td><center>{{objeto.nombrecompleto}}</center></td>
           <td><center>{{objeto.cedula}}</center></td>
-          <td><center>{{objeto.objeto}}</center></td>
-          <td><center>{{objeto.dependencia}}</center></td>
+          <td><center>{{objeto.objetocontrato}}</center></td>
+
      
           <td><a  name="ver" class="fa fa-eye btn btn-outline-success ver" 
-              data-nombre="{{objeto.nombre}}"
-              data-segundonombre="{{objeto.segundonombre}}"
-              data-primerapellido="{{objeto.primerapellido}}"
-              data-segundoapellido="{{objeto.segundoapellido}}" 
+              data-nombrecompleto="{{objeto.nombrecompleto}}"
               data-cedula="{{objeto.cedula}}"
               data-cargo="{{objeto.cargo}}"
               data-email="{{objeto.email}}"
               data-supervisor="{{objeto.supervisor}}"
-              data-tipodocumento="{{objeto.tipodocumento}}"
+              data-objetocontrato="{{objeto.objetocontrato}}"
+              data-pdfplanilla="{{objeto.pdfplanilla}}"
               data-bs-toggle="modal"
               data-bs-target="#ex" >
           </a>
-            <!-- <button  class="fa fa-save btn btn-outline-secondary" type="submit"></button> --> 
-             <!-- <a  class="fa fa-eraser btn btn-outline-danger" 
-              data-cedula="{{objeto.cedula}}"
-              href="{% url 'eliminar' objeto.cedula %}"
-               >
-            </a>-->
+           
           </td>
       </tr>
   {% endfor %}
@@ -52,105 +43,108 @@
   </table>
 
 </div>
-  <!-- Modal -->
-  <div class="modal fade" id="ex" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-fullscreen">
+   <!-- Modal -->
+   <div class="modal" id="ex" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Cuenta de: Nombre de usuario</h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Informacion de cuenta del contratista</h1>
 
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="" method="POST" >
+          <form action="" method="POST">
             {% csrf_token %}
           <div class="row">
             <div class="col">
-                <center>
-                  INFORME DE ACTIVIDADES
-                </center>
+      
+              <label for="">Nombre completo:</label>
+              <input type="text"  name="nombrecompleto" id="nombrecompleto" class="form-control" placeholder="Nombre completo" readonly>
 
-             
-            </div>
+              <label for="">Identificacion:</label>
+              <input type="text" name="cedula" id="cedula" class="form-control" placeholder="identificacion" readonly>
 
-            <div class="col">
-              <center>
-                ACTA DE PAGO
-              </center>
-            </div>
-
-            <div class="col">
-              <center>
-                PLANILLA
-              </center>
-            </div>
-          </div>
-
-
-
-          <div class="row">
-            <div class="col">
-              
-            </div>
-
-            <div class="col">
+              <label for="">Objeto del contrato:</label>
+              <input type="text" class="form-control" placeholder="Objeto del contrato" readonly name="objetocontrato" id="objetocontrato"> <br>
+              <!--
+              <label for="">Cuenta n°:</label>
+              <input type="text" class="form-control">-->
          
-            </div>
-          </div>
+            
+             <input type="hidden" name="pdfplanilla" id="pdfplanilla" class="form-control" readonly>
+             <input type="hidden" name="archivo" id="archivo" class="form-control" readonly>
+             
+           
+             <!-- QUE RECIBA COMO PARAMETRO PDFCONTRATO LO GUARDOEN OTRA Y LO SUSFTITUYO EN HREF-->
 
-          <div class="row">
-            <div class="col">
-          
-            </div>
+             <!--              <p><a href="" data-bs-toggle="tooltip" title="Tooltip" target="_blank" id="myInput">Contrato</a></p>
+              <label for="">Ver Registro presupuestal:</label> <br>
+              <p><a href="" data-bs-toggle="tooltip" title="Tooltip" target="_blank">Rp</a></p>
+              <label for="">Ver acta de inicio:</label> <br>
+              <p><a href="" data-bs-toggle="tooltip" title="Tooltip" target="_blank">Acta de inicio</a></p>
+             -->
 
-            <div class="col">
-        
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col">
-              
             </div>
 
             <div class="col">
-              
-            </div>
-          </div>
+              <center>
+                <label for=""><b>Descargar acta de pago:</b></label><br>
+                <p><a href="" data-bs-toggle="tooltip" title="Acta de pago" target="_blank" id="myLink">Acta de pago</a></p>
 
-          <div class="row">
-            <div class="col">
+                <label for=""><b>Descargar certificado de cuentas:</b></label><br>
+                <p><a href="" data-bs-toggle="tooltip" title="Certificado de seguimiento de cuentas" target="_blank" id="myLink2">Certificado</a></p>
+
+                <label for=""><b>Planilla de pago:</b></label><br>
+                <p><a href="" data-bs-toggle="tooltip"   title="Planilla de seguridad social" target="_blank" id="myLink3" name="myLink3">Planilla</a></p>
+
+                <label for="">Orden de pago:</label>
+             <input type="checkbox" name="" id="">
+             <input type="text" name="ordenpago" id="ordenpago" class="form-control">
+              </center>
        
             </div>
 
-            <div class="col">
             
-            </div>
           </div>
- <br>
+
+
+
         </div>
        
         <div class="modal-footer">
-          <div class="col">
-       
-              <button type="button" class="fas fa-x btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-              <button class="fas fa-save btn btn-outline-success" type="submit">Aprobar</button>
-     
-          </div>
-          <div class="col">
 
+          <div class="col-2">
+            <button class="btn btn-danger" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Rechazar</button>
+          
           </div>
-          <div class="col">
+             <div class="col-4">
+         
+              <input type="text" id="myInput" placeholder="Observaciones de devolucion:" class="form-control">
+             <!-- <input type="checkbox" id="myCheckbox" onchange="toggleInput()">-->
             
-          </div>
+             
+             </div>
+
+             <div class="col">
+              
+             </div>
           <div class="col">
-           <!--<input type="text" value="" class="form-control">--> 
-            <a class="fa fa-eraser btn btn-outline-danger">Devolver</a>
-            
+            <button type="submit" class="btn btn-success">Aceptar</button>
+            <!-- <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button> -->
           </div>
+       
         </div>
+        
     </form>
+  
       </div>
     </div>
+    
   </div>
- 
+  {% if messages %}
+  {% for message in messages %}
+   <div class="alert alert-{{ message.tags }}">
+  {{ message }}
+   </div>
+  {% endfor %}
+{% endif %}

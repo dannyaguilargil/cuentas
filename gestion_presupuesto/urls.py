@@ -6,10 +6,11 @@ from . import views
 from django.shortcuts import render
 
 urlpatterns = [
-    #path('admin/', admin.site.urls),
-    #ath('', views.saludo2),p
-#   path('', views.saludo2),
-#    path('saludo/', views.saludo3),
+
     path('presupuesto', views.presupuesto, name='presupuesto'),
+    #path('presupuesto/actapago/<int:cedula>', views.pruebapdf, name='actapagosupervisor'),
+    #path('presupuesto/actapagohtml', views.pruebapdfactapago, name='pruebapdfactapago'),
+    #path('presupuesto/seguimientohtml', views.seguimientohtml, name='seguimientohtml'),
+    #path('presupuesto/seguimiento/<int:cedula>/', views.seguimiento, name='seguimientosupervisor'),
    
 ]

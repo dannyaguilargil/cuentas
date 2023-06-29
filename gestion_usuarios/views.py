@@ -88,8 +88,6 @@ def solicitud_usuario(request):
     return render(request, 'solicitud.html', {'formulario': formulario})
 #aqui hago insecciones
 
-
-
 #GESTION DE DOCUMENTOS DE GESCON
 def documentos(request):
     form = Contrato(request.POST ,request.FILES)
@@ -559,6 +557,7 @@ def eliminarregistro(request, cedula):
     
 #usuarios pendientes opcion de guardado    
 def usuarios_pendient(request):
+    solicitud_obj = ""
     datos = usolicitudes.objects.values()
     forupendiente = InsertFormU(request.POST or None)
     foruelimina = Users(request.POST or None)
@@ -569,16 +568,20 @@ def usuarios_pendient(request):
         username = forupendiente.cleaned_data.get('usuario')
         email = forupendiente.cleaned_data.get('email')
         password = forupendiente.cleaned_data.get('contrasena')
+        cedula = forupendiente.cleaned_data.get('cedula')
         new_user = User.objects.create_user(username=username, email=email, password=password) 
         new_user.save()
-        user = authenticate(username=username, password=password)     
+        user = authenticate(username=username, password=password)  
+        if user is not None:
+            solicitud_obj = usolicitudes.objects.get(cedula=cedula)
+            solicitud_obj.delete()
        
-    elif foruelimina.is_valid():
-        cedula = foruelimina.cleaned_data.get('cedula')
-        cuenta = usolicitudes.objects.filter(cedula=cedula)
-        cuenta.delete()
-        return redirect('usuario_pendient')
-    return render(request, 'usuariospendient.html', {'datos': datos, 'forupendiente': forupendiente, 'foruelimina': 'foruelimina'})
+    #if foruelimina.is_valid():
+    #    cedula = foruelimina.cleaned_data.get('cedula')
+    #    cuenta = usolicitudes.objects.filter(cedula=cedula)
+    #    cuenta.delete()
+    #    return redirect('usuario_pendient')
+    return render(request, 'usuariospendient.html', {'datos': datos, 'forupendiente': forupendiente, 'solicitud_obj': solicitud_obj})
 
 def eliminador(request, cedula):
     usuario = usolicitudes.objects.get(cedula=cedula)
@@ -640,12 +643,29 @@ def ops(request):
                   nombrearl = plan.nombrearl
                   valorarl = plan.valorarl
                   nombrepension = plan.nombrepension
-                  valorpension = plan.valorpension
-                  
+                  valorpension = plan.valorpension     
+    usuariop = usuario.objects.get(cedula=cedula)
+    if request.method == 'POST':
+        usuariop.email = request.POST.get('email')
+        usuariop.telefono = request.POST.get('telefono')
+        usuariop.direccion = request.POST.get('direccion')
+        usuariop.save()
+        messages.success(request, 'Usuario actualizado')
+        return redirect('ops')
+    ####################################################
+    #cuentabancariap = cuentabancaria.objects.get(usuario_id=cedula)
+    #if request.method == 'POST':
+    #    cuentabancariap.numero = request.POST.get('numero')
+    #    cuentabancariap.tipocuenta = request.POST.get('tipocuenta')
+    #    cuentabancariap.nombrecb = request.POST.get('nombrecb')
+    #    cuentabancariap.usuario = request.POST.get('cedula')
+    #    usuariop.save()
+    #    messages.success(request, 'Usuario actualizado')
+    #    return redirect('ops')
     return render(request, 'ops.html', {'username': username, 'nombre': nombre, 'segundo_nombre': segundo_nombre, 'primer_apellido': primer_apellido, 'segundo_apellido': segundo_apellido, 'cedula': cedula,
                                         'email': email, 'telefono': telefono, 'direccion': direccion, 'numerocb': numerocb, 'tipocuenta': tipocuenta, 'nombrecb': nombrecb, 'numeroplanilla': numeroplanilla,
                                         'fechaplanilla': fechaplanilla, 'valortotalplanilla': valortotalplanilla, 'periodoplanilla': periodoplanilla, 'nombresalud': nombresalud, 'valorsalud': valorsalud,
-                                        'nombrearl': nombrearl, 'valorarl': valorarl, 'nombrepension': nombrepension, 'valorpension': valorpension, 'imagenperfil': imagenperfil})
+                                        'nombrearl': nombrearl, 'valorarl': valorarl, 'nombrepension': nombrepension, 'valorpension': valorpension, 'imagenperfil': imagenperfil, 'usuariop': usuariop})
 
 def cuentas(request):
     username = request.user.username
@@ -956,7 +976,13 @@ def buscar_palabra(texto, palabra):
 
 #    return render(request, 'extraer_texto.html')
 #############EJEMPLOS CON OCR #########################################################################
-def actualizarperfil(request):
-    #por ahora me preocupa actualizar planilla y la foto no mas
-    nombre = ""
-    return render(request, 'actapago.html', {'nombre': nombre})
+def actualizar_usuario(request, cedula):
+    usuario = get_object_or_404(usuario, cedula=cedula)
+    if request.method == 'POST':
+        usuario.email = request.POST.get('email')
+        usuario.telefono = request.POST.get('telefono')
+        usuario.direccion = request.POST.get('direccion')
+        usuario.save()
+        return redirect('ops')
+
+    return render(request, 'ops.html', {'usuario': usuario})

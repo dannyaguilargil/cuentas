@@ -6,7 +6,7 @@
     </caption>
     <thead>
         <tr>
-            <th class="centered">#</th>
+            <th class="centered">Radicado</th>
             <th class="text-center centered">Nombre</th>
             <th class="text-center centered">Cedula</th>
             <th class="text-center centered">Objeto del contrato</th>
@@ -25,9 +25,6 @@
                   <td><center>
                     <a  name="ver" class="fa fa-eye btn btn-outline-success ver" 
                 data-nombrecompleto="{{objeto.nombrecompleto}}"
-                data-segundonombre="{{objeto.segundonombre}}"
-                data-primerapellido="{{objeto.primerapellido}}"
-                data-segundoapellido="{{objeto.segundoapellido}}" 
                 data-cedula="{{objeto.cedula}}"
                 data-cargo="{{objeto.cargo}}"
                 data-email="{{objeto.email}}"
@@ -36,6 +33,7 @@
                 data-pdfcontrato="{{objeto.pdfcontrato}}"
                 data-numeroplanilla="{{objeto.numeroplanilla}}"
                 data-pdfplanilla="{{objeto.pdfplanilla}}"
+                data-archivo="{{objeto.archivo}}"
                 data-bs-toggle="modal"
                 data-bs-target="#ex" >
             </a>
@@ -57,7 +55,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="" method="POST" >
+          <form action="" method="POST">
             {% csrf_token %}
           <div class="row">
             <div class="col">
@@ -76,6 +74,7 @@
          
             
              <input type="hidden" name="pdfplanilla" id="pdfplanilla" class="form-control" readonly>
+             <input type="hidden" name="archivo" id="archivo" class="form-control" readonly>
            
              <!-- QUE RECIBA COMO PARAMETRO PDFCONTRATO LO GUARDOEN OTRA Y LO SUSFTITUYO EN HREF-->
 
@@ -100,7 +99,7 @@
                 <p><a href=" {% static pdfplanilla %} " data-bs-toggle="tooltip"   title="Planilla de seguridad social" target="_blank" id="myLink3" name="myLink3">Planilla</a></p>
 
                 <label for=""><b>Descargar informe de actividades:</b></label><br>
-                <p><a href="" data-bs-toggle="tooltip" title="Informe de actividades" target="_blank" id="myLink4" >Actividades</a></p>
+                <p><a href="" data-bs-toggle="tooltip" title="Informe de actividades" target="_blank" id="myLink4" name="myLink4">Actividades</a></p>
               </center>
        
             </div>
@@ -130,13 +129,22 @@
               
              </div>
           <div class="col">
-            <button class="btn btn-success">Aceptar</button>
+            <button type="submit" class="btn btn-success">Aceptar</button>
             <!-- <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button> -->
           </div>
        
         </div>
         
     </form>
+  
       </div>
     </div>
+    
   </div>
+  {% if messages %}
+  {% for message in messages %}
+   <div class="alert alert-{{ message.tags }}">
+  {{ message }}
+   </div>
+  {% endfor %}
+{% endif %}
