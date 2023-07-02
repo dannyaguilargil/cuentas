@@ -9,6 +9,10 @@ def  tesoreria(request):
      formteso = InsertFormt(request.POST, request.FILES)
      if formteso.is_valid():
         formteso.save()
+        cedula = request.POST['cedula']
+        ###eliminar la cuenta una vez registrado
+        cs = cuentapresupuestocontratista.objects.get(cedula=cedula)
+        cs.delete()
         messages.success(request, 'Cuenta pagada por tesoreria') #falta la gestion del mensaje
         return redirect('tesoreria')
      return render(request, 'tesoreria.html', { 'datos': datos, 'formteso': formteso }) # se modifica esto con lo anterior pero para no poner toda la ruta, cambiando en settin.py insatllerds app poniendo la ruta

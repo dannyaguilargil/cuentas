@@ -106,3 +106,9 @@ class InsertFormc(forms.ModelForm):
     class Meta:
         model = cuentacontratista
         fields = '__all__'
+        
+###solo los usuarios_id de contratos para leerlos en los documentos
+class Contratousua(forms.ModelForm):
+    class Meta:
+        model = contrato
+        fields = ['usuario']

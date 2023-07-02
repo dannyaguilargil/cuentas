@@ -9,17 +9,25 @@ import calendar
 import locale, inflect
 from django.contrib import messages
 from gestion_supervisor.forms import InsertForms
+from gestion_supervisor.models import cuentasupervisorcontratista
 
 def  supervisor(request):
      username = request.user.username
+     ccontratista = ""
      cedula = 0
      datos = cuentacontratista.objects.values()
-     formsuper = InsertForms(request.POST, request.FILES)
+     formsuper = InsertForms(request.POST, request.FILES)#cuentasupervisorcontratista
      if formsuper.is_valid():
         formsuper.save()
-        messages.success(request, 'Cuenta registrada por el supervisor') #falta la gestion del mensaje
+        cedula = request.POST['cedula']
+        ###eliminar la cuenta una vez registrado
+        cs = cuentacontratista.objects.get(cedula=cedula)
+        cs.delete()
+        ##eliminar la cuenta una vez registrado
+        messages.success(request, 'Cuenta registrada por el supervisor')
         return redirect('supervisor')
-     return render(request, 'supervisor.html', {'datos': datos, 'cedula': cedula, 'formsuper': formsuper }) 
+    
+     return render(request, 'supervisor.html', {'datos': datos, 'cedula': cedula, 'formsuper': formsuper, 'ccontratista': ccontratista }) 
 
 def pruebapdf(request, cedula):
     nombre = "" #Lo remplazo con el que traiga del modelo
@@ -185,4 +193,37 @@ def seguimiento(request,cedula):
         return HttpResponse('Ocurrió un error al generar el PDF')
     return response
 
-
+#opcion de eliminar aqui
+def eliminar(request, cedula):
+   if request.method == 'GET':
+        try:
+            cs = cuentacontratista.objects.get(cedula=cedula)
+            cs.delete()
+            messages.success(request, 'Cuenta Eliminada por el supervisor')
+            return redirect('supervisor')  # Redirigir a la página de supervisores después de la eliminación
+        except cuentasupervisorcontratista.DoesNotExist:
+            # Aquí puedes manejar el caso cuando el registro no existe
+            return render(request, 'registro_no_encontrado.html')
+        except cuentasupervisorcontratista.MultipleObjectsReturned:
+            # Aquí puedes manejar el caso cuando hay múltiples registros con la misma cédula
+            return render(request, 'multiple_registros_encontrados.html')
+        except Exception as e:
+            # Aquí puedes manejar otros errores que puedan ocurrir durante la eliminación
+            return render(request, 'error.html', {'error_message': str(e)})
+        
+#def  supervisorflujo(request, cedula):
+#     username = request.user.username
+#     ccontratista = ""
+#     cedula = 0
+#     datos = cuentacontratista.objects.values()
+#     formsuper = InsertForms(request.POST, request.FILES)
+#     if formsuper.is_valid():
+#        formsuper.save()
+#        ###eliminar la cuenta una vez registrado
+#        cs = cuentacontratista.objects.get(cedula=cedula)
+#        cs.delete()
+#        ##eliminar la cuenta una vez registrado
+#        messages.success(request, 'Cuenta registrada por el supervisor')
+#        return redirect('supervisor')
+    
+#     return render(request, 'supervisor.html', {'datos': datos, 'cedula': cedula, 'formsuper': formsuper, 'ccontratista': ccontratista }) 

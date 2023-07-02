@@ -43,11 +43,11 @@
                 data-bs-target="#ex" >
             </a>
               <!-- <button  class="fa fa-save btn btn-outline-secondary" type="submit"></button> --> 
-                <a  class="fa fa-eraser btn btn-outline-danger" 
-                data-cedula="{{objeto.cedula}}"
-                href="{% url 'eliminar' objeto.cedula %}"
-                 >
-              </a>
+              <a  class="fa fa-eraser btn btn-outline-danger" 
+              data-cedula="{{objeto.cedula}}"
+              href="{% url 'eliminar' objeto.cedula %}"
+               >
+            </a>
             </td>
         </tr>
     {% endfor %}

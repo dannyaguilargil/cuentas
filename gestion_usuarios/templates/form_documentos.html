@@ -11,75 +11,74 @@
   </div> 
 
 
-
-
     <div class="row">
         <div class="col"  id="scrollspyHeading1">
             <div class="card" style="width: 23rem;">
                <!-- <img src="..." class="card-img-top" alt="...">-->
                 <div class="card-body">
                   <center>
-                    <h6 class="card-title"><b>Contrato </b><br> <button type="button" class="btn btn-outline-secondary fal fa-file-pdf" data-bs-toggle="modal" data-bs-target="#exampleModal">Registrar campos</button></h6>
+                    <h6 class="card-title"><b>Contrato </b><br> <button type="button" class="btn btn-outline-secondary fal fa-file-pdf" data-bs-toggle="modal" data-bs-target="#exampleModal">Registrar</button></h6>
                   </center>
-                 
-                <form method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
 
-                    <div class="input-group">
-                      <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-                      <button class="btn btn-success fas fa-magic" type="button" id="inputGroupFileAddon04">Obtener</button>
-                    </div>
-                   
-            <br>
-<div class="input-group input-group-sm mb-2">
-  <span class="input-group-text" id="inputGroup-sizing-sm">Numero del contrato:</span>
-  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Numero del contrato">
-</div>
-                
-<div class="input-group input-group-sm mb-2">
-  <span class="input-group-text" id="inputGroup-sizing-sm">Numero del proceso:</span>
-  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Numero del proceso">
-</div>
-<div class="input-group input-group-sm mb-2">
-  <span class="input-group-text" id="inputGroup-sizing-sm">Objeto:</span>
-  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Objeto del contato">
-</div>
-<div class="input-group input-group-sm mb-2">
-  <span class="input-group-text" id="inputGroup-sizing-sm">Fecha de perfeccion:</span>
-  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Fecha de perfeccionamiento">
-</div>
-<div class="input-group input-group-sm mb-2">
-  <span class="input-group-text" id="inputGroup-sizing-sm">Valor del contrato:</span>
-  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Valor total del contrato">
-</div>
-<div class="input-group input-group-sm mb-2">
-  <span class="input-group-text" id="inputGroup-sizing-sm">Fecha inicial:</span>
-  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Fecha inicial del contrato">
-</div>
-<div class="input-group input-group-sm mb-2">
-  <span class="input-group-text" id="inputGroup-sizing-sm">Fecha final:</span>
-  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Fecha final del contrato">
-</div>
-<div class="input-group input-group-sm mb-2">
-  <span class="input-group-text" id="inputGroup-sizing-sm">Duracion:</span>
-  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Duracion del contrato">
-</div>
-<div class="input-group input-group-sm mb-2">
-  <span class="input-group-text" id="inputGroup-sizing-sm">Supervisor:</span>
-  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Supervisor contrato">
-</div>
-<div class="input-group">
-  <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
-    <option selected>Usuario...</option>
-    <option value="1">One</option>
-    <option value="2">Two</option>
-    <option value="3">Three</option>
-  </select>
-  <button class="btn btn-outline-success fal fa-upload" type="button">Registrar</button>
-</div>
+
                   
+<form method="post" enctype="multipart/form-data">
+{% csrf_token %}
 
-                </form>
+                                    <div class="input-group">
+                                      <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                                      <button class="btn btn-success fas fa-magic" type="button" id="inputGroupFileAddon04">Obtener</button>
+                                    </div>
+                                  
+                            <br>
+                <div class="input-group input-group-sm mb-2">
+                  <span class="input-group-text" id="inputGroup-sizing-sm">Numero del contrato:</span>
+                  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Numero del contrato">
+                </div>
+                                
+                <div class="input-group input-group-sm mb-2">
+                  <span class="input-group-text" id="inputGroup-sizing-sm">Numero del proceso:</span>
+                  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Numero del proceso">
+                </div>
+                <div class="input-group input-group-sm mb-2">
+                  <span class="input-group-text" id="inputGroup-sizing-sm">Objeto:</span>
+                  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Objeto del contato">
+                </div>
+                <div class="input-group input-group-sm mb-2">
+                  <span class="input-group-text" id="inputGroup-sizing-sm">Fecha de perfeccion:</span>
+                  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Fecha de perfeccionamiento">
+                </div>
+                <div class="input-group input-group-sm mb-2">
+                  <span class="input-group-text" id="inputGroup-sizing-sm">Valor del contrato:</span>
+                  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Valor total del contrato">
+                </div>
+                <div class="input-group input-group-sm mb-2">
+                  <span class="input-group-text" id="inputGroup-sizing-sm">Fecha inicial:</span>
+                  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Fecha inicial del contrato">
+                </div>
+                <div class="input-group input-group-sm mb-2">
+                  <span class="input-group-text" id="inputGroup-sizing-sm">Fecha final:</span>
+                  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Fecha final del contrato">
+                </div>
+                <div class="input-group input-group-sm mb-2">
+                  <span class="input-group-text" id="inputGroup-sizing-sm">Duracion:</span>
+                  <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Duracion del contrato" name="duracion">
+                </div>
+                <div class="input-group input-group-sm mb-2">
+                  <span class="input-group-text" id="inputGroup-sizing-sm">Supervisor:</span>
+                  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Supervisor contrato">
+                </div>
+                <div class="input-group">
+                  <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+                    <option selected>Usuario...</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                  <button class="btn btn-outline-success fal fa-upload" type="button">Registrar</button>
+                </div>
+                  
+</form>
                    
                
        
@@ -107,9 +106,12 @@
                 <!--<img src="..." class="card-img-top" alt="..."> -->
                 <div class="card-body">
                   <center>
-                  <h6 class="card-title"><b>Registro prespuestal </b><br> <button type="button" class="btn btn-outline-secondary fal fa-file-pdf" data-bs-toggle="modal" data-bs-target="#exampleModal2">Registrar campos</button></h6>
+                  <h6 class="card-title"><b>Registro prespuestal </b><br> <button type="button" class="btn btn-outline-secondary fal fa-file-pdf" data-bs-toggle="modal" data-bs-target="#exampleModal2">Registrar</button></h6>
                   </center>
                   <!-- <input type="file" name="pdffFiles" id="pdffFiles"  class="form-control"> -->
+                  <form method="post" enctype="multipart/form-data">
+
+
                   <div class="input-group">
                     <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
                     <button class="btn btn-success fas fa-magic" type="button" id="inputGroupFileAddon04">Obtener</button>
@@ -125,8 +127,8 @@
                   </div>
                   <div class="input-group input-group-sm mb-2">
                     <span class="input-group-text" id="inputGroup-sizing-sm">Duracion:</span>
-                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Duracion del registro presupuestal">
-                  </div>
+                    <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Duracion del contrato" name="duracion">
+                </div>
                   <div class="input-group input-group-sm mb-2">
                     <span class="input-group-text" id="inputGroup-sizing-sm">Valor:</span>
                     <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Valor de registro presupuestal">
@@ -158,7 +160,7 @@
             <!--<img src="..." class="card-img-top" alt="..."> -->
             <div class="card-body">
               <center>
-              <h6 class="card-title"><b>Acta de inicio </b><br> <button type="button" class="btn btn-outline-secondary fal fa-file-pdf" data-bs-toggle="modal" data-bs-target="#exampleModal3">Resgitrar campos</button></h6>
+              <h6 class="card-title"><b>Acta de inicio </b><br> <button type="button" class="btn btn-outline-secondary fal fa-file-pdf" data-bs-toggle="modal" data-bs-target="#exampleModal3">Registrar</button></h6>
               </center>
              <!-- <input type="file" name="pdffFiless" id="pdffFiless" class="form-control"> -->
         
@@ -177,8 +179,8 @@
             </div>
             <div class="input-group input-group-sm mb-2">
               <span class="input-group-text" id="inputGroup-sizing-sm">Duracion:</span>
-              <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Duracion del acta de inicio">
-            </div>
+              <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Duracion del contrato" name="duracion">
+          </div>
             <div class="input-group input-group-sm mb-2">
               <span class="input-group-text" id="inputGroup-sizing-sm">Valor:</span>
               <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Valor del acta de inicio">

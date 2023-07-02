@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col">
             <center>
-                <img  src=" {% static imagenperfil %} "  alt="" style="width: 200px; text-align: center;height: 149px">
+                <img  src=" {% static imagenperfil %} "  alt="" style="width: 200px; text-align: center;height: 149px" name="imagen" id="imagen">
             </center>
             <input type="file" name="" id="" class="form-control" style="">
           
@@ -31,7 +31,13 @@
             <label for="Nombre">Direccion:</label>
             <input type="text" class="form-control" placeholder="Dirrecion del domicilio actual" value="{{direccion}}" name="direccion" id="direccion">
         </div>
+       
     </div>
+
+        <center>
+            <button type="submit" class="btn btn-outline-secondary btn-sm m-1">Actualizar</button>
+        </center>
+        
 
 
     <hr>
@@ -111,18 +117,16 @@
         </div>
     </div>
 
-    <br>
+
     <div class="row">
         <div class="col">
-            
+           
         </div>
-        <div class="col">
-            <label for=""></label>
-            <center>
-                <button type="submit" class="btn btn-outline-secondary">Actualizar</button>
-            </center>
-            
-        </div>
+       <div class="col">
+        <center>
+            <button type="submit" class="btn btn-outline-secondary btn-sm m-1">Actualizar</button>
+        </center>
+       </div>
     
         <div class="col">
     

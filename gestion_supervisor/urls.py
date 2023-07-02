@@ -16,6 +16,6 @@ urlpatterns = [
     path('supervisor/actapagohtml', views.pruebapdfactapago, name='pruebapdfactapago'),
     path('supervisor/seguimientohtml', views.seguimientohtml, name='seguimientohtml'),
     path('supervisor/seguimiento/<int:cedula>/', views.seguimiento, name='seguimientosupervisor'),
-
-   
+    path('supervisor/eliminar/<int:cedula>', views.eliminar, name='eliminarsupervisor'),
+    #path('supervisorflujo/<int:cedula>', views.supervisorflujo, name='supervisorflujo'),
 ]

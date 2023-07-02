@@ -193,7 +193,28 @@
                     window.open(url, "_blank"); // de esta forma me lo abre en otra perstaña del navegador
                   });
 
+                  $("#myLink5").click(function(e) {
+                
+                    e.preventDefault();
+                    var cedula = $("#cedula").val();
+                    var url = "supervisor/eliminar/" +cedula;
+                    window.location.href = url;
+                    console.log("entro al quinto href");
+                  });
+
+                  /*
+                  $("#myLink6").click(function(e) {
+                
+                    e.preventDefault();
+                    var cedula = $("#cedula").val();
+                    var url = "supervisorflujo/" +cedula;
+                    window.location.href = url;
+                    console.log("entro al sexto href");
+                  });
+*/
             });
+
+
             
 
         });

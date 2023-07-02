@@ -11,7 +11,8 @@ from gestion_usuarios.models import cuentausuario
 from gestion_usuarios.models import prueba
 from gestion_usuarios.models import contrato,rp,actainicio,planilla
 from gestion_usuarios.models import actividades,actapago,certificadoseguimiento,cuentabancaria
-from gestion_usuarios.forms import Users
+from gestion_supervisor.models import cuentasupervisorcontratista
+from gestion_usuarios.forms import Users,Contratousua
 from gestion_usuarios.forms import Usuario, InsertForm, InsertFormU, InsertFormUE, InsertFormc
 from gestion_usuarios.forms import Contrato, Rp, Actainicio, Planilla, Actividades, Actapago, Certificadoseguimiento, Cusuario,Contratou
 from django.contrib import messages
@@ -95,16 +96,19 @@ def documentos(request):
         form.save()
         messages.success(request, 'Documento cargado')
         return render(request, 'sdocumentos.html')
-    formrp = Rp(request.POST or None)
+    formrp = Rp(request.POST, request.FILES)
     if formrp.is_valid():
         formrp.save()
         messages.success(request, 'Documento cargado')
         return render(request, 'sdocumentos.html')
-    forminicio = Actainicio(request.POST or None)
+    forminicio = Actainicio(request.POST,request.FILES)
     if forminicio.is_valid():
         forminicio.save()
         messages.success(request, 'Documento cargado')
         return render(request, 'sdocumentos.html')
+    #formcontia = Contratousua(request.POST,request.FILES)
+    #if formcontia.is_valid():###############################ESTE ES EL DE CONTRATO PA LA IA
+     #   return render(request, 'sdocumentos.html')
     return render(request, 'sdocumentos.html', {'form': form, 'formrp': formrp, 'forminicio': forminicio})
 #GESTION DE DOCUMENTOS GESCON
 
@@ -420,12 +424,12 @@ def documentos_usuario(request):
         #### AQUI IRA LA PARTE DEL ANALISIS DE DOCUMENTO ####
         #### AQUI IRA LA PARTE DEL ANALISIS DE DOCUMENTO ####
         return render(request, 'sdocumentos_usuario.html')
-    formrp = Rp(request.POST or None)
+    formrp = Rp(request.POST, request.FILES)
     if formrp.is_valid():
         formrp.save()
         messages.success(request, 'Cuenta creada')
         return render(request, 'sdocumentos_usuario.html')
-    forminicio = Actainicio(request.POST or None)
+    forminicio = Actainicio(request.POST, request.FILES)
     if forminicio.is_valid():
         forminicio.save()
         messages.success(request, 'Cuenta creada')
@@ -560,7 +564,7 @@ def usuarios_pendient(request):
     solicitud_obj = ""
     datos = usolicitudes.objects.values()
     forupendiente = InsertFormU(request.POST or None)
-    foruelimina = Users(request.POST or None)
+    #foruelimina = Users(request.POST or None)
     
     if forupendiente.is_valid():
         forupendiente.save()
@@ -598,7 +602,7 @@ def ops(request):
     primer_apellido = ""
     segundo_apellido = ""
     email = ""
-    cedula = ""
+    cedula = 0
     telefono = ""
     direccion = ""
     numerocb = ""
@@ -612,6 +616,7 @@ def ops(request):
     valorsalud = ""
     nombrearl = ""
     valorarl = ""
+    usuariop = 0
     nombrepension = ""
     valorpension = ""
     imagenperfil = "imgs/sinfoto.jpeg"
@@ -628,30 +633,34 @@ def ops(request):
         direccion = usuario_obj.direccion
         imagenperfil = usuario_obj.imagen
         cuentb = cuentabancaria.objects.filter(usuario_id=cedula).first()
-        if cuentabancaria.objects.filter(usuario_id=cedula).exists():
-             numerocb = cuentb.numero
-             tipocuenta = cuentb.tipocuenta
-             nombrecb = cuentb.nombrecb
-             plan = planilla.objects.filter(usuario_id=cedula).first()
-             if planilla.objects.filter(usuario_id=cedula).exists():
-                  numeroplanilla = plan.numero
-                  fechaplanilla = plan.fecha
-                  valortotalplanilla = plan.valortotal
-                  periodoplanilla = plan.periodo
-                  nombresalud = plan.nombresalud
-                  valorsalud = plan.valorsalud
-                  nombrearl = plan.nombrearl
-                  valorarl = plan.valorarl
-                  nombrepension = plan.nombrepension
-                  valorpension = plan.valorpension     
-    usuariop = usuario.objects.get(cedula=cedula)
-    if request.method == 'POST':
-        usuariop.email = request.POST.get('email')
-        usuariop.telefono = request.POST.get('telefono')
-        usuariop.direccion = request.POST.get('direccion')
-        usuariop.save()
-        messages.success(request, 'Usuario actualizado')
-        return redirect('ops')
+    if cuentabancaria.objects.filter(usuario_id=cedula).exists():
+        numerocb = cuentb.numero
+        tipocuenta = cuentb.tipocuenta
+        nombrecb = cuentb.nombrecb
+        plan = planilla.objects.filter(usuario_id=cedula).first()
+    if  planilla.objects.filter(usuario_id=cedula).exists():
+        numeroplanilla = plan.numero
+        fechaplanilla = plan.fecha
+        valortotalplanilla = plan.valortotal
+        periodoplanilla = plan.periodo
+        nombresalud = plan.nombresalud
+        valorsalud = plan.valorsalud
+        nombrearl = plan.nombrearl
+        valorarl = plan.valorarl
+        nombrepension = plan.nombrepension
+        valorpension = plan.valorpension     
+        if  usuario.objects.filter(cedula=cedula).exists():
+            usuariop = usuario.objects.get(cedula=cedula) #VALIDAR PORQUE TENGO UN ERROR SINO ME LOGUEO, CONDICIONARLO
+            if request.method == 'POST':
+                usuariop.email = request.POST.get('email')
+                usuariop.telefono = request.POST.get('telefono')
+                usuariop.direccion = request.POST.get('direccion')
+                    #imagenperfil = request.FILES.get('imagen')
+                    #if imagenperfil:
+                    #usuariop.imagen = imagenperfil
+                    #usuariop.save()
+                messages.success(request, 'Usuario actualizado')
+                return redirect('ops')
     ####################################################
     #cuentabancariap = cuentabancaria.objects.get(usuario_id=cedula)
     #if request.method == 'POST':
@@ -706,6 +715,7 @@ def cuentas(request):
         primerapellido = usuario_obj.primerapellido
         segundoapellido = usuario_obj.segundoapellido
         usuario_obj2 = contrato.objects.filter(usuario_id=cedula).first()
+        #cuenta_exists = cuentasupervisorcontratista.objects.filter(cedula=cedula).exists()
         if contrato.objects.filter(usuario_id=cedula).exists():
             numero = usuario_obj2.numero
             numeroproceso = usuario_obj2.numeroproceso
@@ -732,6 +742,7 @@ def cuentas(request):
                     if planilla.objects.filter(usuario_id=cedula).exists():
                          numeroplanilla = plan.numero
                          pdfplanilla = plan.archivo
+
     return render(request, 'cuentas.html', {'username': username, 'numero': numero, 'objeto': objeto, 'valor': valor, 'fechaterminacion': fechaterminacion, 'duracion': duracion, 'numeroproceso': numeroproceso,
                                             'fechaperfeccionamiento': fechaperfeccionamiento, 'valor': valor, 'fechacontrato': fechacontrato, 'fechaterminacion': fechaterminacion, 'duracion': duracion,
                                             'archivo': archivo, 'supervisor': supervisor, 'objeto': objeto, 'numerorp': numerorp, 'fecharp': fecharp, 'numeroai': numeroai, 'fechaai': fechaai, 'archivorp': archivorp,

@@ -27,7 +27,7 @@ urlpatterns = [
     path('usuarios/pendientes', views.usuarios_pendientes, name='usuarios_pendientes'),
     path('list_pendientes', views.usolicitud, name='list_pendientes'),
     ##########ELIMINAR EL REGISTRO ###################################### 
-    path('usuarios/pendient/eliminar/<int:cedula>', views.eliminar, name='eliminar'), 
+    path('usuarios/pendient/eliminar/<int:cedula>', views.eliminar, name='eliminar'), ###ESTE ES EL QUEHACE LA ELIMINACION
     path('usuarios/pendient/guardar/<int:cedula>', views.guardar, name='guardar'),
     #path('usuarios/documentos/registro', views.registro, name='registro'), 
     ##########GESTION DE USUARIOS PENDIENTES ### CRUD DIFERENTE
@@ -39,8 +39,6 @@ urlpatterns = [
     #path('eliminador/<int:cedula>/', views.eliminador, name='eliminador'),
        #path('admin/', admin.site.urls,name='admin'),
     #path('usuarios/pendient/guardar/<int:cedula>', views.eliminar, name='eliminar'), 
-    
-    
     #################### nuevos cambios
     path('contratista/perfil', views.ops, name='ops'),
     path('contratista/cuentas', views.cuentas, name='cuentas'),
@@ -48,7 +46,7 @@ urlpatterns = [
     path('contratista/actapagohtml', views.pruebapdfactapago, name='pruebapdfactapago'),
     path('contratista/seguimientohtml', views.seguimientohtml, name='seguimientohtml'),
     path('contratista/seguimiento/<int:cedula>/', views.seguimiento, name='seguimiento'),
-    path('extraer/', extraer_texto, name='extraer_texto'),
+    path('extraer/', views.extraer_texto, name='extraer_texto'),
     #path('contratista/perfil/<int:cedula>/', views.actualizar_usuario, name='actualizar_usuario'),
   
 ] + static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)

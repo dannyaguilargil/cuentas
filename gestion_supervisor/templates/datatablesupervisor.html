@@ -72,7 +72,7 @@
               <label for="">Cuenta n°:</label>
               <input type="text" class="form-control">-->
          
-            
+             <input type="hidden" name="pdfcontrato" id="pdfcontrato" class="form-control" readonly>
              <input type="hidden" name="pdfplanilla" id="pdfplanilla" class="form-control" readonly>
              <input type="hidden" name="archivo" id="archivo" class="form-control" readonly>
            
@@ -114,12 +114,15 @@
         <div class="modal-footer">
 
           <div class="col-2">
-            <button class="btn btn-danger" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Rechazar</button>
+            <a  class="btn btn-danger" 
+            href="{% url 'eliminarsupervisor' cedula %}" data-bs-toggle="tooltip"   title="Rechazar cuenta " target="_blank" id="myLink5" name="myLink5" 
+             >Rechazar
+          </a>
           
           </div>
              <div class="col-4">
          
-              <input type="text" id="myInput" placeholder="Observaciones de devolucion:" class="form-control">
+              <input type="text" id="myInput" placeholder="Observaciones de devolucion:" class="form-control" required value="PLANILLA NO CORRESPONDE">
              <!-- <input type="checkbox" id="myCheckbox" onchange="toggleInput()">-->
             
              
@@ -129,8 +132,8 @@
               
              </div>
           <div class="col">
-            <button type="submit" class="btn btn-success">Aceptar</button>
-            <!-- <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button> -->
+        
+          <button type="submit" class="btn btn-success">Aceptar</button>
           </div>
        
         </div>

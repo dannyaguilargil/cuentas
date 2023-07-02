@@ -8,12 +8,7 @@
         </div>
         <div class="modal-body">
           
-          <form action="" method="POST">
-            <center>
-              previsualizacion del pdf ...
-              <br>
-              <embed id="vistaPreviass" type="application/pdf" width="350" height="350"> <br> 
-            </center>
+          <form action="" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
 
             <div class="row">
