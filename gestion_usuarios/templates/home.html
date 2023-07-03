@@ -22,14 +22,7 @@
             <input type="text" class="form-control" name="username" id="username" required><br>
             <label class="TT" form="password"><b>Contraseña</b></label>
             <input type="password" class="form-control" name="password" id="password" required><br>
-            
-            {% if messages %}
-                {% for message in messages %}
-                 <div class="alert alert-{{ message.tags }}">
-                {{ message }}
-                 </div>
-                {% endfor %}
-            {% endif %}
+          
             <div class="boton">
            
 
@@ -37,7 +30,14 @@
             </div> <br>
         
 
-
+  
+            {% if messages %}
+                {% for message in messages %}
+                 <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+                 </div>
+                {% endfor %}
+            {% endif %}
 
             <a  class="" href=" {% url 'solicitud_usuario' %} " id="" style="color: grey; font-family: Lato">Para solicitar usuario de  gestion de cuentas primero registrese aqui.</a>
             

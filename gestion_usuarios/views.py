@@ -91,6 +91,8 @@ def solicitud_usuario(request):
 
 #GESTION DE DOCUMENTOS DE GESCON
 def documentos(request):
+    username = "ADMINISTRADOR"
+    username = request.user.username
     form = Contrato(request.POST ,request.FILES)
     if form.is_valid():
         form.save()
@@ -106,16 +108,57 @@ def documentos(request):
         forminicio.save()
         messages.success(request, 'Documento cargado')
         return render(request, 'sdocumentos.html')
-    #formcontia = Contratousua(request.POST,request.FILES)
-    #if formcontia.is_valid():###############################ESTE ES EL DE CONTRATO PA LA IA
-     #   return render(request, 'sdocumentos.html')
-    return render(request, 'sdocumentos.html', {'form': form, 'formrp': formrp, 'forminicio': forminicio})
-#GESTION DE DOCUMENTOS GESCON
+    ##########################################################
+    ################# IIIIIIIIIIIAAAAAAAAAA ##################
+    if request.method == 'POST' and 'archivo_pdf' in request.FILES:
+        archivo_pdf = request.FILES['archivo_pdf']
+    
+        # Guardar temporalmente el archivo PDF
+        try:
+            with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+                temp_file.write(archivo_pdf.read())
+                nombre_archivo = temp_file.name
+    
+            # Extraer el texto del archivo PDF
+            texto_extraido = extraer_texto_pdf2(nombre_archivo)
+    
+    
+            ########################################################
+            ########### BUSQUEDAS ##################################
+            proceso="800"
+            fechainicio = "29 DE MARZO 2023"
+            fechafinal = "28 DE JULIO 2023"
+            duracion = 4
+            valor = 7175000
+            cedula = 1090492324
+            
+            # Realizar la búsqueda en el texto extraído
+            palabra_buscada = ';'
+            fechaaperfeccion = ' No'
+            objeto = ":"
+            numeroproceso = "PROCESO:"
+            resultado_busqueda = buscar_palabra2(texto_extraido, palabra_buscada)
+            resultado_busqueda2 = buscar_palabra2(texto_extraido, fechaaperfeccion)
+            resultado_busqueda3 = buscar_palabra2(texto_extraido, objeto)
+            nproceso = buscar_palabra2(texto_extraido, numeroproceso)
+            ########################################################
+            ########### BUSQUEDAS ##################################
+    
+            # Eliminar el archivo temporal
+            os.unlink(temp_file.name)
+            
+    
+            return render(request, 'sdocumentos.html', {'texto_extraido': texto_extraido, 'resultado_busqueda': resultado_busqueda, 'resultado_busqueda2': resultado_busqueda2, 'resultado_busqueda3': resultado_busqueda3, 'nproceso': nproceso, 'proceso': proceso,
+                                                        'fechainicio': fechainicio, 'fechafinal': fechafinal, 'duracion': duracion, 'valor': 'valor', 'valor': valor, 'cedula': cedula})
+        except Exception as e:
+            # Manejar posibles errores al guardar o extraer el archivo
+            print(f"Error en el procesamiento del PDF: {e}")
 
-#############TRAE DATOS SEGUN CORRESPONDE ###################
-#solo usuarios autenticados
-#@login_required
-#####################VALIDANDO CONSULTAS #######################
+        return render(request, 'sdocumentos.html', {'texto_extraido': ''})
+        ##########################################################
+        ################# IIIIIIIIIIIAAAAAAAAAA ##################
+    return render(request, 'sdocumentos.html', {'form': form, 'formrp': formrp, 'forminicio': forminicio, 'username': username})
+
 def perfil(request):
        ################# AQUI VOY A REGISTRAR LA CUENTA######
     ### username = formularios.cleaned_data.get('usuario')##
@@ -701,12 +744,19 @@ def cuentas(request):
     primerapellido = ""
     segundoapellido = ""
     pdfplanilla = ""
+    flujo = "Pendiente de pasar cuenta"
      ### username = formularios.cleaned_data.get('usuario')##
-    formpers = InsertFormc(request.POST, request.FILES)
-    if formpers.is_valid():
-        formpers.save()
-        messages.success(request, 'Cuenta solicitada') #falta la gestion del mensaje
-        return redirect('cuentas')
+    if request.method == 'POST':
+        formpers = InsertFormc(request.POST, request.FILES)
+        if formpers.is_valid():
+            formpers.save()
+            messages.success(request, 'Cuenta solicitada') #falta la gestion del mensaje
+            flujo = "Cuenta en revision del supervisor"
+            return redirect('cuentas')
+        else :
+            messages.error(request, 'No se puede solicitar, revise actividades y planilla')
+    else:
+         formpers = InsertFormc()
     usuario_obj = usuario.objects.filter(usuario=username).first()
     if usuario.objects.filter(usuario=username).exists():
         cedula = usuario_obj.cedula
@@ -747,7 +797,7 @@ def cuentas(request):
                                             'fechaperfeccionamiento': fechaperfeccionamiento, 'valor': valor, 'fechacontrato': fechacontrato, 'fechaterminacion': fechaterminacion, 'duracion': duracion,
                                             'archivo': archivo, 'supervisor': supervisor, 'objeto': objeto, 'numerorp': numerorp, 'fecharp': fecharp, 'numeroai': numeroai, 'fechaai': fechaai, 'archivorp': archivorp,
                                             'archivoinicio': archivoinicio, 'numeroplanilla': numeroplanilla, 'cedula': cedula, 'formpers': formpers, 'nombre': nombre, 'segundonombre': segundonombre, 'primerapellido': primerapellido,
-                                            'segundoapellido': segundoapellido, 'pdfplanilla': pdfplanilla})
+                                            'segundoapellido': segundoapellido, 'pdfplanilla': pdfplanilla, 'flujo': flujo})
     #SELECT count(*) from gestion_usuarios_contrato where usuario_id=1090492324;
     
 #ASIGNARLE CEDULA A LOS PDF PARA EXTRAER LOS DATOS
@@ -941,7 +991,7 @@ def extraer_texto(request):
         texto_extraido = extraer_texto_pdf(nombre_archivo)
 
         # Realizar la búsqueda en el texto extraído
-        palabra_buscada = 'CONTRATO'
+        palabra_buscada = 'PROCE'
         resultado_busqueda = buscar_palabra(texto_extraido, palabra_buscada)
 
         # Eliminar el archivo temporal
@@ -953,13 +1003,16 @@ def extraer_texto(request):
     return render(request, 'extraer_texto.html')
 
 def buscar_palabra(texto, palabra):
-    tokens = word_tokenize(texto)
+    texto_limpio = limpiar_texto(texto)
+    tokens = word_tokenize(texto_limpio)
+
     if palabra in tokens:
         indice_palabra = tokens.index(palabra)
         if indice_palabra + 1 < len(tokens):
             siguiente_token = tokens[indice_palabra + 1]
             caracteres_despues = re.findall(r'[A-Za-z0-9]+', siguiente_token)[0][:15]
             return caracteres_despues
+
     return None
 
 ##############################################################
@@ -997,3 +1050,63 @@ def actualizar_usuario(request, cedula):
         return redirect('ops')
 
     return render(request, 'ops.html', {'usuario': usuario})
+############################################################################
+############# IA APLICADA ###################################
+
+#######PRIMERO LA VISTA PARA CONVERTIR EL PDF A TEXTO ##############
+def extraer_texto_pdf2(nombre_archivo):
+    with open(nombre_archivo, 'rb') as archivo:
+        lector_pdf = PdfReader(archivo)
+        num_paginas = len(lector_pdf.pages)
+
+        texto = ''
+        for pagina in range(num_paginas):
+            pagina_pdf = lector_pdf.pages[pagina]
+            texto += pagina_pdf.extract_text()
+
+        return texto
+    
+def extraer_texto2(request):
+    if request.method == 'POST' and 'archivo_pdf' in request.FILES:
+        archivo_pdf = request.FILES['archivo_pdf']
+
+        # Guardar temporalmente el archivo PDF
+        with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+            temp_file.write(archivo_pdf.read())
+            nombre_archivo = temp_file.name
+
+        # Extraer el texto del archivo PDF
+        texto_extraido = extraer_texto_pdf(nombre_archivo)
+
+        # Realizar la búsqueda en el texto extraído
+        palabra_buscada = 'CONTRATO'
+        resultado_busqueda = buscar_palabra(texto_extraido, palabra_buscada)
+
+        # Eliminar el archivo temporal
+        temp_file.close()
+        os.unlink(temp_file.name)
+
+        return render(request, 'resultado.html', {'texto_extraido': texto_extraido, 'resultado_busqueda': resultado_busqueda})
+
+    return render(request, 'extraer_texto.html')
+
+def buscar_palabra2(texto, palabra):
+    texto = limpiar_texto(texto) #limpieza del texto
+    tokens = word_tokenize(texto)
+    if palabra in tokens:
+        indice_palabra = tokens.index(palabra)
+        if indice_palabra + 1 < len(tokens):
+            siguiente_token = tokens[indice_palabra + 1]
+            caracteres_despues = siguiente_token[:15]
+            return caracteres_despues
+    return None
+
+#######INCREMENTAL TRAYENDOLO EN UN INPUT 
+
+
+###LIMPIEZA DE DATOS PARA LA EXTRACCION DEL TEXTO
+def limpiar_texto(texto):
+    texto_limpio = texto.upper()  # Convertir todo el texto a mayúsculas
+    texto_limpio = re.sub(r'\n', ' ', texto_limpio)  # Reemplazar saltos de línea con espacios en blanco
+    texto_limpio = re.sub(r'\s+', ' ', texto_limpio)  # Eliminar espacios en blanco repetidos
+    return texto_limpio

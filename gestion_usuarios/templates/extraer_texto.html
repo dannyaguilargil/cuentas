@@ -1,30 +1,43 @@
 <!DOCTYPE html>
-<!-- 
 <html>
 <head>
-    <title>Extracción de texto de PDF</title>
+    <title>Extracción de Texto de PDF</title>
 </head>
 <body>
-    <h1>Extracción de texto de PDF</h1>
+    <h1>Extracción de Texto de PDF</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <input type="file" name="archivo_pdf">
-        <input type="submit" value="Extraer texto">
+        <input type="submit" value="Extraer Texto">
     </form>
+
+    <br>
+
+    <h2>Texto Extraído:</h2>
+    <label for="">Texto general:</label>
+    <input type="text" id="texto_extraido" name="texto_extraido" value="{{ texto_extraido }}" readonly> <br>
+    <label for="">Numero del contrato:</label>
+    <input type="text" id="" name="" value="{{ texto_extraido }}" readonly> <br>
+    <label for="">Numero del proceso:</label>
+    <input type="text" id="" name="" value="{{ texto_extraido }}" readonly><br>
+    <label for="">Objeto:</label>
+    <input type="text" id="" name="" value="{{ texto_extraido }}" readonly><br>
+    <label for="">Fecha de perfeccionamiento:</label>
+    <input type="text" id="" name="" value="{{ texto_extraido }}" readonly><br>
+    <label for="">Valor del contrato:</label>
+    <input type="text" id="" name="" value="{{ texto_extraido }}" readonly><br>
+    <label for="">Fecha inicial:</label>
+    <input type="text" id="" name="" value="{{ texto_extraido }}" readonly><br>
+    <label for="">Fecha final:</label>
+    <input type="text" id="" name="" value="{{ texto_extraido }}" readonly><br>
+    <label for="">Duracion:</label>
+    <input type="text" id="" name="" value="{{ texto_extraido }}" readonly><br>
+    <label for="">Supervisor:</label>
+    <input type="text" id="" name="" value="{{ texto_extraido }}" readonly>
+
+    
 </body>
 </html>
-
--->
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <input type="file" name="archivo_pdf" required>
-    <button type="submit">Extraer texto</button>
-  </form>
-
-
-
-
-
 
 
 

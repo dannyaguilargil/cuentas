@@ -26,8 +26,8 @@
 {% csrf_token %}
 
                                     <div class="input-group">
-                                      <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-                                      <button class="btn btn-success fas fa-magic" type="button" id="inputGroupFileAddon04">Obtener</button>
+                                      <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="archivo_pdf">
+                                      <button class="btn btn-success fas fa-magic" type="submit" id="inputGroupFileAddon04">Extraer texto</button>
                                     </div>
                                   
                             <br>
@@ -42,19 +42,20 @@
                 </div>
                 <div class="input-group input-group-sm mb-2">
                   <span class="input-group-text" id="inputGroup-sizing-sm">Objeto:</span>
-                  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Objeto del contato">
+                  <!-- AQUI VOY AGREGAR EL EJEMPLO DE LA EXTRACCION DEL TEXTO-->
+                  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Objeto del contato" id="objeto" name="objeto" value="">
                 </div>
                 <div class="input-group input-group-sm mb-2">
                   <span class="input-group-text" id="inputGroup-sizing-sm">Fecha de perfeccion:</span>
-                  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Fecha de perfeccionamiento">
+                  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Fecha de perfeccionamiento" value="">
                 </div>
                 <div class="input-group input-group-sm mb-2">
                   <span class="input-group-text" id="inputGroup-sizing-sm">Valor del contrato:</span>
-                  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Valor total del contrato">
+                  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Valor total del contrato" value="">
                 </div>
                 <div class="input-group input-group-sm mb-2">
                   <span class="input-group-text" id="inputGroup-sizing-sm">Fecha inicial:</span>
-                  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Fecha inicial del contrato">
+                  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Fecha inicial del contrato" value="">
                 </div>
                 <div class="input-group input-group-sm mb-2">
                   <span class="input-group-text" id="inputGroup-sizing-sm">Fecha final:</span>
@@ -109,7 +110,7 @@
                   <h6 class="card-title"><b>Registro prespuestal </b><br> <button type="button" class="btn btn-outline-secondary fal fa-file-pdf" data-bs-toggle="modal" data-bs-target="#exampleModal2">Registrar</button></h6>
                   </center>
                   <!-- <input type="file" name="pdffFiles" id="pdffFiles"  class="form-control"> -->
-                  <form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data">
 
 
                   <div class="input-group">
@@ -142,6 +143,7 @@
                     </select>
                     <button class="btn btn-outline-success fal fa-upload" type="button">Registrar</button>
                   </div>
+</form>
               {% if messages %}
                   {% for message in messages %}
                    <div class="alert alert-success" role="alert">
@@ -163,37 +165,41 @@
               <h6 class="card-title"><b>Acta de inicio </b><br> <button type="button" class="btn btn-outline-secondary fal fa-file-pdf" data-bs-toggle="modal" data-bs-target="#exampleModal3">Registrar</button></h6>
               </center>
              <!-- <input type="file" name="pdffFiless" id="pdffFiless" class="form-control"> -->
-        
+             <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+
+
              <div class="input-group">
-              <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-              <button class="btn btn-success fas fa-magic" type="button" id="inputGroupFileAddon04">Obtener</button>
+              <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="archivo_pdf">
+              <button class="btn btn-success fas fa-magic" type="submit" id="inputGroupFileAddon04">Obtener</button>
             </div>
             <br>
             <div class="input-group input-group-sm mb-2">
               <span class="input-group-text" id="inputGroup-sizing-sm">Numero del proceso:</span>
-              <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Numero del proceso">
+              <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Numero del proceso" value="{{proceso}}">
             </div>
             <div class="input-group input-group-sm mb-2">
               <span class="input-group-text" id="inputGroup-sizing-sm">Fecha acta de inicio:</span>
-              <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Fecha de acta de inicio">
+              <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Fecha de acta de inicio" value="{{fechainicio}}">
             </div>
             <div class="input-group input-group-sm mb-2">
               <span class="input-group-text" id="inputGroup-sizing-sm">Duracion:</span>
-              <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Duracion del contrato" name="duracion">
+              <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Duracion del contrato" name="duracion" value="{{duracion}}">
           </div>
             <div class="input-group input-group-sm mb-2">
               <span class="input-group-text" id="inputGroup-sizing-sm">Valor:</span>
-              <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Valor del acta de inicio">
+              <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Valor del acta de inicio" value="{{valor}}">
             </div>
             <div class="input-group">
               <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
                 <option selected>Usuario...</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                <option value="{{cedula}}">{{cedula}}</option>
               </select>
               <button class="btn btn-outline-success fal fa-upload" type="button">Registrar</button>
             </div>
+
+
+</form>
           {% if messages %}
               {% for message in messages %}
                <div class="alert alert-success" role="alert">
