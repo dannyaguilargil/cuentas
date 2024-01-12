@@ -1,2 +1,2 @@
 # cuentas
-Desarrollo de un sistema de informacion web inteligente para el proceso de cuentas de cobro
+Desarrollo de una aplicaccion web unificado para cuentas de cobro, gestion de identidades, apis, rest, restful, soap y tasks
