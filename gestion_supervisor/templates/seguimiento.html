@@ -66,7 +66,7 @@
           </tr>
           <tr>
             <td><b>VALOR MENSUAL DEL CONTRATO</b></td>
-            <td>#VALORMENSUAL #CIFRAVALORMENSUAL</td>
+            <td>{{valorcontrato}}</td>
           </tr>
           <tr>
             <td><b>FECHA DE SUSCRIPCION DEL CONTRATO</b></td>
@@ -78,7 +78,7 @@
           </tr>
           <tr>
             <td><b>NOMBRE Y CARGO DEL SUPERVISOR</b></td>
-            <td>{{supervisor}} #CARGOSUPERVISOR</td>
+            <td>{{supervisor}} </td>
           </tr>
           <tr>
             <td><b>MES O PERIODO A COBRAR</b></td>
@@ -148,9 +148,10 @@ Agrega más filas según sea necesario
 </table>
 -->
 <br>
-<p>CUENTA A CONSIGNAR PAGOS: No {{numerocuentabancaria}} BANCO: {{nombrecb}} {{tipocuenta}}</p> <br>
+<p>CUENTA A CONSIGNAR PAGOS: No {{numerocuentabancaria}} BANCO: {{nombrecb}} {{tipocuenta}}</p> <br> 
 
-<p>CONTRATISTA: {{nombre}} {{segundonombre}} {{primerapellido}} {{segundoapellidos}} <span>SUPERVISOR: {{supervisor}}</span></p>
+<p>CONTRATISTA: {{nombre}} {{segundonombre}} {{primerapellido}} {{segundoapellidos}} <br>
+<span>SUPERVISOR: {{supervisor}}</span></p>
     
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 

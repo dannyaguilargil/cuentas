@@ -63,39 +63,52 @@
             </form>
 
            
-            <!-- Navbar-->
-            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4" style="background: #1d985a; color: white; ">
-                <li class="nav-item dropdown" style="background: #1d985a; color: white;">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="background: #1d985a; color: white;"><i class="fas fa-user fa-fw" ></i></a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" style="background: #1d985a; color: white;">
-                        <li> <a class="nav-link fa fa-user-edit" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1" style="color: black; ">Contraseña</a>
-                        </li>
-                        <li><hr class="dropdown-divider" />
-                         
-                        </li>
-                        <li>
-                            
-                            <form method="POST" action="{% url 'logout' %}">
-                                {% csrf_token %}
-                                <center>
-                                <button class="fas fa-sign-out-alt text-center btn btn-outline-white " type="submit">Cerrar sesión</button>
-                                </center>
-                            </form>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+
+
+
+
+           <!-- Navbar-->
+           <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4" style="background: #1d985a; color: white; ">
+            <li class="nav-item dropdown" style="background: #1d985a; color: white;">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="background: #1d985a; color: white;"><i class="fas fa-user fa-fw" ></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" style="background: #1d985a; color: white;">
+
+                    <center>
+                        <a class="nav-link" href=" {% url 'ops' %} " style="background: #1d985a; color: white;">
+                            <i class="fas fa-user-edit"></i>
+                           Perfil
+                        </a>
+                    </center>
+                    
+            </li>
+
+
+            
+
+                
+                    <li>
+                        <form method="POST" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <center>
+                            <button class="fas fa-sign-out-alt text-center btn btn-outline-white " type="submit">Cerrar sesión</button>
+                            </center>
+                        </form>
+                    </li>
+                </ul>
+            </li>
+         </ul>
+
+
+
+
+
         </nav>
         <div id="layoutSidenav" >
             <div id="layoutSidenav_nav" style="background: #1d985a; color: white;">
                 <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion" style="background: #1d985a; color: white;">
                     <div class="sb-sidenav-menu" style="background: #1d985a; color: white;">
                         <div class="nav" style="background: #1d985a; color: white;">
-                            <div class="sb-sidenav-menu-heading" >Gestionar perfil</div>
-                            <a class="nav-link" href=" {% url 'ops' %} " style="background: #1d985a; color: white;">
-                                <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
-                               Perfil
-                            </a>
+                            
 
 
                             <div class="sb-sidenav-menu-heading" >Gestionar cuenta</div>

@@ -112,3 +112,10 @@ class Contratousua(forms.ModelForm):
     class Meta:
         model = contrato
         fields = ['usuario']
+        
+##FORMULARIO DE LA IA MANUAL
+class ActainicioIA(forms.ModelForm):
+    class Meta:
+        model = actainicio
+        fields = '__all__'
+        

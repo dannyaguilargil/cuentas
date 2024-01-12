@@ -10,9 +10,11 @@ from gestion_usuarios.models import usolicitudes
 from gestion_usuarios.models import cuentausuario
 from gestion_usuarios.models import prueba
 from gestion_usuarios.models import contrato,rp,actainicio,planilla
-from gestion_usuarios.models import actividades,actapago,certificadoseguimiento,cuentabancaria
+from gestion_usuarios.models import actividades,actapago,certificadoseguimiento,cuentabancaria,cuentacontratista
 from gestion_supervisor.models import cuentasupervisorcontratista
-from gestion_usuarios.forms import Users,Contratousua
+from gestion_presupuesto.models import cuentapresupuestocontratista
+from gestion_tesoreria.models import cuentatesoreriacontratista
+from gestion_usuarios.forms import Users,Contratousua, ActainicioIA
 from gestion_usuarios.forms import Usuario, InsertForm, InsertFormU, InsertFormUE, InsertFormc
 from gestion_usuarios.forms import Contrato, Rp, Actainicio, Planilla, Actividades, Actapago, Certificadoseguimiento, Cusuario,Contratou
 from django.contrib import messages
@@ -84,7 +86,7 @@ def solicitud_usuario(request):
     formulario = Users(request.POST or None)
     if formulario.is_valid():
         formulario.save()
-        messages.success(request, ' Cuenta creada')
+        messages.success(request, ' Cuenta solicitada')
         return render(request, 'solicitud.html')
     return render(request, 'solicitud.html', {'formulario': formulario})
 #aqui hago insecciones
@@ -110,8 +112,8 @@ def documentos(request):
         return render(request, 'sdocumentos.html')
     ##########################################################
     ################# IIIIIIIIIIIAAAAAAAAAA ##################
-    if request.method == 'POST' and 'archivo_pdf' in request.FILES:
-        archivo_pdf = request.FILES['archivo_pdf']
+    if request.method == 'POST' and 'archivo' in request.FILES:
+        archivo_pdf = request.FILES['archivo']
     
         # Guardar temporalmente el archivo PDF
         try:
@@ -155,6 +157,104 @@ def documentos(request):
             print(f"Error en el procesamiento del PDF: {e}")
 
         return render(request, 'sdocumentos.html', {'texto_extraido': ''})
+    
+    if request.method == 'POST' and 'archivo_contrato' in request.FILES:
+        archivo_pdf = request.FILES['archivo_contrato']
+    
+        # Guardar temporalmente el archivo PDF
+        try:
+            with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+                temp_file.write(archivo_pdf.read())
+                nombre_archivo = temp_file.name
+    
+            # Extraer el texto del archivo PDF
+            texto_extraido = extraer_texto_pdf2(nombre_archivo)
+    
+    
+            ########################################################
+            ########### BUSQUEDAS ##################################
+            proceso="800"
+            fechainicio = "29 DE MARZO 2023"
+            fechafinal = "28 DE JULIO 2023"
+            duracion = 4
+            valor = 7175000
+            cedula = 1090492324
+            
+            # Realizar la búsqueda en el texto extraído
+            palabra_buscada = ';'
+            fechaaperfeccion = ' No'
+            objeto = ":"
+            numeroproceso = "PROCESO:"
+            resultado_busqueda = buscar_palabra2(texto_extraido, palabra_buscada)
+            resultado_busqueda2 = buscar_palabra2(texto_extraido, fechaaperfeccion)
+            resultado_busqueda3 = buscar_palabra2(texto_extraido, objeto)
+            nproceso = buscar_palabra2(texto_extraido, numeroproceso)
+            ########################################################
+            ########### BUSQUEDAS ##################################
+    
+            # Eliminar el archivo temporal
+            os.unlink(temp_file.name)
+            
+    
+            return render(request, 'sdocumentos.html', {'texto_extraido': texto_extraido, 'resultado_busqueda': resultado_busqueda, 'resultado_busqueda2': resultado_busqueda2, 'resultado_busqueda3': resultado_busqueda3, 'nproceso': nproceso, 'proceso': proceso,
+                                                        'fechainicio': fechainicio, 'fechafinal': fechafinal, 'duracion': duracion, 'valor': 'valor', 'valor': valor, 'cedula': cedula})
+        except Exception as e:
+            # Manejar posibles errores al guardar o extraer el archivo
+            print(f"Error en el procesamiento del PDF: {e}")
+
+        return render(request, 'sdocumentos.html', {'texto_extraido': ''})
+    
+    if request.method == 'POST' and 'archivo_rp' in request.FILES:
+        archivo_pdf = request.FILES['archivo_rp']
+    
+        # Guardar temporalmente el archivo PDF
+        try:
+            with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+                temp_file.write(archivo_pdf.read())
+                nombre_archivo = temp_file.name
+    
+            # Extraer el texto del archivo PDF
+            texto_extraido = extraer_texto_pdf2(nombre_archivo)
+    
+    
+            ########################################################
+            ########### BUSQUEDAS ##################################
+            proceso="800"
+            fechainicio = "29 DE MARZO 2023"
+            fechafinal = "28 DE JULIO 2023"
+            duracion = 4
+            valor = 7175000
+            cedula = 1090492324
+            
+            # Realizar la búsqueda en el texto extraído
+            palabra_buscada = ';'
+            fechaaperfeccion = ' No'
+            objeto = ":"
+            numeroproceso = "PROCESO:"
+            resultado_busqueda = buscar_palabra2(texto_extraido, palabra_buscada)
+            resultado_busqueda2 = buscar_palabra2(texto_extraido, fechaaperfeccion)
+            resultado_busqueda3 = buscar_palabra2(texto_extraido, objeto)
+            nproceso = buscar_palabra2(texto_extraido, numeroproceso)
+            ########################################################
+            ########### BUSQUEDAS ##################################
+    
+            # Eliminar el archivo temporal
+            os.unlink(temp_file.name)
+            
+    
+            return render(request, 'sdocumentos.html', {'texto_extraido': texto_extraido, 'resultado_busqueda': resultado_busqueda, 'resultado_busqueda2': resultado_busqueda2, 'resultado_busqueda3': resultado_busqueda3, 'nproceso': nproceso, 'proceso': proceso,
+                                                        'fechainicio': fechainicio, 'fechafinal': fechafinal, 'duracion': duracion, 'valor': 'valor', 'valor': valor, 'cedula': cedula})
+        except Exception as e:
+            # Manejar posibles errores al guardar o extraer el archivo
+            print(f"Error en el procesamiento del PDF: {e}")
+
+        return render(request, 'sdocumentos.html', {'texto_extraido': ''})
+    
+    forminicios = ActainicioIA(request.POST,request.FILES)
+    if forminicios.is_valid():
+        forminicios.save()
+        messages.success(request, 'Documento cargado')
+        return render(request, 'sdocumentos.html')
         ##########################################################
         ################# IIIIIIIIIIIAAAAAAAAAA ##################
     return render(request, 'sdocumentos.html', {'form': form, 'formrp': formrp, 'forminicio': forminicio, 'username': username})
@@ -611,17 +711,18 @@ def usuarios_pendient(request):
     
     if forupendiente.is_valid():
         forupendiente.save()
-        messages.success(request, 'Usuario agregado')
         username = forupendiente.cleaned_data.get('usuario')
         email = forupendiente.cleaned_data.get('email')
         password = forupendiente.cleaned_data.get('contrasena')
         cedula = forupendiente.cleaned_data.get('cedula')
         new_user = User.objects.create_user(username=username, email=email, password=password) 
         new_user.save()
+        messages.success(request, 'Usuario solicitado')
         user = authenticate(username=username, password=password)  
         if user is not None:
             solicitud_obj = usolicitudes.objects.get(cedula=cedula)
             solicitud_obj.delete()
+      
        
     #if foruelimina.is_valid():
     #    cedula = foruelimina.cleaned_data.get('cedula')
@@ -731,7 +832,7 @@ def cuentas(request):
     objeto = ""
     valor = ""
     fechaterminacion = ""
-    duracion = ""
+    duracion = 1
     numerorp = ""
     archivoinicio = ""
     fecharp = ""
@@ -764,34 +865,49 @@ def cuentas(request):
         segundonombre = usuario_obj.segundonombre
         primerapellido = usuario_obj.primerapellido
         segundoapellido = usuario_obj.segundoapellido
-        usuario_obj2 = contrato.objects.filter(usuario_id=cedula).first()
-        #cuenta_exists = cuentasupervisorcontratista.objects.filter(cedula=cedula).exists()
-        if contrato.objects.filter(usuario_id=cedula).exists():
-            numero = usuario_obj2.numero
-            numeroproceso = usuario_obj2.numeroproceso
-            fechaperfeccionamiento = usuario_obj2.fechaperfeccionamiento
-            fechacontrato = usuario_obj2.fechacontrato
-            supervisor = usuario_obj2.supervisor
-            archivo = usuario_obj2.archivo
+    #######flujo##########
+    usuario_flujo = cuentacontratista.objects.filter(cedula=cedula).first()
+    if cuentacontratista.objects.filter(cedula=cedula).exists():
+        flujo = usuario_flujo.flujo
+    #####flujo#########
+    usuario_obj2 = contrato.objects.filter(usuario_id=cedula).first()
+    if contrato.objects.filter(usuario_id=cedula).exists():
+        numero = usuario_obj2.numero
+        numeroproceso = usuario_obj2.numeroproceso
+        fechaperfeccionamiento = usuario_obj2.fechaperfeccionamiento
+        fechacontrato = usuario_obj2.fechacontrato
+        supervisor = usuario_obj2.supervisor
+        archivo = usuario_obj2.archivo
             #archivo2 = archivo.replace('contratista', 'static')
-            objeto = usuario_obj2.objeto
-            valor = usuario_obj2.valor
-            fechaterminacion = usuario_obj2.fechaterminacion
-            duracion = usuario_obj2.duracion
-            usuario_objr3 = rp.objects.filter(usuario_id=cedula).first()
-            if rp.objects.filter(usuario_id=cedula).exists():
-                numerorp = usuario_objr3.numero
-                fecharp = usuario_objr3.fecha
-                archivorp = usuario_objr3.archivo
-                usuario_objr4 = actainicio.objects.filter(usuario_id=cedula).first()
-                if actainicio.objects.filter(usuario_id=cedula).exists():
-                    numeroai = usuario_objr4.numero
-                    fechaai = usuario_objr4.fecha
-                    archivoinicio = usuario_objr4.archivo
-                    plan = planilla.objects.filter(usuario_id=cedula).first()
-                    if planilla.objects.filter(usuario_id=cedula).exists():
-                         numeroplanilla = plan.numero
-                         pdfplanilla = plan.archivo
+        objeto = usuario_obj2.objeto
+        valor = usuario_obj2.valor
+        fechaterminacion = usuario_obj2.fechaterminacion
+        duracion = usuario_obj2.duracion
+    usuario_objr3 = rp.objects.filter(usuario_id=cedula).first()
+    if rp.objects.filter(usuario_id=cedula).exists():
+        numerorp = usuario_objr3.numero
+        fecharp = usuario_objr3.fecha
+        archivorp = usuario_objr3.archivo
+    usuario_objr4 = actainicio.objects.filter(usuario_id=cedula).first()
+    if actainicio.objects.filter(usuario_id=cedula).exists():
+        numeroai = usuario_objr4.numero
+        fechaai = usuario_objr4.fecha
+        archivoinicio = usuario_objr4.archivo
+    plan = planilla.objects.filter(usuario_id=cedula).first()
+    if planilla.objects.filter(usuario_id=cedula).exists():
+        numeroplanilla = plan.numero
+        pdfplanilla = plan.archivo
+    ##############FLUJO#####################
+    usuario_flujosupervisor = cuentasupervisorcontratista.objects.filter(cedula=cedula).first()
+    if cuentasupervisorcontratista.objects.filter(cedula=cedula).exists():
+         flujo = "En revision de presupuesto"
+    usuario_flujopresupuesto = cuentapresupuestocontratista.objects.filter(cedula=cedula).first()
+    if cuentapresupuestocontratista.objects.filter(cedula=cedula).exists():
+         flujo = "En revision de tesoreria"
+    usuario_flujotesoreria = cuentatesoreriacontratista.objects.filter(cedula=cedula).first()
+    if cuentatesoreriacontratista.objects.filter(cedula=cedula).exists():
+         flujo = "Cuenta pagada"
+    #####flujo#########
 
     return render(request, 'cuentas.html', {'username': username, 'numero': numero, 'objeto': objeto, 'valor': valor, 'fechaterminacion': fechaterminacion, 'duracion': duracion, 'numeroproceso': numeroproceso,
                                             'fechaperfeccionamiento': fechaperfeccionamiento, 'valor': valor, 'fechacontrato': fechacontrato, 'fechaterminacion': fechaterminacion, 'duracion': duracion,
@@ -811,10 +927,10 @@ def pruebapdf(request, cedula):
     supervisor = ""
     objetocontrato = ""
     fechaperfeccionamientos = ""
-    duracion = ""
     dependenciausuario = ""
     duracioncontrato = ""
     valorpagar = 1
+    valorcontrato = 1
     cuenta = 1 #remplazar por el numero de cuenta recibida
     ##############EXTRACCION DE DATOS APARTIR DE LA CEDULA############
     usuario_obj = usuario.objects.filter(cedula=cedula).first()
@@ -838,12 +954,20 @@ def pruebapdf(request, cedula):
             fechaterminacion = usuario_obj2.fechaterminacion
             duracioncontrato = usuario_obj2.duracion
             cuenta = 1
+            fecha_actual = datetime.now()
+            locale.setlocale(locale.LC_TIME, 'es_ES')
+            nombre_mes = fecha_actual.strftime('%B')
+            #mes = fecha_actual.month
+            dia = fecha_actual.day
+            año = fecha_actual.year
+            # Establecer el idioma en español
             #valorpagar=valorcontrato/duracioncontrato 
             #########para valor a pagar es aux=valor/duracion
     ##############EXTRACCION DE DATOS APARTIR DE LA CEDULA############
     
     context = {'nombre': nombre, 'segundonombre': segundonombre, 'cedula': cedula, 'primerapellido': primerapellido, 'objetocontrato': objetocontrato, 'numerocontratos': numerocontratos, 'segundoapellidos': segundoapellidos,
-               'fechaperfeccionamientos': fechaperfeccionamientos,'cuenta': cuenta,'duracion': duracion,'dependenciausuario': dependenciausuario, 'valorpagar': valorpagar, 'supervisor': supervisor}
+               'fechaperfeccionamientos': fechaperfeccionamientos,'cuenta': cuenta,'duracioncontrato': duracioncontrato,'dependenciausuario': dependenciausuario, 'valorpagar': valorpagar, 'supervisor': supervisor, 'nombre_mes': nombre_mes,
+               'dia': dia, 'año': año, 'valorcontrato': valorcontrato}
     template = render(request, 'actapago.html', context)
     
     # Crear un objeto HttpResponse con tipo de contenido PDF
@@ -898,6 +1022,7 @@ def seguimiento(request,cedula):
     nombre_mes = ""
     dia = ""
     año = ""
+    valorcontrato = ""
     cuenta = 1 #remplazar por el numero de cuenta recibida
     ##############EXTRACCION DE DATOS APARTIR DE LA CEDULA############
     usuario_obj = usuario.objects.filter(cedula=cedula).first()
@@ -950,7 +1075,7 @@ def seguimiento(request,cedula):
     context = {'nombre': nombre, 'segundonombre': segundonombre, 'numerocontratos': numerocontratos, 'primerapellido': primerapellido, 'segundoapellidos': segundoapellidos, 'aux': aux,
                'objetocontrato': objetocontrato, 'numerorp': numerorp, 'fechacontrato': fechacontrato, 'fechaterminacion': fechaterminacion, 'supervisor': supervisor, 'numeroplanilla': numeroplanilla,
                'nombresalud': nombresalud, 'valorsalud': valorsalud, 'nombrepension': nombrepension, 'valorpension': valorpension, 'nombrearl': nombrearl, 'valorarl': valorarl, 'numerocuentabancaria': numerocuentabancaria,
-               'tipocuenta': tipocuenta, 'nombrecb': nombrecb, 'nombre_mes': nombre_mes, 'dia': dia, 'año': año}
+               'tipocuenta': tipocuenta, 'nombrecb': nombrecb, 'nombre_mes': nombre_mes, 'dia': dia, 'año': año, 'valorcontrato': valorcontrato}
     template = render(request, 'seguimiento.html', context)
     
     # Crear un objeto HttpResponse con tipo de contenido PDF

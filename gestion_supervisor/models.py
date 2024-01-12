@@ -43,3 +43,8 @@ class cuentasupervisorcontratista(models.Model):
     ##POR AHORA TOMARE EL ID PERO QUEDA PENDIENTE EL RADICADO
     archivo = models.CharField(max_length=200, verbose_name='Pdf del formato de actividades', default='pdfs/NOCARGADO') #ESTE ES EL PDF DE ACTIVIDADES
     pdfplanilla = models.CharField(max_length=200, verbose_name='Pdf de la planilla', default='pdfs/NOCARGADO')
+    
+class supervisor(models.Model):
+    nombrecompleto = models.CharField(max_length=120, verbose_name='Nombre completo', default='No asignado')
+    cedula = models.IntegerField(primary_key=True, verbose_name='Cedula', default=1)
+    cargo = models.CharField(max_length=120, verbose_name='Cargo', default='No asignado')

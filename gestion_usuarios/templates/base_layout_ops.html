@@ -68,13 +68,21 @@
                 <li class="nav-item dropdown" style="background: #1d985a; color: white;">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="background: #1d985a; color: white;"><i class="fas fa-user fa-fw" ></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" style="background: #1d985a; color: white;">
-                        <li> <a class="nav-link fa fa-user-edit" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1" style="color: black; ">Contraseña</a>
-                        </li>
-                        <li><hr class="dropdown-divider" />
-                         
-                        </li>
+
+                        <center>
+                            <a class="nav-link" href=" {% url 'ops' %} " style="background: #1d985a; color: white;">
+                                <i class="fas fa-user-edit"></i>
+                               Perfil
+                            </a>
+                        </center>
+                        
+                </li>
+
+
+
+
+                    
                         <li>
-                            
                             <form method="POST" action="{% url 'logout' %}">
                                 {% csrf_token %}
                                 <center>
@@ -84,27 +92,66 @@
                         </li>
                     </ul>
                 </li>
-            </ul>
+             </ul>
+
+
+
+
+
+
         </nav>
         <div id="layoutSidenav" >
             <div id="layoutSidenav_nav" style="background: #1d985a; color: white;">
                 <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion" style="background: #1d985a; color: white;">
                     <div class="sb-sidenav-menu" style="background: #1d985a; color: white;">
                         <div class="nav" style="background: #1d985a; color: white;">
-                            <div class="sb-sidenav-menu-heading" >Gestionar perfil</div>
-                            <a class="nav-link" href=" {% url 'ops' %} " style="background: #1d985a; color: white;">
-                                <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
-                               Perfil
-                            </a>
-
-
-                            <div class="sb-sidenav-menu-heading" >Gestionar cuenta</div>
+                            
+                            <div class="sb-sidenav-menu-heading" >GESTION DE CUENTAS</div>
                             <a class="nav-link" href=" {% url 'cuentas' %} " style="background: #1d985a; color: white;">
                                 <div class="sb-nav-link-icon"><i class="fal fa-file-import"></i></div>
                                 Cuentas
                             </a>
+
+
+
+                            <!-- GESTION DE APIS-->
+                            <div class="sb-sidenav-menu-heading">GESTION DE APIS</div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts" style="background: #1d985a; color: white;">
+                                <div class="sb-nav-link-icon"><i class="fas fa-receipt"></i></div>
+                                Nueva eps
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="" style="color: white;">Datos de afiliacion</a>
+                                    <a class="nav-link" href="" style="color: white;">Datos basicos</a>
+                                    <a class="nav-link" href="" style="color: white;">Datos de contacto</a>
+                                    <a class="nav-link" href="" style="color: white;">Radicacion</a>
+                                </nav>
+                            </div>
+                            <!-- GESTION DE APIS-->
+
+
+                            <!-- GESTION DE IDENTIDADES-->
+                            <div class="sb-sidenav-menu-heading" >GESTION DE IDENTIDADES</div>
+                            <a class="nav-link" href=" {% url 'cuentas' %} " style="background: #1d985a; color: white;">
+                                <div class="sb-nav-link-icon"><i class="fal fa-file-import"></i></div>
+                                Solicitar
+                            </a>
+                            <a class="nav-link" href=" {% url 'cuentas' %} " style="background: #1d985a; color: white;">
+                                <div class="sb-nav-link-icon"><i class="fal fa-file-import"></i></div>
+                                Permisos
+                            </a>
+                            <a class="nav-link" href=" {% url 'cuentas' %} " style="background: #1d985a; color: white;">
+                                <div class="sb-nav-link-icon"><i class="fal fa-file-import"></i></div>
+                                Paz y salvo
+                            </a>
+                            <!-- GESTION DE IDENTIDADES-->
+
+
+
                           
-                        </div>
+        </div>
                     </div>
                     <div class="sb-sidenav-footer" style="background: #1d985a; color: white;">
                         <div class="small">

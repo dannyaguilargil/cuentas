@@ -28,7 +28,7 @@ def  supervisor(request):
         return redirect('supervisor')
     
      return render(request, 'supervisor.html', {'datos': datos, 'cedula': cedula, 'formsuper': formsuper, 'ccontratista': ccontratista }) 
-
+#ASIGNARLE CEDULA A LOS PDF PARA EXTRAER LOS DATOS
 def pruebapdf(request, cedula):
     nombre = "" #Lo remplazo con el que traiga del modelo
     segundonombre = ""
@@ -39,10 +39,10 @@ def pruebapdf(request, cedula):
     supervisor = ""
     objetocontrato = ""
     fechaperfeccionamientos = ""
-    duracion = ""
     dependenciausuario = ""
     duracioncontrato = ""
     valorpagar = 1
+    valorcontrato = 1
     cuenta = 1 #remplazar por el numero de cuenta recibida
     ##############EXTRACCION DE DATOS APARTIR DE LA CEDULA############
     usuario_obj = usuario.objects.filter(cedula=cedula).first()
@@ -66,12 +66,20 @@ def pruebapdf(request, cedula):
             fechaterminacion = usuario_obj2.fechaterminacion
             duracioncontrato = usuario_obj2.duracion
             cuenta = 1
+            fecha_actual = datetime.now()
+            locale.setlocale(locale.LC_TIME, 'es_ES')
+            nombre_mes = fecha_actual.strftime('%B')
+            #mes = fecha_actual.month
+            dia = fecha_actual.day
+            año = fecha_actual.year
+            # Establecer el idioma en español
             #valorpagar=valorcontrato/duracioncontrato 
             #########para valor a pagar es aux=valor/duracion
     ##############EXTRACCION DE DATOS APARTIR DE LA CEDULA############
     
     context = {'nombre': nombre, 'segundonombre': segundonombre, 'cedula': cedula, 'primerapellido': primerapellido, 'objetocontrato': objetocontrato, 'numerocontratos': numerocontratos, 'segundoapellidos': segundoapellidos,
-               'fechaperfeccionamientos': fechaperfeccionamientos,'cuenta': cuenta,'duracion': duracion,'dependenciausuario': dependenciausuario, 'valorpagar': valorpagar, 'supervisor': supervisor}
+               'fechaperfeccionamientos': fechaperfeccionamientos,'cuenta': cuenta,'duracioncontrato': duracioncontrato,'dependenciausuario': dependenciausuario, 'valorpagar': valorpagar, 'supervisor': supervisor, 'nombre_mes': nombre_mes,
+               'dia': dia, 'año': año, 'valorcontrato': valorcontrato}
     template = render(request, 'actapago.html', context)
     
     # Crear un objeto HttpResponse con tipo de contenido PDF
@@ -95,7 +103,7 @@ def seguimientohtml(request):
     return render(request, 'seguimiento.html', {'nombre': nombre})
     
     #SELECT count(*) from gestion_usuarios_contrato where usuario_id=1090492324;
-    
+ 
 def seguimiento(request,cedula):
     nombre = "" #Lo remplazo con el que traiga del modelo
     segundonombre = ""
@@ -127,6 +135,7 @@ def seguimiento(request,cedula):
     nombre_mes = ""
     dia = ""
     año = ""
+    valorcontrato = ""
     cuenta = 1 #remplazar por el numero de cuenta recibida
     ##############EXTRACCION DE DATOS APARTIR DE LA CEDULA############
     usuario_obj = usuario.objects.filter(cedula=cedula).first()
@@ -179,7 +188,7 @@ def seguimiento(request,cedula):
     context = {'nombre': nombre, 'segundonombre': segundonombre, 'numerocontratos': numerocontratos, 'primerapellido': primerapellido, 'segundoapellidos': segundoapellidos, 'aux': aux,
                'objetocontrato': objetocontrato, 'numerorp': numerorp, 'fechacontrato': fechacontrato, 'fechaterminacion': fechaterminacion, 'supervisor': supervisor, 'numeroplanilla': numeroplanilla,
                'nombresalud': nombresalud, 'valorsalud': valorsalud, 'nombrepension': nombrepension, 'valorpension': valorpension, 'nombrearl': nombrearl, 'valorarl': valorarl, 'numerocuentabancaria': numerocuentabancaria,
-               'tipocuenta': tipocuenta, 'nombrecb': nombrecb, 'nombre_mes': nombre_mes, 'dia': dia, 'año': año}
+               'tipocuenta': tipocuenta, 'nombrecb': nombrecb, 'nombre_mes': nombre_mes, 'dia': dia, 'año': año, 'valorcontrato': valorcontrato}
     template = render(request, 'seguimiento.html', context)
     
     # Crear un objeto HttpResponse con tipo de contenido PDF
@@ -203,13 +212,13 @@ def eliminar(request, cedula):
             return redirect('supervisor')  # Redirigir a la página de supervisores después de la eliminación
         except cuentasupervisorcontratista.DoesNotExist:
             # Aquí puedes manejar el caso cuando el registro no existe
-            return render(request, 'registro_no_encontrado.html')
+           return redirect('supervisor')
         except cuentasupervisorcontratista.MultipleObjectsReturned:
             # Aquí puedes manejar el caso cuando hay múltiples registros con la misma cédula
-            return render(request, 'multiple_registros_encontrados.html')
+             return redirect('supervisor')
         except Exception as e:
             # Aquí puedes manejar otros errores que puedan ocurrir durante la eliminación
-            return render(request, 'error.html', {'error_message': str(e)})
+             return redirect('supervisor')
         
 #def  supervisorflujo(request, cedula):
 #     username = request.user.username

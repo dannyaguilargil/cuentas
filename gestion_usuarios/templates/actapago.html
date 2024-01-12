@@ -8,9 +8,10 @@
 </head>
 <body>
     <center>
+   
         <h4> <b>ORDEN DE PRESTACION DE SERVICIOS No. {{numerocontratos}} <br>
             FECHA DE PERFECCIONAMIENTO: {{fechaperfeccionamientos}} <br>
-            ACTA DE PAGO No. {{cuenta}}/{{duracion}}</b>
+            ACTA DE PAGO No. {{cuenta}}/{{duracioncontrato}}</b>
         </h4>
     </center>
 <br>
@@ -30,18 +31,18 @@
 </p>
 
 <!--AQUI DEBO DIVIDIR EL TOTAL DEL CONTRATO SOBRE LA DURACION DEL CONTRATO PARA SACR EL VALOR-->
-<p>VALOR A PAGAR: <span>{{valorpagar}}</span> <br>
+<p>VALOR A PAGAR: <span>{{valorcontrato}}</span> <br>
 </p>                       
  
 <!-- AQUI DEBO VALIDAR DE QUE FECHA HASTA QUE FECHA VA LA CUENTA-->
-<p>PERIODO DE PAGO: <span>#PERIODOPAGO</span><br><br> <br>
+<p>PERIODO DE PAGO: <span>{{nombre_mes}}</span><br><br> <br>
 </p>
 
 <p><center>
     En mi condición de SUPERVISOR de la OPS, una vez recibida la certificación de legalidad en el pago de aportes de salud-pensión y cumplimiento de actividades por parte del contratista y los documentos necesarios para tramitar el pago, me permito remitir la cuenta para los efectos correspondientes.</p>
 </center><br>
 
-<p>Se expide en San José de Cúcuta, el día #FECHACUENTA</p><br>
+<p>Se expide en San José de Cúcuta, el día {{dia}} de {{nombre_mes}} del {{año}}</p><br>
 
 <p><center>
     {{supervisor}} <br>
@@ -51,7 +52,7 @@ Supervisor de contrato
 
 </center></p>
 
-<p>Elaboró: Sistemas de cuentas E.S.E IMSALUD con id#</p> <br> <br>
+<p>Elaboró: Sistemas de cuentas E.S.E IMSALUD</p> <br> <br>
 
 <p>
     <center>

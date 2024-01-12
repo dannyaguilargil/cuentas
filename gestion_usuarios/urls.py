@@ -20,7 +20,7 @@ urlpatterns = [
     path('usuarios', views.usuarios, name='usuarios'), 
     path('usuarios/solicitud', views.solicitud_usuario, name='solicitud_usuario'), 
     path('usuarios/crear', views.crear, name='crear'), 
-    path('usuarios/documentos', views.documentos, name='documentos'), 
+    path('usuarios/documentos', views.documentos, name='documentos'),## GESTION DE GESCON
     path('perfil', views.perfil, name='perfil'), 
     path('usuarios/sdocumentos', views.documentos_usuario, name='documentos_usuario'), 
     path('list_usuarios', views.list_usuarios, name='list_usuarios'), 
@@ -40,7 +40,7 @@ urlpatterns = [
        #path('admin/', admin.site.urls,name='admin'),
     #path('usuarios/pendient/guardar/<int:cedula>', views.eliminar, name='eliminar'), 
     #################### nuevos cambios
-    path('contratista/perfil', views.ops, name='ops'),
+    path('contratista/perfil', views.ops, name='ops'),#############################PAGINA PRINCIPAL ##########
     path('contratista/cuentas', views.cuentas, name='cuentas'),
     path('contratista/actapago/<int:cedula>/', views.pruebapdf, name='actapago'),
     path('contratista/actapagohtml', views.pruebapdfactapago, name='pruebapdfactapago'),

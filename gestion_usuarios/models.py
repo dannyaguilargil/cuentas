@@ -1,5 +1,6 @@
 from django.db import models
 from gestion_usuarios.choices import sexos, rol, tipodocumento
+from gestion_supervisor.models import supervisor
 
 class usuario(models.Model):
     nombre = models.CharField(max_length=40, verbose_name='Primer nombre')
@@ -8,7 +9,7 @@ class usuario(models.Model):
     segundoapellido = models.CharField(max_length=40, verbose_name='Segundo apellido')
     cargo = models.CharField(max_length=40, verbose_name='Cargo')
     email = models.CharField(max_length=40, verbose_name='Email')
-    supervisor = models.CharField(max_length=40, verbose_name='Supervisor')
+    supervisor = models.CharField(max_length=40, verbose_name='Supervisor', default='No asignado')
     tipodocumento = models.CharField(max_length=40, verbose_name='Tipo de documento',choices=tipodocumento, default='CC')
     cedula = models.IntegerField(primary_key=True, verbose_name='Cedula')
     ##hast aqui va el de usuarios registrados
@@ -67,7 +68,6 @@ class contrato(models.Model):
     duracion = models.CharField(max_length=40, verbose_name='Duracion del contrato')
     supervisor = models.CharField(max_length=40, verbose_name='Supervisor', default='')
     archivo = models.FileField(upload_to='pdfs/', default=obtener_archivo_predeterminado, verbose_name='archivo')
-
     #pendiente validar como muestra la llave foranea
     usuario=models.ForeignKey(usuario,null=True,blank=True,on_delete=models.CASCADE)
 ###################################################################################################
@@ -229,4 +229,5 @@ class cuentacontratista(models.Model):
     objetocontrato = models.CharField(max_length=200, verbose_name='Objeto del contrato', default='No asignado')
     pdfcontrato = models.CharField(max_length=200, verbose_name='Pdf del contrato', default='pdfs/NOCARGADO')
     pdfplanilla = models.CharField(max_length=200, verbose_name='Pdf de la planilla', default='pdfs/NOCARGADO')
+    flujo = models.CharField(max_length=80, verbose_name='Flujo', default='Pendiente de pasar cuenta')
     #pdfactividades = models.CharField(max_length=80, verbose_name='Pdf de actividades', default='pdfs/NOCARGADO')

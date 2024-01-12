@@ -27,7 +27,7 @@
 
                                     <div class="input-group">
                                       <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="archivo_pdf">
-                                      <button class="btn btn-success fas fa-magic" type="submit" id="inputGroupFileAddon04">Extraer texto</button>
+                                      <button class="btn btn-success fas fa-magic" type="submit" id="inputGroupFileAddon04">Obtener</button>
                                     </div>
                                   
                             <br>
@@ -165,37 +165,37 @@
               <h6 class="card-title"><b>Acta de inicio </b><br> <button type="button" class="btn btn-outline-secondary fal fa-file-pdf" data-bs-toggle="modal" data-bs-target="#exampleModal3">Registrar</button></h6>
               </center>
              <!-- <input type="file" name="pdffFiless" id="pdffFiless" class="form-control"> -->
-             <form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data">
               {% csrf_token %}
 
 
              <div class="input-group">
-              <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="archivo_pdf">
+              <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="archivo">
               <button class="btn btn-success fas fa-magic" type="submit" id="inputGroupFileAddon04">Obtener</button>
             </div>
             <br>
             <div class="input-group input-group-sm mb-2">
               <span class="input-group-text" id="inputGroup-sizing-sm">Numero del proceso:</span>
-              <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Numero del proceso" value="{{proceso}}">
+              <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Numero del proceso" value="{{proceso}}" name="numero" id="numero">
             </div>
             <div class="input-group input-group-sm mb-2">
               <span class="input-group-text" id="inputGroup-sizing-sm">Fecha acta de inicio:</span>
-              <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Fecha de acta de inicio" value="{{fechainicio}}">
+              <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Fecha de acta de inicio" value="{{fechainicio}}" name="fecha" id="fecha">
             </div>
             <div class="input-group input-group-sm mb-2">
               <span class="input-group-text" id="inputGroup-sizing-sm">Duracion:</span>
-              <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Duracion del contrato" name="duracion" value="{{duracion}}">
+              <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Duracion del contrato" name="duracion" value="{{duracion}}" id="duracion">
           </div>
             <div class="input-group input-group-sm mb-2">
               <span class="input-group-text" id="inputGroup-sizing-sm">Valor:</span>
-              <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Valor del acta de inicio" value="{{valor}}">
+              <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Valor del acta de inicio" value="{{valor}}" name="valor" id="valor">
             </div>
             <div class="input-group">
-              <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+              <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" name="usuario" id="usuario">
                 <option selected>Usuario...</option>
                 <option value="{{cedula}}">{{cedula}}</option>
               </select>
-              <button class="btn btn-outline-success fal fa-upload" type="button">Registrar</button>
+              <button class="btn btn-outline-success fal fa-upload" type="submit">Registrar</button>
             </div>
 
 

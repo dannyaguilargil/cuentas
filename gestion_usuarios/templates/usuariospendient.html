@@ -126,8 +126,10 @@
             <div class="col">
                 <label for="rol">Rol</label>
                 <select name="rol" id="rol" class="form-control" name="rol" id="rol">
-                    <option value="" selected class="">NORMAL</option>
+                    <option value="" selected class="">CONTRATISTA</option>
                     <option value="SUPERVISOR" class="">SUPERVISOR</option>
+                    <option value="PRESUPUESTO" class="">PRESUPUESTO</option>
+                    <option value="TESORERIA" class="">TESORERIA</option>
                     <option value="ADMINISTRADOR" class="">ADMINISTRADOR</option>
                 </select>
             </div>
@@ -152,12 +154,7 @@
          
         </div>
     </form>
-      </div>
-    </div>
-  </div>
- 
-  <!-- AQUI DEBE ASIGNAR EL MISMO SISTEMA EL NOMBRE DE USUARIO Y POR DEFECTO LA CONTRASEÑA ES LA CEDULA-->
-{% if messages %}
+    {% if messages %}
     {% for message in messages %}
         <div class="alert alert-{{ message.tags }} alert-sm">
          {{ message }}
@@ -165,5 +162,11 @@
    {% endfor %}
 
 {% endif %}
+      </div>
+    </div>
+  </div>
+ 
+  <!-- AQUI DEBE ASIGNAR EL MISMO SISTEMA EL NOMBRE DE USUARIO Y POR DEFECTO LA CONTRASEÑA ES LA CEDULA-->
+
 
 {% endblock contenido %}
