@@ -37,7 +37,7 @@ SECRET_KEY = 'django-insecure-ruhs)hlt#vqu=c)(n_tr$w__wpn2$!h!-=a+k=ts1ql0of)^kn
 #cuando la pose a produccion dejarlo en false
 DEBUG = True
 
-ALLOWED_HOSTS = [] #direcciones que tiene permitido consultar al servidor
+ALLOWED_HOSTS = ['192.168.0.130','sara.imsalud.gov.co'] #direcciones que tiene permitido consultar al servidor
 
 
 # Application definition
