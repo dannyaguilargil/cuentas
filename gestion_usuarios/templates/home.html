@@ -5,19 +5,26 @@
 {% block contenido %}
 <br> <br>
 <div class="container centrar">
-
+<!--
           <div class="izquierdo">
-          <img class="escudoverde" src="{% static 'imgs/escudo.gif' %} " alt="">
+          <img class="escudoverde" src="{% static 'imgs/escudo.gif' %} " alt=""> 
           </div>
+-->
+
+    
 
 
-            <div class="imagen">
-            <img  src=" {% static 'imgs/logocompleto.png' %} "  alt="" style="width: 170px; text-align: center;height: 70px">
-            </div> 
             <!-- <h3 class="text-center">Iniciar sesion</h3> -->
             <div class="form-control textoI" style="font-family: Lato">
             <form action="" method="POST">
-            {% csrf_token %}
+              {% csrf_token %}
+
+              <center>
+                <img  src=" {% static 'imgs/logocompleto.png' %} "  alt="" style="width: 170px; text-align: center;height: 70px">
+                <h5>Bienvenido a sara</h5> <br>
+              </center>
+              
+            
             <label class="TT" for="username"><b>Usuario</b></label>
             <input type="text" class="form-control" name="username" id="username" required><br>
             <label class="TT" form="password"><b>Contraseña</b></label>
@@ -39,7 +46,11 @@
                 {% endfor %}
             {% endif %}
 
-            <a  class="" href=" {% url 'solicitud_usuario' %} " id="" style="color: grey; font-family: Lato">Para solicitar usuario de  gestion de cuentas primero registrese aqui.</a>
+
+            <center>
+              <a  class="" href=" {% url 'solicitud_usuario' %} " id="" style="color: grey; font-family: Lato">Para solicitar usuario al portal de centralizacion registrese aqui.</a>
+            </center>
+           
             
             
           

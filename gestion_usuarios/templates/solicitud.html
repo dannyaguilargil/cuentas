@@ -1,18 +1,23 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block contenido  %}
+<!-- 
 <div class="imagen">
     <img  src="{% static 'imgs/logocompleto.png' %}"  alt="" style="width: 200px; text-align: center;">
 </div>
-<br> 
+-->
+<br>
     <div class="centrar">
         <div class="centrar1 col">
             <div class="container form-control form-control" >
             <a class="btn btn-warning fas fa-user-lock" href="{% url 'inicio' %}"></a>
             
             <center>
+                <img  src="{% static 'imgs/logocompleto.png' %}"  alt="" style="width: 200px; text-align: center;">
                 <h5 style="font-family: Kodchasan">Solicitud de usuario</h5> 
             </center>
+            <br>
+
             
             <form  action="" method="POST" autocomplete="off" style="font-family: Lato;">
             <!-- CREANDO FORMULARIO DINAMICOS-->
