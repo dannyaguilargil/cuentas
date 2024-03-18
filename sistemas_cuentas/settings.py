@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'gestion_supervisor',
     'gestion_presupuesto',
     'gestion_tesoreria',
+    'gestion_identidades',
     'django_datatables_view',
     'filebrowser',
     'colorfield', #AGREGUEE PARA CAMBIAR ESTILOS

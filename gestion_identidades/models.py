@@ -13,7 +13,7 @@ class solicitudsistema(models.Model):
     supervisor = models.CharField(max_length=40, verbose_name='Supervisor', default='')
     tipodocumento = models.CharField(max_length=40, verbose_name='Tipo de documento',choices=tipodocumento, default='CC')
     ####################################################
-    cedula = models.IntegerField(max_length=40, verbose_name='Cedula')
+    cedula = models.IntegerField(verbose_name='Cedula')
     ##hast aqui va el de usuarios registrados
     lugarexpedicion = models.CharField(max_length=40, verbose_name='Lugar de expedicion')
     dependencia = models.CharField(max_length=40, verbose_name='Dependencia')
@@ -23,11 +23,11 @@ class solicitudsistema(models.Model):
     telefono = models.CharField(max_length=40, verbose_name='Telefono' ,default="")
     direccion = models.CharField(max_length=40, verbose_name='Direccion', default='')
     #######################################################################
-    sede = models.CharField(max_length=40, verbose_name='Sede', default='Administrativa') #choices
+    sede = models.CharField(max_length=80, verbose_name='Sede', default='Administrativa' , choices=sede) #choices
     fechafinalcontrato = models.CharField(max_length=40, verbose_name='Fecha final del contrato', default='')
     ############## SISTEMA DE INFORMACION REQUERIDO #########################
-    tiposolicitud = models.CharField(max_length=40, verbose_name='Tipo de solicitud', default='Consultar') #choices
-    apicativo = models.CharField(max_length=40, verbose_name='Aplicativo', default='kubApp') #choices
+    tiposolicitud = models.CharField(max_length=40, verbose_name='Tipo de solicitud', default='Consultar', choices=tiposolicitud) #choices
+    apicativo = models.CharField(max_length=40, verbose_name='Aplicativo', default='kubApp', choices=aplicativo) #choices
     observaciones = models.CharField(max_length=40, verbose_name='Observaciones', default='')
 
    

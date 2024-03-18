@@ -26,7 +26,7 @@ sede=(
 ) #falta agregar las ips
 tiposolicitud=(
     ('CREAR', 'Crear'),
-    ('Actualizar', 'Actualizar'),
+    ('ACTUALIZAR', 'Actualizar'),
     ('ELIMINAR', 'Eliminar'),
     ('CONSULTAS', 'Consultas')
 )
