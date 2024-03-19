@@ -27,6 +27,7 @@ urlpatterns = [
    path('', include('gestion_presupuesto.urls')),
    path('', include('gestion_tesoreria.urls')),
    path('', include('gestion_identidades.urls')),
+   path('', include('gestion_bitacora.urls')),
    
    #parte administrativa
    path('admin/', admin.site.urls, name='admin'),
