@@ -1,5 +1,5 @@
-<!-- este archivo base contiene todo los modulos
-/////@developer DANNYAGUILARGIL, SARA
+<!--
+/////@developer DANNYAGUILARGIL, UP-IMSALUD
 /*
 ##################################################
 ----------| |----------|     |#    |  ---------  #
@@ -8,6 +8,9 @@
           | |          |  |      | |      #      #
 ----------| |          | |        #   ---------  #
 ################################################## 
+
+
+######ESTE ES EL CONTENIDO DE DATATABLE CON DJANGO PERSONALIZADO PARA EL CRUD
 -->
 
 {% load static %}
@@ -16,19 +19,22 @@
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title> {% block titulo %}    {% endblock  %}</title>  
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kodchasan">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+
+       
+        <!-- Bootstrap -->
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
+   <!-- Font Awesome -->
+   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+        
+        <link rel="icon" href=" {% static 'imgs/escudito.ico' %} ">
         <link type="text/css" rel="stylesheet" href=" {% static "css/styles.css"  %} "> 
         <link type="text/css" rel="stylesheet" href=" {% static "css/base2.css"  %} "> 
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
-        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-         <!-- DataTable.js -->
-        <link rel="icon" href=" {% static 'imgs/escudito.ico' %} ">
+        <title> {% block titulo %}    {% endblock  %}</title>  
     </head>
     <body>
         <nav class="sb-topnav navbar navbar-expand" style="background: #1d985a; color: white; ">
@@ -141,7 +147,7 @@
                             <div class="collapse" id="collapseLayouts3" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="{% url 'identidades' %}" style="color: white;">Solicitar sistema</a>
-                                    <a class="nav-link" href="{% url 'identidades' %}" style="color: white;">Permisos</a>
+                                    <a class="nav-link" href="{% url 'identidadespendientes' %}" style="color: white;">Pendientes</a>
                                     <a class="nav-link" href="{% url 'pazysalvo' %}" style="color: white;">Paz y salvo</a>
                             
                                 </nav>
@@ -201,18 +207,91 @@
                 </footer>
 
 
-
  </div>
     </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="{% static 'js/scripts.js' %}"></script>
-        <script src="{% static 'js/cargapdf.js' %}"></script>
-       <script src="{% static 'js/cargarp.js' %}"></script>
-       <script src="{% static 'js/cargaactainicio.js' %}"></script>
-       <script src="{% static 'js/cargaplanilla.js' %}"></script>
-       <script src="{% static 'js/supervisores.js' %}"></script>
-       <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-       <script src="{% static 'js/main.js' %}"></script>
+
+   
+        
+    <script>
+        $(document).ready(function() {
+            $(".ver").click(function() {
+                var nombre = $(this).data("nombre");
+                var segundonombre = $(this).data("segundonombre");
+                var primerapellido = $(this).data("primerapellido");
+                var segundoapellido = $(this).data("segundoapellido");
+                var cedula = $(this).data("cedula");
+                var cargo = $(this).data("cargo");
+                var email = $(this).data("email");
+                var supervisor = $(this).data("supervisor");
+                var tipodocumento = $(this).data("tipodocumento");
+                var apicativo = $(this).data("apicativo");
+                var tiposolicitud = $(this).data("tiposolicitud");
+                var observaciones = $(this).data("observaciones");
+    
+                $("#nombre").val(nombre);
+                $("#segundonombre").val(segundonombre);
+                $("#primerapellido").val(primerapellido);
+                $("#segundoapellido").val(segundoapellido);
+                $("#cedula").val(cedula);
+                $("#cargo").val(cargo);
+                $("#email").val(email);
+                $("#supervisor").val(supervisor);
+                $("#tipodocumento").val(tipodocumento);
+                $("#apicativo").val(apicativo);
+                $("#tiposolicitud").val(tiposolicitud);
+                $("#observaciones").val(observaciones);
+    
+                $("#exampleModal").modal("show");
+            });
+        });
+
+/*
+
+            console.log("entro al script")
+            $(document).ready(function() {
+                $('#eliminar').click(function() {
+                  var cedula = $('#cedula').val();
+                  console.log(cedula);
+              
+                  $.ajax({
+                    url: 'eliminarregistro',
+                    data: {
+                      'cedula': cedula
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                      // Actualizar la vista si la eliminación fue exitosa
+                      if (data.eliminado) {
+                        window.location.reload();
+                      }
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+                      console.log(xhr.responseText);
+                    }
+                  });
+                });
+              });
+
+              */
+       
+        
+    </script>
+    
+
+            
+
+
+  <!-- Bootstrap -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+  <script src="{% static 'js/scripts.js' %}"></script>
+  <script src="{% static 'js/usuario.js' %}"></script>
+
+
+         
 
     </body>
 </html>

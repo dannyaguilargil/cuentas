@@ -7,5 +7,8 @@ from django.shortcuts import render
 urlpatterns = [
 
     path('identidades', views.identidades, name='identidades'),
+    path('identidades/pazysalvo', views.pazysalvo, name='pazysalvo'),
+    path('identidades/pendientes', views.identidadespendientes, name='identidadespendientes'),
+    path('identidades/list_pendientes', views.usolicitud, name='identidades_list_pendientes'),
    
 ]

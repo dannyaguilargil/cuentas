@@ -86,20 +86,31 @@
                         <div class="nav" style="background: #1d985a; color: white;">
                             
                            
-                            
+
+ 
                             <div class="sb-sidenav-menu-heading">Gestion de usuarios</div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts" style="background: #1d985a; color: white;">
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayoutss" aria-expanded="false" aria-controls="collapseLayouts" style="background: #1d985a; color: white;">
                                 <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
                                 Usuarios
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                            <div class="collapse" id="collapseLayoutss" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href=" {% url 'crear' %} " style="color: white;">Registrar un usuario</a>
+                            
                                     <a class="nav-link" href=" {% url 'usuario_pendient' %} " style="color: white;">Usuarios pendientes</a>
-                                    <a class="nav-link" href=" {% url 'documentos' %} " style="color: white;">Registrar documentos</a>
+                                    <a class="nav-link" href=" {% url 'crear' %} " style="color: white;">Registrar un usuario</a>
+                                   
+                                    <a class="nav-link" href=" {% url 'documentos' %} " style="color: white;">Registrar documento</a>
+                                   
                                 </nav>
                             </div>
+
+
+
+
+
+                            
+ 
                            
                             
                            
@@ -112,10 +123,10 @@
                             </a>
                             <div class="collapse" id="collapseLayouts2" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="" style="color: white;">Datos de afiliacion</a>
-                                    <a class="nav-link" href="" style="color: white;">Datos basicos</a>
-                                    <a class="nav-link" href="" style="color: white;">Datos de contacto</a>
-                                    <a class="nav-link" href="" style="color: white;">Radicacion</a>
+                                    <a class="nav-link" href="{% url 'nuevaeps' %}" style="color: white;">Datos de afiliacion</a>
+                                    <a class="nav-link" href="{% url 'nuevaepsbasicos' %}" style="color: white;">Datos basicos</a>
+                                    <a class="nav-link" href="{% url 'nuevaepscontacto' %}" style="color: white;">Datos de contacto</a>
+                                    <a class="nav-link" href="{% url 'nuevaepscontacto' %}" style="color: white;">Radicacion</a>
                                 </nav>
                             </div>
                             <!-- GESTION DE APIS-->
@@ -131,8 +142,8 @@
                             <div class="collapse" id="collapseLayouts3" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="{% url 'identidades' %}" style="color: white;">Solicitar sistema</a>
-                                    <a class="nav-link" href="{% url 'identidades' %}" style="color: white;">Permisos</a>
-                                    <a class="nav-link" href="{% url 'identidades' %}" style="color: white;">Paz y salvo</a>
+                                    <a class="nav-link" href="{% url 'identidadespendientes' %}" style="color: white;">Pendientes</a>
+                                    <a class="nav-link" href="{% url 'pazysalvo' %}" style="color: white;">Paz y salvo</a>
                             
                                 </nav>
                             </div>
@@ -141,7 +152,7 @@
 
 
                             <div class="sb-sidenav-menu-heading" >Bitacora de actividades</div>
-                            <a class="nav-link" href="bitacora" style="background: #1d985a; color: white;">
+                            <a class="nav-link" href="../bitacora" style="background: #1d985a; color: white;">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
                                 Ver bitacora 
                             </a>

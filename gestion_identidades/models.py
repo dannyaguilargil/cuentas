@@ -18,9 +18,10 @@ class solicitudsistema(models.Model):
     lugarexpedicion = models.CharField(max_length=40, verbose_name='Lugar de expedicion')
     dependencia = models.CharField(max_length=40, verbose_name='Dependencia')
     sexo = models.CharField(max_length=40, verbose_name='Sexo', choices=sexos, default='F')
-    usuario = models.CharField(max_length=40, verbose_name='Usuario')
-    contrasena = models.CharField(max_length=40, verbose_name='Contrasena')
+    #usuario = models.CharField(max_length=40, verbose_name='Usuario')
+    #contrasena = models.CharField(max_length=40, verbose_name='Contrasena')
     telefono = models.CharField(max_length=40, verbose_name='Telefono' ,default="")
+    celular = models.CharField(max_length=40, verbose_name='Celular' ,default="")
     direccion = models.CharField(max_length=40, verbose_name='Direccion', default='')
     #######################################################################
     sede = models.CharField(max_length=80, verbose_name='Sede', default='Administrativa' , choices=sede) #choices
@@ -29,6 +30,13 @@ class solicitudsistema(models.Model):
     tiposolicitud = models.CharField(max_length=40, verbose_name='Tipo de solicitud', default='Consultar', choices=tiposolicitud) #choices
     apicativo = models.CharField(max_length=40, verbose_name='Aplicativo', default='kubApp', choices=aplicativo) #choices
     observaciones = models.CharField(max_length=40, verbose_name='Observaciones', default='')
+
+
+class pazysalvo(models.Model):
+    id = models.AutoField(primary_key=True)
+    cedula = models.IntegerField(verbose_name='Cedula')
+    permisos = models.BooleanField(default=False)
+    rfid = models.BooleanField(default=False)
 
    
   

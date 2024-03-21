@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'gestion_tesoreria',
     'gestion_identidades',
     'gestion_bitacora',
+    'gestion_apis',
     'django_datatables_view',
     'filebrowser',
     'colorfield', #AGREGUEE PARA CAMBIAR ESTILOS
