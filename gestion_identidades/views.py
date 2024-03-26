@@ -23,3 +23,8 @@ def identidadespendientes(request):
     #solicitud_obj = ""
     datos = solicitudsistema.objects.values()
     return render(request, 'pendientes.html', {'datos': datos})
+
+def identidadespendientesadmin(request):
+    #solicitud_obj = ""
+    datos = solicitudsistema.objects.values()
+    return render(request, 'pendientesadmin.html', {'datos': datos})

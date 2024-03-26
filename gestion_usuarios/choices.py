@@ -36,3 +36,9 @@ aplicativo=(
     ('ALMERA', 'Almera'),
     ('HICKCENTRAL', 'Hickcentral')
 )
+modulo=(
+    ('identidades', 'Gestion de identidades'),
+    ('cuentas', 'Gestion de cuentas'),
+    ('interoapibilidad', 'Gestion de interoapibilidad'),
+    ('bitacora', 'Gestion de bitacora')
+)

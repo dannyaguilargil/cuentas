@@ -1,6 +1,6 @@
 // aqui va el script de autocompletar los supervisores
 
-console.log("entro al script DE AUTOCOMPLETAR");
+console.log("entro al script DE AUTOCOMPLETAR SUPERVISORES");
 let names = [
     "CLARA YAMILE CUADROS CASTILLO",    // ASESORA DE PLANEACION Y CALIDAD
     "JAMES SANCHEZ RODRIGUEZ",          // ATENCION Y SALUD PYP

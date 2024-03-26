@@ -1,5 +1,5 @@
 from django.db import models
-from gestion_usuarios.choices import sexos, rol, tipodocumento
+from gestion_usuarios.choices import sexos, rol, tipodocumento, modulo
 from gestion_supervisor.models import supervisor
 
 class usuario(models.Model):
@@ -44,6 +44,7 @@ class usolicitudes(models.Model):
     supervisor = models.CharField(max_length=40, verbose_name='supervisor')
     tipodocumento = models.CharField(max_length=40, verbose_name='Tipo de documento',choices=tipodocumento, default='CC')
     cedula = models.IntegerField(primary_key=True, verbose_name='Cedula')
+    modulo = models.CharField(max_length=40, verbose_name='Sistema',choices=modulo, default='identidades')
 
     def __str__(self):
         return 'Solicitud de usuario: ' + self.nombre + ' ' + self.primerapellido

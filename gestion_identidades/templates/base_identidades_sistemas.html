@@ -71,7 +71,7 @@
                 <li class="nav-item dropdown" style="background: #1d985a; color: white;">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="background: #1d985a; color: white;"><i class="fas fa-user fa-fw" ></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" style="background: #1d985a; color: white;">
-                        <li><a class="dropdown-item fas fa-user-edit" href=" {% url 'perfil' %} ">Actualizar perfil</a></li>
+                     <!--  <li><a class="dropdown-item fas fa-user-edit" href=" {% url 'perfil' %} ">Actualizar perfil</a></li> -->
                         <li><hr class="dropdown-divider" /></li>
                         <li>
                             <form method="POST" action="{% url 'logout' %}">
@@ -107,6 +107,7 @@
                                     <a class="nav-link" href=" {% url 'crear' %} " style="color: white;">Registrar un usuario</a>
                                    
                                     <a class="nav-link" href=" {% url 'documentos' %} " style="color: white;">Registrar documento</a>
+                                    <a class="nav-link" href=" {% url 'usuariosauditoria' %} " style="color: white;">Auditoria</a>
                                    
                                 </nav>
                             </div>
@@ -120,7 +121,7 @@
                             
                            
                             <!-- GESTION DE APIS-->
-                            <div class="sb-sidenav-menu-heading">GESTION DE APIS</div>
+                            <div class="sb-sidenav-menu-heading">GESTION DE INTEROAPIBILIDAD</div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts2" aria-expanded="false" aria-controls="collapseLayouts" style="background: #1d985a; color: white;">
                                 <div class="sb-nav-link-icon"><i class="fas fa-receipt"></i></div>
                                 Nueva eps

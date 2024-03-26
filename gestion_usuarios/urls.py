@@ -48,5 +48,6 @@ urlpatterns = [
     path('contratista/seguimiento/<int:cedula>/', views.seguimiento, name='seguimiento'),
     path('extraer/', views.extraer_texto, name='extraer_texto'),
     #path('contratista/perfil/<int:cedula>/', views.actualizar_usuario, name='actualizar_usuario'),
+    path('usuarios/auditoria', views.usuariosauditoria, name='usuariosauditoria'), 
   
 ] + static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)

@@ -1,0 +1,203 @@
+{% extends 'base_identidades_sistemas.html' %}
+{% block titulo %}Identidades pendientes{% endblock titulo %}
+{% block contenido %}
+   <center>
+   <h5> Formato de identidades pendientes administrador</h5>
+   </center>
+   <div class="table-responsive"> 
+    <table id="tabla-usuarios" class="table table-bordered table-hover table-striped">
+      <caption>
+         Formato de identidades pendientes
+      </caption>
+      <thead>
+          <tr>
+              <th class="centered">#</th>
+              <th class="text-center centered">Primer nombre</th>
+              <th class="text-center centered">Primer apellido</th>
+              <th class="text-center centered">Aplicativo</th>
+              <th class="text-center centered">Tipo de solicitud</th>
+              <th class="text-center centered">Observacion</th>
+              <th class="text-center centered">Accion</th>
+          </tr>
+      </thead>
+      <tbody id="tabla-usuarios">
+        {% for objeto in datos %}
+        <tr> <!-- SE REMPLAZA CON INPUTS PARA OBTENER LOS DATOS DE ESE INPUT-->
+            <td>{{forloop.counter}}</td>
+            <td><center>{{objeto.nombre}}</center></td>
+            <td><center>{{objeto.primerapellido}}</center></td>
+            <td><center>{{objeto.apicativo}}</center></td>
+            <td><center>{{objeto.tiposolicitud}}</center></td>
+            <td><center>{{objeto.observaciones}}</center></td>
+            <td><a  name="ver" class="fa fa-eye btn btn-outline-success ver" 
+                data-nombre="{{objeto.nombre}}"
+                data-segundonombre="{{objeto.segundonombre}}"
+                data-primerapellido="{{objeto.primerapellido}}"
+                data-segundoapellido="{{objeto.segundoapellido}}" 
+                data-cedula="{{objeto.cedula}}"
+                data-cargo="{{objeto.cargo}}"
+                data-email="{{objeto.email}}"
+                data-supervisor="{{objeto.supervisor}}"
+                data-tipodocumento="{{objeto.tipodocumento}}"
+                data-apicativo="{{objeto.apicativo}}"
+                data-tiposolicitud="{{objeto.tiposolicitud}}"
+                data-observaciones="{{objeto.observaciones}}"
+                data-bs-toggle="modal"
+                data-bs-target="#ex" >
+            </a>
+              <!-- <button  class="fa fa-save btn btn-outline-secondary" type="submit"></button> --> 
+              <a  class="fa fa-eraser btn btn-outline-danger" 
+              data-cedula="{{objeto.cedula}}"
+              href="{% url 'eliminar' objeto.cedula %}"
+               >
+            </a>
+            </td>
+        </tr>
+    {% endfor %}
+
+      </tbody>
+    </table>
+
+</div>
+ 
+  <!-- Modal -->
+<div class="modal fade" id="ex" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Datos basicos del formato de identidades</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="POST" >
+            {% csrf_token %}
+          <div class="row">
+            <div class="col">
+                <label for="">Nombre</label>
+                <input type="text" name="nombre" id="nombre" class="form-control">
+            </div>
+
+            <div class="col">
+                <label for=""> Segundo nombre</label>
+                <input type="text" class="form-control" name="segundonombre" id="segundonombre">
+            </div>
+
+            <div class="col">
+                <label for="">Primer apellido</label>
+                <input type="text" class="form-control" name="primerapellido" id="primerapellido" >
+            </div>
+
+            <div class="col">
+                <label for=""> Segundo apellido</label>
+                <input type="text" class="form-control" name="segundoapellido" id="segundoapellido">
+            </div>
+
+          </div>
+
+          <div class="row">
+            
+            <div class="col">
+                <label for="">Cedula</label>
+                <input type="text" class="form-control" name="cedula" id="cedula">
+            </div>
+
+           
+            <div class="col">
+                <label for="">Cargo </label>
+                <input type="text" class="form-control" name="cargo" id="cargo" >
+            </div>
+
+
+            <div class="col">
+                <label for="">Tipo documento</label>
+                <input type="text" class="form-control" name="tipodocumento" id="tipodocumento">
+            </div>
+
+            <div class="col">
+                <label for="">Tipo de solicitud</label>
+                <input type="text" class="form-control" name="tiposolicitud" id="tiposolicitud">
+            </div>
+
+          </div>
+
+
+
+          <div class="row">
+            
+
+            <div class="col">
+                <label for="">Email</label>
+                <input type="text" class="form-control" name="email" id="email">
+            </div>
+
+            <div class="col">
+                <label for="">Supervisor</label>
+                <input type="text" class="form-control" name="supervisor" id="supervisor">
+            </div>
+           
+          </div>
+
+          <div class="row">
+            
+
+            <div class="col">
+                <label for="">Observaciones del colaborador</label>
+                <input type="text" class="form-control" name="observaciones" id="observaciones">
+            </div>
+
+            <div class="col">
+                <label for=""><b>Aplicativo</b></label>
+                <input type="text" class="form-control" name="apicativo" id="apicativo">
+            </div>
+           
+          </div>
+
+
+          <div class="row">
+            <div class="col">
+              <label for=""><b>Observaciones del supervisor</b></label>
+              <input type="text" class="form-control" name="usuario" id="usuario">
+            </div>
+
+            
+          </div>
+
+          <div class="row">
+            
+
+            <div class="col">
+                <label for="">Usuario</label>
+                <input type="text" class="form-control" name="usuario" id="usuario" required autofocus>
+            </div>
+
+            <div class="col">
+                <label for=""><b>Contraseña</b></label>
+                <input type="text" class="form-control" name="contraseña" id="contraseña" required>
+            </div>
+           
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+          <button class=" fas fa-save btn btn-success" type="submit">Aprobar</button>
+          <button class=" fas fa-save btn btn-outline-danger" type="submit">Rechazar</button>
+         
+        </div>
+    </form>
+    {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-sm">
+         {{ message }}
+        </div>
+   {% endfor %}
+
+{% endif %}
+      </div>
+    </div>
+  </div>
+ 
+  <!-- AQUI DEBE ASIGNAR EL MISMO SISTEMA EL NOMBRE DE USUARIO Y POR DEFECTO LA CONTRASEÑA ES LA CEDULA-->
+
+
+{% endblock contenido %}

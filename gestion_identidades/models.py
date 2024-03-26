@@ -30,6 +30,22 @@ class solicitudsistema(models.Model):
     tiposolicitud = models.CharField(max_length=40, verbose_name='Tipo de solicitud', default='Consultar', choices=tiposolicitud) #choices
     apicativo = models.CharField(max_length=40, verbose_name='Aplicativo', default='kubApp', choices=aplicativo) #choices
     observaciones = models.CharField(max_length=40, verbose_name='Observaciones', default='')
+    ###########5  veces los aplicativos #### para realizar varias solicitudes
+    tiposolicitud1 = models.CharField(max_length=40, verbose_name='Tipo de solicitud', default='Consultar', null=True) #choices
+    aplicativo1 = models.CharField(max_length=40, verbose_name='Aplicativo', default='kubApp', choices=aplicativo, null=True) #choices
+    observaciones1 = models.CharField(max_length=40, verbose_name='Observaciones', null=True, blank=True)
+    tiposolicitud2 = models.CharField(max_length=40, verbose_name='Tipo de solicitud', default='Consultar', null=True) 
+    aplicativo2 = models.CharField(max_length=40, verbose_name='Aplicativo', default='kubApp', choices=aplicativo, null=True)
+    observaciones2 = models.CharField(max_length=40, verbose_name='Observaciones', null=True, blank=True)
+    tiposolicitud3 = models.CharField(max_length=40, verbose_name='Tipo de solicitud', default='Consultar', null=True)
+    aplicativo3 = models.CharField(max_length=40, verbose_name='Aplicativo', default='kubApp', choices=aplicativo, null=True) 
+    observaciones3 = models.CharField(max_length=40, verbose_name='Observaciones', null=True, blank=True)
+    tiposolicitud4 = models.CharField(max_length=40, verbose_name='Tipo de solicitud', default='Consultar', null=True)
+    aplicativo4 = models.CharField(max_length=40, verbose_name='Aplicativo', default='kubApp', choices=aplicativo, null=True)
+    observaciones4 = models.CharField(max_length=40, verbose_name='Observaciones', null=True, blank=True)
+    tiposolicitud5 = models.CharField(max_length=40, verbose_name='Tipo de solicitud', default='Consultar', null=True) 
+    aplicativo5 = models.CharField(max_length=40, verbose_name='Aplicativo', default='kubApp', choices=aplicativo, null=True) 
+    observaciones5 = models.CharField(max_length=40, verbose_name='Observaciones', null=True, blank=True)
 
 
 class pazysalvo(models.Model):

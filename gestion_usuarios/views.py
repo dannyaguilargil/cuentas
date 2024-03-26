@@ -1235,3 +1235,7 @@ def limpiar_texto(texto):
     texto_limpio = re.sub(r'\n', ' ', texto_limpio)  # Reemplazar saltos de línea con espacios en blanco
     texto_limpio = re.sub(r'\s+', ' ', texto_limpio)  # Eliminar espacios en blanco repetidos
     return texto_limpio
+
+
+def usuariosauditoria(request):
+    return render(request, 'auditoria.html')
