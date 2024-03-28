@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'gestion_identidades',
     'gestion_bitacora',
     'gestion_apis',
+    'gestion_informes',
     'django_datatables_view',
     'filebrowser',
     'colorfield', #AGREGUEE PARA CAMBIAR ESTILOS

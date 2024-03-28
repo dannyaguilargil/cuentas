@@ -67,7 +67,7 @@ def home(request):
             if user is not None:
                 if user.is_staff:
                      login(request, user)
-                     return redirect('crear')
+                     return redirect('dashboard')
                 else:
                      login(request, user)
                      return redirect('ops')
@@ -1239,3 +1239,7 @@ def limpiar_texto(texto):
 
 def usuariosauditoria(request):
     return render(request, 'auditoria.html')
+
+
+def dashboard(request):
+    return render(request, 'dashboard.html')

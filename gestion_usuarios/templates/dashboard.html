@@ -1,0 +1,106 @@
+{% extends 'base_layout_gescon.html' %}
+{% block titulo %}Formato gestion de identidades{% endblock titulo %}
+{% block contenido %}
+
+<center>
+    <h5 class=""><b>S</b>istema de <b>A</b>dministracion de <b>R</b>ecursos y <b>A</b>plicaciones </h5>
+    
+        DASHBOARD
+    
+</center>
+
+
+
+<form action="" class="form-control">
+    
+    
+
+    <div class="row container center">
+     <div class="col-4">
+        <label for="">Modulo:</label>
+        <select name="" id="" class="form-control">
+            <option value="">Gestion de informes</option>
+            <option value="">Gestion de cuentas</option>
+            <option value="">Gestion de Interoapibilidad</option>
+            <option value="">Gestion de identidades</option>
+            
+        </select>
+     </div>
+      <div class="col">
+
+        
+        Fecha
+        <input type="date" name="" id="" class="form-control">
+
+
+      
+    
+      </div>
+      
+      <div class="col">
+        Grafica
+        <select name="" id="" class="form-control">
+            <option value="">Torta</option>
+            <option value="">Barras</option>
+            <option value="">Combinado</option>
+            <option value="">Puntos</option>
+            
+        </select>
+
+        <!--
+        <button class="btn btn-outline-success">Exportar a excel</button> <br>
+        <button>Exportar a pdf</button> <br>
+        <button>Exportar a imagen</button>-->
+      </div>
+    
+    </div>
+    <br>
+    
+    <center>
+        <canvas id="graficoVentasMensuales" width="200" height="200"></canvas>
+    </center>
+          
+    
+    
+
+             
+                
+
+
+</form>
+<script>
+    // Datos de ejemplo: ventas mensuales
+    const datosVentasMensuales = {
+      labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
+      datasets: [{
+        label: 'Avances',
+        backgroundColor: 'rgba(54, 162, 235, 0.2)', // Color de fondo
+        borderColor: 'rgba(54, 162, 235, 1)', // Color del borde
+        borderWidth: 1,
+        data: [250, 300, 350, 400, 450, 500] // Cantidad de ventas
+      }]
+    };
+
+    // Configuración del gráfico
+    const opciones = {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true // Empezar desde 0 en el eje Y
+          }
+        }]
+      }
+    };
+
+    // Obtener el contexto del lienzo
+    const contexto = document.getElementById('graficoVentasMensuales').getContext('2d');
+
+    // Crear el gráfico de barras
+    const graficoVentasMensuales = new Chart(contexto, {
+      type: 'bar', // Tipo de gráfico: barras
+      data: datosVentasMensuales, // Datos
+      options: opciones // Opciones de configuración
+    });
+  </script>
+
+{% endblock contenido %}

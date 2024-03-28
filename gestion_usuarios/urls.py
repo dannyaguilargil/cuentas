@@ -14,7 +14,8 @@ urlpatterns = [
    
     #path('admin-redireccion/', lambda request: redirect('admin/')),
     path('base', views.base, name='base'),
-    path('prueba', views.prueba, name='prueba'),
+    path('', views.home, name='casita'),
+    #path('prueba', views.prueba, name='prueba'),
     path('login', views.home, name='inicio'),
     path('login', views.logout, name='logout'),
     path('usuarios', views.usuarios, name='usuarios'), 
@@ -49,5 +50,7 @@ urlpatterns = [
     path('extraer/', views.extraer_texto, name='extraer_texto'),
     #path('contratista/perfil/<int:cedula>/', views.actualizar_usuario, name='actualizar_usuario'),
     path('usuarios/auditoria', views.usuariosauditoria, name='usuariosauditoria'), 
+    ##############cambios despues de reunion #########
+    path('dashboard', views.dashboard, name='dashboard'),
   
 ] + static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)

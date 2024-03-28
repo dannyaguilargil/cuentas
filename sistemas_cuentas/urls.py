@@ -30,6 +30,7 @@ urlpatterns = [
    path('', include('gestion_bitacora.urls')),
    path('', include('gestion_apis.urls')),
    
+   
    #parte administrativa
    path('admin/', admin.site.urls, name='admin'),
 
