@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import  entecontrol,dependencia
+from .models import  entecontrol,dependencia,informe
 # Register your models here.
 class enteControl(admin.ModelAdmin):
     list_display= ('id', 'nombre', 'descripcion', 'activo', 'fecha_creacion', 'fecha_actualizacion')
@@ -10,3 +10,9 @@ class Dependencia(admin.ModelAdmin):
     list_display= ('id', 'nombre', 'responsable', 'activo', 'fecha_creacion', 'fecha_actualizacion')
     search_fields = ('nombre',)#cuadrito de busqueda dentro del panel de administracion
 admin.site.register(dependencia, Dependencia)
+
+###informes ###
+class Informe(admin.ModelAdmin):
+    list_display= ('id', 'nombre', 'slug', 'normativa', 'fecha_actualizacion', 'fechaentregapendiente')
+    search_fields = ('nombre',)#cuadrito de busqueda dentro del panel de administracion
+admin.site.register(informe, Informe)
