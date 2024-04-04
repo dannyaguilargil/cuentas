@@ -1,13 +1,33 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib import messages
 ########################################
 from django.http.response import JsonResponse
 from django.http import JsonResponse
-from gestion_usuarios.models import usolicitudes
+from gestion_usuarios.models import usolicitudes,usuario
+from gestion_identidades.forms import Formidentidades
 from gestion_identidades.models import solicitudsistema
 
 def identidades(request):
-    return render(request, 'identidades.html')
+    username = request.user.username
+    ### para llenar el campo de formato de identidades #####
+    usuario_obj = usuario.objects.filter(usuario=username).first()
+    #if usuario.objects.filter(usuario=username).exists():
+    #    cedula = usuario_obj.cedula
+    ####para realizar la inserccion del formato de identidades ####
+    if request.method == 'POST':
+        formularios = Formidentidades(request.POST)
+        if formularios.is_valid():
+            formularios.save()
+            messages.success(request, 'La solicitud se ha guardado exitosamente.')
+            return redirect('identidades')
+        else:
+            messages.error(request, 'Hubo un error al procesar el formulario. Por favor, revise los datos ingresados.')
+
+    else:
+        formularios = Formidentidades()
+
+     ####para realizar la inserccion del formato de identidades ####
+    return render(request, 'identidades.html' , {'username': username, 'formularios': formularios})
 
 def pazysalvo(request):
     return render(request, 'pazysalvo.html')

@@ -47,3 +47,33 @@ class informe(models.Model):
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
     descripcion = models.CharField(max_length=1000, verbose_name='Descripcion del informe', blank=True, null=True)
+    def __str__(self):
+        return self.nombre
+
+
+class alarma(models.Model):
+    id = models.AutoField(primary_key=True)
+    informe=models.ForeignKey(informe,null=True,blank=True,on_delete=models.CASCADE) ##informe
+    dias = models.IntegerField(verbose_name='Dias de anticipacion alarma')
+    activo = models.BooleanField(default=True)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    fecha_actualizacion = models.DateTimeField(auto_now=True)
+
+
+class entrega(models.Model):
+    id = models.AutoField(primary_key=True)
+    informe=models.ForeignKey(informe,null=True,blank=True,on_delete=models.CASCADE) ##informe
+    fecha = models.CharField(max_length=200, verbose_name='Fecha') 
+    activo = models.BooleanField(default=True)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    fecha_actualizacion = models.DateTimeField(auto_now=True)
+
+
+class evidencia(models.Model):
+    id = models.AutoField(primary_key=True)
+    entrega=models.ForeignKey(entrega,null=True,blank=True,on_delete=models.CASCADE) ##informe
+    nombre = models.CharField(max_length=200, verbose_name='Nombre')
+    activo = models.BooleanField(default=True)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    fecha_actualizacion = models.DateTimeField(auto_now=True)
+

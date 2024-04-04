@@ -5,13 +5,19 @@
 
 <center>
   <h5 class="">Formato gestion de identidades</h5>
+
+{% if messages %}
+  {% for message in messages %}
+   <div class="alert alert-{{ message.tags }}">
+  {{ message }}
+   </div>
+  {% endfor %}
+{% endif %}
+
   </center>
 
-
-<form action="" class="form-control">
-
-
-
+<form action="" method="POST" class="form-control">
+  {% csrf_token %}
                 <!-- ESTE DEBE IR MANUAL DEBIDO A LAS VALIDACIONES Y A LA TOMA DE DATOS-->
                 <fieldset>Informacion general del colaborador</fieldset> 
               <div class="row">
@@ -101,8 +107,8 @@
 
 
                 <div class="col">
-                <label  for="correo" class="emerge"><b>Correo personal:</b></label> <br>
-                <input type="email" name="correo" id="correo" class="emerge form-control" value="" placeholder="Digite correo"> 
+                <label  for="email" class="emerge"><b>Correo personal:</b></label> <br>
+                <input type="email" name="email" id="email" class="emerge form-control" value="" placeholder="Digite correo"> 
                 </div>
 
 
@@ -139,8 +145,8 @@
 
                 <div class="col">
                   
-                  <label for="" class=""><b>Fecha final de contrato</b></label> <br>
-                  <input type="date" name="observaciones" id="observaciones" class="form-control" placeholder="Digite para que requiere el permiso del sistema?" required> 
+                  <label for="fechafinalcontrato" class=""><b>Fecha final de contrato</b></label> <br>
+                  <input type="date" name="fechafinalcontrato" id="fechafinalcontrato" class="form-control" placeholder="Digite para que requiere el permiso del sistema?" required> 
                   
                 </div>
 
@@ -173,7 +179,7 @@
 
                 <div class="col aplica" id="aplica">
                 <label for=""><b>Aplicativo</b></label> <br>
-                <select name="aplicativo" id="aplicativo" class="form-control" onchange="aplicativos();">
+                <select name="apicativo" id="apicativo" class="form-control" onchange="aplicativos();">
                   <option value="ALDEAMO SMS" class="form-control">ALDEAMO SMS</option>
                   <option value="ALMERA" class="form-control">ALMERA</option>
                   <option value="EMAIL" class="form-control">EMAIL</option>

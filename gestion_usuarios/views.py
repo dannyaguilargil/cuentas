@@ -66,17 +66,18 @@ def home(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 if user.is_staff:
-                     login(request, user)
-                     return redirect('dashboard')
+                    login(request, user)
+                    return redirect('dashboard')
                 else:
-                     login(request, user)
-                     return redirect('ops')
+                    login(request, user)
+                    return redirect('cuentas')
+                    ### realizar cambios para asignalos por grupos
             else:
                 messages.error(request, 'Las credenciales de inicio de sesión son inválidas.')
                 return redirect('inicio')
     else:
         form = AuthenticationForm()
-        #messages.error(request, 'Las credenciales de inicio de sesión son inválidas.')
+
     return render(request, 'home.html', {'form': form})
 ################LOGIN####################
 

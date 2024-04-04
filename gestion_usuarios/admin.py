@@ -11,8 +11,6 @@ admin.site.site_title = "Administracion"
 admin.site.index_title = "Bienvenido Administrador!"
 #Modificaciones del frontend
 
-
-
 # Listar por tabla a solicitudes de usuarios
 class Usolicitud(admin.ModelAdmin):
     list_display=('nombre', 'primerapellido', 'segundoapellido', 'cedula', 'cargo')

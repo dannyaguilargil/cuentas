@@ -44,7 +44,7 @@ class usolicitudes(models.Model):
     supervisor = models.CharField(max_length=40, verbose_name='supervisor')
     tipodocumento = models.CharField(max_length=40, verbose_name='Tipo de documento',choices=tipodocumento, default='CC')
     cedula = models.IntegerField(primary_key=True, verbose_name='Cedula')
-    modulo = models.CharField(max_length=40, verbose_name='Sistema',choices=modulo, default='identidades')
+    #modulo = models.CharField(max_length=40, verbose_name='Sistema',choices=modulo, default='identidades')
 
     def __str__(self):
         return 'Solicitud de usuario: ' + self.nombre + ' ' + self.primerapellido

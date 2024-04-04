@@ -45,6 +45,14 @@
                 {% endfor %}
             {% endif %}
 
+            <!-- para error, haciendo validacion-->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-danger">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
 
             <center>
               <a  class="" href=" {% url 'solicitud_usuario' %} " id="" style="color: grey; font-family: Lato">Para solicitar usuario al portal de centralizacion registrese aqui.</a>
