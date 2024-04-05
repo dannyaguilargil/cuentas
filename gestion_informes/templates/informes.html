@@ -1,0 +1,405 @@
+{% extends 'base_informes.html' %}
+{% block titulo %}Creacion del informe{% endblock titulo %}
+{% block contenido %}
+
+<center>
+    <h5 class=""><b>S</b>istema de <b>A</b>dministracion de <b>R</b>ecursos y <b>A</b>plicaciones </h5>
+    
+</center>
+      
+          <!-- Main content -->
+          <div class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card card-primary card-outline">
+                    <div class="card-header">
+                      <div class="d-flex justify-content-between">
+                        <h6 class="m-0">Creación informe</h6>
+                      </div>
+                    </div>
+                    <form
+                      id="form-inform"
+                                      enctype="multipart/form-data"
+                      @submit.prevent="validarDatosCompletosDelInforme"
+                    >
+                      <div class="card-body">
+                        <div class="card card-primary">
+                          <div class="card-header">
+                            <h6 class="card-title">
+                              Datos de creación y responsable del informe
+                            </h6>
+                          </div>
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                  <label for="report-name"
+                                    >Nombre del informe *</label
+                                  >
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    id="report-name"
+                                                                  name="nombre"
+                                    placeholder="Nombre del informe"
+                                    v-model="entcon_informe.nombre"
+                                    @input="
+                                      toUpperCase($event, entcon_informe, 'nombre')
+                                    "
+                                    @blur="trim($event, entcon_informe, 'nombre')"
+                                    required
+                                  />
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                  <label>Ente de Control *</label>
+                                  <select
+                                    class="form-control"
+                                    id="report-entitie-id"
+                                                                  name="entcon_ente_id"
+                                    v-model="entcon_informe.entcon_ente_id"
+                                    required
+                                  >
+                                    <option selected disabled>
+                                      Seleccione un Ente de Control
+                                    </option>
+                                    <option
+                                      v-for="entity in listado_entcon_entes"
+                                      :key="entity.id"
+                                      :value="entity.id"
+                                    >
+                                      {{ entity.name }}
+                                    </option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                  <label for="report-regulation">Normativa *</label>
+                                  <div class="input-group">
+                                    <div class="custom-file ">
+                                      <input
+                                        type="file"
+                                        class="custom-file-input form-control"
+                                        id="report-regulation"
+                                                                          name="normativa"
+                                        @change="processFile($event)"
+                                        :required="!mode_update"
+                                      />
+                                      <label
+                                        class="custom-file-label"
+                                        for="report-regulation"
+                                        v-if="entcon_informe.normativa"
+                                      >
+                                        {{ entcon_informe.normativa }}
+                                      </label>
+                                      <label
+                                        class="custom-file-label"
+                                        for="report-regulation"
+                                        v-else
+                                      >
+                                       <!-- seleccione un archivo-->
+                                      </label>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                  <label>Dependencia Responsable *</label>
+                                  <select
+                                    class="form-control"
+                                    id="report-dependency-id"
+                                    name="entcon_dependencia_id"
+                                    v-model="entcon_informe.entcon_dependencia_id"
+                                    required
+                                  >
+                                    <option selected disabled>
+                                      Seleccione una dependencia
+                                    </option>
+                                    <option
+                                      v-for="dependency in dependencies_list"
+                                      :key="dependency.id"
+                                      :value="dependency.id"
+                                    >
+                                      {{ dependency.name }}
+                                    </option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                  <label for="report-name"
+                                    >Nombre del responsable</label
+                                  >
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    id="report-responsible"
+                                    v-model="dependency_responsible"
+                                    disabled
+                                  />
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                  <label for="report-name"
+                                    >Correo del responsable *</label
+                                  >
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    id="report-responsible-email"
+                                    v-model="dependency_responsible_email"
+                                    disabled
+                                  />
+                                </div>
+                              </div>
+                    <!-- codigo original con excepcion de descripcion-->
+
+
+
+                                <div class="col-sm-8">
+                                <div class="form-group">
+                                  <label for="report-name"
+                                    >Descripcion</label
+                                  >
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    id=""
+                                    v-model="descripcion"
+                                    placeholder="Descripcion del informe"
+                                  />  
+                                </div>
+                                </div>
+                             
+      
+                            </div>
+                          </div>
+                        </div>
+
+
+                        <div class="card card-primary">
+                          <div class="card-header">
+                            <h6 class="card-title">
+                              Datos de periodicidad del informe
+                            </h6>
+                          </div>
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                  <label for="report-initial-date"
+                                    >Fecha de entrega inical *</label
+                                  >
+                                  <input
+                                    type="date"
+                                    class="form-control"
+                                    id="report-initial-date"
+                                                                  name="fecha_entrega_inicial"
+                                    v-model="entcon_informe.fecha_entrega_inicial"
+                                    required
+                                  />
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                  <label for="report-regulations"
+                                    >Periodicidad del informe *</label
+                                  >
+                                  <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text"
+                                        ><i class="fas fa-clock"></i
+                                      ></span>
+                                    </div>
+                                    <input
+                                      type="number"
+                                                                      name="periodicidad_cantidad"
+                                      class="form-control text-center"
+                                      placeholder="15"
+                                      v-model="entcon_informe.periodicidad_cantidad"
+                                    />
+                                    <div class="input-group-append">
+                                      <div class="input-group-text">
+                                        <select
+                                          id="report-periodicity"
+                                                                              name="periodicidad_tipo"
+                                          required="required"
+                                          class="form-control-addon border-0"
+                                          v-model="entcon_informe.periodicidad_tipo"
+                                        >
+                                          <option
+                                            selected="selected"
+                                            disabled="disabled"
+                                          >
+                                            Seleccione un opción
+                                          </option>
+                                          <option value="Días">Días</option>
+                                          <option value="Meses">Meses</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                  <label for="report-regulations"
+                                    >Finalizar despues de cuantas entregas *</label
+                                  >
+                                  <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">
+                                        <input
+                                          type="checkbox"
+                                          id="report-number-deliveries"
+                                          v-model="total_entregas_nunca"
+                                        />
+                                        <label
+                                          for="report-number-deliveries"
+                                          class="mb-0 ml-1"
+                                          >Nunca</label
+                                        >
+                                      </span>
+                                    </div>
+                                    <input
+                                      type="number"
+                                                                      name="total_entregas"
+                                      class="form-control text-center"
+                                      min="1"
+                                      max="10000"
+                                      v-model="entcon_informe.total_entregas"
+                                      :disabled="total_entregas_nunca"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card card-primary">
+                          <div class="card-header">
+                            <h6 class="card-title">
+                              Configuración de alarmas
+                            </h6>
+                          </div>
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-xs-8 col-sm-4">
+                                <div class="form-group">
+                                  <label
+                                    >Días de anticipación a la fecha de entrega
+                                    *</label
+                                  >
+                                  <div class="input-group mb-3">
+                                    <input
+                                      type="number"
+                                      id="alarm-days"
+                                      min="1" max="100"
+                                      class="form-control text-center"
+                                                                      placeholder="5"
+                                      v-model="alarma_dias"
+                                      @keypress.enter.prevent="agregarAlarma"
+                                    />
+                                    <div class="input-group-append">
+                                      <div class="input-group-text">
+                                        <p class="mb-0">Días</p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-xs-4 col-sm-2">
+                                <div class="form-group">
+                                  <div class="d-flex flex-column">
+                                    <label for="add-alarm">&nbsp;</label>
+                                    <button
+                                      id="add-alarm"
+                                      type="button"
+                                      class="btn btn-primary"
+                                      @click="agregarAlarma"
+                                    >
+                                      <i class="fas fa-plus"></i>Alarma
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div
+                                class="col-xs-12 col-sm-6"
+                                v-if="entcon_informe.entcon_alarmas.length"
+                              >
+                              <!--
+                                <ul class="list-group">
+                                  <li
+                                    class="
+                                      list-group-item
+                                      d-flex
+                                      justify-content-between
+                                    "
+                                    v-for="(
+                                      alarm, index
+                                    ) in entcon_informe.entcon_alarmas"
+                                    :key="index"
+                                  >
+                                    <p class="mb-0 text-bold">
+                                     
+                                    </p>
+                                    <button
+                                      type="button"
+                                      class="btn btn-sm btn-danger"
+                                      @click="eliminarAlarma(index)"
+                                    >
+                                      <b>x</b>
+                                    </button>
+                                  </li>
+                                </ul>
+                                -->
+
+
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+      
+                      <div class="card-footer">
+                        
+                        <button type="submit" class="btn btn-success">
+                          <i class="fas fa-save"></i>
+                        Registrar
+                        </button>
+                        <button
+                          type="reset"
+                          class="btn btn-danger"
+                          @click="nuevoRegistro"
+                        >
+                          <i class="fas fa-sync-alt"></i> Nuevo registro
+                        </button>
+                                          <button class="btn btn-success d-none" @click="fillData">Rellenar formulario</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+          </div>
+          <!-- /.content -->
+    
+     
+      
+      
+
+
+
+{% endblock contenido %}

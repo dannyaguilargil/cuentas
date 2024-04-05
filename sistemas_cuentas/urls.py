@@ -29,6 +29,7 @@ urlpatterns = [
    path('', include('gestion_identidades.urls')),
    path('', include('gestion_bitacora.urls')),
    path('', include('gestion_apis.urls')),
+   path('', include('gestion_informes.urls')),
    
    
    #parte administrativa
