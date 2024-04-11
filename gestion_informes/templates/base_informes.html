@@ -241,20 +241,19 @@
             $(".ver").click(function() {
                 var id = $(this).data("id");
                 var nombre = $(this).data("nombre");
-                var entecontrol = $(this).data("entecontrol");
-                var dependencia = $(this).data("dependencia");
+                var entecontrol_id = $(this).data("entecontrol_id");
+                var dependencia_id = $(this).data("dependencia_id");
                 var totalentregas = $(this).data("totalentregas");
                 var activo = $(this).data("activo");
+                var fechaentregapendiente = $(this).data("fechaentregapendiente");
     
                 $("#id").val(id);
                 $("#nombre").val(nombre);
-                $("#entecontrol").val(entecontrol);
-                $("#dependencia").val(dependencia);
+                $("#entecontrol_id").val(entecontrol_id);
+                $("#dependencia_d").val(dependencia_id);
                 $("#totalentregas").val(totalentregas);
                 $("#activo").val(activo);
-                $("#email").val(email);
-                $("#supervisor").val(supervisor);
-                $("#tipodocumento").val(tipodocumento);
+                $("#fechaentregapendiente").val(fechaentregapendiente);
     
                 $("#exampleModal").modal("show");
             });

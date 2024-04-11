@@ -2,26 +2,27 @@
 {% block titulo %}Entes de control{% endblock titulo %}
 {% block contenido %}
    <center>
-   <h5> Dependencias </h5>
+   <h5> Dependencias </h5> 
+   <button type="button" class="btn btn-outline-success fas fa-plus" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Agregar
+  </button>
    
    </center>
    <!-- modal de inserccion-->
    <!-- Button trigger modal -->
-<button type="button" class="btn btn-outline-success fas fa-plus" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Agregar
-  </button>
+
   
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Registrar ente de control</h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Registrar dependencia</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <label for="nombre">Nombre de la dependencia *</label>
-          <input type="text" name="" id="" placeholder="Nombre de la entidad" class="form-control">
+          <input type="text" name="" id="" placeholder="Nombre de la dependencia" class="form-control">
 <br>
         <label for="nombre">Nombre del responsable *</label>
                 <input type="text" name="" id="" placeholder="Nombre del responsable" class="form-control">
@@ -72,6 +73,7 @@
           <tr>
               <th class="centered">Id</th>
               <th class="text-center centered">Opciones</th>
+              <th class="text-center centered">Nombre</th>
               <th class="text-center centered">Responsable</th>
               <th class="text-center centered">Correo del responsable</th>
               <th class="text-center centered">Estado</th>
@@ -83,31 +85,27 @@
         {% for objeto in datos %}
         <tr> <!-- SE REMPLAZA CON INPUTS PARA OBTENER LOS DATOS DE ESE INPUT-->
             <td>{{forloop.counter}}</td>
-            <td><center>{{objeto.nombre}}</center></td>
-            <td><center>{{objeto.segundonombre}}</center></td>
-            <td><center>{{objeto.primerapellido}}</center></td>
-            <td><center>{{objeto.segundoapellido}}</center></td>
-            <td><center>{{objeto.cedula}}</center></td>
-            <td><a  name="ver" class="fa fa-eye btn btn-outline-success ver" 
-                data-nombre="{{objeto.nombre}}"
-                data-segundonombre="{{objeto.segundonombre}}"
-                data-primerapellido="{{objeto.primerapellido}}"
-                data-segundoapellido="{{objeto.segundoapellido}}" 
-                data-cedula="{{objeto.cedula}}"
-                data-cargo="{{objeto.cargo}}"
-                data-email="{{objeto.email}}"
-                data-supervisor="{{objeto.supervisor}}"
-                data-tipodocumento="{{objeto.tipodocumento}}"
-                data-bs-toggle="modal"
-                data-bs-target="#ex" >
-            </a>
-              <!-- <button  class="fa fa-save btn btn-outline-secondary" type="submit"></button> --> 
-              <a  class="fa fa-eraser btn btn-outline-danger" 
+            <td><a  name="ver" class="fa fa-edit btn btn-outline-primary btn-sm ver" 
+              data-nombre="{{objeto.nombre}}"
               data-cedula="{{objeto.cedula}}"
-              href=""
-               >
-            </a>
-            </td>
+              data-cargo="{{objeto.cargo}}"
+              data-email="{{objeto.email}}"
+              data-supervisor="{{objeto.supervisor}}"
+              data-tipodocumento="{{objeto.tipodocumento}}"
+              data-bs-toggle="modal"
+              data-bs-target="#ex" >
+          </a>
+            <!-- <button  class="fa fa-save btn btn-outline-secondary" type="submit"></button> --> 
+            <a  class="fa fa-eraser btn btn-outline-danger btn-sm" 
+            data-cedula="{{objeto.cedula}}"
+            href=""
+             >
+          </a></td>
+            <td><center>{{objeto.nombre}}</center></td>
+            <td><center>{{objeto.responsable}}</center></td>
+            <td><center>{{objeto.correoresponsable}}</center></td>
+            <td><center>{{objeto.activo}}</center></td>
+           <td><center>{{objeto.fecha_creacion}}</center></td>
         </tr>
     {% endfor %}
 

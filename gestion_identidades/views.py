@@ -18,7 +18,7 @@ def identidades(request):
         formularios = Formidentidades(request.POST)
         if formularios.is_valid():
             formularios.save()
-            messages.success(request, 'La solicitud se ha guardado exitosamente.')
+            messages.success(request, 'La solicitud se ha enviado al supervisor.')
             return redirect('identidades')
         else:
             messages.error(request, 'Hubo un error al procesar el formulario. Por favor, revise los datos ingresados.')

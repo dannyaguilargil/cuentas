@@ -67,15 +67,24 @@ def home(request):
             if user is not None:
                 if user.is_staff:
                     login(request, user)
+                    print("Inicio sesion el administrador")
                     return redirect('dashboard')
+                elif user.groups.filter(name='identidades').exists():
+                    print("Inicio sesión a gestion de identidades")
+                    return redirect('identidades')
                 else:
+                    print("Inicio sesion el contratista")
                     login(request, user)
                     return redirect('cuentas')
+                   
                     ### realizar cambios para asignalos por grupos
-            else:
-                messages.error(request, 'Las credenciales de inicio de sesión son inválidas.')
-                return redirect('inicio')
+        else:
+            print("Usuario invalido")
+            messages.error(request, 'Las credenciales de inicio de sesión son inválidas.')
+            return redirect('inicio')
     else:
+        print("Renderizado")
+
         form = AuthenticationForm()
 
     return render(request, 'home.html', {'form': form})

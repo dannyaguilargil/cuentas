@@ -2,14 +2,16 @@
 {% block titulo %}Entes de control{% endblock titulo %}
 {% block contenido %}
    <center>
-   <h5> Entes de control </h5>
+   <h5> Entes de control </h5> 
+   <button type="button" class="btn btn-outline-success fas fa-plus" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Agregar
+  </button>
    
    </center>
    <!-- modal de inserccion-->
+   <!-- TENER EN CUENTA QUE EL TOMA ES BASE DE INFORMES, QUE NO AFECTE EN EL FLUJO DE TOMA DE DATOS PARA POSTERIORMENTE HACER LA INSERCCION-->
    <!-- Button trigger modal -->
-<button type="button" class="btn btn-outline-success fas fa-plus" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Agregar
-  </button>
+
   
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -42,13 +44,6 @@
      <!-- modal de inserccion-->
 
 
-
-
-
-
-
-
-
    <div class="table-responsive"> 
     <table id="tabla-usuarios" class="table table-bordered table-hover table-striped">
       <caption>
@@ -58,7 +53,7 @@
           <tr>
               <th class="centered">Id</th>
               <th class="text-center centered">Opciones</th>
-              <th class="text-center centered">Nombre</th>
+              <th class="">Nombre</th>
               <th class="text-center centered">Descripcion</th>
               <th class="text-center centered">Estado</th>
               <th class="text-center centered">Fecha de creación</th>
@@ -69,31 +64,28 @@
         {% for objeto in datos %}
         <tr> <!-- SE REMPLAZA CON INPUTS PARA OBTENER LOS DATOS DE ESE INPUT-->
             <td>{{forloop.counter}}</td>
-            <td><center>{{objeto.nombre}}</center></td>
-            <td><center>{{objeto.segundonombre}}</center></td>
-            <td><center>{{objeto.primerapellido}}</center></td>
-            <td><center>{{objeto.segundoapellido}}</center></td>
-            <td><center>{{objeto.cedula}}</center></td>
-            <td><a  name="ver" class="fa fa-eye btn btn-outline-success ver" 
-                data-nombre="{{objeto.nombre}}"
-                data-segundonombre="{{objeto.segundonombre}}"
-                data-primerapellido="{{objeto.primerapellido}}"
-                data-segundoapellido="{{objeto.segundoapellido}}" 
-                data-cedula="{{objeto.cedula}}"
-                data-cargo="{{objeto.cargo}}"
-                data-email="{{objeto.email}}"
-                data-supervisor="{{objeto.supervisor}}"
-                data-tipodocumento="{{objeto.tipodocumento}}"
-                data-bs-toggle="modal"
-                data-bs-target="#ex" >
-            </a>
-              <!-- <button  class="fa fa-save btn btn-outline-secondary" type="submit"></button> --> 
-              <a  class="fa fa-eraser btn btn-outline-danger" 
+            <td><a  name="ver" class="fa fa-edit btn btn-outline-primary btn-sm ver" 
+              data-nombre="{{objeto.nombre}}"
               data-cedula="{{objeto.cedula}}"
-              href=""
-               >
-            </a>
-            </td>
+              data-cargo="{{objeto.cargo}}"
+              data-email="{{objeto.email}}"
+              data-supervisor="{{objeto.supervisor}}"
+              data-tipodocumento="{{objeto.tipodocumento}}"
+              data-bs-toggle="modal"
+              data-bs-target="#ex" >
+          </a>
+            <!-- <button  class="fa fa-save btn btn-outline-secondary" type="submit"></button> --> 
+            <a  class="fa fa-eraser btn btn-outline-danger btn-sm" 
+            data-cedula="{{objeto.cedula}}"
+            href=""
+             >
+          </a></td>
+            <td>{{objeto.nombre}}</td>
+            <td><center>{{objeto.descripcion}}</center></td>
+            <td><center>{{objeto.activo}}</center></td>
+            <td><center>{{objeto.fecha_creacion}}</center></td>
+         
+            
         </tr>
     {% endfor %}
 

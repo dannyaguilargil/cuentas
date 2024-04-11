@@ -46,11 +46,31 @@
                 data-bs-target="#ex" >
             </a>
               <!-- <button  class="fa fa-save btn btn-outline-secondary" type="submit"></button> --> 
-              <a  class="fa fa-eraser btn btn-outline-danger" 
+              <a  class="fa fa-eraser btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal2"
               data-cedula="{{objeto.cedula}}"
-              href="{% url 'eliminar' objeto.cedula %}"
+              
                >
             </a>
+
+            <!-- Modal -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar registro de solicitud de identidades</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Esta seguro de eliminar el registro?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger">Eliminar registro</button>
+      </div>
+    </div>
+  </div>
+</div>
+
             </td>
         </tr>
     {% endfor %}
@@ -155,8 +175,8 @@
 
           <div class="row">
             <div class="col">
-              <label for=""><b>Observaciones del supervisor</b></label>
-              <input type="text" class="form-control" name="usuario" id="usuario" autofocus required>
+              <label for="observacionessupervisor"><b>Observaciones del supervisor</b></label>
+              <input type="text" class="form-control" name="observacionessupervisor" id="observacionessupervisor" autofocus required>
             </div>
 
             
