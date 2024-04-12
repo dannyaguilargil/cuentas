@@ -81,8 +81,22 @@
              >
           </a></td>
             <td>{{objeto.nombre}}</td>
-            <td><center>{{objeto.descripcion}}</center></td>
-            <td><center>{{objeto.activo}}</center></td>
+            <td><center>
+              {% if objeto.descripcion %}
+              {{ objeto.descripcion }}
+              {% else %}
+              <!-- Renderiza un campo de texto vacío si la descripción es None -->
+             
+             {% endif %}
+          
+            </center></td>
+            <td><center>
+              {% if objeto.activo %}
+              <button type="button" class="btn btn-success btn-sm">Activo</button>
+            {% else %}
+              <button type="button" class="btn btn-danger btn-sm">Inactivo</button>
+            {% endif %}
+            </center></td>
             <td><center>{{objeto.fecha_creacion}}</center></td>
          
             

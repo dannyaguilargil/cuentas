@@ -93,37 +93,36 @@
                             
                            
 <br>
+
+                            <!-- AQUI VA LA CONIDICON EN PYTHON PARA OCULTAR ULS EN BASE A GRUPOS Y PERMISOS-->
  
-                            <!-- <div class="sb-sidenav-menu-heading" style="color: white;">Administracion</div> -->
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayoutss" aria-expanded="false" aria-controls="collapseLayouts" style="background: #1d985a; color: white;">
-                                <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                                Administracion
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapseLayoutss" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                            
-                                    <a class="nav-link" href=" {% url 'usuario_pendient' %} " style="color: white;">Usuarios pendientes</a>
-                                    <a class="nav-link" href=" {% url 'crear' %} " style="color: white;">Registrar un usuario</a>
-                                   
-                                    <a class="nav-link" href=" {% url 'documentos' %} " style="color: white;">Registrar documento</a>
-                                    <a class="nav-link" href=" {% url 'usuariosauditoria' %} " style="color: white;">Auditoria</a>
-                                    <a class="nav-link" href="/admin/" style="background: #1d985a; color: white;">
-                                        <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                        Ver panel
-                                    </a>
-                                </nav>
-                            </div>
+                                    {% if request.user.is_authenticated %}
+                                        {% if request.user.is_staff %}
+                                            <!-- <div class="sb-sidenav-menu-heading" style="color: white;">Administracion</div> -->
+                                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayoutss" aria-expanded="false" aria-controls="collapseLayouts" style="background: #1d985a; color: white;">
+                                                <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                                                Administracion
+                                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                            </a>
+                                            <div class="collapse" id="collapseLayoutss" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                                <nav class="sb-sidenav-menu-nested nav">
+                                                    <a class="nav-link" href=" {% url 'usuario_pendient' %} " style="color: white;">Usuarios pendientes</a>
+                                                    <a class="nav-link" href=" {% url 'crear' %} " style="color: white;">Registrar un usuario</a>
+                                                    <a class="nav-link" href=" {% url 'documentos' %} " style="color: white;">Registrar documento</a>
+                                                    <a class="nav-link" href=" {% url 'usuariosauditoria' %} " style="color: white;">Auditoria</a>
+                                                    <a class="nav-link" href="/admin/" style="background: #1d985a; color: white;">
+                                                        <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                                        Ver panel
+                                                    </a>
+                                                </nav>
+                                            </div>
+                                        
+
 
 <br>
 
 
-
-                            
- 
-                           
-                            
-                           
+                                
                             <!-- GESTION DE APIS-->
                             <!-- <div class="sb-sidenav-menu-heading" style="color: white;">INTEROAPIBILIDAD</div> -->
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts2" aria-expanded="false" aria-controls="collapseLayouts" style="background: #1d985a; color: white;">
@@ -140,8 +139,48 @@
                                 </nav>
                             </div>
                             <!-- GESTION DE APIS-->
+                        <br>
+
+
+<!-- GESTION DE CUENTAS-->
+                             <!--div class="sb-sidenav-menu-heading" style="color: white;">CUENTAS</div> -->
+                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts4" aria-expanded="false" aria-controls="collapseLayouts" style="background: #1d985a; color: white;">
+                                <div class="sb-nav-link-icon"><i class="far fa-file-invoice-dollar"></i></div>
+                                Cuentas
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts4" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{% url 'identidades' %}" style="color: white;">Ver flujo</a>
+                                    
+                                </nav>
+                            </div>
+                            <!-- GESTION DE CUENTAS-->
 <br>
 
+
+
+                            <!-- GESTION DE INFORMES-->
+                            <!-- <div class="sb-sidenav-menu-heading" style="color: white;">INFORMES</div> -->
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts5" aria-expanded="false" aria-controls="collapseLayouts" style="background: #1d985a; color: white;">
+                                <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
+                                Informes
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts5" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                               <nav class="sb-sidenav-menu-nested nav">
+                                   <a class="nav-link" href="{% url 'informe' %}" style="color: white;">Crear informe</a>
+                                   <a class="nav-link" href="{% url 'listado' %}" style="color: white;">Listado de informes</a>
+                                   <a class="nav-link" href="{% url 'entecontrol' %}" style="color: white;">Entes de control</a>
+                                   <a class="nav-link" href="{% url 'dependencias' %}" style="color: white;">Dependencias</a>
+                               </nav>
+                           </div>
+                            <!-- GESTION DE INFORMES-->
+
+                                    {% endif %}
+                                {% endif %}
+
+                                <br>
                             <!-- GESTION DE IDENTIDADES-->
                             <!--<div class="sb-sidenav-menu-heading" style="color: white;">IDENTIDADES</div> -->
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts3" aria-expanded="false" aria-controls="collapseLayouts" style="background: #1d985a; color: white;">
@@ -159,37 +198,7 @@
                             </div>
                             <!-- GESTION DE IDENTIDADES-->
 <br>
-                             <!-- GESTION DE IDENTIDADES-->
-                             <!--div class="sb-sidenav-menu-heading" style="color: white;">CUENTAS</div> -->
-                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts4" aria-expanded="false" aria-controls="collapseLayouts" style="background: #1d985a; color: white;">
-                                 <div class="sb-nav-link-icon"><i class="fas fa-hospital-user"></i></div>
-                                 Cuentas
-                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                             </a>
-                             <div class="collapse" id="collapseLayouts4" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                 <nav class="sb-sidenav-menu-nested nav">
-                                     <a class="nav-link" href="{% url 'identidades' %}" style="color: white;">Ver flujo</a>
-                                     
-                                 </nav>
-                             </div>
-                             <!-- GESTION DE IDENTIDADES-->
-<br>
-                             <!-- GESTION DE IDENTIDADES-->
-                             <!-- <div class="sb-sidenav-menu-heading" style="color: white;">INFORMES</div> -->
-                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts5" aria-expanded="false" aria-controls="collapseLayouts" style="background: #1d985a; color: white;">
-                                 <div class="sb-nav-link-icon"><i class="fas fa-hospital-user"></i></div>
-                                 Informes
-                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                             </a>
-                             <div class="collapse" id="collapseLayouts5" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="{% url 'informe' %}" style="color: white;">Crear informe</a>
-                                    <a class="nav-link" href="{% url 'listado' %}" style="color: white;">Listado de informes</a>
-                                    <a class="nav-link" href="{% url 'entecontrol' %}" style="color: white;">Entes de control</a>
-                                    <a class="nav-link" href="{% url 'dependencias' %}" style="color: white;">Dependencias</a>
-                                </nav>
-                            </div>
-                             <!-- GESTION DE IDENTIDADES-->
+                             
 
                              
 

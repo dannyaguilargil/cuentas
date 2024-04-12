@@ -79,7 +79,14 @@
             
             
             </td>
-            <td><center>{{objeto.activo}}</center></td>
+            <td><center>
+              {% if objeto.activo %}
+              <button type="button" class="btn btn-success btn-sm">Activo</button>
+            {% else %}
+              <button type="button" class="btn btn-danger btn-sm">Inactivo</button>
+            {% endif %}
+            
+            </center></td>
         </tr>
     {% endfor %}
 
