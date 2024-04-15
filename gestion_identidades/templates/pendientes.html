@@ -4,6 +4,15 @@
    <center>
    <h5> Formato de identidades pendientes supervisor </h5>
    </center>
+   
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-sm">
+         {{ message }}
+        </div>
+   {% endfor %}
+
+{% endif %}
    <div class="table-responsive"> 
     <table id="tabla-usuarios" class="table table-bordered table-hover table-striped">
       <caption>
@@ -42,6 +51,14 @@
                 data-apicativo="{{objeto.apicativo}}"
                 data-tiposolicitud="{{objeto.tiposolicitud}}"
                 data-observaciones="{{objeto.observaciones}}"
+                data-lugarexpedicion="{{objeto.lugarexpedicion}}"
+                data-dependencia="{{objeto.dependencia}}"
+                data-sexo="{{objeto.sexo}}"
+                data-telefono="{{objeto.telefono}}"
+                data-celular="{{objeto.celular}}"
+                data-direccion="{{objeto.direccion}}"
+                data-sede="{{objeto.sede}}"
+                data-fechafinalcontrato="{{objeto.fechafinalcontrato}}"
                 data-bs-toggle="modal"
                 data-bs-target="#ex" >
             </a>
@@ -89,6 +106,8 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+
+
           <form action="" method="POST" >
             {% csrf_token %}
           <div class="row">
@@ -134,11 +153,64 @@
             </div>
 
             <div class="col">
-                <label for="">Tipo de solicitud</label>
+                <label for=""><b>Tipo de solicitud</b></label>
                 <input type="text" class="form-control" name="tiposolicitud" id="tiposolicitud">
             </div>
 
           </div>
+
+
+          <div class="row">
+            
+
+            <div class="col">
+                <label for="lugarexpedicion">Lugar de expedicion</label>
+                <input type="text" class="form-control" name="lugarexpedicion" id="lugarexpedicion">
+            </div>
+
+            <div class="col">
+                <label for="">Dependencia</label>
+                <input type="text" class="form-control" name="dependencia" id="dependencia">
+            </div>
+
+            <div class="col">
+              <label for="sexo">Sexo</label>
+              <input type="text" class="form-control" name="sexo" id="sexo">
+          </div>
+
+          <div class="col">
+              <label for="telefono">Telefono</label>
+              <input type="text" class="form-control" name="telefono" id="telefono">
+          </div>
+           
+          </div>
+
+          <div class="row">
+            
+
+            <div class="col">
+                <label for="celular">Celular</label>
+                <input type="text" class="form-control" name="celular" id="celular">
+            </div>
+
+            <div class="col">
+                <label for="">Direccion</label>
+                <input type="text" class="form-control" name="direccion" id="direccion">
+            </div>
+
+            <div class="col">
+              <label for="sexo">Sede</label>
+              <input type="text" class="form-control" name="sede" id="sede">
+          </div>
+
+          <div class="col">
+              <label for="fechafinalcontrato">Fecha final del contrato</label>
+              <input type="text" class="form-control" name="fechafinalcontrato" id="fechafinalcontrato">
+          </div>
+           
+          </div>
+
+
 
 
 
@@ -186,18 +258,11 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
           <button class=" fas fa-save btn btn-success" type="submit">Aprobar</button>
-          <button class=" fas fa-save btn btn-outline-danger" type="submit">Rechazar</button>
+          <button class=" fas fa-eraser btn btn-outline-danger" type="submit">Rechazar</button>
          
         </div>
     </form>
-    {% if messages %}
-    {% for message in messages %}
-        <div class="alert alert-{{ message.tags }} alert-sm">
-         {{ message }}
-        </div>
-   {% endfor %}
 
-{% endif %}
       </div>
     </div>
   </div>

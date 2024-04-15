@@ -264,6 +264,16 @@
                 var apicativo = $(this).data("apicativo");
                 var tiposolicitud = $(this).data("tiposolicitud");
                 var observaciones = $(this).data("observaciones");
+                var observacionessupervisor = $(this).data("observacionessupervisor");
+                var lugarexpedicion = $(this).data("lugarexpedicion");
+                var dependencia = $(this).data("dependencia");
+                var sexo = $(this).data("sexo");
+                var telefono = $(this).data("telefono");
+                var celular = $(this).data("celular");
+                var direccion = $(this).data("direccion");
+                var sede = $(this).data("sede");
+                var fechafinalcontrato = $(this).data("fechafinalcontrato");
+
     
                 $("#nombre").val(nombre);
                 $("#segundonombre").val(segundonombre);
@@ -277,39 +287,21 @@
                 $("#apicativo").val(apicativo);
                 $("#tiposolicitud").val(tiposolicitud);
                 $("#observaciones").val(observaciones);
+                $("#observacionessupervisor").val(observacionessupervisor);
+                $("#lugarexpedicion").val(lugarexpedicion);
+                $("#dependencia").val(dependencia);
+                $("#sexo").val(sexo);
+                $("#telefono").val(telefono);
+                $("#celular").val(celular);
+                $("#direccion").val(direccion);
+                $("#sede").val(sede);
+                $("#fechafinalcontrato").val(fechafinalcontrato);
+               
     
                 $("#exampleModal").modal("show");
             });
         });
 
-/*
-
-            console.log("entro al script")
-            $(document).ready(function() {
-                $('#eliminar').click(function() {
-                  var cedula = $('#cedula').val();
-                  console.log(cedula);
-              
-                  $.ajax({
-                    url: 'eliminarregistro',
-                    data: {
-                      'cedula': cedula
-                    },
-                    dataType: 'json',
-                    success: function(data) {
-                      // Actualizar la vista si la eliminación fue exitosa
-                      if (data.eliminado) {
-                        window.location.reload();
-                      }
-                    },
-                    error: function(xhr, textStatus, errorThrown) {
-                      console.log(xhr.responseText);
-                    }
-                  });
-                });
-              });
-
-              */
        
         
     </script>

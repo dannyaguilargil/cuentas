@@ -74,9 +74,9 @@ class solicitudsistemasupervisor(models.Model):
     fechafinalcontrato = models.CharField(max_length=40, verbose_name='Fecha final del contrato', default='')
     ############## SISTEMA DE INFORMACION REQUERIDO #########################
     tiposolicitud = models.CharField(max_length=40, verbose_name='Tipo de solicitud', default='Consultar', choices=tiposolicitud) #choices
-    aplicativo = models.CharField(max_length=40, verbose_name='Aplicativo', default='kubApp', choices=aplicativo) #choices
+    apicativo = models.CharField(max_length=40, verbose_name='Aplicativo', default='kubApp', choices=aplicativo) #choices
     observaciones = models.CharField(max_length=200, verbose_name='Observaciones', default='')
-    observacionessupervisor = models.CharField(max_length=200, verbose_name='Observaciones', default='')
+    observacionessupervisor = models.CharField(max_length=200, verbose_name='Observaciones del supervisor', default='')
 
 
 

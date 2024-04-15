@@ -8,7 +8,7 @@ admin.site.register(solicitudsistema, solicitudSistema)
 
 
 class solicitudSistemasupervisor(admin.ModelAdmin):
-    list_display=('id', 'nombre', 'primerapellido','cedula', 'aplicativo', 'tiposolicitud', 'observaciones')
+    list_display=('id', 'nombre', 'primerapellido','cedula', 'apicativo', 'tiposolicitud', 'observaciones')
     search_fields = ('id',)
 admin.site.register(solicitudsistemasupervisor, solicitudSistemasupervisor)
 

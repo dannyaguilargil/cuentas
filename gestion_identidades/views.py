@@ -4,8 +4,8 @@ from django.contrib import messages
 from django.http.response import JsonResponse
 from django.http import JsonResponse
 from gestion_usuarios.models import usolicitudes,usuario
-from gestion_identidades.forms import Formidentidades
-from gestion_identidades.models import solicitudsistema
+from gestion_identidades.forms import Formidentidades,FormidentidadesSupervisor
+from gestion_identidades.models import solicitudsistema,solicitudsistemasupervisor
 
 def identidades(request):
     username = request.user.username
@@ -32,21 +32,33 @@ def identidades(request):
 def pazysalvo(request):
     return render(request, 'pazysalvo.html')
 
-##aqui debe ir como traigo ese dato en json ""
 def usolicitud(request):
     usuarios = list(solicitudsistema.objects.values())
     data = {'solicitud': usuarios}
     return JsonResponse(data)
-## aqui debe ir como traigo los sistemas pendientes en json ###
+
+def listadmin(request):
+    usuarios = list(solicitudsistemasupervisor.objects.values())
+    data = {'solicitud': usuarios}
+    return JsonResponse(data)
+
 
 def identidadespendientes(request):
-    #solicitud_obj = ""
     datos = solicitudsistema.objects.values()
-    return render(request, 'pendientes.html', {'datos': datos})
+    ##### aqui va el registro de la identidad
+    foripendiente = FormidentidadesSupervisor(request.POST or None)
+    if foripendiente.is_valid():
+        foripendiente.save()
+        messages.success(request, 'Usuario registrado con exito')
+        ###AQUI DEBO ELIMINAR LA SOLICITUD UNA VEZ REGISTRADO###
+        #if user is not None:
+        #    solicitud_obj = usolicitudes.objects.get(cedula=cedula)
+        #    solicitud_obj.delete()
+    return render(request, 'pendientes.html', {'datos': datos, 'foripendiente': foripendiente})
 
 def identidadespendientesadmin(request):
     #solicitud_obj = ""
-    datos = solicitudsistema.objects.values()
+    datos = solicitudsistemasupervisor.objects.values()
     return render(request, 'pendientesadmin.html', {'datos': datos})
 
 def pazysalvohtml(request):

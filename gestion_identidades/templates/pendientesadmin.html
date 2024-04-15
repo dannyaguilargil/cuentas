@@ -42,6 +42,15 @@
                 data-apicativo="{{objeto.apicativo}}"
                 data-tiposolicitud="{{objeto.tiposolicitud}}"
                 data-observaciones="{{objeto.observaciones}}"
+                data-lugarexpedicion="{{objeto.lugarexpedicion}}"
+                data-dependencia="{{objeto.dependencia}}"
+                data-sexo="{{objeto.sexo}}"
+                data-telefono="{{objeto.telefono}}"
+                data-celular="{{objeto.celular}}"
+                data-direccion="{{objeto.direccion}}"
+                data-sede="{{objeto.sede}}"
+                data-fechafinalcontrato="{{objeto.fechafinalcontrato}}"
+                data-observacionessupervisor="{{objeto.observacionessupervisor}}"
                 data-bs-toggle="modal"
                 data-bs-target="#ex" >
             </a>
@@ -65,7 +74,7 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Datos basicos del formato de identidades</h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Asignacion de credenciales Administrador</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -120,6 +129,56 @@
 
           </div>
 
+          <div class="row">
+            
+
+            <div class="col">
+                <label for="lugarexpedicion">Lugar de expedicion</label>
+                <input type="text" class="form-control" name="lugarexpedicion" id="lugarexpedicion">
+            </div>
+
+            <div class="col">
+                <label for="">Dependencia</label>
+                <input type="text" class="form-control" name="dependencia" id="dependencia">
+            </div>
+
+            <div class="col">
+              <label for="sexo">Sexo</label>
+              <input type="text" class="form-control" name="sexo" id="sexo">
+          </div>
+
+          <div class="col">
+              <label for="telefono">Telefono</label>
+              <input type="text" class="form-control" name="telefono" id="telefono">
+          </div>
+           
+          </div>
+
+          <div class="row">
+            
+
+            <div class="col">
+                <label for="celular">Celular</label>
+                <input type="text" class="form-control" name="celular" id="celular">
+            </div>
+
+            <div class="col">
+                <label for="">Direccion</label>
+                <input type="text" class="form-control" name="direccion" id="direccion">
+            </div>
+
+            <div class="col">
+              <label for="sexo">Sede</label>
+              <input type="text" class="form-control" name="sede" id="sede">
+          </div>
+
+          <div class="col">
+              <label for="fechafinalcontrato">Fecha final del contrato</label>
+              <input type="text" class="form-control" name="fechafinalcontrato" id="fechafinalcontrato">
+          </div>
+           
+          </div>
+
 
 
           <div class="row">
@@ -155,8 +214,8 @@
 
           <div class="row">
             <div class="col">
-              <label for=""><b>Observaciones del supervisor</b></label>
-              <input type="text" class="form-control" name="usuario" id="usuario">
+              <label for="observacionessupervisor"><b>Observaciones del supervisor</b></label>
+              <input type="text" class="form-control" name="observacionessupervisor" id="observacionessupervisor">
             </div>
 
             
