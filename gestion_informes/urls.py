@@ -13,5 +13,5 @@ urlpatterns = [
     path('informe/listado_ente', views.listadoente, name='listadoente'), #JSON ente de control
     path('informe/dependencias', views.dependencias, name='dependencias'), #solo django
     path('informe/listado_dependencia', views.listadodependencia, name='listadodependencia'), #JSON dependencia
-  
+    path('informe/entrega', views.entrega, name='entrega'), #solo django
 ] 

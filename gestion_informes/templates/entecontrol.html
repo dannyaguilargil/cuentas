@@ -6,42 +6,21 @@
    <button type="button" class="btn btn-outline-success fas fa-plus" data-bs-toggle="modal" data-bs-target="#exampleModal">
     Agregar
   </button>
-   
+
+
+    <!-- para error, haciendo validacion-->
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
    </center>
-   <!-- modal de inserccion-->
-   <!-- TENER EN CUENTA QUE EL TOMA ES BASE DE INFORMES, QUE NO AFECTE EN EL FLUJO DE TOMA DE DATOS PARA POSTERIORMENTE HACER LA INSERCCION-->
-   <!-- Button trigger modal -->
+
 
   
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Registrar ente de control</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <label for="nombre">Nombre</label>
-          <input type="text" name="" id="" placeholder="Nombre de la entidad" class="form-control">
-<br>
-          <label for="descripcion">Descripcion (opcional)</label> <br>
-          <textarea name="" id="" cols="10" rows="10" class="form-control"></textarea>
-<br>
-          <label for="">Estado</label>
-          <select name="activo" id="" class="form-control">
-            <option value="True">Activo</option>
-            <option value="False">Inactivo</option>
-          </select>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-success">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>
-     <!-- modal de inserccion-->
 
 
    <div class="table-responsive"> 
@@ -108,116 +87,45 @@
 
 </div>
  
-  <!-- Modal -->
-<div class="modal fade" id="ex" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+
+
+
+
+   <!-- Modal -->
+   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Datos basicos del usuario pendiente</h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Registrar ente de control</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form action="" method="POST" >
             {% csrf_token %}
-          <div class="row">
-            <div class="col">
-                <label for="">Nombre</label>
-                <input type="text" name="nombre" id="nombre" class="form-control">
-            </div>
-
-            <div class="col">
-                <label for=""> Segundo nombre</label>
-                <input type="text" class="form-control" name="segundonombre" id="segundonombre">
-            </div>
-          </div>
 
 
-          <div class="row">
-            <div class="col">
-                <label for="">Primer apellido</label>
-                <input type="text" class="form-control" name="primerapellido" id="primerapellido" >
-            </div>
-
-            <div class="col">
-                <label for=""> Segundo apellido</label>
-                <input type="text" class="form-control" name="segundoapellido" id="segundoapellido">
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col">
-                <label for="">Cargo </label>
-                <input type="text" class="form-control" name="cargo" id="cargo" >
-            </div>
-
-            <div class="col">
-                <label for="">Email</label>
-                <input type="text" class="form-control" name="email" id="email">
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col">
-                <label for="">Supervisor</label>
-                <input type="text" class="form-control" name="supervisor" id="supervisor">
-            </div>
-
-            <div class="col">
-                <label for="">Tipo documento</label>
-                <input type="text" class="form-control" name="tipodocumento" id="tipodocumento">
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col">
-                <label for="">Cedula</label>
-                <input type="text" class="form-control" name="cedula" id="cedula">
-            </div>
-
-            <div class="col">
-                <label for="rol">Rol</label>
-                <select name="rol" id="rol" class="form-control" name="rol" id="rol">
-                    <option value="" selected class="">CONTRATISTA</option>
-                    <option value="SUPERVISOR" class="">SUPERVISOR</option>
-                    <option value="PRESUPUESTO" class="">PRESUPUESTO</option>
-                    <option value="TESORERIA" class="">TESORERIA</option>
-                    <option value="ADMINISTRADOR" class="">ADMINISTRADOR</option>
-                </select>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col">
-              <label for="">Usuario</label>
-              <input type="text" class="form-control" name="usuario" id="usuario" autofocus required>
-            </div>
-
-            <div class="col">
-              <label for="">Contraseña</label>
-              <input type="text" class="form-control" name="contrasena" id="contrasena" required>
-            </div>
-          </div>
- <br>
+          <label for="nombre">Nombre</label>
+          <input type="text" name="nombre" id="nombre" placeholder="Nombre de la entidad" class="form-control" required>
+<br>
+          <label for="descripcion">Descripcion (opcional)</label> <br>
+          <textarea name="descripcion" id="descripcion" cols="10" rows="10" class="form-control" placeholder="Descripcion"></textarea>
+<br>
+          <label for="">Estado</label>
+          <select name="activo" id="" class="form-control">
+            <option value="True">Activo</option>
+            <option value="False">Inactivo</option>
+          </select>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-          <button class=" fas fa-save btn btn-outline-success" type="submit">Guardar</button>
-         
+          <button type="submit" class="btn btn-success">Guardar</button>
         </div>
-    </form>
-    {% if messages %}
-    {% for message in messages %}
-        <div class="alert alert-{{ message.tags }} alert-sm">
-         {{ message }}
-        </div>
-   {% endfor %}
-
-{% endif %}
+      </form>
       </div>
     </div>
   </div>
- 
-  <!-- AQUI DEBE ASIGNAR EL MISMO SISTEMA EL NOMBRE DE USUARIO Y POR DEFECTO LA CONTRASEÑA ES LA CEDULA-->
+     <!-- modal de inserccion-->
 
 
 {% endblock contenido %}

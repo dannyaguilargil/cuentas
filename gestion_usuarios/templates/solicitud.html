@@ -15,6 +15,15 @@
             <center>
                 <img  src="{% static 'imgs/logocompleto.png' %}"  alt="" style="width: 200px; text-align: center;">
                 <h5 style="font-family: Kodchasan">Solicitud de usuario</h5> 
+
+    
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-danger">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
             </center>
             <br>
 

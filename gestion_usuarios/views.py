@@ -96,8 +96,12 @@ def solicitud_usuario(request):
     formulario = Users(request.POST or None)
     if formulario.is_valid():
         formulario.save()
-        messages.success(request, ' Cuenta solicitada')
+        messages.success(request, ' Cuenta solicitada en caso de ser aceptada le llegara las credenciales al correo ingresado')
         return render(request, 'solicitud.html')
+    #else:
+    #    print("Error de solicitud de usuario")
+    #    messages.error(request, 'Error de solicitud de usuario, formulario no enviado, debe llenar todo los campos.')
+    #   return redirect('solicitud_usuario')
     return render(request, 'solicitud.html', {'formulario': formulario})
 #aqui hago insecciones
 

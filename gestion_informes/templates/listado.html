@@ -1,5 +1,5 @@
 {% extends 'base_informes.html' %}
-{% block titulo %}LIstado de informes{% endblock titulo %}
+{% block titulo %}Listado de informes{% endblock titulo %}
 {% block contenido %}
    <center>
    <h5> Listado de informes </h5>
@@ -27,52 +27,32 @@
             <td><a  name="ver" class="fa fa-eye btn btn-outline-success btn-sm ver" 
               data-nombre="{{objeto.nombre}}"
               data-id="{{objeto.id}}"
-              data-cedula="{{objeto.cedula}}"
-              data-cargo="{{objeto.cargo}}"
-              data-email="{{objeto.email}}"
-              data-supervisor="{{objeto.supervisor}}"
-              data-tipodocumento="{{objeto.tipodocumento}}"
+              data-normativa="{{objeto.normativa}}"
+              data-entecontrol_id="{{objeto.entecontrol.nombre}}"
+              data-dependencia_id="{{objeto.dependencia.nombre}}"
               data-bs-toggle="modal"
               data-bs-target="#ex" >
           </a>
-          <a  name="ver" class="fa fa-edit btn btn-outline-primary btn-sm ver" 
-              data-nombre="{{objeto.nombre}}"
-              data-cedula="{{objeto.cedula}}"
-              data-cargo="{{objeto.cargo}}"
-              data-email="{{objeto.email}}"
-              data-supervisor="{{objeto.supervisor}}"
-              data-tipodocumento="{{objeto.tipodocumento}}"
-              data-bs-toggle="modal"
-              data-bs-target="#ex" >
+          <a class="fa fa-edit btn btn-outline-primary btn-sm" 
+               >
           </a>
-          <a  name="ver" class="fa fa-eraser btn btn-outline-danger btn-sm ver" 
-              data-nombre="{{objeto.nombre}}"
-              data-cedula="{{objeto.cedula}}"
-              data-cargo="{{objeto.cargo}}"
-              data-email="{{objeto.email}}"
-              data-supervisor="{{objeto.supervisor}}"
-              data-tipodocumento="{{objeto.tipodocumento}}"
-              data-bs-toggle="modal"
-              data-bs-target="#ex" >
+          <a  class="fa fa-eraser btn btn-outline-danger btn-sm" 
+               >
           </a>
             
           </td>
             <td><center>{{objeto.nombre}}</center></td>
-            <td><center>{{objeto.entecontrol_id}}</center></td>
-            <td><center>{{objeto.dependencia_id}}</center></td>
+            <td><center>{{objeto.entecontrol.nombre}}</center></td>
+            <td><center>{{objeto.dependencia.nombre}}</center></td>
             <td>
               <center>
 
                 {{objeto.fechaentregapendiente}}
-              <a  name="ver" class="fas fa-folder-open btn btn-outline-secondary btn-sm ver" 
+              <a  class="fas fa-folder-open btn btn-outline-secondary btn-sm" 
               data-nombre="{{objeto.nombre}}"
-              data-cedula="{{objeto.cedula}}"
-              data-cargo="{{objeto.cargo}}"
-              data-email="{{objeto.email}}"
-              data-supervisor="{{objeto.supervisor}}"
-              data-tipodocumento="{{objeto.tipodocumento}}"
-              data-bs-toggle="modal"
-              data-bs-target="#ex" >
+              href=" {% url 'entrega' %} "
+              
+              >
           </a>
         </center>
             
@@ -97,10 +77,10 @@
  
   <!-- Modal de visualizacion-->
 <div class="modal fade" id="ex" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Datos del informe</h1>
+          <h3 class="" id="exampleModalLabel">Datos del informe</h3>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
@@ -112,91 +92,94 @@
           {% csrf_token %}
 
 
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-      
-                <th scope="col"><center>Id:</center></th>
-                <th scope="col"><input type="text" name="id" id="id" ></th>
-              
-              </tr>
-            </thead>
+          <table class="table table-bordered table-striped">
+         
+       
+
+
+           
             <tbody>
               <tr>
-                <th scope="col"><center>Nombre:</center></th>
-                <th scope="col"><input type="text" name="nombre" id="nombre" ></th>
+      
+                <th scope="col">Id:</th>
+                <th scope="col"><input type="text" name="id" id="id" disabled class="form-control"></th>
+              
+              </tr>
+              <tr>
+                <th scope="col">Nombre:</th>
+                <th scope="col"><input type="text" name="nombre" id="nombre" class="form-control"></th>
                 
               </tr>
               <tr>
           
-                <th scope="col"><center>Normativa:</center></th>
-                <th scope="col"></th>
+                <th scope="col">Normativa:</th>
+                <th scope="col"><input type="text" name="normativa" id="normativa" class="form-control"></th>
               
               </tr>
               <tr>
           
-                <th scope="col"><center>Ente de control:</center></th>
-                <th scope="col"></th>
+                <th scope="col">Ente de control:</th>
+                <th scope="col"><input type="text" name="entecontrol_id" id="entecontrol_id" class="form-control"></th>
               
               </tr>
               <tr>
           
-                <th scope="col"><center>Dependencia:</center></th>
-                <th scope="col"></th>
+                <th scope="col">Dependencia:</th>
+                <th scope="col"><input type="text" name="dependencia_id" id="dependencia_id" class="form-control"></th>
               
               </tr>
               <tr>
           
-                <th scope="col"><center>Nombre del responsable:</center></th>
-                <th scope="col"></th>
+                <th scope="col">Nombre del responsable:</th>
+                <th scope="col"><input type="text" name="nombre" id="nombre" class="form-control"></th>
               
               </tr>
               <tr>
           
-                <th scope="col"><center>Correo del responsable:</center></th>
-                <th scope="col"></th>
+                <th scope="col">Correo del responsable:</th>
+                <th scope="col"><input type="text" name="nombre" id="nombre" class="form-control"></th>
               
               </tr>
               <tr>
           
-                <th scope="col"><center>Fecha de entrega inicial:</center></th>
-                <th scope="col"></th>
+                <th scope="col">Fecha de entrega inicial:</th>
+                <th scope="col"><input type="text" name="nombre" id="nombre" class="form-control"></th>
               
               </tr>
               <tr>
           
-                <th scope="col"><center>Fecha de entrega pendiente:</center></th>
-                <th scope="col"></th>
+                <th scope="col">Fecha de entrega pendiente:</th>
+                <th scope="col"><input type="text" name="nombre" id="nombre" class="form-control"></th>
               
               </tr>
               <tr>
           
-                <th scope="col"><center>Periodo de repeticion del informe:</center></th>
-                <th scope="col"></th>
+                <th scope="col">Periodo de repeticion del informe:</th>
+                <th scope="col"><input type="text" name="nombre" id="nombre" class="form-control"></th>
               
               </tr>
               <tr>
           
-                <th scope="col"><center>FInalizar despues de cuantas entregas:</center></th>
-                <th scope="col"></th>
+                <th scope="col">FInalizar despues de cuantas entregas:</th>
+                <th scope="col"><input type="text" name="nombre" id="nombre" class="form-control"></th>
               
               </tr>
               <tr>
           
-                <th scope="col"><center>Entregas realizadas:</center></th>
-                <th scope="col"></th>
+                <th scope="col">Entregas realizadas:</th>
+                <th scope="col"><input type="text" name="nombre" id="nombre" class="form-control"></th>
               
               </tr>
               <tr>
           
-                <th scope="col"><center>Estado del informe:</center></th>
-                <th scope="col"></th>
+                <th scope="col">Estado del informe:</th>
+                <th scope="col"><input type="text" name="nombre" id="nombre" class="form-control"></th>
               
               </tr>
               <tr>
           
-                <th scope="col"><center>Alarmas:</center></th>
-                <th scope="col"></th>
+                <th scope="col">Alarmas:</th>
+                <th scope="col"><input type="text" name="nombre" id="nombre" class="form-control"></th>
               
               </tr>
             

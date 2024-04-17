@@ -55,24 +55,22 @@
                               <div class="col-sm-4">
                                 <div class="form-group">
                                   <label>Ente de Control *</label>
+
+
                                   <select
                                     class="form-control"
-                                    id="report-entitie-id"
-                                                                  name="entcon_ente_id"
-                                    v-model="entcon_informe.entcon_ente_id"
+                                    id="select-ente-control"
+                                    name="entcon_ente_id"
                                     required
                                   >
                                     <option selected disabled>
                                       Seleccione un Ente de Control
                                     </option>
-                                    <option
-                                      v-for="entity in listado_entcon_entes"
-                                      :key="entity.id"
-                                      :value="entity.id"
-                                    >
-                                      {{ entity.name }}
-                                    </option>
+                                    
                                   </select>
+
+
+
                                 </div>
                               </div>
                               <div class="col-sm-4">
@@ -113,21 +111,14 @@
                                   <label>Dependencia Responsable *</label>
                                   <select
                                     class="form-control"
-                                    id="report-dependency-id"
+                                    id="select-dependencia"
                                     name="entcon_dependencia_id"
-                                    v-model="entcon_informe.entcon_dependencia_id"
                                     required
                                   >
                                     <option selected disabled>
                                       Seleccione una dependencia
                                     </option>
-                                    <option
-                                      v-for="dependency in dependencies_list"
-                                      :key="dependency.id"
-                                      :value="dependency.id"
-                                    >
-                                      {{ dependency.name }}
-                                    </option>
+                                    
                                   </select>
                                 </div>
                               </div>
@@ -399,7 +390,44 @@
      
       
       
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      // Función para cargar los entes de control desde el servidor
+      function cargarEntesControl() {
+          fetch('informe/listado_ente')
+              .then(response => response.json())
+              .then(data => {
+                  const selectEnteControl = document.getElementById('select-ente-control');
+                  data.entes.forEach(ente => {
+                      const option = document.createElement('option');
+                      option.value = ente.id;
+                      option.textContent = ente.nombre;
+                      selectEnteControl.appendChild(option);
+                  });
+              })
+              .catch(error => console.error('Error al cargar entes de control:', error));
+      }
 
+      // Función para cargar las dependencias desde el servidor
+      function cargarDependencias() {
+          fetch('informe/listado_dependencia')
+              .then(response => response.json())
+              .then(data => {
+                  const selectDependencia = document.getElementById('select-dependencia');
+                  data.dependencias.forEach(dependencia => {
+                      const option = document.createElement('option');
+                      option.value = dependencia.id;
+                      option.textContent = dependencia.nombre;
+                      selectDependencia.appendChild(option);
+                  });
+              })
+              .catch(error => console.error('Error al cargar dependencias:', error));
+      }
+      // Llama a las funciones para cargar los datos al cargar la página
+      cargarEntesControl();
+      cargarDependencias();
+  });
+</script>
 
 
 {% endblock contenido %}
