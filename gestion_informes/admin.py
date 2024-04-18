@@ -13,7 +13,7 @@ admin.site.register(dependencia, Dependencia)
 
 ###informes ###
 class Informe(admin.ModelAdmin):
-    list_display= ('id', 'nombre', 'slug', 'normativa', 'fecha_actualizacion', 'fechaentregapendiente')
+    list_display= ('id', 'nombre', 'normativa', 'fecha_actualizacion', 'fechaentregapendiente')
     search_fields = ('nombre',)
 admin.site.register(informe, Informe)
 

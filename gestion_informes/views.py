@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from gestion_informes.models import informe,entecontrol,dependencia
+from gestion_informes.models import informe,entecontrol,dependencia,entrega
 from gestion_usuarios.models import usolicitudes
 from django.http.response import JsonResponse
 from django.http import JsonResponse
@@ -13,7 +13,7 @@ from django.contrib import messages
 def  informes(request):
      entes_control = entecontrol.objects.all()
      entes_dependencia = dependencia.objects.all()
-     return render(request, 'informes.html', {'entes_control': entes_control}) 
+     return render(request, 'informes.html', {'entes_control': entes_control, 'entes_dependencia': entes_dependencia }) 
 
 #ejemplo con solicitudes de usuarios provisionalmente
 def listado_informe(request):
@@ -57,5 +57,32 @@ def  dependencias(request):
         return redirect('dependencias')
      return render(request, 'dependencia.html', {'datos': datos, 'formpers': formpers}) 
 
-def  entrega(request):
-     return render(request, 'entrega.html') 
+## en entregas debe trarse el id del informe
+def  entrega(request, id):
+     informes = get_object_or_404(informe, id=id)
+     nombre = informes.nombre
+     normativa = informes.normativa
+     entecontrol = informes.entecontrol
+     dependencia = informes.dependencia
+     fechaentregainicial = informes.fechaentregainicial
+     fechaentregapendiente = informes.fechaentregapendiente
+     periodicidad = informes.periodicidad
+     periodicidadtipo = informes.periodicidadtipo
+     totalentregas = informes.totalentregas
+     activo = informes.activo
+     descripcion = informes.descripcion
+     return render(request, 'entrega.html', {'nombre': nombre, 'normativa': normativa, 'entecontrol': entecontrol, 'dependencia': dependencia,
+     'fechaentregainicial': fechaentregainicial, 'periodicidad': periodicidad, 'periodicidadtipo': periodicidadtipo, 'totalentregas': totalentregas,
+     'activo': activo, 'descripcion': descripcion} ) 
+
+
+def obtener_nombre_responsable(request):
+    dependencia_id = request.GET.get('dependencia_id')
+    if dependencia_id:
+        try:
+            dependencia = dependencia.objects.get(pk=dependencia_id)
+            return JsonResponse({'nombre': dependencia.responsable})
+        except dependencia.DoesNotExist:
+            return JsonResponse({'error': 'La dependencia no existe'}, status=404)
+    else:
+        return JsonResponse({'error': 'El parámetro dependencia_id es requerido'}, status=400)

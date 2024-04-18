@@ -130,8 +130,9 @@
                                   <input
                                     type="text"
                                     class="form-control"
-                                    id="report-responsible"
-                                    v-model="dependency_responsible"
+                                    id="nombreresponsable"
+                                    name="nombreresponsable"
+                                    placeholder="Nombre del responsable"
                                     disabled
                                   />
                                 </div>
@@ -144,15 +145,16 @@
                                   <input
                                     type="text"
                                     class="form-control"
-                                    id="report-responsible-email"
-                                    v-model="dependency_responsible_email"
+                                    id="correoresponsable"
+                                    name="correoresponsable"
+                                    placeholder="Correo del responsable"
                                     disabled
                                   />
                                 </div>
                               </div>
                     <!-- codigo original con excepcion de descripcion-->
 
-
+<br> <br> <br>
 
                                 <div class="col-sm-8">
                                 <div class="form-group">
@@ -163,7 +165,6 @@
                                     type="text"
                                     class="form-control"
                                     id=""
-                                    v-model="descripcion"
                                     placeholder="Descripcion del informe"
                                   />  
                                 </div>
@@ -251,7 +252,9 @@
                                           type="checkbox"
                                           id="report-number-deliveries"
                                           v-model="total_entregas_nunca"
+                                          checked
                                         />
+
                                         <label
                                           for="report-number-deliveries"
                                           class="mb-0 ml-1"
@@ -259,9 +262,10 @@
                                         >
                                       </span>
                                     </div>
+
                                     <input
                                       type="number"
-                                                                      name="total_entregas"
+                                      name="total_entregas"
                                       class="form-control text-center"
                                       min="1"
                                       max="10000"
@@ -269,6 +273,7 @@
                                       :disabled="total_entregas_nunca"
                                     />
                                   </div>
+
                                 </div>
                               </div>
                             </div>
@@ -280,6 +285,8 @@
                               Configuración de alarmas
                             </h6>
                           </div>
+
+
                           <div class="card-body">
                             <div class="row">
                               <div class="col-xs-8 col-sm-4">
@@ -294,7 +301,7 @@
                                       id="alarm-days"
                                       min="1" max="100"
                                       class="form-control text-center"
-                                                                      placeholder="5"
+                                      placeholder="5"
                                       v-model="alarma_dias"
                                       @keypress.enter.prevent="agregarAlarma"
                                     />
@@ -306,6 +313,10 @@
                                   </div>
                                 </div>
                               </div>
+
+
+
+
                               <div class="col-xs-4 col-sm-2">
                                 <div class="form-group">
                                   <div class="d-flex flex-column">
@@ -314,7 +325,7 @@
                                       id="add-alarm"
                                       type="button"
                                       class="btn btn-primary"
-                                      @click="agregarAlarma"
+                                    
                                     >
                                       <i class="fas fa-plus"></i>Alarma
                                     </button>
@@ -322,42 +333,7 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="row">
-                              <div
-                                class="col-xs-12 col-sm-6"
-                                v-if="entcon_informe.entcon_alarmas.length"
-                              >
-                              <!--
-                                <ul class="list-group">
-                                  <li
-                                    class="
-                                      list-group-item
-                                      d-flex
-                                      justify-content-between
-                                    "
-                                    v-for="(
-                                      alarm, index
-                                    ) in entcon_informe.entcon_alarmas"
-                                    :key="index"
-                                  >
-                                    <p class="mb-0 text-bold">
-                                     
-                                    </p>
-                                    <button
-                                      type="button"
-                                      class="btn btn-sm btn-danger"
-                                      @click="eliminarAlarma(index)"
-                                    >
-                                      <b>x</b>
-                                    </button>
-                                  </li>
-                                </ul>
-                                -->
-
-
-
-                              </div>
-                            </div>
+                            
                           </div>
                         </div>
                       </div>
@@ -414,19 +390,26 @@
               .then(response => response.json())
               .then(data => {
                   const selectDependencia = document.getElementById('select-dependencia');
+                  const nombreresponsableInput = document.getElementById('nombreresponsable');
+
                   data.dependencias.forEach(dependencia => {
                       const option = document.createElement('option');
                       option.value = dependencia.id;
                       option.textContent = dependencia.nombre;
+                      option.dataset.responsable = dependencia.responsable; //lo almacena
                       selectDependencia.appendChild(option);
                   });
+
+
               })
               .catch(error => console.error('Error al cargar dependencias:', error));
       }
-      // Llama a las funciones para cargar los datos al cargar la página
       cargarEntesControl();
       cargarDependencias();
+
+  
   });
+
 </script>
 
 

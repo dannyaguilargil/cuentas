@@ -50,7 +50,7 @@
                 {{objeto.fechaentregapendiente}}
               <a  class="fas fa-folder-open btn btn-outline-secondary btn-sm" 
               data-nombre="{{objeto.nombre}}"
-              href=" {% url 'entrega' %} "
+              href=" {% url 'entrega' objeto.id %} "
               
               >
           </a>
