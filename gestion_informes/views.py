@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from gestion_informes.models import informe,entecontrol,dependencia,entrega
+from gestion_informes.models import informe,entecontrol,dependencia,entrega,alarma
 from gestion_usuarios.models import usolicitudes
 from django.http.response import JsonResponse
 from django.http import JsonResponse
@@ -60,6 +60,17 @@ def  dependencias(request):
 ## en entregas debe trarse el id del informe
 def  entrega(request, id):
      informes = get_object_or_404(informe, id=id)
+     ######revisar resultado de alarmas en revision
+     try: 
+         alarmas = alarma.objects.get(id=id)## para trearme toda las alarmas
+         informe_id = alarmas.informe.id
+         dias = alarmas.dias
+
+     except alarma.DoesNotExist:
+         dias = "No se encontraron alarmas"
+      ######revisar resultado de alarmas en revision
+     #dias = "En desarollo"
+
      nombre = informes.nombre
      normativa = informes.normativa
      entecontrol = informes.entecontrol
@@ -73,7 +84,7 @@ def  entrega(request, id):
      descripcion = informes.descripcion
      return render(request, 'entrega.html', {'nombre': nombre, 'normativa': normativa, 'entecontrol': entecontrol, 'dependencia': dependencia,
      'fechaentregainicial': fechaentregainicial, 'periodicidad': periodicidad, 'periodicidadtipo': periodicidadtipo, 'totalentregas': totalentregas,
-     'activo': activo, 'descripcion': descripcion} ) 
+     'activo': activo, 'descripcion': descripcion, 'dias': dias, 'fechaentregapendiente': fechaentregapendiente } ) 
 
 
 def obtener_nombre_responsable(request):
@@ -86,3 +97,7 @@ def obtener_nombre_responsable(request):
             return JsonResponse({'error': 'La dependencia no existe'}, status=404)
     else:
         return JsonResponse({'error': 'El parámetro dependencia_id es requerido'}, status=400)
+
+
+def  prueba(request):
+     return render(request, 'tareasprueba.html') 
