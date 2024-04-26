@@ -4,9 +4,18 @@
 
 <center>
     <h5 class=""><b>S</b>istema de <b>A</b>dministracion de <b>R</b>ecursos y <b>A</b>plicaciones </h5>
-    
+        <!-- para error, haciendo validacion-->
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+  {% endfor %}
+{% endif %}
 </center>
-      
+<form action="" method="POST" >
+  {% csrf_token %}
+
           <!-- Main content -->
           <div class="content">
             <div class="container-fluid">
@@ -20,7 +29,7 @@
                     </div>
                     <form
                       id="form-inform"
-                                      enctype="multipart/form-data"
+                      enctype="multipart/form-data"
                       @submit.prevent="validarDatosCompletosDelInforme"
                     >
                       <div class="card-body">
@@ -40,14 +49,9 @@
                                   <input
                                     type="text"
                                     class="form-control"
-                                    id="report-name"
-                                                                  name="nombre"
+                                    id="nombre"
+                                    name="nombre"
                                     placeholder="Nombre del informe"
-                                    v-model="entcon_informe.nombre"
-                                    @input="
-                                      toUpperCase($event, entcon_informe, 'nombre')
-                                    "
-                                    @blur="trim($event, entcon_informe, 'nombre')"
                                     required
                                   />
                                 </div>
@@ -59,8 +63,8 @@
 
                                   <select
                                     class="form-control"
-                                    id="select-ente-control"
-                                    name="entcon_ente_id"
+                                    id="entecontrol"
+                                    name="entecontrol"
                                     required
                                   >
                                     <option selected disabled>
@@ -81,29 +85,18 @@
                                       <input
                                         type="file"
                                         class="custom-file-input form-control"
-                                        id="report-regulation"
-                                                                          name="normativa"
-                                        @change="processFile($event)"
-                                        :required="!mode_update"
+                                        id="normativa"
+                                        name="normativa"
+                                        required
                                       />
-                                      <label
-                                        class="custom-file-label"
-                                        for="report-regulation"
-                                        v-if="entcon_informe.normativa"
-                                      >
-                                        {{ entcon_informe.normativa }}
-                                      </label>
-                                      <label
-                                        class="custom-file-label"
-                                        for="report-regulation"
-                                        v-else
-                                      >
-                                       <!-- seleccione un archivo-->
-                                      </label>
+                                      
                                     </div>
                                   </div>
                                 </div>
+                                
                               </div>
+                              <br> <br> <br>
+
                             </div>
                             <div class="row">
                               <div class="col-sm-4">
@@ -111,8 +104,8 @@
                                   <label>Dependencia Responsable *</label>
                                   <select
                                     class="form-control"
-                                    id="select-dependencia"
-                                    name="entcon_dependencia_id"
+                                    id="dependencia"
+                                    name="dependencia"
                                     required
                                   >
                                     <option selected disabled>
@@ -164,7 +157,8 @@
                                   <input
                                     type="text"
                                     class="form-control"
-                                    id=""
+                                    id="descripcion"
+                                    name="descripcion"
                                     placeholder="Descripcion del informe"
                                   />  
                                 </div>
@@ -192,9 +186,8 @@
                                   <input
                                     type="date"
                                     class="form-control"
-                                    id="report-initial-date"
-                                                                  name="fecha_entrega_inicial"
-                                    v-model="entcon_informe.fecha_entrega_inicial"
+                                    id="fechaentregainicial"
+                                    name="fechaentregainicial"
                                     required
                                   />
                                 </div>
@@ -212,27 +205,26 @@
                                     </div>
                                     <input
                                       type="number"
-                                                                      name="periodicidad_cantidad"
+                                      name="periodicidad"
+                                      id="periodicidad"
                                       class="form-control text-center"
                                       placeholder="15"
-                                      v-model="entcon_informe.periodicidad_cantidad"
+                                      required
                                     />
                                     <div class="input-group-append">
                                       <div class="input-group-text">
                                         <select
-                                          id="report-periodicity"
-                                                                              name="periodicidad_tipo"
+                                          id="periodicidadtipo"
+                                          name="periodicidadtipo"
                                           required="required"
-                                          class="form-control-addon border-0"
-                                          v-model="entcon_informe.periodicidad_tipo"
-                                        >
+                                          class="form-control-addon border-0"                                        >
                                           <option
-                                            selected="selected"
-                                            disabled="disabled"
+                                            
+                                          
                                           >
                                             Seleccione un opción
                                           </option>
-                                          <option value="Días">Días</option>
+                                          <option value="Dias">Días</option>
                                           <option value="Meses">Meses</option>
                                         </select>
                                       </div>
@@ -250,27 +242,29 @@
                                       <span class="input-group-text">
                                         <input
                                           type="checkbox"
-                                          id="report-number-deliveries"
-                                          v-model="total_entregas_nunca"
-                                          checked
+                                          id="check"
+                                          name="check"
+                                       
                                         />
 
                                         <label
                                           for="report-number-deliveries"
                                           class="mb-0 ml-1"
-                                          >Nunca</label
+                                          >Nunca
+                                          </label
                                         >
                                       </span>
                                     </div>
 
                                     <input
                                       type="number"
-                                      name="total_entregas"
+                                      name="totalentregas"
+                                      id="totalentregas"
                                       class="form-control text-center"
                                       min="1"
                                       max="10000"
-                                      v-model="entcon_informe.total_entregas"
-                                      :disabled="total_entregas_nunca"
+                                    
+                                      
                                     />
                                   </div>
 
@@ -279,6 +273,14 @@
                             </div>
                           </div>
                         </div>
+
+
+
+
+
+                        <!-- Configuracion de alarmas-->
+                       
+
                         <div class="card card-primary">
                           <div class="card-header">
                             <h6 class="card-title">
@@ -288,6 +290,7 @@
 
 
                           <div class="card-body">
+                            <form action="" class="form-control">
                             <div class="row">
                               <div class="col-xs-8 col-sm-4">
                                 <div class="form-group">
@@ -321,20 +324,26 @@
                                 <div class="form-group">
                                   <div class="d-flex flex-column">
                                     <label for="add-alarm">&nbsp;</label>
+
                                     <button
                                       id="add-alarm"
                                       type="button"
                                       class="btn btn-primary"
                                     
                                     >
-                                      <i class="fas fa-plus"></i>Alarma
+                                    <i class="fas fa-plus"></i>Alarma
                                     </button>
                                   </div>
                                 </div>
                               </div>
-                            </div>
-                            
+                           
+                              </div>
+                            </form>
                           </div>
+
+
+
+
                         </div>
                       </div>
       
@@ -347,13 +356,11 @@
                         <button
                           type="reset"
                           class="btn btn-danger"
-                          @click="nuevoRegistro"
                         >
                           <i class="fas fa-sync-alt"></i> Nuevo registro
                         </button>
-                                          <button class="btn btn-success d-none" @click="fillData">Rellenar formulario</button>
                       </div>
-                    </form>
+</form>
                   </div>
                 </div>
               </div>
@@ -366,51 +373,74 @@
      
       
       
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-      // Función para cargar los entes de control desde el servidor
-      function cargarEntesControl() {
-          fetch('informe/listado_ente')
-              .then(response => response.json())
-              .then(data => {
-                  const selectEnteControl = document.getElementById('select-ente-control');
-                  data.entes.forEach(ente => {
-                      const option = document.createElement('option');
-                      option.value = ente.id;
-                      option.textContent = ente.nombre;
-                      selectEnteControl.appendChild(option);
-                  });
-              })
-              .catch(error => console.error('Error al cargar entes de control:', error));
-      }
+          <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Obtener elementos del DOM
+                const selectDependencia = document.getElementById('dependencia');
+                const nombreresponsableInput = document.getElementById('nombreresponsable');
+                const correoresponsableInput = document.getElementById('correoresponsable');
+            
+                // Agregar evento change al campo "Dependencia Responsable"
+                selectDependencia.addEventListener('change', function() {
+                    // Obtener la opción seleccionada
+                    const selectedOption = selectDependencia.options[selectDependencia.selectedIndex];
+            
+                    // Obtener los datos del responsable y correo del responsable de la opción seleccionada
+                    const responsable = selectedOption.dataset.responsable || ''; // Si no hay valor, dejar el campo vacío
+                    const correoresponsable = selectedOption.dataset.correoresponsable || ''; // Si no hay valor, dejar el campo vacío
+            
+                    // Actualizar los valores de los campos de nombre y correo del responsable
+                    nombreresponsableInput.value = responsable;
+                    correoresponsableInput.value = correoresponsable;
+                });
+            
+                // Función para cargar los entes de control desde el servidor
+                function cargarEntesControl() {
+                    fetch('informe/listado_ente')
+                        .then(response => response.json())
+                        .then(data => {
+                            const selectEnteControl = document.getElementById('entecontrol');
+                            data.entes.forEach(ente => {
+                                const option = document.createElement('option');
+                                option.value = ente.id;
+                                option.textContent = ente.nombre;
+                                selectEnteControl.appendChild(option);
+                            });
+                        })
+                        .catch(error => console.error('Error al cargar entes de control:', error));
+                }
+            
+                // Función para cargar las dependencias desde el servidor
+                function cargarDependencias() {
+                    fetch('informe/listado_dependencia')
+                        .then(response => response.json())
+                        .then(data => {
+                            data.dependencias.forEach(dependencia => {
+                                const option = document.createElement('option');
+                                option.value = dependencia.id;
+                                option.textContent = dependencia.nombre;
+                                option.dataset.responsable = dependencia.responsable;
+                                option.dataset.correoresponsable = dependencia.correoresponsable;
+                                selectDependencia.appendChild(option);
+                            });
+                        })
+                        .catch(error => console.error('Error al cargar dependencias:', error));
+                }
+            
 
-      // Función para cargar las dependencias desde el servidor
-      function cargarDependencias() {
-          fetch('informe/listado_dependencia')
-              .then(response => response.json())
-              .then(data => {
-                  const selectDependencia = document.getElementById('select-dependencia');
-                  const nombreresponsableInput = document.getElementById('nombreresponsable');
+                function toggleDeliveryInput() {
+                    var deliveryInput = document.getElementById("totalentregas");
+                    var checkbox = document.getElementById("check");
+                    deliveryInput.disabled = checkbox.checked;
+                 }
 
-                  data.dependencias.forEach(dependencia => {
-                      const option = document.createElement('option');
-                      option.value = dependencia.id;
-                      option.textContent = dependencia.nombre;
-                      option.dataset.responsable = dependencia.responsable; //lo almacena
-                      selectDependencia.appendChild(option);
-                  });
+                // Cargar entes de control y dependencias al cargar la página
+                cargarEntesControl();
+                cargarDependencias();
 
-
-              })
-              .catch(error => console.error('Error al cargar dependencias:', error));
-      }
-      cargarEntesControl();
-      cargarDependencias();
-
-  
-  });
-
-</script>
+                toggleDeliveryInput();//tener en cuenta como esta en un grupo no desabilita al marcar el checked
+            });
+            </script>
 
 
 {% endblock contenido %}

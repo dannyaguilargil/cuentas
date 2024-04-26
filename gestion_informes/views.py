@@ -6,14 +6,23 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseNotAllowed
 from gestion_usuarios.models import usuario
-from gestion_informes.forms import fente,fdependencia
+from gestion_informes.forms import fente,fdependencia,ReviewForm,finforme
 from django.contrib import messages
+from django.views.generic.edit import FormView
 
 
-def  informes(request):
-     entes_control = entecontrol.objects.all()
-     entes_dependencia = dependencia.objects.all()
-     return render(request, 'informes.html', {'entes_control': entes_control, 'entes_dependencia': entes_dependencia }) 
+def informes(request):
+    entes_control = entecontrol.objects.all()
+    entes_dependencia = dependencia.objects.all()
+    ### inserccion del informe ##
+    finformes = finforme(request.POST or None)
+    if finformes.is_valid():
+        finformes.save()
+        messages.success(request, 'Informe agregado correctamente.')
+        return redirect('informe')
+    ### inserccion del informe ##
+
+    return render(request, 'informes.html', {'entes_control': entes_control, 'entes_dependencia': entes_dependencia, 'finformes': finformes }) 
 
 #ejemplo con solicitudes de usuarios provisionalmente
 def listado_informe(request):
@@ -101,3 +110,12 @@ def obtener_nombre_responsable(request):
 
 def  prueba(request):
      return render(request, 'tareasprueba.html') 
+
+class ReviewEmailView(FormView):
+    template_name = 'review.html'
+    form_class = ReviewForm
+
+    def form_valid(self, form):
+        form.send_email()
+        msg = "Thanks for the review!"
+        return HttpResponse(msg)

@@ -1,5 +1,5 @@
 from django import forms
-from .models import entecontrol,dependencia
+from .models import entecontrol,dependencia,informe
 #from task2.tasks import send_review_email_task
 
 class fente(forms.ModelForm):
@@ -11,6 +11,13 @@ class fdependencia(forms.ModelForm):
     class Meta:
         model = dependencia
         fields = ['nombre','responsable','correoresponsable']
+
+###formulario de creaccion del informe, tener en cuenta llaves foraneas de ente de control 
+## y dependencias a ver si las toma
+class finforme(forms.ModelForm):
+    class Meta:
+        model = informe
+        fields = ['nombre','entecontrol','normativa','dependencia','descripcion','fechaentregainicial','periodicidad','periodicidadtipo']#pendiente totalentregas
 
 ### formulario basado en clase de prueba para envio de emails
 class ReviewForm(forms.Form):

@@ -42,3 +42,7 @@ modulo=(
     ('interoapibilidad', 'Gestion de interoapibilidad'),
     ('bitacora', 'Gestion de bitacora')
 )
+periodicidadtipo=(
+    ('Dias', 'Días'),
+    ('Meses', 'Meses'),
+)

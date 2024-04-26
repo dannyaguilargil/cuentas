@@ -1,4 +1,5 @@
 from django.db import models
+from gestion_usuarios.choices import periodicidadtipo
 
 # Create your models here.
 class entecontrol(models.Model):
@@ -36,17 +37,18 @@ class informe(models.Model):
     entecontrol=models.ForeignKey(entecontrol,null=True,blank=True,on_delete=models.CASCADE) ##ente de control
     normativa = models.FileField(upload_to='pdfs/', default=obtener_archivo_predeterminado, verbose_name='Normativa')
     dependencia=models.ForeignKey(dependencia,null=True,blank=True,on_delete=models.CASCADE) ##dependencia
+    descripcion = models.CharField(max_length=1000, verbose_name='Descripcion del informe', blank=True, null=True)
+
     ## por ahora la fecha lo hare con varchar pero la modificare##
-    fechaentregainicial = models.CharField(max_length=200, verbose_name='Fecha inicial de entrega')
-    fechaentregapendiente = models.CharField(max_length=200, verbose_name='Fecha pendiente de entrega')
+    fechaentregainicial = models.DateField(verbose_name='Fecha inicial de entrega', null=True,blank=True)##debe ser obligatorio
+    fechaentregapendiente = models.DateField(verbose_name='Fecha pendiente de entrega',null=True,blank=True)
     ######## agregarle periodicidad dias y meses ############
-    periodicidad = models.CharField(max_length=200, verbose_name='Periodicidad cantidad')
-    periodicidadtipo = models.CharField(max_length=200, verbose_name='Tipo de periodicidad') #dias y meses
-    totalentregas = models.IntegerField(verbose_name='Total de entregas')
+    periodicidad = models.IntegerField(verbose_name='Periodicidad cantidad', null=True,blank=True) #debe ser obligatorio
+    periodicidadtipo = models.CharField(max_length=200, verbose_name='Tipo de periodicidad', choices=periodicidadtipo) #dias y meses
+    totalentregas = models.IntegerField(verbose_name='Total de entregas', null=True,blank=True, default="10000")#debe ser obligatorio
     activo = models.BooleanField(default=True)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
-    descripcion = models.CharField(max_length=1000, verbose_name='Descripcion del informe', blank=True, null=True)
     def __str__(self):
         return self.nombre
 

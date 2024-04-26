@@ -40,6 +40,7 @@ import re
 from datetime import datetime
 import calendar
 import locale, inflect
+from django.core.mail import send_mail
 
 
 
@@ -731,6 +732,14 @@ def usuarios_pendient(request):
         cedula = forupendiente.cleaned_data.get('cedula')
         new_user = User.objects.create_user(username=username, email=email, password=password) 
         new_user.save()
+        ##Revisar notificaciones de aceptacion y eliminaciones y de usuarios ya existentes
+        ###Envio de correo electronico###
+        subject = "Bienvenido al Sistema de Administracion de Recursos y Aplicaciones"
+        message = "Tu cuenta ha sido creada exitosamente, usuario:{} contraseña: {}  ".format(username, password)
+        sender = "noreply@imsalud.gov.co"
+        recipient_list = [email]
+        send_mail(subject, message, sender, recipient_list)
+        ###Envio de correo electronico###
         messages.success(request, 'Usuario solicitado')
         user = authenticate(username=username, password=password)  
         if user is not None:

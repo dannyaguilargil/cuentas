@@ -5,10 +5,37 @@
    <h5> Prueba de tareas programadas </h5>
    </center>
 
+<div class="row">
 
 
+  <div class="col">
+<div class="container-fluid">
+<div class="row no-gutter">
+    <div class="col-md-6 bg-light">
+        <div class="login d-flex align-items-center py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-8 col-md-8  mx-auto">
+                        <p class="h4 mb-4 font-weight-bold">Prueba de envio</p>
+                        <form action="" method="post">{% csrf_token %}
+                            {{ form.as_p }}
+                            <button class="btn btn-dark btn-block py-2 mb-4 mt-5 font-weight-bold"
+                                type="submit" value="Log-in">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 d-none d-md-flex bg-image"></div>
+</div>
+</div>
+  </div>
 
-   
+ 
+</div>
+
+
         
 
 

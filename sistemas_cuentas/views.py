@@ -48,7 +48,7 @@ class Persona(object):
 def plantillas(request):
     #EJEMPLO DE PLANTILLA PASANDOLE VARIABLES ESTATICAS
     fecha_Actual=datetime.datetime.now()
-    nombre="Danny";
+    nombre="Danny"
     ##otra forma
     p1=Persona("Stiveens", "Gil")#AQUI OBTIENE DEL MODELO PERSONA
     
