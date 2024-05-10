@@ -9,6 +9,8 @@ urlpatterns = [
     path('identidades', views.identidades, name='identidades'),
     path('identidades/pazysalvo', views.pazysalvo, name='pazysalvo'),
     path('identidades/pendientes', views.identidadespendientes, name='identidadespendientes'),
+    # para elminar solicitud path('identidades/pendientes', views.identidadespendientes, name='identidadespendientes'),
+
     path('identidades/list_pendientes', views.usolicitud, name='identidades_list_pendientes'),
     path('identidades/pendientes/list_admin', views.listadmin, name='listadmin'),
     path('identidades/pendientes/admin', views.identidadespendientesadmin, name='identidadespendientesadmin'),

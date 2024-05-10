@@ -30,15 +30,27 @@
               data-normativa="{{objeto.normativa}}"
               data-entecontrol_id="{{objeto.entecontrol.nombre}}"
               data-dependencia_id="{{objeto.dependencia.nombre}}"
+              data-dependencia_responsable="{{objeto.dependencia.responsable}}"
+              data-dependencia_correoresponsable="{{objeto.dependencia.correoresponsable}}"
+              data-fechaentregainicial="{{objeto.fechaentregainicial}}"
+              data-fechaentregapendiente="{{objeto.fechaentregapendiente}}"
+              data-periodicidad="{{objeto.periodicidad}}"
+              data-totalentregas="{{objeto.totalentregas}}"
+              data-activo="{{objeto.activo}}"
               data-bs-toggle="modal"
               data-bs-target="#ex" >
           </a>
+          <!-- El informe pasarlo como id para que permita la ediccion-->
           <a class="fa fa-edit btn btn-outline-primary btn-sm" 
+              href=" {% url 'informeactualizar' objeto.id %} " 
                >
           </a>
-          <a  class="fa fa-eraser btn btn-outline-danger btn-sm" 
-               >
-          </a>
+          
+        <!-- Button trigger modal -->
+<a type="button" class="btn btn-outline-danger fas fa-eraser btn btn-sm"  data-bs-toggle="modal" data-bs-target="#exampleModal2">
+
+</a>
+
             
           </td>
             <td><center>{{objeto.nombre}}</center></td>
@@ -74,6 +86,32 @@
     </table>
 
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar informe</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Esta seguro de eliminar el registro?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
  
   <!-- Modal de visualizacion-->
 <div class="modal fade" id="ex" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -131,37 +169,37 @@
               <tr>
           
                 <th scope="col">Nombre del responsable:</th>
-                <th scope="col"><input type="text" name="nombre" id="nombre" class="form-control"></th>
+                <th scope="col"><input type="text" name="responsable" id="responsable" class="form-control"></th>
               
               </tr>
               <tr>
           
                 <th scope="col">Correo del responsable:</th>
-                <th scope="col"><input type="text" name="nombre" id="nombre" class="form-control"></th>
+                <th scope="col"><input type="text" name="correoresponsable" id="correoresponsable" class="form-control"></th>
               
               </tr>
               <tr>
           
                 <th scope="col">Fecha de entrega inicial:</th>
-                <th scope="col"><input type="text" name="nombre" id="nombre" class="form-control"></th>
+                <th scope="col"><input type="text" name="fechaentregainicial" id="fechaentregainicial" class="form-control"></th>
               
               </tr>
               <tr>
           
                 <th scope="col">Fecha de entrega pendiente:</th>
-                <th scope="col"><input type="text" name="nombre" id="nombre" class="form-control"></th>
+                <th scope="col"><input type="text" name="fechaentregapendiente" id="fechaentregapendiente" class="form-control"></th>
               
               </tr>
               <tr>
           
                 <th scope="col">Periodo de repeticion del informe:</th>
-                <th scope="col"><input type="text" name="nombre" id="nombre" class="form-control"></th>
+                <th scope="col"><input type="text" name="periodicidad" id="periodicidad" class="form-control"></th>
               
               </tr>
               <tr>
           
                 <th scope="col">FInalizar despues de cuantas entregas:</th>
-                <th scope="col"><input type="text" name="nombre" id="nombre" class="form-control"></th>
+                <th scope="col"><input type="text" name="totalentregas" id="totalentregas" class="form-control"></th>
               
               </tr>
               <tr>
@@ -173,7 +211,7 @@
               <tr>
           
                 <th scope="col">Estado del informe:</th>
-                <th scope="col"><input type="text" name="nombre" id="nombre" class="form-control"></th>
+                <th scope="col"><input type="text" name="activo" id="activo" class="form-control"></th>
               
               </tr>
               <tr>
@@ -219,5 +257,54 @@
  
   <!-- AQUI DEBE ASIGNAR EL MISMO SISTEMA EL NOMBRE DE USUARIO Y POR DEFECTO LA CONTRASEÑA ES LA CEDULA-->
 
+  <script>
+
+document.addEventListener('DOMContentLoaded', function () {
+                // Obtener elementos del DOM
+                const selectDependencia = document.getElementById('dependencia');
+                const nombreresponsableInput = document.getElementById('nombreresponsable');
+                const correoresponsableInput = document.getElementById('correoresponsable');
+            
+                // Agregar evento change al campo "Dependencia Responsable"
+                selectDependencia.addEventListener('change', function() {
+                    // Obtener la opción seleccionada
+                    const selectedOption = selectDependencia.options[selectDependencia.selectedIndex];
+            
+                    // Obtener los datos del responsable y correo del responsable de la opción seleccionada
+                    const responsable = selectedOption.dataset.responsable || ''; // Si no hay valor, dejar el campo vacío
+                    const correoresponsable = selectedOption.dataset.correoresponsable || ''; // Si no hay valor, dejar el campo vacío
+            
+                    // Actualizar los valores de los campos de nombre y correo del responsable
+                    nombreresponsableInput.value = responsable;
+                    correoresponsableInput.value = correoresponsable;
+                });
+
+
+
+
+
+
+    console.log("entro al script de dependencias")
+    // Función para cargar las dependencias desde el servidor
+    function cargarDependencias() {
+                    fetch('listado_dependencia')
+                        .then(response => response.json())
+                        .then(data => {
+                            data.dependencias.forEach(dependencia => {
+                                const option = document.createElement('option');
+                                option.value = dependencia.id;
+                                option.textContent = dependencia.nombre;
+                                option.dataset.responsable = dependencia.responsable;
+                                option.dataset.correoresponsable = dependencia.correoresponsable;
+                                selectDependencia.appendChild(option);
+                            });
+                        })
+                        .catch(error => console.error('Error al cargar dependencias:', error));
+                }
+
+    cargarDependencias();
+
+  });
+  </script>
 
 {% endblock contenido %}

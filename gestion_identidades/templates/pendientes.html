@@ -16,7 +16,7 @@
    <div class="table-responsive"> 
     <table id="tabla-usuarios" class="table table-bordered table-hover table-striped">
       <caption>
-         Formato de identidades pendientes
+         Formato de identidades pendientes por el supervisor
       </caption>
       <thead>
           <tr>
@@ -38,7 +38,12 @@
             <td><center>{{objeto.apicativo}}</center></td>
             <td><center>{{objeto.tiposolicitud}}</center></td>
             <td><center>{{objeto.observaciones}}</center></td>
-            <td><a  name="ver" class="fa fa-eye btn btn-outline-success ver" 
+            <td>
+              <center>
+
+
+
+                <a  name="ver" class="fa fa-eye btn btn-outline-success ver" 
                 data-nombre="{{objeto.nombre}}"
                 data-segundonombre="{{objeto.segundonombre}}"
                 data-primerapellido="{{objeto.primerapellido}}"
@@ -62,12 +67,13 @@
                 data-bs-toggle="modal"
                 data-bs-target="#ex" >
             </a>
-              <!-- <button  class="fa fa-save btn btn-outline-secondary" type="submit"></button> --> 
-              <a  class="fa fa-eraser btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal2"
-              data-cedula="{{objeto.cedula}}"
+
+
+              </center>
               
-               >
-            </a>
+              
+              
+              
 
             <!-- Modal -->
 <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">

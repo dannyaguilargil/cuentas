@@ -250,7 +250,11 @@
                 var normativa = $(this).data("normativa");
                 var totalentregas = $(this).data("totalentregas");
                 var activo = $(this).data("activo");
+                var fechaentregainicial = $(this).data("fechaentregainicial");
                 var fechaentregapendiente = $(this).data("fechaentregapendiente");
+                var periodicidad = $(this).data("periodicidad");
+                var periodicidadtipo = $(this).data("periodicidadtipo");
+                var totalentregas = $(this).data("totalentregas");
     
                 $("#id").val(id);
                 $("#nombre").val(nombre);
@@ -259,7 +263,12 @@
                 $("#normativa").val(normativa);
                 $("#totalentregas").val(totalentregas);
                 $("#activo").val(activo);
+                $("#fechaentregainicial").val(fechaentregainicial);
                 $("#fechaentregapendiente").val(fechaentregapendiente);
+                $("#periodicidad").val(periodicidad);
+                $("#periodicidadtipo").val(periodicidadtipo);
+                $("#totalentregas").val(totalentregas);
+    
     
                 $("#exampleModal").modal("show");
             });

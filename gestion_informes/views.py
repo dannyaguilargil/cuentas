@@ -15,12 +15,12 @@ def informes(request):
     entes_control = entecontrol.objects.all()
     entes_dependencia = dependencia.objects.all()
     ### inserccion del informe ##
-    finformes = finforme(request.POST or None)
+    finformes = finforme(request.POST, request.FILES)
     if finformes.is_valid():
         finformes.save()
         messages.success(request, 'Informe agregado correctamente.')
         return redirect('informe')
-    ### inserccion del informe ##
+    ### inserccion del informe, revisar que se haga inserccion con alarma ##
 
     return render(request, 'informes.html', {'entes_control': entes_control, 'entes_dependencia': entes_dependencia, 'finformes': finformes }) 
 
@@ -119,3 +119,9 @@ class ReviewEmailView(FormView):
         form.send_email()
         msg = "Thanks for the review!"
         return HttpResponse(msg)
+
+def informeactualizar(request, id):
+    entes_control = entecontrol.objects.all()
+    entes_dependencia = dependencia.objects.all()
+    ### inserccion del informe ##
+    return render(request, 'informes-actualizar.html', {'entes_control': entes_control, 'entes_dependencia': entes_dependencia}) 

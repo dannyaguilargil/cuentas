@@ -24,7 +24,7 @@
                   <div class="card card-primary card-outline">
                     <div class="card-header">
                       <div class="d-flex justify-content-between">
-                        <h6 class="m-0">Creación informe</h6>
+                        <h6 class="m-0">Actualizacion del informe</h6>
                       </div>
                     </div>
                     <form
@@ -357,7 +357,7 @@
                         
                         <button type="submit" class="btn btn-success">
                           <i class="fas fa-save"></i>
-                        Registrar
+                        Actualizar
                         </button>
                         <button
                           type="reset"
@@ -428,9 +428,7 @@
                                 option.dataset.responsable = dependencia.responsable;
                                 option.dataset.correoresponsable = dependencia.correoresponsable;
                                 selectDependencia.appendChild(option);
-                                
                             });
-                            console.log(dependencia.correoresponsable)
                         })
                         .catch(error => console.error('Error al cargar dependencias:', error));
                 }
@@ -471,7 +469,7 @@
     }
 
     agregarAlarma();
-    
+
 </script>
 
 {% endblock contenido %}
