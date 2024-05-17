@@ -17,7 +17,7 @@ class fdependencia(forms.ModelForm):
 class finforme(forms.ModelForm):
     class Meta:
         model = informe
-        fields = ['nombre','entecontrol','normativa','dependencia','descripcion','fechaentregainicial','periodicidad','periodicidadtipo']#pendiente totalentregas
+        fields = ['nombre','entecontrol','normativa','dependencia','descripcion','fechaentregainicial','periodicidad','periodicidadtipo','alarmas']#pendiente totalentregas
 
 ### formulario basado en clase de prueba para envio de emails
 class ReviewForm(forms.Form):

@@ -1,11 +1,11 @@
-
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from gestion_supervisor.models import cuentasupervisor, cuentasupervisorcontratista
 from gestion_presupuesto.forms import InsertFormp
 from django.contrib import messages
 from gestion_supervisor.models import cuentasupervisorcontratista
 
-
+@login_required
 def  presupuesto(request):
      datos = cuentasupervisorcontratista.objects.values()
      formpresu = InsertFormp(request.POST, request.FILES)

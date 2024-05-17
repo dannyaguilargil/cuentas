@@ -133,7 +133,7 @@
                               <div class="col-sm-4">
                                 <div class="form-group">
                                   <label for="report-name"
-                                    >Correo del responsable *</label
+                                    ><b>Correo del responsable *</b></label
                                   >
                                   <input
                                     type="text"
@@ -181,7 +181,7 @@
                               <div class="col-sm-4">
                                 <div class="form-group">
                                   <label for="report-initial-date"
-                                    >Fecha de entrega inical *</label
+                                    > <b> Fecha de entrega inicial * </b></label
                                   >
                                   <input
                                     type="date"
@@ -301,7 +301,8 @@
                                   <div class="input-group mb-3">
                                     <input
                                       type="number"
-                                      id="alarm-days"
+                                      id="alarmas"
+                                      name="alarmas"
                                       min="1" max="100"
                                       class="form-control text-center"
                                      
@@ -385,21 +386,38 @@
                 const selectDependencia = document.getElementById('dependencia');
                 const nombreresponsableInput = document.getElementById('nombreresponsable');
                 const correoresponsableInput = document.getElementById('correoresponsable');
-            
-                // Agregar evento change al campo "Dependencia Responsable"
-                selectDependencia.addEventListener('change', function() {
+                
+                // Función para imprimir el correo del responsable de la dependencia seleccionada
+                function imprimirCorreoResponsable() {
                     // Obtener la opción seleccionada
                     const selectedOption = selectDependencia.options[selectDependencia.selectedIndex];
-            
-                    // Obtener los datos del responsable y correo del responsable de la opción seleccionada
+                    
+                    // Obtener el correo del responsable de la opción seleccionada
+                    const correoresponsable = selectedOption.dataset.correoresponsable || ''; // Si no hay valor, dejar el campo vacío
+                    
+                    // Imprimir el correo del responsable por consola
+                    console.log('Correo del envio:', correoresponsable);
+                    aux = correoresponsable
+                   
+                }
+                
+                // Agregar evento change al campo "Dependencia Responsable"
+                selectDependencia.addEventListener('change', function() {
+                    // Llamar a la función para imprimir el correo del responsable cada vez que cambie la selección de la dependencia
+                    imprimirCorreoResponsable();
+                    
+                    // Obtener la opción seleccionada
+                    const selectedOption = selectDependencia.options[selectDependencia.selectedIndex];
+                    
+                    // Obtener los datos del responsable de la opción seleccionada
                     const responsable = selectedOption.dataset.responsable || ''; // Si no hay valor, dejar el campo vacío
                     const correoresponsable = selectedOption.dataset.correoresponsable || ''; // Si no hay valor, dejar el campo vacío
-            
+                    
                     // Actualizar los valores de los campos de nombre y correo del responsable
                     nombreresponsableInput.value = responsable;
                     correoresponsableInput.value = correoresponsable;
                 });
-            
+                
                 // Función para cargar los entes de control desde el servidor
                 function cargarEntesControl() {
                     fetch('informe/listado_ente')
@@ -415,7 +433,7 @@
                         })
                         .catch(error => console.error('Error al cargar entes de control:', error));
                 }
-            
+                
                 // Función para cargar las dependencias desde el servidor
                 function cargarDependencias() {
                     fetch('informe/listado_dependencia')
@@ -428,37 +446,31 @@
                                 option.dataset.responsable = dependencia.responsable;
                                 option.dataset.correoresponsable = dependencia.correoresponsable;
                                 selectDependencia.appendChild(option);
-                                
                             });
                             console.log(dependencia.correoresponsable)
+                            
                         })
                         .catch(error => console.error('Error al cargar dependencias:', error));
                 }
-            
+                
                 //ocultar el input al presionar nunca en total entregas
                 function toggleDeliveryInput() {
                     var deliveryInput = document.getElementById("totalentregas");
                     var checkbox = document.getElementById("check");
                     deliveryInput.disabled = checkbox.checked;
-                 }
-
-
-              
-
+                }
+                
                 // Cargar entes de control y dependencias al cargar la página
                 cargarEntesControl();
                 cargarDependencias();
-                
-
-
                 toggleDeliveryInput();//tener en cuenta como esta en un grupo no desabilita al marcar el checked
             });
-            </script>
+        </script>
 
 
 <script>
   function agregarAlarma() {
-                  var diasAnticipacion = document.getElementById("alarm-days").value;
+                  var diasAnticipacion = document.getElementById("alarmas").value;
                   var contenidoDiv = document.getElementById("contenido");
 
                   if (diasAnticipacion) { // Verificar si hay un valor

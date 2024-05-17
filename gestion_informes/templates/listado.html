@@ -37,6 +37,7 @@
               data-periodicidad="{{objeto.periodicidad}}"
               data-totalentregas="{{objeto.totalentregas}}"
               data-activo="{{objeto.activo}}"
+              data-alarmas="{{objeto.alarmas}}"
               data-bs-toggle="modal"
               data-bs-target="#ex" >
           </a>
@@ -46,10 +47,9 @@
                >
           </a>
           
-        <!-- Button trigger modal -->
-<a type="button" class="btn btn-outline-danger fas fa-eraser btn btn-sm"  data-bs-toggle="modal" data-bs-target="#exampleModal2">
+          
 
-</a>
+          </a>
 
             
           </td>
@@ -96,11 +96,22 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ¿Esta seguro de eliminar el registro?
+
+
+        <center>
+
+          ¿Esta seguro de eliminar el registro? 
+        
+
+        </center>
+       
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-danger">Eliminar</button>
+        <a class="btn btn-danger"   data-id="{{objeto.id}}"
+        href="" 
+        
+        >Eliminar</a>
       </div>
     </div>
   </div>
@@ -151,7 +162,12 @@
               <tr>
           
                 <th scope="col">Normativa:</th>
-                <th scope="col"><input type="text" name="normativa" id="normativa" class="form-control"></th>
+                <th scope="col"><input type="text" name="normativa" id="normativa" class="form-control">
+                 <center>
+                  <a href="">Ver</a>
+                 </center> 
+                </th>
+                
               
               </tr>
               <tr>
@@ -216,9 +232,12 @@
               </tr>
               <tr>
           
-                <th scope="col">Alarmas:</th>
-                <th scope="col"><input type="text" name="nombre" id="nombre" class="form-control"></th>
-              
+                <th scope="col">Dias de anticipacion de alarma:</th>
+                <th scope="col"><input type="text" name="alarmas" id="alarmas" class="form-control" placeholder="No creada">
+                <input type="text" name="alarmas2" id="alarmas2" class="form-control" placeholder="No creada" hidden>
+                <input type="text" name="alarmas3" id="alarmas3" class="form-control" placeholder="No creada" hidden></th>
+
+                <!-- Aqui va un script que revisa esi el valor de alarma es nulo para que se oculte-->
               </tr>
             
             
@@ -256,55 +275,41 @@
   </div>
  
   <!-- AQUI DEBE ASIGNAR EL MISMO SISTEMA EL NOMBRE DE USUARIO Y POR DEFECTO LA CONTRASEÑA ES LA CEDULA-->
-
   <script>
 
-document.addEventListener('DOMContentLoaded', function () {
-                // Obtener elementos del DOM
-                const selectDependencia = document.getElementById('dependencia');
-                const nombreresponsableInput = document.getElementById('nombreresponsable');
-                const correoresponsableInput = document.getElementById('correoresponsable');
-            
-                // Agregar evento change al campo "Dependencia Responsable"
-                selectDependencia.addEventListener('change', function() {
-                    // Obtener la opción seleccionada
-                    const selectedOption = selectDependencia.options[selectDependencia.selectedIndex];
-            
-                    // Obtener los datos del responsable y correo del responsable de la opción seleccionada
-                    const responsable = selectedOption.dataset.responsable || ''; // Si no hay valor, dejar el campo vacío
-                    const correoresponsable = selectedOption.dataset.correoresponsable || ''; // Si no hay valor, dejar el campo vacío
-            
-                    // Actualizar los valores de los campos de nombre y correo del responsable
-                    nombreresponsableInput.value = responsable;
-                    correoresponsableInput.value = correoresponsable;
-                });
+   
 
 
 
 
+    // Función para cargar los campos de nombre del responsable y correo del responsable
+    function cargarDatosResponsable(nombre, correo) {
+        // Actualizar los valores de los campos en el modal
+        document.getElementById('responsable').value = nombre;
+        document.getElementById('correoresponsable').value = correo;
+    }
+
+    // Agregar evento click a los botones de visualización de informes
+    var botonesVer = document.querySelectorAll('.ver');
+    botonesVer.forEach(function (boton) {
+        boton.addEventListener('click', function () {
+            // Obtener los datos del atributo data de cada botón
+            var nombre = boton.getAttribute('data-dependencia_responsable');
+            var correo = boton.getAttribute('data-dependencia_correoresponsable');
+
+            // Llamar a la función para cargar los datos del responsable y el correo del responsable
+            cargarDatosResponsable(nombre, correo);
 
 
-    console.log("entro al script de dependencias")
-    // Función para cargar las dependencias desde el servidor
-    function cargarDependencias() {
-                    fetch('listado_dependencia')
-                        .then(response => response.json())
-                        .then(data => {
-                            data.dependencias.forEach(dependencia => {
-                                const option = document.createElement('option');
-                                option.value = dependencia.id;
-                                option.textContent = dependencia.nombre;
-                                option.dataset.responsable = dependencia.responsable;
-                                option.dataset.correoresponsable = dependencia.correoresponsable;
-                                selectDependencia.appendChild(option);
-                            });
-                        })
-                        .catch(error => console.error('Error al cargar dependencias:', error));
-                }
+          
+        });
+    });
 
-    cargarDependencias();
 
-  });
-  </script>
+   
+
+</script>
+
+
 
 {% endblock contenido %}

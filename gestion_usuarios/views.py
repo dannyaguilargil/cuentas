@@ -48,10 +48,11 @@ from django.core.mail import send_mail
 
 #def  usuarios(request):
 #     return render(request, 'C:/xampp/htdocs/sistemas_cuentas/gestion_usuarios/templates/index.html')
-
+@login_required
 def  base(request):
      return render(request, 'base_layout_usuarios.html') #archivo base de usuarios
 
+@login_required
 def  usuarios(request):
      datosu = usuario.objects.values()
      username = request.user.username #validar esto
@@ -107,6 +108,7 @@ def solicitud_usuario(request):
 #aqui hago insecciones
 
 #GESTION DE DOCUMENTOS DE GESCON
+@login_required
 def documentos(request):
     username = "ADMINISTRADOR"
     username = request.user.username
@@ -274,6 +276,7 @@ def documentos(request):
         ################# IIIIIIIIIIIAAAAAAAAAA ##################
     return render(request, 'sdocumentos.html', {'form': form, 'formrp': formrp, 'forminicio': forminicio, 'username': username})
 
+@login_required
 def perfil(request):
        ################# AQUI VOY A REGISTRAR LA CUENTA######
     ### username = formularios.cleaned_data.get('usuario')##
@@ -449,6 +452,7 @@ def perfil(request):
 #############TRAE DATOS SEGUN CORRESPONDE ###################
     
 #gestion de documentos de usuarios
+@login_required
 def documentos_usuario(request):
     form = Contratou(request.POST ,request.FILES)
     username = request.user.username
@@ -618,26 +622,25 @@ def documentos_usuario(request):
                                                         'cuentapago': cuentapago, 'lista': lista, 'objeto': objeto, 'fechaperfeccionamiento': fechaperfeccionamiento, 'valorc': valorc, 'fechacontrato': fechacontrato, 'fechaterminacion': fechaterminacion, 'periodoplanilla': periodoplanilla,
                                                         'valortotalplanilla': valortotalplanilla, 'nombresalud': nombresalud, 'nombrepension': nombrepension, 'valorpension': valorpension, 'valorsalud': valorsalud, 'nombrearl': nombrearl, 'valorarl': valorarl, 'supervisor': supervisor})
 #gestion de documentos de usuarios
-
+@login_required
 def list_usuarios(request):
     usuarios = list(usuario.objects.values())
     data = {'usuarios': usuarios}
     return JsonResponse(data)
 
-
+@login_required
 def usuarios_pendientes(request):
     return render(request, 'usuariospendientes.html')
 
 #opcion de eliminar aqui
+@login_required
 def eliminar(request, cedula):
     us = usolicitudes.objects.get(cedula=cedula)
     us.delete()
     return redirect('usuario_pendient')
 #opcion de eliminar aqui   
 
-#primero guardar la solicitud en usuarios registrados
-##segundo asignarle valores al usuario registrado
-#tercero eliminarlo la solicitud
+@login_required
 def guardar(request):
     formpers = InsertFormU(request.POST or None)
     if formpers.is_valid():
@@ -645,7 +648,7 @@ def guardar(request):
         return redirect('usuario_pendient')
     return render(request, 'usuariospendient.html', {'formpers': formpers})
     
-    
+@login_required    
 def usolicitud(request):
     usuarios = list(usolicitudes.objects.values())
     data = {'usuarios': usuarios}
@@ -653,6 +656,7 @@ def usolicitud(request):
 
 #logueo de usuario
 #AQUI VOY A INTENTAR CREAR EL USUARIO EN AUTH_USER PARA DARLE LA SEGURIDAD#
+@login_required
 def crear(request):
     formularios = Usuario(request.POST or None)
     if formularios.is_valid():
@@ -676,6 +680,7 @@ def logout(request):
     return redirect('login')
 
 #USUARIOS PENDIENTES SIN DATATABLE
+@login_required
 def usuario_pendiente(request):
     #usuario = {
         #'nombre': '',
@@ -691,7 +696,7 @@ def usuario_pendiente(request):
     #}
     return render(request, 'usuariopendiente.html')
 
-
+@login_required
 def obtenercedula(request, cedula):
     usuarios = get_object_or_404(usolicitudes, cedula=cedula)
     data = {
@@ -708,7 +713,7 @@ def obtenercedula(request, cedula):
     }
     return JsonResponse(data)
 
-
+@login_required
 def eliminarregistro(request, cedula):
     if request.method == 'DELETE':
         usuario = get_object_or_404(usolicitudes, cedula=cedula)
@@ -718,6 +723,7 @@ def eliminarregistro(request, cedula):
         return HttpResponseNotAllowed(['DELETE'])
     
 #usuarios pendientes opcion de guardado    
+@login_required
 def usuarios_pendient(request):
     solicitud_obj = ""
     datos = usolicitudes.objects.values()
@@ -754,6 +760,7 @@ def usuarios_pendient(request):
     #    return redirect('usuario_pendient')
     return render(request, 'usuariospendient.html', {'datos': datos, 'forupendiente': forupendiente, 'solicitud_obj': solicitud_obj})
 
+@login_required
 def eliminador(request, cedula):
     usuario = usolicitudes.objects.get(cedula=cedula)
     form_elimina = Users(request.POST or None, instance=usuario)
@@ -763,6 +770,7 @@ def eliminador(request, cedula):
     return render(request, 'eliminar_usuario.html', {'form_elimina': form_elimina, 'usuario': usuario})
 
 #############CAMBIOS NUEVOS ##################
+@login_required
 def ops(request):
     nombre = ""
     segundo_nombre = ""
@@ -842,7 +850,7 @@ def ops(request):
                                         'email': email, 'telefono': telefono, 'direccion': direccion, 'numerocb': numerocb, 'tipocuenta': tipocuenta, 'nombrecb': nombrecb, 'numeroplanilla': numeroplanilla,
                                         'fechaplanilla': fechaplanilla, 'valortotalplanilla': valortotalplanilla, 'periodoplanilla': periodoplanilla, 'nombresalud': nombresalud, 'valorsalud': valorsalud,
                                         'nombrearl': nombrearl, 'valorarl': valorarl, 'nombrepension': nombrepension, 'valorpension': valorpension, 'imagenperfil': imagenperfil, 'usuariop': usuariop})
-
+@login_required
 def cuentas(request):
     username = request.user.username
     numero = 1
@@ -940,6 +948,7 @@ def cuentas(request):
     #SELECT count(*) from gestion_usuarios_contrato where usuario_id=1090492324;
     
 #ASIGNARLE CEDULA A LOS PDF PARA EXTRAER LOS DATOS
+@login_required
 def pruebapdf(request, cedula):
     nombre = "" #Lo remplazo con el que traiga del modelo
     segundonombre = ""
@@ -1004,16 +1013,18 @@ def pruebapdf(request, cedula):
         return HttpResponse('Ocurrió un error al generar el PDF')
     return response
 
+@login_required
 def pruebapdfactapago(request):
     nombre = ""
     return render(request, 'actapago.html', {'nombre': nombre})
 
+@login_required
 def seguimientohtml(request):
     nombre = ""
     return render(request, 'seguimiento.html', {'nombre': nombre})
     
     #SELECT count(*) from gestion_usuarios_contrato where usuario_id=1090492324;
-    
+@login_required   
 def seguimiento(request,cedula):
     nombre = "" #Lo remplazo con el que traiga del modelo
     segundonombre = ""
@@ -1188,6 +1199,7 @@ def buscar_palabra(texto, palabra):
 
 #    return render(request, 'extraer_texto.html')
 #############EJEMPLOS CON OCR #########################################################################
+@login_required
 def actualizar_usuario(request, cedula):
     usuario = get_object_or_404(usuario, cedula=cedula)
     if request.method == 'POST':
@@ -1198,10 +1210,7 @@ def actualizar_usuario(request, cedula):
         return redirect('ops')
 
     return render(request, 'ops.html', {'usuario': usuario})
-############################################################################
-############# IA APLICADA ###################################
 
-#######PRIMERO LA VISTA PARA CONVERTIR EL PDF A TEXTO ##############
 def extraer_texto_pdf2(nombre_archivo):
     with open(nombre_archivo, 'rb') as archivo:
         lector_pdf = PdfReader(archivo)
@@ -1249,20 +1258,20 @@ def buscar_palabra2(texto, palabra):
             return caracteres_despues
     return None
 
-#######INCREMENTAL TRAYENDOLO EN UN INPUT 
-
-
-###LIMPIEZA DE DATOS PARA LA EXTRACCION DEL TEXTO
 def limpiar_texto(texto):
     texto_limpio = texto.upper()  # Convertir todo el texto a mayúsculas
     texto_limpio = re.sub(r'\n', ' ', texto_limpio)  # Reemplazar saltos de línea con espacios en blanco
     texto_limpio = re.sub(r'\s+', ' ', texto_limpio)  # Eliminar espacios en blanco repetidos
     return texto_limpio
 
-
+@login_required
 def usuariosauditoria(request):
     return render(request, 'auditoria.html')
 
-
+@login_required
 def dashboard(request):
     return render(request, 'dashboard.html')
+
+
+
+    

@@ -1,9 +1,10 @@
-
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from gestion_presupuesto.models import cuentapresupuestocontratista
 from django.contrib import messages
 from gestion_tesoreria.forms import InsertFormt
 
+@login_required
 def  tesoreria(request):
      datos = cuentapresupuestocontratista.objects.values()
      formteso = InsertFormt(request.POST, request.FILES)

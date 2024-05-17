@@ -1,4 +1,4 @@
-
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from gestion_usuarios.models import usolicitudes,cuentausuario, cuentacontratista,usuario,contrato,planilla,rp,cuentabancaria
 from gestion_usuarios.forms import Users
@@ -11,6 +11,7 @@ from django.contrib import messages
 from gestion_supervisor.forms import InsertForms
 from gestion_supervisor.models import cuentasupervisorcontratista
 
+@login_required
 def  supervisor(request):
      username = request.user.username
      ccontratista = ""
@@ -29,6 +30,7 @@ def  supervisor(request):
     
      return render(request, 'supervisor.html', {'datos': datos, 'cedula': cedula, 'formsuper': formsuper, 'ccontratista': ccontratista }) 
 #ASIGNARLE CEDULA A LOS PDF PARA EXTRAER LOS DATOS
+@login_required
 def pruebapdf(request, cedula):
     nombre = "" #Lo remplazo con el que traiga del modelo
     segundonombre = ""
@@ -93,17 +95,18 @@ def pruebapdf(request, cedula):
         return HttpResponse('Ocurrió un error al generar el PDF')
     return response
 
+@login_required
 def pruebapdfactapago(request):
     nombre = ""
     return render(request, 'actapago.html', {'nombre': nombre})
 
-
+@login_required
 def seguimientohtml(request):
     nombre = ""
     return render(request, 'seguimiento.html', {'nombre': nombre})
     
     #SELECT count(*) from gestion_usuarios_contrato where usuario_id=1090492324;
- 
+@login_required
 def seguimiento(request,cedula):
     nombre = "" #Lo remplazo con el que traiga del modelo
     segundonombre = ""
@@ -203,6 +206,7 @@ def seguimiento(request,cedula):
     return response
 
 #opcion de eliminar aqui
+@login_required
 def eliminar(request, cedula):
    if request.method == 'GET':
         try:

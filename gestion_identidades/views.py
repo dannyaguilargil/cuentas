@@ -6,7 +6,9 @@ from django.http import JsonResponse
 from gestion_usuarios.models import usolicitudes,usuario
 from gestion_identidades.forms import Formidentidades,FormidentidadesSupervisor
 from gestion_identidades.models import solicitudsistema,solicitudsistemasupervisor
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def identidades(request):
     username = request.user.username
     ### para llenar el campo de formato de identidades #####
@@ -29,9 +31,11 @@ def identidades(request):
      ####para realizar la inserccion del formato de identidades ####
     return render(request, 'identidades.html' , {'username': username, 'formularios': formularios})
 
+@login_required
 def pazysalvo(request):
     return render(request, 'pazysalvo.html')
 
+@login_required
 def usolicitud(request):
     usuarios = list(solicitudsistema.objects.values())
     data = {'solicitud': usuarios}
@@ -42,7 +46,7 @@ def listadmin(request):
     data = {'solicitud': usuarios}
     return JsonResponse(data)
 
-
+@login_required
 def identidadespendientes(request):
     datos = solicitudsistema.objects.values()
     ##### aqui va el registro de la identidad
@@ -56,11 +60,13 @@ def identidadespendientes(request):
         #    solicitud_obj.delete()
     return render(request, 'pendientes.html', {'datos': datos, 'foripendiente': foripendiente})
 
+@login_required
 def identidadespendientesadmin(request):
     #solicitud_obj = ""
     datos = solicitudsistemasupervisor.objects.values()
     return render(request, 'pendientesadmin.html', {'datos': datos})
 
+@login_required
 def pazysalvohtml(request):
     nombre = ""
     return render(request, 'pazysalvohtml.html', {'nombre': nombre})

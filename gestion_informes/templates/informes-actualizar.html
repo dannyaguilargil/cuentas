@@ -53,6 +53,7 @@
                                     name="nombre"
                                     placeholder="Nombre del informe"
                                     required
+                                    value="{{nombre}}"
                                   />
                                 </div>
                               </div>
@@ -68,7 +69,7 @@
                                     required
                                   >
                                     <option selected disabled>
-                                      Seleccione un Ente de Control
+                                      {{entecontrol}}
                                     </option>
                                     
                                   </select>
@@ -88,6 +89,7 @@
                                         id="normativa"
                                         name="normativa"
                                         required
+                                        value="{{normativa}}"
                                       />
                                       
                                     </div>
@@ -109,7 +111,7 @@
                                     required
                                   >
                                     <option selected disabled>
-                                      Seleccione una dependencia
+                                      {{dependencia}}
                                     </option>
                                     
                                   </select>
@@ -160,6 +162,7 @@
                                     id="descripcion"
                                     name="descripcion"
                                     placeholder="Descripcion del informe"
+                                    value="{{descripcion}}"
                                   />  
                                 </div>
                                 </div>
@@ -189,6 +192,7 @@
                                     id="fechaentregainicial"
                                     name="fechaentregainicial"
                                     required
+                                    value="{{fechaentregainicial}}"
                                   />
                                 </div>
                               </div>
@@ -210,6 +214,7 @@
                                       class="form-control text-center"
                                       placeholder="15"
                                       required
+                                      value="{{periodicidad}}"
                                     />
                                     <div class="input-group-append">
                                       <div class="input-group-text">
@@ -222,7 +227,7 @@
                                             
                                           
                                           >
-                                            Seleccione un opción
+                                            {{periodicidadtipo}}
                                           </option>
                                           <option value="Dias">Días</option>
                                           <option value="Meses">Meses</option>
@@ -263,6 +268,7 @@
                                       class="form-control text-center"
                                       min="1"
                                       max="10000"
+                                      value="{{diasAnticipacion}}"
                                     
                                       
                                     />

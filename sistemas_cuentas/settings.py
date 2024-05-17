@@ -64,7 +64,7 @@ INSTALLED_APPS = [
     'colorfield', #AGREGUEE PARA CAMBIAR ESTILOS
     'rest_framework', # apis
     'corsheaders', # apis
-   # 'sistemas_cuentas',
+  
 ]
 
 X_FRAME_OPTIONS = 'SAMEORIGIN' #PARA CAMBIAR ESTILOS AL PANEL ADMIN
@@ -183,11 +183,22 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = []
 
-###### ARCHIVO DE CONFIGURACION PREDETERMINADO PARA EL ENVIO DE CORREOS
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = ''
 EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = ''
-EMAIL_USE_SSL = True
+EMAIL_USE_SSL = ''
 DEFAULT_FROM_EMAIL = ''
+
+###########configuraciones necesaria para la tareas programadas #########
+CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672//' 
+CELERY_TIMEZONE = 'UTC'
+CELERY_RESULT_BACKEND = 'rpc://'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
+
+LOGIN_URL = '/login'
