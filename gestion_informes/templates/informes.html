@@ -22,9 +22,9 @@
               <div class="row">
                 <div class="col-12">
                   <div class="card card-primary card-outline">
-                    <div class="card-header">
+                    <div class="card-header" >
                       <div class="d-flex justify-content-between">
-                        <h6 class="m-0">Creación informe</h6>
+                        <h6 class="m-0">Creación del informe</h6>
                       </div>
                     </div>
                     <form
@@ -34,8 +34,8 @@
                     >
                       <div class="card-body">
                         <div class="card card-primary">
-                          <div class="card-header">
-                            <h6 class="card-title">
+                          <div class="card-header"  style="background: #FFFFCC;">
+                            <h6 class="card-title" >
                               Datos de creación y responsable del informe
                             </h6>
                           </div>
@@ -141,7 +141,7 @@
                                     id="correoresponsable"
                                     name="correoresponsable"
                                     placeholder="Correo del responsable"
-                                    disabled
+                                    readonly
                                   />
                                 </div>
                               </div>
@@ -171,7 +171,7 @@
 
 
                         <div class="card card-primary">
-                          <div class="card-header">
+                          <div class="card-header" style="background: #FFFFCC;">
                             <h6 class="card-title">
                               Datos de periodicidad del informe
                             </h6>
@@ -282,7 +282,7 @@
                        
 
                         <div class="card card-primary">
-                          <div class="card-header">
+                          <div class="card-header" style="background: #FFFFCC;">
                             <h6 class="card-title">
                               Configuración de alarmas
                             </h6>
@@ -389,32 +389,26 @@
                 
                 // Función para imprimir el correo del responsable de la dependencia seleccionada
                 function imprimirCorreoResponsable() {
-                    // Obtener la opción seleccionada
+
                     const selectedOption = selectDependencia.options[selectDependencia.selectedIndex];
-                    
-                    // Obtener el correo del responsable de la opción seleccionada
                     const correoresponsable = selectedOption.dataset.correoresponsable || ''; // Si no hay valor, dejar el campo vacío
-                    
+                    const nombreresponsable = selectedOption.dataset.nombreresponsable || '';
+
                     // Imprimir el correo del responsable por consola
                     console.log('Correo del envio:', correoresponsable);
+                    console.log('Nombre del envio:', nombreresponsable);
                     aux = correoresponsable
                    
                 }
                 
-                // Agregar evento change al campo "Dependencia Responsable"
                 selectDependencia.addEventListener('change', function() {
-                    // Llamar a la función para imprimir el correo del responsable cada vez que cambie la selección de la dependencia
                     imprimirCorreoResponsable();
                     
-                    // Obtener la opción seleccionada
                     const selectedOption = selectDependencia.options[selectDependencia.selectedIndex];
+                    const nombreresponsable = selectedOption.dataset.nombreresponsable || ''; 
+                    const correoresponsable = selectedOption.dataset.correoresponsable || ''; 
                     
-                    // Obtener los datos del responsable de la opción seleccionada
-                    const responsable = selectedOption.dataset.responsable || ''; // Si no hay valor, dejar el campo vacío
-                    const correoresponsable = selectedOption.dataset.correoresponsable || ''; // Si no hay valor, dejar el campo vacío
-                    
-                    // Actualizar los valores de los campos de nombre y correo del responsable
-                    nombreresponsableInput.value = responsable;
+                    nombreresponsableInput.value = nombreresponsable;
                     correoresponsableInput.value = correoresponsable;
                 });
                 
@@ -443,7 +437,7 @@
                                 const option = document.createElement('option');
                                 option.value = dependencia.id;
                                 option.textContent = dependencia.nombre;
-                                option.dataset.responsable = dependencia.responsable;
+                                option.dataset.nombreresponsable = dependencia.responsable;
                                 option.dataset.correoresponsable = dependencia.correoresponsable;
                                 selectDependencia.appendChild(option);
                             });

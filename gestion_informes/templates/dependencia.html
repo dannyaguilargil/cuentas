@@ -1,11 +1,11 @@
-{% extends 'base_informes.html' %}
-{% block titulo %}Entes de control{% endblock titulo %}
+{% extends 'base_dependencia.html' %}
+{% block titulo %}Dependencias de informes{% endblock titulo %}
 {% block contenido %}
    <center>
-   <h5> Dependencias </h5> 
-   <button type="button" class="btn btn-outline-success fas fa-plus" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Agregar
-  </button>
+   <h5> Dependencias <button type="button" class="btn btn-outline-success fas fa-plus btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    
+  </button></h5> 
+   
    
 
     
@@ -39,16 +39,25 @@
         <br> 
 
         <label for="correoresponsable">Correo del responsable *</label>
-                <input type="text" name="correoresponsable" id="correoresponsable" placeholder="Correo del responsable" class="form-control" required>
-        <br>
+        <input type="text" name="correoresponsable" id="correoresponsable" placeholder="Correo del responsable" class="form-control" required>
+       
         
+
+        <!--
 
           <label for="">Estado</label>
           <select name="activo" id="" class="form-control">
             <option value="True">Activo</option>
             <option value="False">Inactivo</option>
           </select>
+          -->
+
+
+
+
         </div>
+
+        
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-success">Guardar</button>
@@ -60,23 +69,69 @@
      <!-- modal de inserccion-->
 
 
+     <!-- Modal de actualizacion-->
+  <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Actualizar dependencia</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="POST" >
+            {% csrf_token %}
+
+
+          <label for="nombre">Nombre de la dependencia *</label>
+          <input type="text" name="nombre_act" id="nombre_act" placeholder="Nombre de la dependencia" class="form-control" required>
+<br>
+        <label for="nombreresponsable">Nombre del responsable *</label>
+                <input type="text" name="responsable_act" id="responsable_act" placeholder="Nombre del responsable" class="form-control" required>
+        <br> 
+
+        <label for="correoresponsable">Correo del responsable *</label>
+                <input type="text" name="correoresponsable_act" id="correoresponsable_act" placeholder="Correo del responsable" class="form-control" required>
+     
+        
+<!--
+          <label for="">Estado</label>
+          <select name="activo" id="" class="form-control">
+            <option value="True">Activo</option>
+            <option value="False">Inactivo</option>
+          </select>
+-->
+
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Actualizar</button>
+        </div>
+      </form>
+      </div>
+    </div>
+</div>
+     <!-- modal de actualizacion-->
+
+
 
 
 
    <div class="table-responsive"> 
-    <table id="tabla-usuarios" class="table table-bordered table-hover table-striped">
+    <table id="tabla-informes" class="table table-bordered table-hover table-striped">
       <caption>
          Dependencias
       </caption>
       <thead>
           <tr>
               <th class="centered">Id</th>
-              <th class="text-center centered">Opciones</th>
+              <th class="text-center centered">Opcion</th>
               <th class="text-center centered">Nombre</th>
               <th class="text-center centered">Responsable</th>
               <th class="text-center centered">Correo del responsable</th>
               <th class="text-center centered">Estado</th>
-              <th class="text-center centered">Fecha de creación</th>
+              <th class="text-center centered">Fecha de actualizacion</th>
               
           </tr>
       </thead>
@@ -84,22 +139,31 @@
         {% for objeto in datos %}
         <tr> <!-- SE REMPLAZA CON INPUTS PARA OBTENER LOS DATOS DE ESE INPUT-->
             <td>{{forloop.counter}}</td>
-            <td><a  name="ver" class="fa fa-edit btn btn-outline-primary btn-sm ver" 
-              data-nombre="{{objeto.nombre}}"
-              data-cedula="{{objeto.cedula}}"
-              data-cargo="{{objeto.cargo}}"
-              data-email="{{objeto.email}}"
-              data-supervisor="{{objeto.supervisor}}"
-              data-tipodocumento="{{objeto.tipodocumento}}"
-              data-bs-toggle="modal"
-              data-bs-target="#ex" >
-          </a>
-            <!-- <button  class="fa fa-save btn btn-outline-secondary" type="submit"></button> --> 
+            <td>
+              <center>
+
+                <a  class="fa fa-edit btn btn-outline-primary btn-sm" 
+                data-nombre="{{objeto.nombre}}"
+                data-responsable="{{objeto.responsable}}"
+                data-correoresponsable="{{objeto.correoresponsable}}"
+                data-cedula="{{objeto.cedula}}"
+                data-cargo="{{objeto.cargo}}"
+                data-email="{{objeto.email}}"
+                data-supervisor="{{objeto.supervisor}}"
+                data-tipodocumento="{{objeto.tipodocumento}}"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal2" >
+            </a>
+
+              </center>
+            
+            <!--
             <a  class="fa fa-eraser btn btn-outline-danger btn-sm" 
             data-cedula="{{objeto.cedula}}"
             href=""
              >
-          </a></td>
+          </a> -->
+        </td>
             <td><center>{{objeto.nombre}}</center></td>
             <td><center>{{objeto.responsable}}</center></td>
             <td><center>{{objeto.correoresponsable}}</center></td>
@@ -110,7 +174,7 @@
               <button type="button" class="btn btn-danger btn-sm">Inactivo</button>
             {% endif %}
             </center></td>
-           <td><center>{{objeto.fecha_creacion}}</center></td>
+           <td><center>{{objeto.fecha_actualizacion}}</center></td>
         </tr>
     {% endfor %}
 

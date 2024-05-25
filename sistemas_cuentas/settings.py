@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'colorfield', #AGREGUEE PARA CAMBIAR ESTILOS
     'rest_framework', # apis
     'corsheaders', # apis
+    'django_celery_results'
   
 ]
 
@@ -108,18 +109,6 @@ WSGI_APPLICATION = 'sistemas_cuentas.wsgi.application'
 #mysql -hcontainers-us-west-22.railway.app -uroot -ptkxWbDzZbbir7scaKl5G --port 7829 --protocol=TCP railway
 DATABASES = {
     'default': {
-       # 'ENGINE': 'django.db.backends.sqlite3',
-       # 'NAME': BASE_DIR / 'db.sqlite3',
-       
-       #mysql -hcontainers-us-west-22.railway.app -uroot -ptkxWbDzZbbir7scaKl5G --port 7829 --protocol=TCP railway
-       #mis creacciones para conexion con railway
-       #'ENGINE': 'django.db.backends.mysql',
-       #'NAME': 'railway',
-       #'USER': 'root',
-       #'PASSWORD': 'tkxWbDzZbbir7scaKl5G',
-       #'HOST': 'containers-us-west-22.railway.app',
-       #'PORT': '7829',
-       
        
        #conexion con la base de datos local
        ###################################
@@ -160,21 +149,16 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'es-es' #estaba en en-us
 
-TIME_ZONE = 'America/Lima'
+TIME_ZONE = 'UTC' ##'America/Lima'
 
 USE_I18N = True
 
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.1/howto/static-files/
-
 STATIC_URL = 'static/'
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static') # LO AGREGUE PARA LA LECTURA DE PDF OJO
-#AGREGAR LA RUTA ACTUAL DONDE SE ENCUENTRA LA CARPETA
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'sistemas_cuentas/static'),)
-#STATICFILES_DIRS = (os.path.join(BASE_DIR, 'sistemas_cuentas/static'),)
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -188,8 +172,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = ''
 EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
-EMAIL_PORT = ''
-EMAIL_USE_SSL = ''
+EMAIL_PORT = 
+EMAIL_USE_SSL = 
 DEFAULT_FROM_EMAIL = ''
 
 ###########configuraciones necesaria para la tareas programadas #########
@@ -199,6 +183,10 @@ CELERY_RESULT_BACKEND = 'rpc://'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
+########### NUEVAS CONFIGURACIONES ##########################
+CELERY_RESULT_BACKEND = 'django-db'
+#BROKER_HEARTBEAT=30,  # Intervalo de latido (heartbeat) en segundos
+#BROKER_CONNECTION_TIMEOUT=60,  # Tiempo de espera para la conexión
 
 
 LOGIN_URL = '/login'

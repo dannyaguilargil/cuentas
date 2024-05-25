@@ -1,11 +1,11 @@
 {% extends 'base_layout_gescon.html' %}
-{% block titulo %}Formato gestion de identidades{% endblock titulo %}
+{% block titulo %}Dashboard{% endblock titulo %}
 {% block contenido %}
 
 <center>
     <h5 class=""><b>S</b>istema de <b>A</b>dministracion de <b>R</b>ecursos y <b>A</b>plicaciones </h5>
     
-        DASHBOARD
+    
     
 </center>
 
@@ -23,9 +23,26 @@
             <option value="">Gestion de cuentas</option>
             <option value="">Gestion de Interoapibilidad</option>
             <option value="">Gestion de identidades</option>
+            <option value="">Gestion de usuarios</option>
+            <option value="">Gestion de apis</option>
+           
             
         </select>
      </div>
+
+
+     <div class="col">
+        Modelo a graficar
+        <select name="" id="" class="form-control">
+            <option value="">Tareas programadas</option>
+            <option value="">Entregas</option>
+            <option value="">Cargues de evidencias</option>
+           
+            
+        </select>
+
+      </div>
+
       <div class="col">
 
         
@@ -38,7 +55,7 @@
       </div>
       
       <div class="col">
-        Grafica
+        Tipo de grafica
         <select name="" id="" class="form-control">
             <option value="">Torta</option>
             <option value="">Barras</option>
@@ -47,17 +64,16 @@
             
         </select>
 
-        <!--
-        <button class="btn btn-outline-success">Exportar a excel</button> <br>
-        <button>Exportar a pdf</button> <br>
-        <button>Exportar a imagen</button>-->
       </div>
+
+    
     
     </div>
     <br>
     
     <center>
-        <canvas id="graficoVentasMensuales" width="200" height="200"></canvas>
+   
+      <img src="{{ data }}" alt="Gráfica de Tareas del Mes">
     </center>
           
     
@@ -68,39 +84,6 @@
 
 
 </form>
-<script>
-    // Datos de ejemplo: ventas mensuales
-    const datosVentasMensuales = {
-      labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
-      datasets: [{
-        label: 'Avances',
-        backgroundColor: 'rgba(54, 162, 235, 0.2)', // Color de fondo
-        borderColor: 'rgba(54, 162, 235, 1)', // Color del borde
-        borderWidth: 1,
-        data: [250, 300, 350, 400, 450, 500] // Cantidad de ventas
-      }]
-    };
 
-    // Configuración del gráfico
-    const opciones = {
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true // Empezar desde 0 en el eje Y
-          }
-        }]
-      }
-    };
-
-    // Obtener el contexto del lienzo
-    const contexto = document.getElementById('graficoVentasMensuales').getContext('2d');
-
-    // Crear el gráfico de barras
-    const graficoVentasMensuales = new Chart(contexto, {
-      type: 'bar', // Tipo de gráfico: barras
-      data: datosVentasMensuales, // Datos
-      options: opciones // Opciones de configuración
-    });
-  </script>
 
 {% endblock contenido %}

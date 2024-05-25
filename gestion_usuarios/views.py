@@ -37,17 +37,17 @@ import nltk
 from nltk.tokenize import word_tokenize
 nltk.download('punkt')
 import re
-from datetime import datetime
+from datetime import datetime,timedelta
 import calendar
 import locale, inflect
 from django.core.mail import send_mail
+####### NECESARIOS PARA LA GRAFICA #####
+import matplotlib.pyplot as plt
+import io
+import base64
+from django.utils.timezone import now
+from django_celery_results.models import TaskResult
 
-
-
-#from django_datatables_view.base_datatable_view import BaseDatatableView
-
-#def  usuarios(request):
-#     return render(request, 'C:/xampp/htdocs/sistemas_cuentas/gestion_usuarios/templates/index.html')
 @login_required
 def  base(request):
      return render(request, 'base_layout_usuarios.html') #archivo base de usuarios
@@ -294,8 +294,6 @@ def perfil(request):
     username = request.user.username
     usuario_obj = usuario.objects.filter(usuario=username).first()
     progreso=1
-    ###### SI ESTA CREADO CON EL ADMIN SI CARGA Y VALIDA###########
-    #######CUANDO EL USUARIO ESTA CREADO Y NO TIENE DOCUMENTOS NO CARGA
     numero = 2
     objeto = "No tiene contrato asignado"
     valor = "No tiene contrato asignado"
@@ -347,10 +345,6 @@ def perfil(request):
             duracion = usuario_obj2.duracion
             progreso=20
             estado = "Pendiente cargue del contrato"
-        #else: 
-            #VALIDAR CON CONDICIONAL CUANDO EL USUARIO NO TIENE DOCUMENTOS
-            #return redirect('usuarios')
-            ###########GESTION DE CONTRATACION RP########################  
             usuario_obj3 = rp.objects.filter(usuario_id=cedula).first()
             if rp.objects.filter(usuario_id=cedula).exists():
                 numerorp = usuario_obj3.numero
@@ -583,8 +577,6 @@ def documentos_usuario(request):
     if form.is_valid():
         form.save()
         messages.success(request, 'Documento guardado')
-        #### AQUI IRA LA PARTE DEL ANALISIS DE DOCUMENTO ####
-        #### AQUI IRA LA PARTE DEL ANALISIS DE DOCUMENTO ####
         return render(request, 'sdocumentos_usuario.html')
     formrp = Rp(request.POST, request.FILES)
     if formrp.is_valid():
@@ -682,18 +674,6 @@ def logout(request):
 #USUARIOS PENDIENTES SIN DATATABLE
 @login_required
 def usuario_pendiente(request):
-    #usuario = {
-        #'nombre': '',
-        #'segundonombre': '',
-        #'primerapellido': '',
-        #'segundoapellido': '',
-        #'cargo': '',
-        #'email': '',
-        #'supervisor': '',
-        #'tipodocumento': '',
-        #'cedula': '',
-        #'rol': ''
-    #}
     return render(request, 'usuariopendiente.html')
 
 @login_required
@@ -1174,31 +1154,6 @@ def buscar_palabra(texto, palabra):
 
     return None
 
-##############################################################
-########## ESTOS EJEMPLOS HACEN CONVERSIONES CON PDF QUE NO SON ESCANEADAS  ############################
-######################################################################################################
-################EJEMPLOS SIGUIENTES CON OCR ##########################################################
-#def extraer_texto_pdf(archivo_pdf):
-#    with archivo_pdf as archivo:
-#        lector_pdf = PdfReader(archivo)
-#        num_paginas = len(lector_pdf.pages)
-
-#        texto = ''
-#        for pagina in range(num_paginas):
-#            pagina_pdf = lector_pdf.pages[pagina]
-#            imagen = pagina_pdf.extract_text()
-#            texto += pytesseract.image_to_string(imagen)
-
-#    return texto
-
-#def extraer_texto(request):
-#    if request.method == 'POST':
-#        archivo_pdf = request.FILES['archivo']
-#        texto_extraido = extraer_texto_pdf(archivo_pdf)
-#        return render(request, 'extraer_texto.html', {'texto_extraido': texto_extraido})
-
-#    return render(request, 'extraer_texto.html')
-#############EJEMPLOS CON OCR #########################################################################
 @login_required
 def actualizar_usuario(request, cedula):
     usuario = get_object_or_404(usuario, cedula=cedula)
@@ -1270,7 +1225,34 @@ def usuariosauditoria(request):
 
 @login_required
 def dashboard(request):
-    return render(request, 'dashboard.html')
+     # Filtrar las tareas del mes actual
+    start_date = now().replace(day=1)
+    end_date = now()
+    tasks = TaskResult.objects.filter(date_done__range=(start_date, end_date))
+
+    # Preparar los datos para la gráfica
+    task_dates = [task.date_done.date() for task in tasks]
+    task_count_by_date = {date: task_dates.count(date) for date in set(task_dates)}
+
+    dates = sorted(task_count_by_date.keys())
+    counts = [task_count_by_date[date] for date in dates]
+
+    # Crear la gráfica
+    plt.figure(figsize=(10, 5))
+    plt.plot(dates, counts, marker='o')
+    plt.title('Envíos de tareas')
+    plt.xlabel('Fecha')
+    plt.ylabel('Número de Tareas')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+
+    # Convertir la gráfica a base64
+    buf = io.BytesIO()
+    plt.savefig(buf, format='png')
+    buf.seek(0)
+    string = base64.b64encode(buf.read()).decode()
+    uri = 'data:image/png;base64,' + string
+    return render(request, 'dashboard.html', {'data': uri})
 
 
 

@@ -1,5 +1,5 @@
 from django import forms
-from .models import entecontrol,dependencia,informe
+from .models import entecontrol,dependencia,informe,entrega,evidencia
 #from task2.tasks import send_review_email_task
 
 class fente(forms.ModelForm):
@@ -34,3 +34,9 @@ class ReviewForm(forms.Form):
         send_review_email_task.delay(
             self.cleaned_data['name'], self.cleaned_data['email'], self.cleaned_data['review'])
 
+##tomare el nombre como la fecha de entrega por ahora, puede ser que haga un cuadro aparte de observaciones
+class fevidencia(forms.ModelForm):
+    class Meta:
+        model = evidencia
+        fields = ['entrega', 'nombre','archivo']
+## por ahora solo entrega luego valido con nombre(fecha) y archivo

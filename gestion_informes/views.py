@@ -6,13 +6,15 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseNotAllowed
 from gestion_usuarios.models import usuario
-from gestion_informes.forms import fente,fdependencia,ReviewForm,finforme
+from gestion_informes.forms import fente,fdependencia,ReviewForm,finforme,fevidencia
 from django.contrib import messages
 from django.views.generic.edit import FormView
 #### configuracion de alarmas
-from .tasks import enviar_alarma
+from .tasks import enviar_alarma,enviar_alarma2
 from datetime import datetime, timedelta
 from django.contrib.auth.decorators import login_required
+#####REUERIDOS PARA EL DASHBOARD#####
+
 
 @login_required
 def informes(request):
@@ -21,28 +23,63 @@ def informes(request):
     ### inserccion del informe ##
     finformes = finforme(request.POST, request.FILES)
     if finformes.is_valid():
-        finformes.save()
+        informe = finformes.save()
         messages.success(request, 'Informe agregado correctamente.')
 
         ####configuracion de envios de tareas programadas#####
-        correo_responsable = request.POST.get('correoresponsable')
+        print("Informe creado exitosamente")
+        nombre_responsable = request.POST.get('responsable')
+        correo_responsable = request.POST.get('correoresponsable')##no lo paso por formulario, debo mirar como lo tomo
+        print(nombre_responsable)
+        print(correo_responsable)
         dias_anticipacion = int(request.POST.get('alarmas'))
+        print(dias_anticipacion)
         fecha_entrega_inicial = datetime.strptime(request.POST.get('fechaentregainicial'), '%Y-%m-%d')
+        print(fecha_entrega_inicial)
         fecha_alarma = fecha_entrega_inicial - timedelta(days=dias_anticipacion)
+        print(fecha_alarma)
 
+        ###revisar dependencias y salto de linea, imaganes,fecha entrega incial cambiarla a fech entrega pendiente
         ###enviar la tarea de alarma
-        enviar_alarma.apply_async(
-            args=[correo_responsable, f'Alarma para el informe: {informe.nombre}'],
+        #enviar_alarma.apply_async(
+        #    args=[
+        #        correo_responsable, 
+        #        f""" {nombre_responsable},
+        #        esta a {informe.alarmas} dias de la fecha LIMITE
+        #        para entregar el informe: {informe.nombre}
+        #        al ente de control: {informe.entecontrol}
+        #        Fecha limite: {informe.fechaentregainicial}
+        #
+        #        Recuerde que debe ENVIAR el ticket en la mesa de ayuda para que la
+        #        oficina de INFORMATICA pueda validar la informacion A TIEMPO
+        #
+        #        <a">Ver informe</a> <a>Mesa de ayuda</a> 
+        #        """
+        #    ],
+        #    eta=fecha_alarma
+        #)
+        ###VERSION 1 EL DE ARRIBA#########
+         # Construir el mensaje HTML
+        mensaje_html = f"""
+            <html>
+            <body>
+                <p>{informe.dependencia},</p>
+                <p>Está a <b style="color: green;">{dias_anticipacion} días</b> de la fecha límite para entregar el informe: <strong>{informe.nombre}</strong> al ente de control: <strong>{informe.entecontrol}</strong>.</p>
+                <p>Fecha límite: <strong>{informe.fechaentregainicial}</strong></p>
+                <p>Recuerde que debe <strong>ENVIAR</strong> el ticket en la mesa de ayuda para que la oficina de <b style="color: green">INFORMATICA</b> pueda validar la información <b>A TIEMPO</b>.</p>
+                <p><a type="button" href="http://sara.imsalud.gov.co:8000/informe/entrega/{informe.id}">Ver informe</a> | <a type="button" href="https://soporte.imsalud.gov.co">Mesa de ayuda</a></p>
+            </body>
+            </html>
+            """
+            
+            # Envío del correo de alarma
+        enviar_alarma2.apply_async(
+            args=[correo_responsable, mensaje_html],
             eta=fecha_alarma
-        )
-        ###enviar la tarea de alarma
-
-        ####configuracion de envios de tareas programadas#####
+        )       
 
         return redirect('informe')
     finformes = finforme()
-    ### inserccion del informe, revisar que se haga inserccion con alarma ##
-
     return render(request, 'informes.html', {'entes_control': entes_control, 'entes_dependencia': entes_dependencia, 'finformes': finformes }) 
 
 #ejemplo con solicitudes de usuarios provisionalmente
@@ -72,15 +109,42 @@ def  listado(request):
      datos = informe.objects.all().select_related('entecontrol', 'dependencia')#para busqueda relacionada en cascada
      return render(request, 'listado.html', {'datos': datos}) 
 
+#@login_required
+#def  entecontrols(request):
+#     datos = entecontrol.objects.values()
+#     formper = fente(request.POST or None)
+#     if formper.is_valid():
+#        formper.save()
+#        messages.success(request, 'Ente de control agregado.')
+#        return redirect('entecontrol')
+     ######Formulario de actualizacion del ente de control
+#     return render(request, 'entecontrol.html', {'datos': datos, 'formper': formper}) 
 @login_required
-def  entecontrols(request):
-     datos = entecontrol.objects.values()
-     formper = fente(request.POST or None)
-     if formper.is_valid():
-        formper.save()
-        messages.success(request, 'Ente de control agregado.')
+def entecontrols(request):
+    if request.method == 'POST':
+        if 'nombre_act' in request.POST:  
+            ente_id = request.POST.get('ente_id')
+            ente = get_object_or_404(entecontrol, id=ente_id)
+            form = fente(request.POST, instance=ente)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Ente de control actualizado.')
+            else:
+                messages.error(request, 'Error al actualizar el ente de control.')
+        else:  # Creación
+            form = fente(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Ente de control agregado.')
+            else:
+                messages.error(request, 'Error al agregar el ente de control.')
         return redirect('entecontrol')
-     return render(request, 'entecontrol.html', {'datos': datos, 'formper': formper}) 
+
+    datos = entecontrol.objects.values()
+    formper = fente()
+    return render(request, 'entecontrol.html', {'datos': datos, 'formper': formper})
+
+
 
 @login_required
 def  dependencias(request):
@@ -129,7 +193,6 @@ def  entregar(request, id):
             'evidencias': evidencias
          })
 
-
      normativa = informes.normativa
      entecontrol = informes.entecontrol
      fechaentregainicial = informes.fechaentregainicial
@@ -141,15 +204,24 @@ def  entregar(request, id):
      descripcion = informes.descripcion
      alarmas = informes.alarmas
      alarmas2 = informes.alarmas2
-     alarmas3 = informes.alarmas3
-     ###modificar para etregar alarmas segun la cantidad#####
+     alarmas3 = informes.alarmas3 # pendiente configurar alarmas segn cantidades para la notificacion y el frontend
+     forevidencia = ''
 
+     if request.method == 'POST':
+        forevidencia = fevidencia(request.POST, request.FILES)
+        if forevidencia.is_valid():
+            forevidencia.save()
+            messages.success(request, 'Evidencia entregada')
+            return redirect('entrega', id=id)
+        else :
+            messages.error(request, 'No se realizo el cargue de evidencias')
+            print("NO se realizo el cargue de evidencias")
 
      return render(request, 'entrega.html', {'nombre': nombre, 'normativa': normativa, 'entecontrol': entecontrol, 'dependencia': dependencia,
      'fechaentregainicial': fechaentregainicial, 'periodicidad': periodicidad, 'periodicidadtipo': periodicidadtipo, 'totalentregas': totalentregas,
      'activo': activo, 'descripcion': descripcion, 'dias': dias, 'fechaentregapendiente': fechaentregapendiente, 'responsable': responsable,
      'correoresponsable': correoresponsable, 'entregas': entregas, 'entregas_con_evidencias': entregas_con_evidencias, 'alarmas': alarmas,
-     'alarmas2': alarmas2, 'alarmas3': alarmas3 } ) 
+     'alarmas2': alarmas2, 'alarmas3': alarmas3, 'forevidencia': forevidencia } ) 
 
 @login_required
 def obtener_nombre_responsable(request):

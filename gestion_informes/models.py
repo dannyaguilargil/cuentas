@@ -78,7 +78,8 @@ class entrega(models.Model):
 class evidencia(models.Model):
     id = models.AutoField(primary_key=True)
     entrega=models.ForeignKey(entrega,null=True,blank=True,on_delete=models.CASCADE) ##informe
-    nombre = models.CharField(max_length=200, verbose_name='Nombre')
+    nombre = models.CharField(max_length=200, verbose_name='Nombre', null=True,blank=True)##lo tomare como observaciones
+    archivo = models.FileField(upload_to='pdfs/', default=obtener_archivo_predeterminado, verbose_name='Archivo de evidencia')
     activo = models.BooleanField(default=True)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)

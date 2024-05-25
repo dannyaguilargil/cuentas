@@ -46,7 +46,7 @@
                       <div class="div-responsive">
                         <table
                           class="table table-striped table-bordered"
-                          id="tabla-datos-del-informe"
+                          id="tabla-entregas"
                         >
                           <tbody>
                             <tr>
@@ -150,12 +150,19 @@
                   <div class="card card-primary">
                     <div class="card-header">
                       <h5 class="card-title">Listado de entregas</h5>
+                    {% if messages %}
+                      {% for message in messages %}
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
+                      {% endfor %}
+                    {% endif %}
                     </div>
                     <div class="card-body">
                       <div class="div-responsive">
                         <table
-                          class="table table-striped table-bordered"
-                          id="tabla-listado-entregas"
+                          class="table table-hover table-bordered"
+                          id="tabla-informes"
                         >
                           <thead>
                             <tr>
@@ -175,23 +182,28 @@
                                 <td>{{ item.entrega.fecha }}</td>
                                 <td>
                                   {% for evidencia in item.evidencias %}
-                                          <li>{{ evidencia.nombre }}</li>
+                                          <li><a
+                                            href="/static/{{ evidencia.archivo }}"
+                                            target="_blank"
+                                            >
+                                            {{ evidencia.archivo }}</a
+                                          ></li>
                                   {% endfor %}
                                 </td> <!-- Ahora debo remplazar el nombre por los enlaces de entrega-->
                                 <td class="text-center">
-                                  <a type="button" class="fas fa-upload btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                  <a type="button" class="fas fa-upload btn btn-warning btn-sm ver" data-bs-toggle="modal" data-bs-target="#exampleModal"
                                   name="ver"
                                   data-bs-toggle="modal"
                                   data-bs-target="#ex" 
                                   data-fecha="{{item.entrega.fecha}}"
-                                  data-nombre="{{item.nombre}}"
+                                  data-bs-entrega="{{ item.entrega.id }}"
                                   >
                                     
                                   </a>
                                                                   </td>
                                 <td class="text-center">
                                   <button class="btn btn-outline-success btn-sm">
-                                    {{ entrega.activo|yesno:"Activo,Inactivo" }}
+                                    {{ item.entrega.activo|yesno:"Activo,Inactivo" }}
                                   </button>
                                   
                                 </td>
@@ -245,11 +257,17 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <label for="">Nombre del informe</label>
-        <input type="text" class="form-control" name="nombre" id="nombre"  disabled placeholder="Nombre del informe"> <br>
-        <label for="">Entrega</label>
-        <input type="text" class="form-control" placeholder="Fecha de entrega" name="fecha" id="fecha" disabled> <br>
-        <input type="file" name="" id="" class="form-control">
+        <form action="" method="POST" class="form-control" enctype="multipart/form-data">
+        {% csrf_token %}
+
+       
+        <!-- intentare solo nombre, pero revisar porque no hace la insserccion con relacion anetrega llave foranea-->
+        <input type="hidden" class="form-control" value="" placeholder="Id de la entrega" name="entrega" id="entrega" readonly> 
+        <label for="">Observaciones</label>
+        <input type="text" class="form-control" value="" placeholder="Observaciones opcional" name="nombre" id="nombre" autofocus>
+        <label for="">Fecha de entrega</label>
+        <input type="text" class="form-control" placeholder="Fecha de entrega" name="fecha" id="fecha" readonly> <br>
+        <input type="file" name="archivo" id="archivo" class="form-control">
 
 
 
@@ -267,7 +285,7 @@
             </vue-dropzone>
           </div>
         </div>
-<div class="col-xs-12" id="msg-errors">
+          <div class="col-xs-12" id="msg-errors">
           <div v-if="msgerror.mensaje" class="flex">
             <div>
               <img :src="msgerror.img" style="width: 25px" />
@@ -286,8 +304,9 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Guardar evidencia</button>
+        <button type="sumbit" class="btn btn-primary">Guardar evidencia</button>
       </div>
+    </form>
     </div>
   </div>
 </div>
@@ -302,7 +321,15 @@
   }
   </style>
       
-      
+      <script>
+        var evidenciaModal = document.getElementById('exampleModal');
+        evidenciaModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            var entregaId = button.getAttribute('data-bs-entrega');
+            var inputEntregaId = evidenciaModal.querySelector('#entrega');
+            inputEntregaId.value = entregaId;
+        });
+    </script>
 
 
 

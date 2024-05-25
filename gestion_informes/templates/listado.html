@@ -5,7 +5,7 @@
    <h5> Listado de informes </h5>
    </center>
    <div class="table-responsive"> 
-    <table id="tabla-usuarios" class="table table-bordered table-hover table-striped">
+    <table id="tabla-informes" class="table table-bordered table-striped">
       <caption>
          Listado de informes
       </caption>
@@ -143,9 +143,7 @@
 
           <table class="table table-bordered table-striped">
          
-       
-
-
+    
            
             <tbody>
               <tr>
@@ -162,10 +160,10 @@
               <tr>
           
                 <th scope="col">Normativa:</th>
-                <th scope="col"><input type="text" name="normativa" id="normativa" class="form-control">
-                 <center>
-                  <a href="">Ver</a>
-                 </center> 
+                <th scope="col"><input type="hidden" name="normativa" id="normativa" class="form-control">
+                
+                  <a id="ver-normativa" href="{../}" target="_blank" class="btn btn-sm fas fa-eye"> Ver</a>
+                 
                 </th>
                 
               
@@ -277,9 +275,6 @@
   <!-- AQUI DEBE ASIGNAR EL MISMO SISTEMA EL NOMBRE DE USUARIO Y POR DEFECTO LA CONTRASEÑA ES LA CEDULA-->
   <script>
 
-   
-
-
 
 
     // Función para cargar los campos de nombre del responsable y correo del responsable
@@ -296,10 +291,17 @@
             // Obtener los datos del atributo data de cada botón
             var nombre = boton.getAttribute('data-dependencia_responsable');
             var correo = boton.getAttribute('data-dependencia_correoresponsable');
+            var normativa = boton.getAttribute('data-normativa');
 
             // Llamar a la función para cargar los datos del responsable y el correo del responsable
             cargarDatosResponsable(nombre, correo);
+            ///para el cargue de normativa
+            var urlNormativa = "../static/"+normativa;
+            document.getElementById("ver-normativa").href = urlNormativa;
 
+
+
+         
 
           
         });
