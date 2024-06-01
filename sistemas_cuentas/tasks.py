@@ -1,7 +1,7 @@
 from celery import shared_task
 from django.core.mail import send_mail
 from django.conf import settings
-
+from django.utils import timezone
 
 #@shared_task
 #def enviar_alarma(correo, mensaje):
@@ -13,7 +13,7 @@ from django.conf import settings
 #        fail_silently=False,
 #        
 #    )
-
 @shared_task
 def prueba():
-    print('Celery esta funcionando!')
+    current_time = timezone.now()
+    print(f"La hora actual es: {current_time}")

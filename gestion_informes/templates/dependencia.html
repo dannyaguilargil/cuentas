@@ -81,6 +81,8 @@
           <form action="" method="POST" >
             {% csrf_token %}
 
+          <input type="hidden" name="dep_id" id="dep_id" placeholder="esto va oculto, es para pruebas">
+          
 
           <label for="nombre">Nombre de la dependencia *</label>
           <input type="text" name="nombre_act" id="nombre_act" placeholder="Nombre de la dependencia" class="form-control" required>
@@ -144,6 +146,7 @@
 
                 <a  class="fa fa-edit btn btn-outline-primary btn-sm" 
                 data-nombre="{{objeto.nombre}}"
+                data-id="{{objeto.id}}"
                 data-responsable="{{objeto.responsable}}"
                 data-correoresponsable="{{objeto.correoresponsable}}"
                 data-cedula="{{objeto.cedula}}"

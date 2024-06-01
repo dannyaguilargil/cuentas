@@ -16,8 +16,8 @@ def enviar_alarma(correo, mensaje):
     )
 
 @shared_task
-def enviar_alarma2(correo, mensaje_html):
-    subject = 'Alarma del informe'
+def enviar_alarma2(correo, mensaje_html, nombre_informe):
+    subject = f'Alarma del informe: {nombre_informe}'
     from_email = settings.DEFAULT_FROM_EMAIL
     to_email = [correo]
     text_content = "Alarma del Sistema de Administracion de Recursos y Aplicaciones"

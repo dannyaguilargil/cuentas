@@ -5,6 +5,7 @@ from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 import os
 from django.conf import settings
+
 #Modificaciones del frontend
 admin.site.site_header = "Administracion sistema de cuentas"
 admin.site.site_title = "Administracion"

@@ -22,8 +22,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.views.decorators.http import require_GET
 ####### GESTION DE ARCHIVOS PDF
 from django.http import HttpResponse
@@ -47,6 +46,9 @@ import io
 import base64
 from django.utils.timezone import now
 from django_celery_results.models import TaskResult
+from django.contrib.auth import logout as django_logout
+from django.core.exceptions import PermissionDenied
+
 
 @login_required
 def  base(request):
@@ -55,8 +57,9 @@ def  base(request):
 @login_required
 def  usuarios(request):
      datosu = usuario.objects.values()
-     username = request.user.username #validar esto
-     return render(request, 'usuarios.html', {'username': username, 'datosu': datosu}) # se modifica esto con lo anterior pero para no poner toda la ruta, cambiando en settin.py insatllerds app poniendo la ruta
+     username = request.user.username
+     es_staff = request.user.is_staff 
+     return render(request, 'usuarios.html', {'username': username, 'datosu': datosu, 'es_staff': es_staff}) # se modifica esto con lo anterior pero para no poner toda la ruta, cambiando en settin.py insatllerds app poniendo la ruta
 
 ################LOGIN####################
 def home(request):
@@ -71,9 +74,10 @@ def home(request):
                     login(request, user)
                     print("Inicio sesion el administrador")
                     return redirect('dashboard')
-                elif user.groups.filter(name='identidades').exists():
-                    print("Inicio sesión a gestion de identidades")
-                    return redirect('identidades')
+                elif user.groups.filter(name='informes').exists():
+                    login(request, user)
+                    print("Inicio sesión a gestion de informes")
+                    return redirect('informe')
                 else:
                     print("Inicio sesion el contratista")
                     login(request, user)
@@ -110,8 +114,8 @@ def solicitud_usuario(request):
 #GESTION DE DOCUMENTOS DE GESCON
 @login_required
 def documentos(request):
-    username = "ADMINISTRADOR"
     username = request.user.username
+    es_staff = request.user.is_staff 
     form = Contrato(request.POST ,request.FILES)
     if form.is_valid():
         form.save()
@@ -168,7 +172,7 @@ def documentos(request):
             
     
             return render(request, 'sdocumentos.html', {'texto_extraido': texto_extraido, 'resultado_busqueda': resultado_busqueda, 'resultado_busqueda2': resultado_busqueda2, 'resultado_busqueda3': resultado_busqueda3, 'nproceso': nproceso, 'proceso': proceso,
-                                                        'fechainicio': fechainicio, 'fechafinal': fechafinal, 'duracion': duracion, 'valor': 'valor', 'valor': valor, 'cedula': cedula})
+                                                        'fechainicio': fechainicio, 'fechafinal': fechafinal, 'duracion': duracion, 'valor': 'valor', 'valor': valor, 'cedula': cedula,'username': username, 'es_staff': es_staff})
         except Exception as e:
             # Manejar posibles errores al guardar o extraer el archivo
             print(f"Error en el procesamiento del PDF: {e}")
@@ -274,7 +278,7 @@ def documentos(request):
         return render(request, 'sdocumentos.html')
         ##########################################################
         ################# IIIIIIIIIIIAAAAAAAAAA ##################
-    return render(request, 'sdocumentos.html', {'form': form, 'formrp': formrp, 'forminicio': forminicio, 'username': username})
+    return render(request, 'sdocumentos.html', {'form': form, 'formrp': formrp, 'forminicio': forminicio, 'username': username, 'es_staff': es_staff})
 
 @login_required
 def perfil(request):
@@ -292,6 +296,7 @@ def perfil(request):
             #    formp = InsertForm()
             ################# AQUI VOY A REGISTRAR LA CUENTA######     
     username = request.user.username
+    es_staff = request.user.is_staff 
     usuario_obj = usuario.objects.filter(usuario=username).first()
     progreso=1
     numero = 2
@@ -442,7 +447,7 @@ def perfil(request):
                                         'supervisor': supervisor, 'numero': numero, 'objeto': objeto, 'valor': valor, 'fechaterminacion': fechaterminacion, 'duracion': duracion, 'numerorp': numerorp, 'fecharp': fecharp, 'numeroai': numeroai, 'progreso': progreso, 'fechaai': fechaai,
                                         'numeroplanilla': numeroplanilla, 'fechaplanilla': fechaplanilla, 'valortotalplanilla': valortotalplanilla, 'periodoplanilla': periodoplanilla, 'nombresalud': nombresalud, 'valorsalud': valorsalud, 'nombrearl': nombrearl, 'valorarl': valorarl,
                                         'nombrepension': nombrepension, 'valorpension': valorpension, 'lugar': lugar, 'fechaact': fechaact, 'actividadess': actividadess, 'resultadoactividades': resultadoactividades, 'observacionesc': observacionesc, 'numeroacta': numeroacta,
-                                        'periodoap': periodoap, 'numerocuentapago': numerocuentapago, 'cuentapago': cuentapago})
+                                        'periodoap': periodoap, 'numerocuentapago': numerocuentapago, 'cuentapago': cuentapago, 'es_staff': es_staff})
 #############TRAE DATOS SEGUN CORRESPONDE ###################
     
 #gestion de documentos de usuarios
@@ -450,6 +455,7 @@ def perfil(request):
 def documentos_usuario(request):
     form = Contratou(request.POST ,request.FILES)
     username = request.user.username
+    es_staff = request.user.is_staff 
     cedula = 0
     numero = "No tiene contrato asignado"
     numeroproceso = "No tiene contrato asignado"
@@ -612,7 +618,7 @@ def documentos_usuario(request):
                                                         'numero': numero, 'duracion': duracion, 'estado': estado, 'cedula': cedula, 'numeroproceso': numeroproceso, 'numerorp': numerorp, 'fecharp': fecharp, 'estadorp': estadorp,'numeroai': numeroai, 'fechaai': fechaai, 'estadoai': estadoai,
                                                         'numeroplanilla': numeroplanilla, 'fechaplanilla': fechaplanilla, 'estadoplanilla': estadoplanilla, 'lugar': lugar, 'fechaact': fechaact, 'numeroacta': numeroacta, 'periodoap': periodoap, 'numerocuentapago': numerocuentapago,
                                                         'cuentapago': cuentapago, 'lista': lista, 'objeto': objeto, 'fechaperfeccionamiento': fechaperfeccionamiento, 'valorc': valorc, 'fechacontrato': fechacontrato, 'fechaterminacion': fechaterminacion, 'periodoplanilla': periodoplanilla,
-                                                        'valortotalplanilla': valortotalplanilla, 'nombresalud': nombresalud, 'nombrepension': nombrepension, 'valorpension': valorpension, 'valorsalud': valorsalud, 'nombrearl': nombrearl, 'valorarl': valorarl, 'supervisor': supervisor})
+                                                        'valortotalplanilla': valortotalplanilla, 'nombresalud': nombresalud, 'nombrepension': nombrepension, 'valorpension': valorpension, 'valorsalud': valorsalud, 'nombrearl': nombrearl, 'valorarl': valorarl, 'supervisor': supervisor, 'es_staff': es_staff})
 #gestion de documentos de usuarios
 @login_required
 def list_usuarios(request):
@@ -647,28 +653,28 @@ def usolicitud(request):
     return JsonResponse(data)
 
 #logueo de usuario
-#AQUI VOY A INTENTAR CREAR EL USUARIO EN AUTH_USER PARA DARLE LA SEGURIDAD#
+#AQUI VOY A INTENTAR CREAR 
 @login_required
 def crear(request):
+    username = request.user.username
+    es_staff = request.user.is_staff
     formularios = Usuario(request.POST or None)
     if formularios.is_valid():
         formularios.save()
         #aqui voy a insertar en auth_user
-        username = formularios.cleaned_data.get('usuario')
+        username2 = formularios.cleaned_data.get('usuario')
         email = formularios.cleaned_data.get('email')
         password = formularios.cleaned_data.get('contrasena')
-         # Crear un nuevo usuario
-        new_user = User.objects.create_user(username=username, email=email, password=password)
-        # Guardar el nuevo usuario
+        new_user = User.objects.create_user(username=username2, email=email, password=password)
         new_user.save()
-        #autenticar el usuario
-        user = authenticate(username=username, password=password)
+        user = authenticate(username=username2, password=password)
         messages.success(request, 'Cuenta creada')
         return render(request, 'crear.html')
-    return render(request, 'crear.html',  {'formularios': formularios})
+    return render(request, 'crear.html',  {'formularios': formularios, 'username': username, 'es_staff': es_staff})
 
 #logout de la pagina
 def logout(request):
+    django_logout(request)
     return redirect('login')
 
 #USUARIOS PENDIENTES SIN DATATABLE
@@ -705,6 +711,8 @@ def eliminarregistro(request, cedula):
 #usuarios pendientes opcion de guardado    
 @login_required
 def usuarios_pendient(request):
+    username = request.user.username
+    es_staff = request.user.is_staff
     solicitud_obj = ""
     datos = usolicitudes.objects.values()
     forupendiente = InsertFormU(request.POST or None)
@@ -738,7 +746,7 @@ def usuarios_pendient(request):
     #    cuenta = usolicitudes.objects.filter(cedula=cedula)
     #    cuenta.delete()
     #    return redirect('usuario_pendient')
-    return render(request, 'usuariospendient.html', {'datos': datos, 'forupendiente': forupendiente, 'solicitud_obj': solicitud_obj})
+    return render(request, 'usuariospendient.html', {'datos': datos, 'forupendiente': forupendiente, 'solicitud_obj': solicitud_obj, 'username': username, 'es_staff': es_staff})
 
 @login_required
 def eliminador(request, cedula):
@@ -833,6 +841,7 @@ def ops(request):
 @login_required
 def cuentas(request):
     username = request.user.username
+    es_staff = request.user.is_staff
     numero = 1
     cedula = 1
     numeroproceso = 1
@@ -924,7 +933,7 @@ def cuentas(request):
                                             'fechaperfeccionamiento': fechaperfeccionamiento, 'valor': valor, 'fechacontrato': fechacontrato, 'fechaterminacion': fechaterminacion, 'duracion': duracion,
                                             'archivo': archivo, 'supervisor': supervisor, 'objeto': objeto, 'numerorp': numerorp, 'fecharp': fecharp, 'numeroai': numeroai, 'fechaai': fechaai, 'archivorp': archivorp,
                                             'archivoinicio': archivoinicio, 'numeroplanilla': numeroplanilla, 'cedula': cedula, 'formpers': formpers, 'nombre': nombre, 'segundonombre': segundonombre, 'primerapellido': primerapellido,
-                                            'segundoapellido': segundoapellido, 'pdfplanilla': pdfplanilla, 'flujo': flujo})
+                                            'segundoapellido': segundoapellido, 'pdfplanilla': pdfplanilla, 'flujo': flujo, 'es_staff': es_staff})
     #SELECT count(*) from gestion_usuarios_contrato where usuario_id=1090492324;
     
 #ASIGNARLE CEDULA A LOS PDF PARA EXTRAER LOS DATOS
@@ -1221,10 +1230,16 @@ def limpiar_texto(texto):
 
 @login_required
 def usuariosauditoria(request):
-    return render(request, 'auditoria.html')
+    username = request.user.username
+    es_staff = request.user.is_staff
+    return render(request, 'auditoria.html',{'username': username, 'es_staff': es_staff})
+
 
 @login_required
+#@staff_required pendiente aplicar esta configuracion
 def dashboard(request):
+    username = request.user.username
+    es_staff = request.user.is_staff
      # Filtrar las tareas del mes actual
     start_date = now().replace(day=1)
     end_date = now()
@@ -1252,8 +1267,13 @@ def dashboard(request):
     buf.seek(0)
     string = base64.b64encode(buf.read()).decode()
     uri = 'data:image/png;base64,' + string
-    return render(request, 'dashboard.html', {'data': uri})
+    return render(request, 'dashboard.html', {'data': uri, 'username': username, 'es_staff': es_staff})
 
-
+def staff_required(view_func):
+    def _wrapped_view_func(request, *args, **kwargs):
+        if not request.user.is_staff:
+            return redirect('login')  # Redirigir al login si no es staff
+        return view_func(request, *args, **kwargs)
+    return _wrapped_view_func
 
     

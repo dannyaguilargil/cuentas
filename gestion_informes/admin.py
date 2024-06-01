@@ -2,6 +2,7 @@ from django.contrib import admin
 from .models import  entecontrol,dependencia,informe,alarma,entrega,evidencia
 from django.utils.html import format_html
 
+
 # Register your models here.
 class enteControl(admin.ModelAdmin):
     list_display= ('id', 'nombre', 'descripcion', 'activo', 'fecha_creacion', 'fecha_actualizacion')

@@ -111,7 +111,7 @@
                             </tr>
                             <tr>
                               <td>
-                                 <b> Estado del Informe: </b> {{ activo }}
+                                 <b> Estado del Informe: </b>   {{ activo|yesno:"Activo,Inactivo" }}
                               </td>
                               <td>
                                  <b>Descripcion del Informe:</b> {{ descripcion }}

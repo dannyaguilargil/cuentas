@@ -13,11 +13,16 @@ from django.views.generic.edit import FormView
 from .tasks import enviar_alarma,enviar_alarma2
 from datetime import datetime, timedelta
 from django.contrib.auth.decorators import login_required
-#####REUERIDOS PARA EL DASHBOARD#####
+#####REUERIDOS PARA EL CALCULO DE ENTREGAS#####
+from dateutil.relativedelta import relativedelta
+from django.conf import settings
 
 
 @login_required
 def informes(request):
+    #print("SESSION_EXPIRE_AT_BROWSER_CLOSE:", settings.SESSION_EXPIRE_AT_BROWSER_CLOSE)
+    #print("SESSION_COOKIE_AGE:", settings.SESSION_COOKIE_AGE)
+    username = request.user.username
     entes_control = entecontrol.objects.all()
     entes_dependencia = dependencia.objects.all()
     ### inserccion del informe ##
@@ -25,46 +30,35 @@ def informes(request):
     if finformes.is_valid():
         informe = finformes.save()
         messages.success(request, 'Informe agregado correctamente.')
+        nombre_informe = informe.nombre
 
         ####configuracion de envios de tareas programadas#####
         print("Informe creado exitosamente")
-        nombre_responsable = request.POST.get('responsable')
+        nombre_responsable = request.POST.get('nombreresponsable')
         correo_responsable = request.POST.get('correoresponsable')##no lo paso por formulario, debo mirar como lo tomo
         print(nombre_responsable)
         print(correo_responsable)
         dias_anticipacion = int(request.POST.get('alarmas'))
+        ########cargando las otras dos alarmas######
+        dias_anticipacion2 = int(request.POST.get('alarmas2') or 0)
+        dias_anticipacion3 = int(request.POST.get('alarmas3') or 0)
+        #############################################
         print(dias_anticipacion)
+        print(dias_anticipacion2)
+        print(dias_anticipacion3)
         fecha_entrega_inicial = datetime.strptime(request.POST.get('fechaentregainicial'), '%Y-%m-%d')
         print(fecha_entrega_inicial)
         fecha_alarma = fecha_entrega_inicial - timedelta(days=dias_anticipacion)
+        ########cargando las otras dos alarmas######
+        fecha_alarma2 = fecha_entrega_inicial - timedelta(days=dias_anticipacion2)
+        fecha_alarma3 = fecha_entrega_inicial - timedelta(days=dias_anticipacion3)
+        ########cargando las otras dos alarmas######
         print(fecha_alarma)
-
-        ###revisar dependencias y salto de linea, imaganes,fecha entrega incial cambiarla a fech entrega pendiente
-        ###enviar la tarea de alarma
-        #enviar_alarma.apply_async(
-        #    args=[
-        #        correo_responsable, 
-        #        f""" {nombre_responsable},
-        #        esta a {informe.alarmas} dias de la fecha LIMITE
-        #        para entregar el informe: {informe.nombre}
-        #        al ente de control: {informe.entecontrol}
-        #        Fecha limite: {informe.fechaentregainicial}
-        #
-        #        Recuerde que debe ENVIAR el ticket en la mesa de ayuda para que la
-        #        oficina de INFORMATICA pueda validar la informacion A TIEMPO
-        #
-        #        <a">Ver informe</a> <a>Mesa de ayuda</a> 
-        #        """
-        #    ],
-        #    eta=fecha_alarma
-        #)
-        ###VERSION 1 EL DE ARRIBA#########
-         # Construir el mensaje HTML
         mensaje_html = f"""
             <html>
             <body>
-                <p>{informe.dependencia},</p>
-                <p>Está a <b style="color: green;">{dias_anticipacion} días</b> de la fecha límite para entregar el informe: <strong>{informe.nombre}</strong> al ente de control: <strong>{informe.entecontrol}</strong>.</p>
+                <p>{nombre_responsable},</p>
+                <p>Está a <b style="color: green;">{dias_anticipacion} días</b> de la fecha LIMITE para entregar el informe: <strong>{informe.nombre}</strong> al ente de control: <strong>{informe.entecontrol}</strong>.</p>
                 <p>Fecha límite: <strong>{informe.fechaentregainicial}</strong></p>
                 <p>Recuerde que debe <strong>ENVIAR</strong> el ticket en la mesa de ayuda para que la oficina de <b style="color: green">INFORMATICA</b> pueda validar la información <b>A TIEMPO</b>.</p>
                 <p><a type="button" href="http://sara.imsalud.gov.co:8000/informe/entrega/{informe.id}">Ver informe</a> | <a type="button" href="https://soporte.imsalud.gov.co">Mesa de ayuda</a></p>
@@ -74,13 +68,48 @@ def informes(request):
             
             # Envío del correo de alarma
         enviar_alarma2.apply_async(
-            args=[correo_responsable, mensaje_html],
+            args=[correo_responsable, mensaje_html, nombre_informe],
             eta=fecha_alarma
-        )       
+        )
+        ########cargando las otras dos alarmas###### 
+        enviar_alarma2.apply_async(
+            args=[correo_responsable, mensaje_html, nombre_informe],
+            eta=fecha_alarma2
+        )
+        
+        enviar_alarma2.apply_async(
+            args=[correo_responsable, mensaje_html, nombre_informe],
+            eta=fecha_alarma3
+        )
+        ########cargando las otras dos alarmas######     
 
+        ###AQUI VA LA CREACION AUTOMATICAS DE LAS ENTREGAS### 
+        periodicidad = int(request.POST.get('periodicidad'))
+        periodicidadtipo = request.POST.get('periodicidadtipo')
+        totalentregas = int(request.POST.get('totalentregas'))
+        fecha_entrega = fecha_entrega_inicial
+
+        for i in range(totalentregas):
+            entrega.objects.create(informe=informe, fecha=fecha_entrega, activo=True)
+            print(f"Entrega {i + 1}: Fecha de entrega {fecha_entrega}")
+            if periodicidadtipo == 'Dias':
+                fecha_entrega += timedelta(days=periodicidad)
+            elif periodicidadtipo == 'Meses':
+                fecha_entrega += relativedelta(months=periodicidad)
+            else:
+                print(f"Tipo de periodicidad no reconocido: {periodicidadtipo}")
+                break  
         return redirect('informe')
-    finformes = finforme()
-    return render(request, 'informes.html', {'entes_control': entes_control, 'entes_dependencia': entes_dependencia, 'finformes': finformes }) 
+        ###AQUI VA LA CREACION AUTOMATICAS DE LAS ENTREGAS### 
+
+
+    else:
+        finformes = finforme()
+        print("Rednderizado")
+    pertenece_a_informes = request.user.groups.filter(name='informes').exists()
+    es_staff = request.user.is_staff
+    return render(request, 'informes.html', {'entes_control': entes_control, 'entes_dependencia': entes_dependencia, 'finformes': finformes, 'username': username, 'pertenece_a_informes': pertenece_a_informes,
+                                             'es_staff': es_staff}) 
 
 #ejemplo con solicitudes de usuarios provisionalmente
 @login_required
@@ -106,8 +135,10 @@ def listadodependencia(request):
 #ejemplo con solicitudes de usuarios provisionalmente
 @login_required
 def  listado(request):
+     username = request.user.username
+     es_staff = request.user.is_staff
      datos = informe.objects.all().select_related('entecontrol', 'dependencia')#para busqueda relacionada en cascada
-     return render(request, 'listado.html', {'datos': datos}) 
+     return render(request, 'listado.html', {'datos': datos, 'username': username, 'es_staff': es_staff}) 
 
 #@login_required
 #def  entecontrols(request):
@@ -121,17 +152,22 @@ def  listado(request):
 #     return render(request, 'entecontrol.html', {'datos': datos, 'formper': formper}) 
 @login_required
 def entecontrols(request):
+    username = request.user.username
     if request.method == 'POST':
+        # Comprobamos si es una actualización o una creación
         if 'nombre_act' in request.POST:  
+            # Actualización
             ente_id = request.POST.get('ente_id')
             ente = get_object_or_404(entecontrol, id=ente_id)
-            form = fente(request.POST, instance=ente)
-            if form.is_valid():
-                form.save()
+            ente.nombre = request.POST.get('nombre_act')
+            ente.descripcion = request.POST.get('descripcion_act')
+            if ente.nombre:  # Validación mínima
+                ente.save()
                 messages.success(request, 'Ente de control actualizado.')
             else:
                 messages.error(request, 'Error al actualizar el ente de control.')
-        else:  # Creación
+        else:
+            # Creación
             form = fente(request.POST)
             if form.is_valid():
                 form.save()
@@ -139,26 +175,49 @@ def entecontrols(request):
             else:
                 messages.error(request, 'Error al agregar el ente de control.')
         return redirect('entecontrol')
-
+    
+    # GET request
     datos = entecontrol.objects.values()
     formper = fente()
-    return render(request, 'entecontrol.html', {'datos': datos, 'formper': formper})
-
-
+    es_staff = request.user.is_staff
+    return render(request, 'entecontrol.html', {'datos': datos, 'formper': formper, 'username': username, 'es_staff': es_staff})
 
 @login_required
-def  dependencias(request):
-     datos = dependencia.objects.values()
-     formpers = fdependencia(request.POST or None)
-     if formpers.is_valid():
-        formpers.save()
-        messages.success(request, 'Dependencia agregado.')
+def dependencias(request):
+    username = request.user.username
+    if request.method == 'POST':
+        # Comprobamos si es una actualización o una creación
+        if 'nombre_act' in request.POST:
+            # Actualización
+            dep_id = request.POST.get('dep_id')
+            dep = get_object_or_404(dependencia, id=dep_id)
+            dep.nombre = request.POST.get('nombre_act')
+            dep.responsable = request.POST.get('responsable_act')
+            dep.correoresponsable = request.POST.get('correoresponsable_act')
+            if dep.nombre:  # Validación mínima
+                dep.save()
+                messages.success(request, 'Dependencia actualizada.')
+            else:
+                messages.error(request, 'Error al actualizar la dependencia.')
+        else:
+            # Creación
+            form = fdependencia(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Dependencia agregada.')
+            else:
+                messages.error(request, 'Error al agregar la dependencia.')
         return redirect('dependencias')
-     return render(request, 'dependencia.html', {'datos': datos, 'formpers': formpers}) 
-
+    
+    # GET request
+    datos = dependencia.objects.values()
+    formpers = fdependencia()
+    es_staff = request.user.is_staff
+    return render(request, 'dependencia.html', {'datos': datos, 'formpers': formpers, 'username': username, 'es_staff': es_staff})
 ## en entregas debe trarse el id del informe
 @login_required
 def  entregar(request, id):
+     username = request.user.username
      informes = get_object_or_404(informe, id=id)
 
      dependencia = informes.dependencia
@@ -216,12 +275,12 @@ def  entregar(request, id):
         else :
             messages.error(request, 'No se realizo el cargue de evidencias')
             print("NO se realizo el cargue de evidencias")
-
+     es_staff = request.user.is_staff
      return render(request, 'entrega.html', {'nombre': nombre, 'normativa': normativa, 'entecontrol': entecontrol, 'dependencia': dependencia,
      'fechaentregainicial': fechaentregainicial, 'periodicidad': periodicidad, 'periodicidadtipo': periodicidadtipo, 'totalentregas': totalentregas,
      'activo': activo, 'descripcion': descripcion, 'dias': dias, 'fechaentregapendiente': fechaentregapendiente, 'responsable': responsable,
      'correoresponsable': correoresponsable, 'entregas': entregas, 'entregas_con_evidencias': entregas_con_evidencias, 'alarmas': alarmas,
-     'alarmas2': alarmas2, 'alarmas3': alarmas3, 'forevidencia': forevidencia } ) 
+     'alarmas2': alarmas2, 'alarmas3': alarmas3, 'forevidencia': forevidencia, 'username': username, 'es_staff': es_staff } ) 
 
 @login_required
 def obtener_nombre_responsable(request):
@@ -250,17 +309,16 @@ class ReviewEmailView(FormView):
 
 @login_required
 def informeactualizar(request, id):
+    username = request.user.username
     ### por ahora comentados, pero la idea es que si pueda cambiar el ente de control y dependencia##
-    #controles = entecontrol.objects.all()
-    #depende = dependencia.objects.all()
-    ###toca asociarlo#####################
-
-    ####campos para ser actualizados###
+    controles = entecontrol.objects.all()
+    depende = dependencia.objects.all()
+    
     informes = get_object_or_404(informe, id=id)
     nombre = informes.nombre
     normativa = informes.normativa
-    entecontrol = informes.entecontrol
-    dependencia = informes.dependencia
+    entecontrols = informes.entecontrol
+    dependencias = informes.dependencia
     fechaentregainicial = informes.fechaentregainicial
     fechaentregapendiente = informes.fechaentregapendiente
     periodicidad = informes.periodicidad
@@ -269,11 +327,12 @@ def informeactualizar(request, id):
     activo = informes.activo
     descripcion = informes.descripcion
     ####campos para ser actualizados###
-
+    es_staff = request.user.is_staff
 
     ### inserccion del informe ##
-    return render(request, 'informes-actualizar.html', {'nombre': nombre, 'entecontrol': entecontrol, 'dependencia': dependencia, 'descripcion': descripcion,
-    'fechaentregainicial': fechaentregainicial}) 
+    return render(request, 'informes-actualizar.html', {'nombre': nombre, 'entecontrols': entecontrols, 'dependencias': dependencias, 'descripcion': descripcion,
+    'fechaentregainicial': fechaentregainicial, 'username': username, 'es_staff': es_staff, 'periodicidad': periodicidad, 'periodicidadtipo': periodicidadtipo,
+    'totalentregas': totalentregas}) 
 
 #opcion de eliminar aqui
 @login_required

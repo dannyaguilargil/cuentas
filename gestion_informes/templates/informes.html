@@ -237,6 +237,8 @@
                                   <label for="report-regulations"
                                     >Finalizar despues de cuantas entregas *</label
                                   >
+
+                                 
                                   <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                       <span class="input-group-text">
@@ -244,7 +246,7 @@
                                           type="checkbox"
                                           id="check"
                                           name="check"
-                                       
+                                          
                                         />
 
                                         <label
@@ -255,6 +257,7 @@
                                         >
                                       </span>
                                     </div>
+                                   
 
                                     <input
                                       type="number"
@@ -262,7 +265,8 @@
                                       id="totalentregas"
                                       class="form-control text-center"
                                       min="1"
-                                      max="10000"
+                                      max="1000"
+                                      value="100"
                                     
                                       
                                     />
@@ -277,97 +281,78 @@
 
 
 
-
-                        <!-- Configuracion de alarmas-->
-                       
-
                         <div class="card card-primary">
                           <div class="card-header" style="background: #FFFFCC;">
-                            <h6 class="card-title">
-                              Configuración de alarmas
-                            </h6>
+                            <h6 class="card-title">Configuración de alarmas</h6>
                           </div>
-
-
                           <div class="card-body">
-                            <form action="" class="form-control">
-                            <div class="row">
-                              <div class="col-xs-8 col-sm-4">
-                                <div class="form-group">
-                                  <label
-                                    >Días de anticipación a la fecha de entrega
-                                    *</label
-                                  >
-                                  <div class="input-group mb-3">
-                                    <input
-                                      type="number"
-                                      id="alarmas"
-                                      name="alarmas"
-                                      min="1" max="100"
-                                      class="form-control text-center"
-                                     
-                                     
-                                    />
-                                    <div class="input-group-append">
-                                      <div class="input-group-text">
-                                        <p class="mb-0">Días</p>
+                            <form class="form-control">
+                              <div class="row">
+                                <div class="col-xs-8 col-sm-4">
+                                  <div class="form-group">
+                                    <label>Días de anticipación a la fecha de entrega *</label>
+                                    <div class="input-group mb-3">
+                                      <input type="number" id="alarmas" name="alarmas" min="1" max="100" class="form-control text-center" />
+                                      <!-- ALARMAS OCULTAS PARA REALIAR EL REGISTRO SOLO DE LAS TRES PRIMERAS-->
+                                      <input type="hidden" id="alarmas2" name="alarmas2">
+                                      <input type="hidden" id="alarmas3" name="alarmas3">                                                  <!-- ALARMAS OCULTAS PARA REALIAR EL REGISTRO SOLO DE LAS TRES PRIMERAS-->
+                                      <div class="input-group-append">
+                                        <div class="input-group-text">
+                                          <p class="mb-0">Días</p>
+                                        </div>
                                       </div>
                                     </div>
                                   </div>
                                 </div>
-                              </div>
-
-
-
-
-                              <div class="col-xs-4 col-sm-2">
-                                <div class="form-group">
-                                  <div class="d-flex flex-column">
-                                    <label for="add-alarm">&nbsp;</label>
-
-                                    <button
-                                      id="add-alarm"
-                                      type="button"
-                                      class="btn btn-primary"
-                                      onclick="agregarAlarma();"
-                                    >
-                                    <i class="fas fa-plus"></i>Alarma
-                                    </button>
+                                <div class="col-xs-4 col-sm-2">
+                                  <div class="form-group">
+                                    <div class="d-flex flex-column">
+                                      <label for="add-alarm">&nbsp;</label>
+                                      <button id="add-alarm" type="button" class="btn btn-primary" onclick="agregarAlarma();">
+                                        <i class="fas fa-plus"></i> Alarma
+                                      </button>
+                         
+                                    </div>
                                   </div>
                                 </div>
                               </div>
-                           
-                              </div>
                             </form>
-                          </div>
 
-
-
-                          <center>
-                            <div id="contenido" style="display: none; color:grey;">
+                            <center>
+                              <div id="contenedor-alarmas">
+                                
+                              </div>
+                            </center>
                             
-                            </div>
-                          </center>
+                           
+                          
+                          </div>
+                        </div>
+                        
+                       
+
+
+
+                        <div class="card-footer">
+                        
+                          <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save"></i>
+                          Registrar
+                          </button>
+                          <button
+                            type="reset"
+                            class="btn btn-danger"
+                          >
+                            <i class="fas fa-sync-alt"></i> Nuevo registro
+                          </button>
+                        </div>
+  </form>
                           
 
 
-                        </div>
-                      </div>
-      
-                      <div class="card-footer">
                         
-                        <button type="submit" class="btn btn-success">
-                          <i class="fas fa-save"></i>
-                        Registrar
-                        </button>
-                        <button
-                          type="reset"
-                          class="btn btn-danger"
-                        >
-                          <i class="fas fa-sync-alt"></i> Nuevo registro
-                        </button>
-                      </div>
-</form>
+      
+                      
                   </div>
                 </div>
               </div>
@@ -441,7 +426,7 @@
                                 option.dataset.correoresponsable = dependencia.correoresponsable;
                                 selectDependencia.appendChild(option);
                             });
-                            console.log(dependencia.correoresponsable)
+                            console.log("No se ha seleccionado dependencia")
                             
                         })
                         .catch(error => console.error('Error al cargar dependencias:', error));
@@ -462,21 +447,59 @@
         </script>
 
 
-<script>
-  function agregarAlarma() {
-                  var diasAnticipacion = document.getElementById("alarmas").value;
-                  var contenidoDiv = document.getElementById("contenido");
 
-                  if (diasAnticipacion) { // Verificar si hay un valor
-                      contenidoDiv.innerHTML = "Alarma configurada: " + diasAnticipacion + " días de anticipación.";
-                      contenidoDiv.style.display = "block"; // Mostrar el div
-                      console.log("Alarma configurada: " + diasAnticipacion + " días de anticipación."); // Mostrar en la consola para verificar
-                  } else {
-                      console.log("No se ingresó un valor para la alarma.");
-                  }
+<script>
+  //Este srcipt es especial para alarmas
+  //funcional pero solo esta agregando la ultima alarma
+  function agregarAlarma() {
+    var diasAnticipacion = document.getElementById("alarmas").value;
+    var contenedorAlarmas = document.getElementById("contenedor-alarmas");
+
+    if (diasAnticipacion) {
+        var alarmasInputs = document.querySelectorAll('input[name="alarmas[]"]');
+        if (alarmasInputs.length < 3) {
+            var nuevaAlarma = document.createElement("div");
+            nuevaAlarma.className = "alert alert-warning";
+            nuevaAlarma.innerHTML = `
+                <input type="hidden" name="alarmas[]" value="${diasAnticipacion}">
+                Alarma configurada: ${diasAnticipacion} días de anticipación.
+                <button type="button" class="close btn btn-danger" onclick="eliminarAlarma(this)">
+                    <span>&times;</span>
+                </button>
+            `;
+            contenedorAlarmas.appendChild(nuevaAlarma);
+            
+            // Actualizar los campos ocultos
+            var alarmas = document.querySelectorAll('input[name="alarmas[]"]');
+            if (alarmas.length > 0) document.getElementById("alarmas2").value = alarmas.length > 1 ? alarmas[1].value : "";
+            if (alarmas.length > 1) document.getElementById("alarmas3").value = alarmas.length > 2 ? alarmas[2].value : "";
+        } else {
+            alert("Solo puedes agregar tres alarmas.");
+        }
+    } else {
+        console.log("No se ingresó un valor para la alarma.");
     }
+}
+
+
+
+function eliminarAlarma(button) {
+    if (button && button.parentElement) {
+        var alarma = button.parentElement;
+        alarma.remove();
+
+        ///agregando las otras dos alarmas
+        ///agregando las otras dos alarmas
+
+
+    } else {
+        console.log("No se pudo eliminar la alarma: o no se ha agregado alarmas");
+    }
+}
+
 
     agregarAlarma();
+    eliminarAlarma();
     
 </script>
 

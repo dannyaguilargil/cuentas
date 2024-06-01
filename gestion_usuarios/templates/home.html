@@ -1,44 +1,22 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
 {% block contenido %}
-<br><br>
-<!--
-          <div class="izquierdo">
-          <img class="escudoverde" src="{% static 'imgs/escudo.gif' %} " alt=""> 
-          </div>
--->
-<center>
-  <h5><b>S</b>istema de <b>A</b>dministracion de <b>R</b>ecursos y <b>A</b>plicaciones</h5>
-</center>
-
-
-            <!-- <h3 class="text-center">Iniciar sesion</h3> -->
-<div class="form-control textoI" style="font-family: Lato">
-              
-            <form action="" method="POST">
-              {% csrf_token %}
-
-              <center>
-                <img  src=" {% static 'imgs/logocompleto.png' %} "  alt="" style="width: 170px; text-align: center;height: 70px">
-                 <br> 
-              </center>
-              
-            
+<div class="container vh-100 d-flex flex-column align-items-center justify-content-center">
+    <h5 class="text-center mb-3"><b>S</b>istema de <b>A</b>dministracion de <b>R</b>ecursos y <b>A</b>plicaciones</h5>
+    <div class="form-control textoI" style="font-family: Lato; max-width: 400px; width: 100%;">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="text-center mb-3">
+                <img src="{% static 'imgs/logocompleto.png' %}" alt="" style="width: 170px; height: 70px;">
+            </div>
             <label class="TT" for="username"><b>Usuario</b></label>
             <input type="text" class="form-control" name="username" id="username" placeholder="Usuario" required><br>
-            <label class="TT" form="password"><b>Contraseña</b></label>
+            <label class="TT" for="password"><b>Contraseña</b></label>
             <input type="password" class="form-control" name="password" id="password" required><br>
-          
-            <div class="boton">
-            <input type="submit" class="text-center btn btn-success" name="login" value="Login" style="font-family: Lato;"> <!--negrilla -->
-            </div> <br>
-        
-
-
-
-            <!-- para error, haciendo validacion-->
+            <div class="boton mb-3">
+                <input type="submit" class="text-center btn btn-success" name="login" value="Login" style="font-family: Lato;">
+            </div>
             {% if messages %}
                 {% for message in messages %}
                     <div class="alert alert-danger">
@@ -46,18 +24,12 @@
                     </div>
                 {% endfor %}
             {% endif %}
-
-            <center>
-              <a  class="" href=" {% url 'solicitud_usuario' %} " id="" style="color: grey; font-family: Lato">Para solicitar usuario al portal de centralizacion registrese aqui.</a>
-            </center>
-           
-            
-            
-          
-          </form>
-            
-         
-  </div>
-
-
+            <div class="text-center">
+              <a href="{% url 'solicitud_usuario' %}" style="color: grey; font-family: Lato;">Para solicitar usuario al <b>S</b>istema de <b>A</b>dministracion de <b>R</b>ecursos y <b>A</b>plicaciones, regístrese aquí.</a>            </div>
+        </form>
+    </div> <br>
+    <center>
+      E.S.E IMSALUD &copy V1.0
+    </center>
+</div>
 {% endblock contenido %}

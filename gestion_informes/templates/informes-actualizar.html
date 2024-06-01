@@ -1,5 +1,5 @@
 {% extends 'base_informes.html' %}
-{% block titulo %}Creacion del informe{% endblock titulo %}
+{% block titulo %}Actualizacion del informe{% endblock titulo %}
 {% block contenido %}
 
 <center>
@@ -34,7 +34,7 @@
                     >
                       <div class="card-body">
                         <div class="card card-primary">
-                          <div class="card-header">
+                          <div class="card-header" style="background: #FFFFCC;">
                             <h6 class="card-title">
                               Datos de creación y responsable del informe
                             </h6>
@@ -69,7 +69,7 @@
                                     required
                                   >
                                     <option selected disabled>
-                                      {{entecontrol}}
+                                      {{entecontrols}}
                                     </option>
                                     
                                   </select>
@@ -111,7 +111,7 @@
                                     required
                                   >
                                     <option selected disabled>
-                                      {{dependencia}}
+                                      {{dependencias}}
                                     </option>
                                     
                                   </select>
@@ -174,7 +174,7 @@
 
 
                         <div class="card card-primary">
-                          <div class="card-header">
+                          <div class="card-header" style="background: #FFFFCC;">
                             <h6 class="card-title">
                               Datos de periodicidad del informe
                             </h6>
@@ -267,8 +267,8 @@
                                       id="totalentregas"
                                       class="form-control text-center"
                                       min="1"
-                                      max="10000"
-                                      value="{{diasAnticipacion}}"
+                                      max="1000"
+                                      value="{{totalentregas}}"
                                     
                                       
                                     />
@@ -288,7 +288,7 @@
                        
 
                         <div class="card card-primary">
-                          <div class="card-header">
+                          <div class="card-header" style="background: #FFFFCC;">
                             <h6 class="card-title">
                               Configuración de alarmas
                             </h6>
@@ -330,12 +330,7 @@
                                   <div class="d-flex flex-column">
                                     <label for="add-alarm">&nbsp;</label>
 
-                                    <button
-                                      id="add-alarm"
-                                      type="button"
-                                      class="btn btn-primary"
-                                      onclick="agregarAlarma();"
-                                    >
+                                    <button id="add-alarm" type="button" class="btn btn-primary" onclick="agregarAlarma();">
                                     <i class="fas fa-plus"></i>Alarma
                                     </button>
                                   </div>
@@ -347,12 +342,10 @@
                           </div>
 
 
-
                           <center>
-                            <div id="contenido" style="display: none; color:grey;">
-                            
-                            </div>
+                            <div id="contenedor-alarmas"></div>
                           </center>
+                          
                           
 
 
@@ -365,12 +358,13 @@
                           <i class="fas fa-save"></i>
                         Actualizar
                         </button>
-                        <button
-                          type="reset"
+                        <a
+                          type=""
                           class="btn btn-danger"
+                          href=""
                         >
                           <i class="fas fa-sync-alt"></i> Nuevo registro
-                        </button>
+                      </a>
                       </div>
 </form>
                   </div>
@@ -385,27 +379,39 @@
      
       
       
+     
           <script>
             document.addEventListener('DOMContentLoaded', function () {
                 // Obtener elementos del DOM
                 const selectDependencia = document.getElementById('dependencia');
                 const nombreresponsableInput = document.getElementById('nombreresponsable');
                 const correoresponsableInput = document.getElementById('correoresponsable');
-            
-                // Agregar evento change al campo "Dependencia Responsable"
-                selectDependencia.addEventListener('change', function() {
-                    // Obtener la opción seleccionada
+                
+                // Función para imprimir el correo del responsable de la dependencia seleccionada
+                function imprimirCorreoResponsable() {
+
                     const selectedOption = selectDependencia.options[selectDependencia.selectedIndex];
-            
-                    // Obtener los datos del responsable y correo del responsable de la opción seleccionada
-                    const responsable = selectedOption.dataset.responsable || ''; // Si no hay valor, dejar el campo vacío
                     const correoresponsable = selectedOption.dataset.correoresponsable || ''; // Si no hay valor, dejar el campo vacío
-            
-                    // Actualizar los valores de los campos de nombre y correo del responsable
-                    nombreresponsableInput.value = responsable;
+                    const nombreresponsable = selectedOption.dataset.nombreresponsable || '';
+
+                    // Imprimir el correo del responsable por consola
+                    console.log('Correo del envio:', correoresponsable);
+                    console.log('Nombre del envio:', nombreresponsable);
+                    aux = correoresponsable
+                   
+                }
+                
+                selectDependencia.addEventListener('change', function() {
+                    imprimirCorreoResponsable();
+                    
+                    const selectedOption = selectDependencia.options[selectDependencia.selectedIndex];
+                    const nombreresponsable = selectedOption.dataset.nombreresponsable || ''; 
+                    const correoresponsable = selectedOption.dataset.correoresponsable || ''; 
+                    
+                    nombreresponsableInput.value = nombreresponsable;
                     correoresponsableInput.value = correoresponsable;
                 });
-            
+                
                 // Función para cargar los entes de control desde el servidor
                 function cargarEntesControl() {
                     fetch('informe/listado_ente')
@@ -421,7 +427,7 @@
                         })
                         .catch(error => console.error('Error al cargar entes de control:', error));
                 }
-            
+                
                 // Función para cargar las dependencias desde el servidor
                 function cargarDependencias() {
                     fetch('informe/listado_dependencia')
@@ -431,51 +437,75 @@
                                 const option = document.createElement('option');
                                 option.value = dependencia.id;
                                 option.textContent = dependencia.nombre;
-                                option.dataset.responsable = dependencia.responsable;
+                                option.dataset.nombreresponsable = dependencia.responsable;
                                 option.dataset.correoresponsable = dependencia.correoresponsable;
                                 selectDependencia.appendChild(option);
                             });
+                            console.log(dependencia.correoresponsable)
+                            
                         })
                         .catch(error => console.error('Error al cargar dependencias:', error));
                 }
-            
+                
                 //ocultar el input al presionar nunca en total entregas
                 function toggleDeliveryInput() {
                     var deliveryInput = document.getElementById("totalentregas");
                     var checkbox = document.getElementById("check");
                     deliveryInput.disabled = checkbox.checked;
-                 }
-
-
-              
-
+                }
+                
                 // Cargar entes de control y dependencias al cargar la página
                 cargarEntesControl();
                 cargarDependencias();
-                
-
-
                 toggleDeliveryInput();//tener en cuenta como esta en un grupo no desabilita al marcar el checked
             });
-            </script>
+        </script>
+
 
 
 <script>
+  //Este srcipt es especial para alarmas
+  //funcional pero solo esta agregando la ultima alarma
   function agregarAlarma() {
-                  var diasAnticipacion = document.getElementById("alarm-days").value;
-                  var contenidoDiv = document.getElementById("contenido");
+        var diasAnticipacion = document.getElementById("alarmas").value;
+        var contenedorAlarmas = document.getElementById("contenedor-alarmas");
 
-                  if (diasAnticipacion) { // Verificar si hay un valor
-                      contenidoDiv.innerHTML = "Alarma configurada: " + diasAnticipacion + " días de anticipación.";
-                      contenidoDiv.style.display = "block"; // Mostrar el div
-                      console.log("Alarma configurada: " + diasAnticipacion + " días de anticipación."); // Mostrar en la consola para verificar
-                  } else {
-                      console.log("No se ingresó un valor para la alarma.");
-                  }
+        if (diasAnticipacion) {
+            var alarmasInputs = document.querySelectorAll('input[name="alarmas[]"]');
+            if (alarmasInputs.length < 3) {
+                var nuevaAlarma = document.createElement("div");
+                nuevaAlarma.className = "alert alert-warning";
+                nuevaAlarma.innerHTML = `
+                    <input type="hidden" name="alarmas[]" value="${diasAnticipacion}">
+                    Alarma configurada: ${diasAnticipacion} días de anticipación.
+                    <button type="button" class="close btn btn-danger" onclick="eliminarAlarma(this)">
+                        <span>&times;</span>
+                    </button>
+                `;
+                contenedorAlarmas.appendChild(nuevaAlarma);
+            } else {
+                alert("Solo puedes agregar tres alarmas.");
+            }
+        } else {
+            console.log("No se ingresó un valor para la alarma.");
+        }
     }
 
-    agregarAlarma();
 
+
+function eliminarAlarma(button) {
+    if (button && button.parentElement) {
+        var alarma = button.parentElement;
+        alarma.remove();
+    } else {
+        console.log("No se pudo eliminar la alarma: o no se ha agregado alarmas");
+    }
+}
+
+
+    agregarAlarma();
+    eliminarAlarma();
+    
 </script>
 
 {% endblock contenido %}

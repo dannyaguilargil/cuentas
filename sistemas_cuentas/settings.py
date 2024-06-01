@@ -23,8 +23,6 @@ MEDIA_URL = 'sistemas_cuentas/static/'
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 #TESSERACT_PATH = 'C:\Program Files\Tesseract-OCR'  # Reemplaza con la ruta correcta en tu sistema
 
-
-
 ########################################################
 
 # Quick-start development settings - unsuitable for production
@@ -37,20 +35,20 @@ SECRET_KEY = 'django-insecure-ruhs)hlt#vqu=c)(n_tr$w__wpn2$!h!-=a+k=ts1ql0of)^kn
 #cuando la pose a produccion dejarlo en false
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.130','sara.imsalud.gov.co'] #direcciones que tiene permitido consultar al servidor
+ALLOWED_HOSTS = ['192.168.0.130','sara.imsalud.gov.co','localhost','127.0.0.1','192.168.134.223']
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'admin_interface', #AGREGUEE PARA CAMBIAR ESTILOS
+    'admin_interface', 
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'gestion_usuarios', #agregues esta ruta
+    'gestion_usuarios',
     'sistemas_cuentas',
     'gestion_supervisor',
     'gestion_presupuesto',
@@ -61,10 +59,11 @@ INSTALLED_APPS = [
     'gestion_informes',
     'django_datatables_view',
     'filebrowser',
-    'colorfield', #AGREGUEE PARA CAMBIAR ESTILOS
+    'colorfield',
     'rest_framework', # apis
     'corsheaders', # apis
-    'django_celery_results'
+    'django_celery_results',
+    #'django_celery_beat' opcional mas adelante
   
 ]
 
@@ -119,7 +118,7 @@ DATABASES = {
        'HOST': 'localhost',
        'PORT': '3306',
        'OPTIONS': {
-            'sql_mode': 'STRICT_TRANS_TABLES',
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES', time_zone='+00:00'",
         }
     
 }}
@@ -144,15 +143,11 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/4.1/topics/i18n/
-
 LANGUAGE_CODE = 'es-es' #estaba en en-us
 
-TIME_ZONE = 'UTC' ##'America/Lima'
-
+TIME_ZONE = 'America/Lima' ##'UTC'
 USE_I18N = True
-
+USE_L10N = True
 USE_TZ = True
 
 
@@ -169,24 +164,30 @@ CORS_ALLOWED_ORIGINS = []
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = ''
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST = 
+EMAIL_HOST_USER = 
+EMAIL_HOST_PASSWORD = 
 EMAIL_PORT = 
 EMAIL_USE_SSL = 
-DEFAULT_FROM_EMAIL = ''
+DEFAULT_FROM_EMAIL = 
 
 ###########configuraciones necesaria para la tareas programadas #########
 CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672//' 
-CELERY_TIMEZONE = 'UTC'
+CELERY_TIMEZONE = 'America/Lima'
 CELERY_RESULT_BACKEND = 'rpc://'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 ########### NUEVAS CONFIGURACIONES ##########################
 CELERY_RESULT_BACKEND = 'django-db'
-#BROKER_HEARTBEAT=30,  # Intervalo de latido (heartbeat) en segundos
-#BROKER_CONNECTION_TIMEOUT=60,  # Tiempo de espera para la conexión
+CELERY_ENABLE_UTC = False
+########################################################
+#CELERY_
+
 
 
 LOGIN_URL = '/login'
+LOGOUT_REDIRECT_URL = 'login'
+###agregado para las sesiones
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_COOKIE_AGE = 3600  

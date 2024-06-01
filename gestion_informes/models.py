@@ -44,8 +44,8 @@ class informe(models.Model):
     ######## agregarle periodicidad dias y meses ############
     periodicidad = models.IntegerField(verbose_name='Periodicidad cantidad', null=True,blank=True) #debe ser obligatorio
     periodicidadtipo = models.CharField(max_length=200, verbose_name='Tipo de periodicidad', choices=periodicidadtipo) #dias y meses
-    totalentregas = models.IntegerField(verbose_name='Total de entregas', null=True,blank=True, default="10000")#debe ser obligatorio
-    alarmas = models.IntegerField(verbose_name='Dias de anticipacion de alarma', null=True,blank=True) #ejemplo con una debo permtir por ahi tres
+    totalentregas = models.IntegerField(verbose_name='Total de entregas', null=True,blank=True, default="1000")#debe ser obligatorio
+    alarmas = models.IntegerField(verbose_name='Dias de anticipacion de alarma', null=True,blank=True) 
     alarmas2 = models.IntegerField(verbose_name='Segunda alarma', null=True,blank=True)
     alarmas3 = models.IntegerField(verbose_name='Tercera alarma', null=True,blank=True)
     activo = models.BooleanField(default=True)

@@ -10,6 +10,9 @@ app = Celery('sistemas_cuentas')
 
 # Leer la configuración desde la configuración de Django
 app.config_from_object('django.conf:settings', namespace='CELERY')
+app.conf.enable_utc = False
+app.conf.timezone = 'America/Lima'
+
 
 # Descubrir y cargar las tareas definidas en los paquetes de apps registradas en Django
 app.autodiscover_tasks()

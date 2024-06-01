@@ -1,75 +1,67 @@
-*{
+* {
     font-family: Kodchasan;
 }
-.ultimo{
+
+.ultimo {
     position: absolute;
     bottom: 10px;
     left: 3%;
 }
-.imagen{
-    /* display: flex; */
-    
-    justify-content: center;
-    margin-top: 0.76103500761035vh; /*5px*/
-    margin-left: 73.82039573820396vh; /* 41 %  490px*/
-    align-items: center;
-    justify-content: left;
-}
-.textoI{
-    width: 38.051750380517504vh; /* 250 px */
-    margin-top: 3.0441400304414vh; /* 20px */
-    margin-left: 40%;
+
+.textoI {
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem;
+    margin: 0 auto; /* Ensure the element is centered */
     align-items: center;
     justify-content: center;
 }
-.boton{
+
+.boton {
     display: flex;
-    
     justify-content: center;
-    margin-top: 5px;
-    align-items: center;
 }
 
-
-
-/*media queries adaptandolo a movil */
-@media screen and (max-width: 1100px){
-    .escudo{
-        display: none;
-    }
-    .escudoverde{
-        display: none;
-    }
-    .izquierdo{
-        display: none;
-    }
-    .izquierdoimg{
-        display: none;
-    }
-    footer{
-        display: none;
-    }
-    .centrar{
-        text-align: center;
-    }
-    .imagen{
-        /* display: flex; */
-        margin-left: 20%;
-        text-align: center;
-    }
-    .textoI{
-       text-align: center;
-    }
-    .boton{
-        text-align: center;
-    }
-   
-}
-.form-control{
+.form-control {
     border-color: #1d985a;
     border-style: dashed;
-   
 }
-.form-control input{
+
+.form-control input {
     border-style: solid;
+}
+
+/* Media queries for mobile adaptation */
+@media screen and (max-width: 1100px) {
+    .escudo, .escudoverde, .izquierdo, .izquierdoimg, footer {
+        display: none;
+    }
+
+    .centrar {
+        text-align: center;
+    }
+
+    .textoI {
+        text-align: center;
+        padding: 1rem; /* Adjust padding for mobile view */
+    }
+
+    .boton {
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .textoI {
+        width: 100%; /* Ensure it takes full width on mobile */
+        margin: auto;
+    }
 }
