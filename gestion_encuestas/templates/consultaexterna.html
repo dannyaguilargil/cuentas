@@ -1,0 +1,1337 @@
+{% extends 'base_encuestas.html' %}
+{% block titulo %}Formato gestion de identidades{% endblock titulo %}
+{% block contenido %}
+
+<center>
+    <h4>Encuesta servicio de consulta externa</h4>
+</center>
+
+
+
+<form action="" class="form-control">
+    
+
+               
+                    <form action="" method="post">
+                      <div class="row">
+                        <div class="form-group col-md-3">
+                           <label for="textfield">Tipo de Documento</label>
+                            <select name="tipodoctxt" required="required" class="form-control" id="tipodoctxt">
+                              <option value="">Seleccione</option>
+                              <option value="CC">CC</option>
+                              <option value="CE">CE</option>
+                              <option value="RC">RC</option>
+                              <option value="TI">TI</option>
+                              <option value="AS">AS</option>
+                              <option value="MS">MS</option>
+                              <option value="PE">PE</option>
+                              <option value="PT">PT</option>
+                              <option value="SC">SC</option>
+                            </select>
+                        </div>
+
+                        <script>
+                          function quitarEspacios(cadena) {
+                            return cadena.replace(/\s/g, "");
+                          }
+                          </script>
+
+                        <div class="form-group col-md-3">
+                           <label for="textfield">Nro de Documento</label>
+                            <input name="nrodocumentotxt" required="required" class="form-control" id="nrodocumentotxt" onblur="this.value = quitarEspacios(this.value);" onkeyup="javascript:this.value=this.value.toUpperCase();">
+                        </div>
+
+                        <div class="form-group col-md-3">
+                           <label for="textfield">Nombres</label>
+                            <input name="nombrestxt" required="required" class="form-control" id="nombrestxt" onkeyup="javascript:this.value=this.value.toUpperCase();">
+                        </div>
+
+                        <div class="form-group col-md-3">
+                           <label for="textfield">Sexo</label>
+                            <select name="sexotxt" required="required" class="form-control" id="sexotxt">
+                              <option value="">Seleccione</option>
+                              <option value="MASCULINO">MASCULINO</option>
+                              <option value="FEMENINO">FEMENINO</option>
+                              <option value="INDEFINIDO">INDEFINIDO</option>
+                            </select>
+                        </div>
+
+                      </div>
+
+
+                    <div class="row">
+                      
+                      <div class="form-group col-md-3">
+
+                                <label for="textfield">Eps</label>
+                                 <select name="epstxt" class='form-control' required>
+                                    <option value="">Seleccione</option>
+                                    <option value="Comfaoriente">Comfaoriente</option>
+                                    <option value="Coosalud">Coosalud</option>
+                                    <option value="Ecoopsos">Ecoopsos</option>
+                                    <option value="Compensar">Compensar</option>
+                                    <option value="Sanitas">Sanitas</option>
+                                    <option value="Nueva Eps">Nueva Eps</option>
+                                    <option value="PPNA">PPNA</option>
+                                </select>
+                            </div>
+
+                             <div class="form-group col-md-3">
+                               <label for="textfield">Edad</label>
+                              <input type="number" name="edadtxt" class="form-control" id="edadtxt" required="">
+                             </div>
+
+                            <div class="form-group col-md-3">
+                        <label for="textfield">IPS</label>
+
+                                <select name="ipstxt" required="required" class="form-control" id="ipstxt">
+
+                                    <option value="">Seleccione</option>
+                                    <option value="1">UBA AGUA CLARA</option>
+                                    <option value="2">UBA COMUNEROS</option>
+                                    <option value="3">UBA LIBERTAD</option> 
+                                    <option value="4">UBA LOMA DE BOLIVAR</option>
+                                    <option value="5">UBA POLICLINICO</option>
+                                    <option value="6">UBA PUENTE BARCO</option>   
+                                  
+                                    <option value="7">IPS AEROPUERTO</option>
+                                    <option value="8">IPS BANCO ARENA</option>
+                                    <option value="9">IPS BELEN</option>
+                                    <option value="10">IPS BELISARIO</option>
+                                    <option value="11">IPS BOCONO</option>
+                                    <option value="12">IPS BUENA ESPERANZA</option>
+                                    <option value="13">IPS CECI</option>
+                                    <option value="14">IPS CERRITO</option>
+                                    <option value="15">IPS CLARET</option>
+                                    <option value="16">IPS CONTENTO</option>
+                                    <option value="17">IPS CUNDINAMARCA</option>
+                                    <option value="18">IPS DOMINGO PEREZ</option>
+                                    <option value="19">IPS ERMITA</option>
+                                    <option value="20">IPS FLORESTA</option>
+                                    <option value="21">IPS GUAIMARAL</option>
+                                    <option value="22">IPS GUARAMITO</option>
+                                    <option value="23">IPS OLIVOS</option>
+                                    <option value="24">IPS OSPINA PEREZ</option>
+                                    <option value="25">IPS PALMARITO</option>
+                                    <option value="26">IPS PALMERAS</option>
+                                    <option value="27">IPS PASTORA</option>
+                                    <option value="28">IPS PORTICO</option>
+                                    <option value="29">IPS RODEO</option>
+                                    <option value="30">IPS SALADO</option>         
+                                    <option value="31">IPS SAN FAUSTINO</option>
+                                    <option value="32">IPS SAN LUIS</option>
+                                    <option value="33">IPS SAN MARTIN</option>
+                                    <option value="34">IPS SAN MATEO</option>
+                                    <option value="35">IPS SANTANA</option>
+                                    <option value="36">IPS SEVILLA</option>
+                                    <option value="37">IPS TOLEDO PLATA</option>
+
+                                </select>
+
+
+
+                                     </div>
+                                 
+
+
+                                     <div class="form-group col-md-3">
+                                <label for="textfield">Fecha de Ingreso</label>
+                                <input name="fechaingtxt" size="20" rows="15" type="datetime" id="fechaingtxt" class='form-control' readonly value="" required>
+                            </div>
+
+
+
+                             
+
+                                 </div>
+
+ 
+    <br>
+    <h5>1. ¿Al momento de ingresar a la IPS/UBA como fue la atencion del vigilante?</h5>
+
+    <div class="form-check">
+
+  <input type="radio" name="atencionv" value="Buena" id="atencionv" required="">
+
+  <label class="form-check-label" for="exampleRadios1">
+
+    Buena
+
+  </label>
+
+</div>
+
+
+
+<div class="form-check">
+<input type="radio" name="atencionv" value="Regular" id="atencionv3" required="">
+<label class="form-check-label" for="exampleRadios2">Regular
+</label>
+</div>
+
+
+
+<div class="form-check">
+
+  <input type="radio" name="atencionv" value="Mala" id="atencionv4" required="">
+
+  <label class="form-check-label" for="exampleRadios3">
+
+    Mala
+
+  </label>
+
+
+
+<script>
+
+             $("#atencionv3").change(function(){
+
+           if(this.value == 0){ 
+
+            $("#porquevig").attr("hidden", true);
+
+             }else{
+
+            $("#porquevig").attr("hidden", false);
+
+
+
+
+
+             }
+
+
+
+
+
+
+
+              })
+
+           </script>
+
+
+
+           <script>
+
+             $("#atencionv4").change(function(){
+
+           if(this.value == 0){ 
+
+            $("#porquevig").attr("hidden", true);
+
+             }else{
+
+            $("#porquevig").attr("hidden", false);
+
+
+
+            
+
+             }
+
+
+
+
+
+
+
+              })
+
+           </script>
+
+
+
+
+
+</div>
+
+<div class="form-check">
+
+  <input type="radio" name="atencionv" value="No Aplica" id="atencionv" required="">
+
+  <label class="form-check-label" for="exampleRadios1">
+
+    No Aplica
+
+  </label>
+
+</div>
+
+ <div class="form-group col-md-6">
+
+     <span id="porquevig" name="porquevig" hidden>
+
+                    <label for="textfield">Por que?</label>
+
+                        <select name="porquevig" class='form-control' id="porquevig">
+
+                            <option value="0">Seleccione</option>
+
+                            <option value="NO DA INFORMACION">NO DA INFORMACION</option>
+
+                            <option value="MALEDUCADO">MALEDUCADO</option>
+
+                            <option value="NO PERMITE EL INGRESO">NO PERMITE EL INGRESO</option>
+
+                            <option value="TIENE PREFERENCIAS CON CIERTOS USUARIOS">TIENE PREFERENCIAS CON CIERTOS USUARIOS</option>
+
+                            <option value="OTRO">OTRO</option>
+
+                            </select>
+
+                          </span>
+
+                            </div>
+
+<br>
+
+      <h5>2. ¿Como lo (a) atendio el facturador de la IPS/UBA?</h5>
+
+    <div class="form-check">
+
+  <input  type="radio" name="facturador" id="facturador" value="Buena" required="">
+
+  <label class="form-check-label" for="exampleRadios1">
+
+    Buena
+
+  </label>
+
+</div>
+
+
+
+<div class="form-check">
+
+  <input  type="radio" name="facturador" id="facturador1" value="Regular" required="">
+
+  <label class="form-check-label" for="exampleRadios2">
+
+    Regular
+
+  </label>
+
+</div>
+
+
+
+<div class="form-check">
+
+  <input type="radio" name="facturador" id="facturador2" value="Mala" required="">
+
+  <label class="form-check-label" for="exampleRadios3">
+
+    Mala
+
+  </label>
+
+</div>
+
+
+
+<script>
+
+             $("#facturador1").change(function(){
+
+           if(this.value == 0){ 
+
+            $("#porquefact").attr("hidden", true);
+
+             }else{
+
+            $("#porquefact").attr("hidden", false);
+
+
+
+
+
+             }
+
+
+
+
+
+
+
+              })
+
+           </script>
+
+
+
+           <script>
+
+             $("#facturador2").change(function(){
+
+           if(this.value == 0){ 
+
+            $("#porquefact").attr("hidden", true);
+
+             }else{
+
+            $("#porquefact").attr("hidden", false);
+
+
+
+            
+
+             }
+
+
+
+
+
+
+
+              })
+
+           </script>
+
+ <div class="form-group col-md-6">
+
+   <span id="porquefact" name="porquefact" hidden>
+
+                    <label for="textfield">Por que?</label>
+
+                        <select name="porquefact" class='form-control' id="porquefact">
+
+                             <option value="0">Seleccione</option>
+
+                             <option value="NO DA INFORMACION">NO DA INFORMACION</option>
+
+                            <option value="MALEDUCADO">MALEDUCADO</option>
+
+                            <option value="TIENE PREFERENCIAS CON CIERTOS USUARIOS">TIENE PREFERENCIAS CON CIERTOS USUARIOS</option>
+
+                            </select>
+
+                            </div>
+
+                          </span>
+
+
+
+
+<br>
+           <h5>3. ¿Fue atendido a tiempo segun la hora programada?</h5>
+
+    <div class="form-check">
+
+  <input  type="radio" name="hora" id="horasi" value="SI" required="">
+
+  <label class="form-check-label" for="exampleRadios1">
+
+    Si
+
+  </label>
+
+</div>
+
+
+
+<div class="form-check">
+
+  <input  type="radio" name="hora" id="horano" value="NO" required="">
+
+  <label class="form-check-label" for="exampleRadios2">
+
+    No
+
+  </label>
+
+</div>
+
+<script>
+
+             $("#horano").change(function(){
+
+           if(this.value == 0){ 
+
+            $("#porquehora").attr("hidden", true);
+
+             }else{
+
+            $("#porquehora").attr("hidden", false);
+
+
+
+
+
+             }
+
+
+
+
+
+              })
+
+           </script>
+
+
+
+ <div class="form-group col-md-6">
+
+    <span id="porquehora" name="porquehora" hidden>
+
+                    <label for="textfield">Le explicaron la demora</label>
+
+                        <select name="porquehora" class='form-control' id="porquehora">
+
+                            <option value="0">Seleccione</option>
+
+                            <option value="SI">SI</option>
+
+                            <option value="NO">NO</option>
+
+                            </select>
+
+                            </div>
+
+                            </span>
+
+                         
+<br>
+ <h5>4. ¿Como lo atendio la Enfermera?</h5>
+
+    <div class="form-check">
+
+  <input  type="radio" name="jefepyp" id="buenaenfpyp" value="Buena" required="">
+
+  <label class="form-check-label" for="exampleRadios1">
+
+    Buena
+
+  </label>
+
+</div>
+
+
+
+<div class="form-check">
+
+  <input  type="radio" name="jefepyp" id="regularenfpyp" value="Regular" required="">
+
+  <label class="form-check-label" for="exampleRadios2">
+
+    Regular
+
+  </label>
+
+</div>
+
+
+
+<div class="form-check">
+
+  <input type="radio" name="jefepyp" id="malaenfpyp" value="Mala" required="">
+
+  <label class="form-check-label" for="exampleRadios3">
+
+    Mala
+
+  </label>
+
+</div>
+
+<script>
+
+             $("#regularenfpyp").change(function(){
+
+           if(this.value == 0){ 
+
+            $("#porqueenf").attr("hidden", true);
+
+             }else{
+
+            $("#porqueenf").attr("hidden", false);
+
+
+
+
+
+             }
+
+
+
+
+
+              })
+
+           </script>
+
+
+
+           <script>
+
+             $("#malaenfpyp").change(function(){
+
+           if(this.value == 0){ 
+
+            $("#porqueenf").attr("hidden", true);
+
+             }else{
+
+            $("#porqueenf").attr("hidden", false);
+
+
+
+
+
+             }
+
+
+
+
+
+              })
+
+           </script>
+
+
+
+ <div class="form-group col-md-6">
+
+   <span id="porqueenf" name="porqueenf" hidden>
+
+                    <label for="textfield">Por que</label>
+
+                        <select name="porqueenf" class='form-control' id="porqueenf">
+
+                            <option value="0">Seleccione</option>
+
+                            <option value="NO SE DEJA HABLAR">NO SE DEJA HABLAR</option>
+
+                            <option value="LLEGA TARDE">LLEGA TARDE</option>
+
+                            <option value="OTRO">OTRO</option>
+
+
+
+                            </select>
+
+                            </div>
+
+                            </span>
+
+<br>
+
+      <h5>5. ¿Como fue la atencion prestada por el Medico de consulta externa?</h5>
+
+    <div class="form-check">
+
+  <input  type="radio" name="medicopyp" id="buenamedpyp" value="Buena" required="" >
+
+  <label class="form-check-label" for="exampleRadios1">
+
+    Buena
+
+  </label>
+
+</div>
+
+
+
+<div class="form-check">
+
+  <input  type="radio" name="medicopyp" id="regularmedpyp" value="Regular" required="">
+
+  <label class="form-check-label" for="exampleRadios2">
+
+    Regular
+
+  </label>
+
+</div>
+
+
+
+<div class="form-check">
+
+  <input type="radio" name="medicopyp" id="malamedpyp" value="Mala" required="">
+
+  <label class="form-check-label" for="exampleRadios3">
+
+    Mala
+
+  </label>
+
+</div>
+
+
+
+<script>
+
+             $("#regularmedpyp").change(function(){
+
+           if(this.value == 0){ 
+
+            $("#porquemed").attr("hidden", true);
+
+             }else{
+
+            $("#porquemed").attr("hidden", false);
+
+
+
+
+
+             }
+
+
+
+
+
+              })
+
+           </script>
+
+
+
+           <script>
+
+             $("#malamedpyp").change(function(){
+
+           if(this.value == 0){ 
+
+            $("#porquemed").attr("hidden", true);
+
+             }else{
+
+            $("#porquemed").attr("hidden", false);
+
+
+
+
+
+             }
+
+
+
+
+
+              })
+
+           </script>
+
+ <div class="form-group col-md-6">
+
+          <span id="porquemed" name="porquemed" hidden>
+
+                    <label for="textfield">Por que</label>
+
+                        <select name="porquemed" class='form-control' id="porquemed">
+
+                            <option value="0">Seleccione</option>
+
+                            <option value="NO SE DEJA HABLAR">NO SE DEJA HABLAR</option>
+
+                            <option value="LLEGA TARDE">LLEGA TARDE</option>
+
+                            <option value="OTRO">OTRO</option>
+
+                            </select>
+
+                            </div>
+
+             </span>
+
+
+<br>
+<h5>6. ¿Cuando le asignaron la cita le dieron la opcion de escoger el medico de su preferencia?</h5>
+
+    <div class="form-check">
+
+  <input  type="radio" name="escoger" id="escogersi" value="SI" required="">
+
+  <label class="form-check-label" for="exampleRadios1">
+
+    Si
+
+  </label>
+
+</div>
+
+
+
+<div class="form-check">
+
+  <input  type="radio" name="escoger" id="escogerno" value="NO" required="">
+
+  <label class="form-check-label" for="exampleRadios2">
+
+    No
+
+  </label>
+
+</div>
+
+
+<br>
+<h5>7. ¿Como califica su experiencia global respecto al servicio de salud que recibio a travez de la IPS/UBA?</h5>
+
+       <div class="form-check">
+
+  <input  type="radio" name="global" id="muybuenaglobal" value="Muy Buena" required="">
+
+  <label class="form-check-label" for="exampleRadios1">
+
+   Muy Buena
+
+  </label>
+
+</div>
+
+
+    <div class="form-check">
+
+  <input  type="radio" name="global" id="buenaglobal" value="Buena" required="">
+
+  <label class="form-check-label" for="exampleRadios1">
+
+    Buena
+
+  </label>
+
+</div>
+
+
+
+<div class="form-check">
+
+  <input  type="radio" name="global" id="regularglobal" value="Regular" required="">
+
+  <label class="form-check-label" for="exampleRadios2">
+
+    Regular
+
+  </label>
+
+</div>
+
+
+
+<div class="form-check">
+
+  <input type="radio" name="global" id="malaglobal" value="Mala" required="">
+
+  <label class="form-check-label" for="exampleRadios3">
+
+    Mala
+
+  </label>
+
+</div>
+
+
+
+<div class="form-check">
+
+  <input type="radio" name="global" id="muymalaglobal" value="Muy Mala" required="" required="">
+
+  <label class="form-check-label" for="exampleRadios3">
+
+    Muy Mala
+
+  </label>
+
+</div>
+
+<div class="form-check">
+
+  <input type="radio" name="global" id="norespondieron" value="No Respondieron" required="">
+
+  <label class="form-check-label" for="exampleRadios3">
+
+    No respondieron
+
+  </label>
+
+</div>
+
+
+<br>
+<h5>8. ¿Recomendaria a sus familiares y amigos esta IPS/UBA?</h5>
+
+       <div class="form-check">
+
+  <input  type="radio" name="recomendacion" id="definitivamentesi" value="Definitivamente si" required="">
+
+  <label class="form-check-label" for="exampleRadios1">
+
+   Definitivamente Si
+
+  </label>
+
+</div>
+
+
+
+    <div class="form-check">
+
+  <input  type="radio" name="recomendacion" id="definitivamenteno" value="Definitivamente no" required="">
+
+  <label class="form-check-label" for="exampleRadios1">
+
+     Definitivamente No
+
+  </label>
+
+</div>
+
+
+
+<div class="form-check">
+
+  <input  type="radio" name="recomendacion" id="probablementesi" value="Probablemente si" required="">
+
+  <label class="form-check-label" for="exampleRadios2">
+
+    Probablemente si
+
+  </label>
+
+</div>
+
+
+
+<div class="form-check">
+
+  <input type="radio" name="recomendacion" id="probablementeno" value="Probablemente no" required="">
+
+  <label class="form-check-label" for="exampleRadios3">
+
+    Probablemente no
+
+  </label>
+
+</div>
+
+
+
+<div class="form-check">
+
+  <input type="radio" name="recomendacion" id="norespondieron" value="No Respondieron" required="">
+
+  <label class="form-check-label" for="exampleRadios3">
+
+    No respondieron
+
+  </label>
+
+</div>
+
+<br>
+<h5>9. ¿Conoce los tramites y servicios de la ESE Imsalud?</h5>
+
+   <div class="form-check">
+
+  <input  type="radio" name="servicios" id="servicios" value="NO" required="">
+
+  <label class="form-check-label" for="exampleRadios2">
+
+    NO
+
+  </label>
+
+</div>
+
+
+
+    <div class="form-check">
+
+  <input  type="radio" name="servicios" id="servicios1" value="1" required="">
+
+  <label class="form-check-label" for="exampleRadios1">
+
+    SI
+
+  </label>
+
+</div>
+
+
+
+
+
+
+
+<script>
+
+             $("#servicios1").change(function(){
+
+           if(this.value == 0){
+
+            $("#porqueserv").attr("hidden", true);
+
+             }else{
+
+            $("#porqueserv").attr("hidden", false);
+
+
+
+
+
+             }
+
+
+
+
+
+              })
+
+           </script>
+
+ <span id="porqueserv" name="porqueserv" hidden>
+
+        <h4>a) Servicio de urgencias</h4>
+
+
+
+<div class="form-check">
+
+  <input  type="radio" name="servurgencias" id="servurgencias" value="SI">
+
+  <label class="form-check-label" for="exampleRadios1">
+
+   SI
+
+  </label>
+
+</div>
+
+
+
+    <div class="form-check">
+
+  <input  type="radio" name="servurgencias" id="servurgencias1" value="NO">
+
+  <label class="form-check-label" for="exampleRadios1">
+
+    NO
+
+  </label>
+
+</div>
+
+
+
+<h4>b) Servicio Consulta Externa</h4>
+
+<div class="form-check">
+
+  <input  type="radio" name="servconsulta" id="servconsulta" value="SI">
+
+
+
+  <label class="form-check-label" for="exampleRadios1">
+
+   SI
+
+  </label>
+
+</div>
+
+
+
+    <div class="form-check">
+
+  <input  type="radio" name="servconsulta" id="servconsulta1" value="NO">
+
+  <label class="form-check-label" for="exampleRadios1">
+
+    NO
+
+  </label>
+
+</div>
+
+
+
+<h4>c) Servicio laboratorio clinico</h4>
+
+<div class="form-check">
+
+  <input  type="radio" name="servlaboratorio" id="servlaboratorio" value="SI">
+
+
+
+  <label class="form-check-label" for="exampleRadios1">
+
+   SI
+
+  </label>
+
+</div>
+
+
+
+    <div class="form-check">
+
+  <input  type="radio" name="servlaboratorio" id="servlaboratorio1" value="NO">
+
+  <label class="form-check-label" for="exampleRadios1">
+
+    NO
+
+  </label>
+
+</div>
+
+
+
+        <h4>d) Tramites Imagenes Diagnosticas</h4>
+
+<div class="form-check">
+
+  <input  type="radio" name="servimagenes" id="servimagenes" value="SI">
+
+
+
+  <label class="form-check-label" for="exampleRadios1">
+
+   SI
+
+  </label>
+
+</div>
+
+
+
+    <div class="form-check">
+
+  <input  type="radio" name="servimagenes" id="servimagenes1" value="NO">
+
+  <label class="form-check-label" for="exampleRadios1">
+
+    NO
+
+  </label>
+
+</div>
+
+
+
+<h4>e) Tramites certificado de Nacido vivo</h4>
+
+<div class="form-check">
+
+  <input  type="radio" name="servnacido" id="servnacido" value="SI">
+
+
+
+  <label class="form-check-label" for="exampleRadios1">
+
+   SI
+
+  </label>
+
+</div>
+
+
+
+    <div class="form-check">
+
+  <input  type="radio" name="servnacido" id="servnacido1" value="NO">
+
+  <label class="form-check-label" for="exampleRadios1">
+
+    NO
+
+  </label>
+
+</div>
+
+
+
+<h4>f) Tramites de acta de defuncion</h4>
+
+<div class="form-check">
+
+  <input  type="radio" name="servdefuncion" id="servdefuncion" value="SI">
+
+
+
+  <label class="form-check-label" for="exampleRadios1">
+
+   SI
+
+  </label>
+
+</div>
+
+
+
+    <div class="form-check">
+
+  <input  type="radio" name="servdefuncion" id="servdefuncion1" value="NO">
+
+  <label class="form-check-label" for="exampleRadios1">
+
+    NO
+
+  </label>
+
+</div>
+
+
+
+<h4>f) Tramites de Historia Clinica </h4>
+
+<div class="form-check">
+
+  <input  type="radio" name="servhistoria" id="servhistoria" value="SI">
+
+
+
+  <label class="form-check-label" for="exampleRadios1">
+
+   SI
+
+  </label>
+
+</div>
+
+
+
+    <div class="form-check">
+
+  <input  type="radio" name="servhistoria" id="servhistoria1" value="NO">
+
+  <label class="form-check-label" for="exampleRadios1">
+
+    NO
+
+  </label>
+
+</div>
+
+</span>
+
+<br>
+
+<h5>10. ¿Se le dieron a conocer los deberes y derechos de la ESE IMSALUD?</h5>
+
+ <div class="form-check">
+
+  <input  type="radio" name="derechos" id="derechos1" value="SI" required="">
+
+  <label class="form-check-label" for="exampleRadios1">
+
+    SI
+
+  </label>
+
+</div>
+
+    <div class="form-check">
+
+  <input  type="radio" name="derechos" id="derechos" value="NO" required="">
+
+  <label class="form-check-label" for="exampleRadios1">
+
+    NO
+
+  </label>
+
+</div>
+
+<br>
+<h5>11.  ¿Que sugerencias tiene para mejorar el servicio?</h5>
+
+<div class="col-12">
+
+  <textarea name="sugerencias" id="sugerencias" class="col-12" maxlength="250" required="" class="form-control"></textarea>
+
+</div>
+
+<script type="text/javascript">
+
+  
+
+  function validaValorDeTextarea(){
+
+    var texto = document.getElementById('sugerencias').value.trim();
+
+    !!texto.length
+
+        ? alert("El valor tecleado sin espacios es: '" + texto + "'")
+
+        : alert("El campo está vacío!")
+
+}
+
+</script>
+
+
+
+
+
+
+<br>
+
+
+       
+         
+
+<style type="text/css">
+      table{
+        border: 1px solid gray;
+        margin-bottom: 20px;
+      }
+      table > thead{
+        background-color: rgb(49, 113, 149);
+        width: 400px;
+        text-align: center;
+        border-bottom: 1px solid gray;
+        color: white;
+      }
+      td{
+        border-bottom: 1px solid gray;
+        padding-right: 8px;
+        padding-left: 8px;
+        border-left: 1px solid gray;
+      }
+</style>
+
+
+
+
+
+
+<center>
+<table>
+
+
+  <thead>
+        <th colspan="2">Registros del mes</th>
+  </thead>
+
+  <tbody>
+      <tr>
+            <td><?php echo "Fecha Inicio: ",$fecha_inicio_mes_reset;?> </td>
+            <td><?php echo "Fecha Final: ",$fecha_fin_mes_reset;?> </td>
+      <tr >
+      <tr>
+             <td colspan="2" align="center"><?php echo "Registros del mes: ",$fila['fecha_ingreso'];?></td>
+      </tr>
+  </tbody>
+
+</table>
+</center>
+
+                     
+
+
+    <p align="center">
+    <input name="comentar" type="submit" class="btn btn-outline-primary" id="comentar" value="Enviar"></p>
+ 
+
+              
+
+
+</form>
+
+
+{% endblock contenido %}

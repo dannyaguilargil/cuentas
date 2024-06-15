@@ -1,288 +1,255 @@
 {% extends 'base_informes.html' %}
 {% block titulo %}Listado de informes{% endblock titulo %}
 {% block contenido %}
-   <center>
-   <h5> Listado de informes </h5>
-   </center>
-   <div class="table-responsive"> 
+<center>
+    <h5> Listado de informes </h5>
+</center>
+<div class="table-responsive">
     <table id="tabla-informes" class="table table-bordered table-striped">
-      <caption>
-         Listado de informes
-      </caption>
-      <thead>
-          <tr>
-              <th class="centered">Id</th>
-              <th class="text-center centered">Opciones</th>
-              <th class="text-center centered">Nombre del informe</th>
-              <th class="text-center centered">Ente de control</th>
-              <th class="text-center centered">Dependencia</th>
-              <th class="text-center centered">Entregas</th>
-              <th class="text-center centered">Estado</th>
-          </tr>
-      </thead>
-      <tbody id="tabla-usuarios">
-        {% for objeto in datos %}
-        <tr> <!-- SE REMPLAZA CON INPUTS PARA OBTENER LOS DATOS DE ESE INPUT-->
-            <td>{{objeto.id}}</td>
-            <td><a  name="ver" class="fa fa-eye btn btn-outline-success btn-sm ver" 
-              data-nombre="{{objeto.nombre}}"
-              data-id="{{objeto.id}}"
-              data-normativa="{{objeto.normativa}}"
-              data-entecontrol_id="{{objeto.entecontrol.nombre}}"
-              data-dependencia_id="{{objeto.dependencia.nombre}}"
-              data-dependencia_responsable="{{objeto.dependencia.responsable}}"
-              data-dependencia_correoresponsable="{{objeto.dependencia.correoresponsable}}"
-              data-fechaentregainicial="{{objeto.fechaentregainicial}}"
-              data-fechaentregapendiente="{{objeto.fechaentregapendiente}}"
-              data-periodicidad="{{objeto.periodicidad}}"
-              data-totalentregas="{{objeto.totalentregas}}"
-              data-activo="{{objeto.activo}}"
-              data-alarmas="{{objeto.alarmas}}"
-              data-bs-toggle="modal"
-              data-bs-target="#ex" >
-          </a>
-          <!-- El informe pasarlo como id para que permita la ediccion-->
-          <a class="fa fa-edit btn btn-outline-primary btn-sm" 
-              href=" {% url 'informeactualizar' objeto.id %} " 
-               >
-          </a>
-          
-          
+        <caption>Listado de informes</caption>
+        <thead>
+            <tr>
+                <th class="centered">Id</th>
+                <th class="text-center centered">Opciones</th>
+                <th class="text-center centered">Nombre del informe</th>
+                <th class="text-center centered">Ente de control</th>
+                <th class="text-center centered">Dependencia</th>
+                <th class="text-center centered">Entrega pendiente</th>
+               <!-- <th class="text-center centered">Estado</th>-->
+            </tr>
+        </thead>
+        <tbody id="tabla-usuarios">
+            {% for item in datos %}
+            <tr>
+                <td>{{ item.informe.id }}</td>
+                <td>
+                    <a name="ver" class="fa fa-eye btn btn-outline-success btn-sm ver"
+                       data-nombre="{{ item.informe.nombre }}"
+                       data-id="{{ item.informe.id }}"
+                       data-normativa="{{ item.informe.normativa }}"
+                       data-entecontrol_id="{{ item.informe.entecontrol.nombre }}"
+                       data-dependencia_id="{{ item.informe.dependencia.nombre }}"
+                       data-dependencia_responsable="{{ item.informe.dependencia.responsable }}"
+                       data-dependencia_correoresponsable="{{ item.informe.dependencia.correoresponsable }}"
+                       data-fechaentregainicial="{{ item.informe.fechaentregainicial }}"
+                       data-fechaentrega="{% if item.entrega_reciente %}{{ item.entrega_reciente.fecha }}{% else %}No hay entregas pendientes{% endif %}"
+                       data-periodicidad="{{ item.informe.periodicidad }}"
+                       data-periodicidadtipo="{{ item.informe.periodicidadtipo }}"
+                       data-totalentregas="{{ item.informe.totalentregas }}"
+                       data-activo="{{ item.informe.activo }}"
+                       data-alarmas="{{ item.informe.alarmas }}"
+                       data-alarmas2="{{ item.informe.alarmas2 }}"
+                       data-alarmas3="{{ item.informe.alarmas3 }}"
+                       data-bs-toggle="modal"
+                       data-bs-target="#ex">
+                    </a>
 
-          </a>
+                    <a class="fa fa-edit btn btn-outline-primary btn-sm disabled"
+                       href="{% url 'informeactualizar' item.informe.id %}"
+                       data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                       data-bs-title="Desactivado temporalmente por el desarollador"
+                       >
+                    </a>
 
-            
-          </td>
-            <td><center>{{objeto.nombre}}</center></td>
-            <td><center>{{objeto.entecontrol.nombre}}</center></td>
-            <td><center>{{objeto.dependencia.nombre}}</center></td>
-            <td>
-              <center>
-
-                {{objeto.fechaentregapendiente}}
-              <a  class="fas fa-folder-open btn btn-outline-secondary btn-sm" 
-              data-nombre="{{objeto.nombre}}"
-              href=" {% url 'entrega' objeto.id %} "
-              
-              >
-          </a>
-        </center>
-            
-            
-            
-            </td>
-            <td><center>
-              {% if objeto.activo %}
-              <button type="button" class="btn btn-success btn-sm">Activo</button>
-            {% else %}
-              <button type="button" class="btn btn-danger btn-sm">Inactivo</button>
-            {% endif %}
-            
-            </center></td>
-        </tr>
-    {% endfor %}
-
-      </tbody>
+                </td>
+                <td><center>{{ item.informe.nombre }}</center></td>
+                <td><center>{{ item.informe.entecontrol.nombre }}</center></td>
+                <td><center>{{ item.informe.dependencia.nombre }}</center></td>
+                <td>
+                    <center>
+                        {% if item.entrega_reciente %}
+                            {{ item.entrega_reciente.fecha }}
+                        {% else %}
+                            No hay entregas pendientes.
+                        {% endif %}
+                        <a class="fas fa-folder-open btn btn-secondary btn-sm"
+                           href="{% url 'entrega' item.informe.id %}">
+                        </a>
+                    </center>
+                </td>
+                <!--
+                <td>
+                    <center>
+                        {% if item.informe.activo %}
+                            <button type="button" class="btn btn-success btn-sm">Activo</button>
+                        {% else %}
+                            <button type="button" class="btn btn-danger btn-sm">Inactivo</button>
+                        {% endif %}
+                    </center>
+                </td>
+              -->
+            </tr>
+            {% endfor %}
+        </tbody>
     </table>
-
 </div>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar informe</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-
-
-        <center>
-
-          ¿Esta seguro de eliminar el registro? 
-        
-
-        </center>
-       
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <a class="btn btn-danger"   data-id="{{objeto.id}}"
-        href="" 
-        
-        >Eliminar</a>
-      </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar informe</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <center>
+                    ¿Está seguro de eliminar el registro?
+                </center>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <a class="btn btn-danger" data-id="{{ objeto.id }}" href="">Eliminar</a>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
-
-
-
-
-
-
- 
-  <!-- Modal de visualizacion-->
+<!-- Modal de visualización -->
 <div class="modal fade" id="ex" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3 class="" id="exampleModalLabel">Datos del informe</h3>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="" id="exampleModalLabel">Datos del informe</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <table class="table table-bordered table-hover">
+                        <tbody>
+                            <tr>
+                                <th scope="col">Id:</th>
+                                <th scope="col"><input type="text" name="id" id="id"  class="form-control input-no-border"></th>
+                            </tr>
+                            <tr>
+                                <th scope="col">Nombre:</th>
+                                <th scope="col"><input type="text" name="nombre" id="nombre" class="form-control input-no-border"></th>
+                            </tr>
+                            <tr>
+                                <th scope="col">Normativa:</th>
+                                <th scope="col"><input type="hidden" name="normativa" id="normativa" class="form-control">
+                                    <a id="ver-normativa" href="{../}" target="_blank" class="btn btn-sm fas fa-eye"> Ver</a>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th scope="col">Ente de control:</th>
+                                <th scope="col"><input type="text" name="entecontrol_id" id="entecontrol_id" class="form-control input-no-border"></th>
+                            </tr>
+                            <tr>
+                                <th scope="col">Dependencia:</th>
+                                <th scope="col"><input type="text" name="dependencia_id" id="dependencia_id" class="form-control input-no-border"></th>
+                            </tr>
+                            <tr>
+                                <th scope="col">Nombre del responsable:</th>
+                                <th scope="col"><input type="text" name="responsable" id="responsable" class="form-control input-no-border"></th>
+                            </tr>
+                            <tr>
+                                <th scope="col">Correo del responsable:</th>
+                                <th scope="col"><input type="text" name="correoresponsable" id="correoresponsable" class="form-control input-no-border"></th>
+                            </tr>
+                            <tr>
+                                <th scope="col">Fecha de entrega inicial:</th>
+                                <th scope="col"><input type="text" name="fechaentregainicial" id="fechaentregainicial" class="form-control input-no-border"></th>
+                            </tr>
+                            <tr>
+                                <th scope="col">Fecha de entrega pendiente:</th>
+                                <th scope="col"> 
+                                 <input type="text" name="fechaentrega" id="fechaentrega" class="form-control input-no-border">
+                               
+                            </th>
+                            </tr>
+                            <tr>
+                                <th scope="col">Periodo de repetición del informe:</th>
+                                <th scope="col"><input type="text" name="periodicidad" id="periodicidad" class="form-control input-no-border" value="{{ item.informe.periodicidad }} {{item.informe.periodicidadtipo}}">
 
+                            </tr>
 
+                            <tr>
+                              <th scope="col">Tipo de periodicidad</th>
+                              <th scope="col"><input type="text" name="periodicidadtipo" id="periodicidadtipo" class="form-control input-no-border"></th>
+                            </th>
+                            </tr>
+                            
+                            <tr>
+                                <th scope="col">Finalizar después de cuántas entregas:</th>
+                                <th scope="col"><input type="text" name="totalentregas" id="totalentregas" class="form-control input-no-border"></th>
+                            </tr>
+                            <!--ESTE SI DEBE IR PILASSSS-->
+                            <!--
+                            <tr>
+                                <th scope="col">Entregas realizadas:</th>
+                                <th scope="col"><input type="text" name="nombre" id="nombre" class="form-control"></th>
+                            </tr>
+                            -->
+                            <!--
+                            <tr>
+                                <th scope="col">Estado del informe:</th>
+                                <th scope="col"><input type="text" name="activo" id="activo" class="form-control"></th>
+                            </tr>
+                            -->
 
+                            <tr>
+                                <th scope="col" colspan="2" class="text-center">Días de anticipación de alarma</th>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Alarma creada</td>
+                                <td class="text-center">
+                                    <input type="text" name="alarmas" id="alarmas" class="form-control form-control-sm mx-auto input-no-border text-center" placeholder="No creada" style="max-width: 90px;">
+                                    días antes de la fecha de entrega
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Alarma creada</td>
+                                <td class="text-center">
+                                    <input type="text" name="alarmas2" id="alarmas2" class="form-control form-control-sm mx-auto input-no-border text-center" placeholder="No creada" style="max-width: 90px;">
+                                    días antes de la fecha de entrega
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Alarma creada</td>
+                                <td class="text-center">
+                                    <input type="text" name="alarmas3" id="alarmas3" class="form-control form-control-sm mx-auto input-no-border text-center" placeholder="No creada" style="max-width: 90px;">
+                                    días antes de la fecha de entrega
+                                </td>
+                            </tr>
+                            
 
-        <div class="modal-body">
-          <form action="" method="POST" >
-          {% csrf_token %}
-
-
-          <table class="table table-bordered table-striped">
-         
+<style>
+  .input-no-border {
+      border: none;
+      box-shadow: none;
     
-           
-            <tbody>
-              <tr>
-      
-                <th scope="col">Id:</th>
-                <th scope="col"><input type="text" name="id" id="id" disabled class="form-control"></th>
-              
-              </tr>
-              <tr>
-                <th scope="col">Nombre:</th>
-                <th scope="col"><input type="text" name="nombre" id="nombre" class="form-control"></th>
-                
-              </tr>
-              <tr>
-          
-                <th scope="col">Normativa:</th>
-                <th scope="col"><input type="hidden" name="normativa" id="normativa" class="form-control">
-                
-                  <a id="ver-normativa" href="{../}" target="_blank" class="btn btn-sm fas fa-eye"> Ver</a>
-                 
-                </th>
-                
-              
-              </tr>
-              <tr>
-          
-                <th scope="col">Ente de control:</th>
-                <th scope="col"><input type="text" name="entecontrol_id" id="entecontrol_id" class="form-control"></th>
-              
-              </tr>
-              <tr>
-          
-                <th scope="col">Dependencia:</th>
-                <th scope="col"><input type="text" name="dependencia_id" id="dependencia_id" class="form-control"></th>
-              
-              </tr>
-              <tr>
-          
-                <th scope="col">Nombre del responsable:</th>
-                <th scope="col"><input type="text" name="responsable" id="responsable" class="form-control"></th>
-              
-              </tr>
-              <tr>
-          
-                <th scope="col">Correo del responsable:</th>
-                <th scope="col"><input type="text" name="correoresponsable" id="correoresponsable" class="form-control"></th>
-              
-              </tr>
-              <tr>
-          
-                <th scope="col">Fecha de entrega inicial:</th>
-                <th scope="col"><input type="text" name="fechaentregainicial" id="fechaentregainicial" class="form-control"></th>
-              
-              </tr>
-              <tr>
-          
-                <th scope="col">Fecha de entrega pendiente:</th>
-                <th scope="col"><input type="text" name="fechaentregapendiente" id="fechaentregapendiente" class="form-control"></th>
-              
-              </tr>
-              <tr>
-          
-                <th scope="col">Periodo de repeticion del informe:</th>
-                <th scope="col"><input type="text" name="periodicidad" id="periodicidad" class="form-control"></th>
-              
-              </tr>
-              <tr>
-          
-                <th scope="col">FInalizar despues de cuantas entregas:</th>
-                <th scope="col"><input type="text" name="totalentregas" id="totalentregas" class="form-control"></th>
-              
-              </tr>
-              <tr>
-          
-                <th scope="col">Entregas realizadas:</th>
-                <th scope="col"><input type="text" name="nombre" id="nombre" class="form-control"></th>
-              
-              </tr>
-              <tr>
-          
-                <th scope="col">Estado del informe:</th>
-                <th scope="col"><input type="text" name="activo" id="activo" class="form-control"></th>
-              
-              </tr>
-              <tr>
-          
-                <th scope="col">Dias de anticipacion de alarma:</th>
-                <th scope="col"><input type="text" name="alarmas" id="alarmas" class="form-control" placeholder="No creada">
-                <input type="text" name="alarmas2" id="alarmas2" class="form-control" placeholder="No creada" hidden>
-                <input type="text" name="alarmas3" id="alarmas3" class="form-control" placeholder="No creada" hidden></th>
+  }
+</style>
 
-                <!-- Aqui va un script que revisa esi el valor de alarma es nulo para que se oculte-->
-              </tr>
-            
-            
-             
-            </tbody>
-          </table>
-
-
-
-
+                        </tbody>
+                    </table>
+                </form>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-sm">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-         
-        
-        
-        
-        </div>
-    </form>
-
-
-
-
-
-    {% if messages %}
-    {% for message in messages %}
-        <div class="alert alert-{{ message.tags }} alert-sm">
-         {{ message }}
-        </div>
-   {% endfor %}
-
-{% endif %}
-      </div>
     </div>
-  </div>
- 
-  <!-- AQUI DEBE ASIGNAR EL MISMO SISTEMA EL NOMBRE DE USUARIO Y POR DEFECTO LA CONTRASEÑA ES LA CEDULA-->
-  <script>
+</div>
 
-
-
+<script>
     // Función para cargar los campos de nombre del responsable y correo del responsable
     function cargarDatosResponsable(nombre, correo) {
         // Actualizar los valores de los campos en el modal
         document.getElementById('responsable').value = nombre;
         document.getElementById('correoresponsable').value = correo;
     }
+
+   
 
     // Agregar evento click a los botones de visualización de informes
     var botonesVer = document.querySelectorAll('.ver');
@@ -295,23 +262,12 @@
 
             // Llamar a la función para cargar los datos del responsable y el correo del responsable
             cargarDatosResponsable(nombre, correo);
-            ///para el cargue de normativa
-            var urlNormativa = "../static/"+normativa;
-            document.getElementById("ver-normativa").href = urlNormativa;
-
-
-
-         
-
           
+            ///para el cargue de normativa
+            var urlNormativa = "../static/" + normativa;
+            document.getElementById("ver-normativa").href = urlNormativa;
         });
     });
-
-
-   
-
 </script>
-
-
 
 {% endblock contenido %}

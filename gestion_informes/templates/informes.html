@@ -126,7 +126,7 @@
                                     id="nombreresponsable"
                                     name="nombreresponsable"
                                     placeholder="Nombre del responsable"
-                                    disabled
+                                    readonly
                                   />
                                 </div>
                               </div>
@@ -292,10 +292,12 @@
                                   <div class="form-group">
                                     <label>Días de anticipación a la fecha de entrega *</label>
                                     <div class="input-group mb-3">
-                                      <input type="number" id="alarmas" name="alarmas" min="1" max="100" class="form-control text-center" />
+                                      <input type="number" id="alarmas" name="alarmas" min="1" max="100" class="form-control text-center" required>
                                       <!-- ALARMAS OCULTAS PARA REALIAR EL REGISTRO SOLO DE LAS TRES PRIMERAS-->
+                                      <input type="hidden" id="alarmas1" name="alarmas1" value="3"> <!--ESTE DEBE SER EL PRIMERO Y EL DE ARRIBA SOLO REDIRECCIONA-->
                                       <input type="hidden" id="alarmas2" name="alarmas2">
-                                      <input type="hidden" id="alarmas3" name="alarmas3">                                                  <!-- ALARMAS OCULTAS PARA REALIAR EL REGISTRO SOLO DE LAS TRES PRIMERAS-->
+                                      <input type="hidden" id="alarmas3" name="alarmas3">       
+                                      <!-- ALARMAS OCULTAS PARA REALIAR EL REGISTRO SOLO DE LAS TRES PRIMERAS-->                                      
                                       <div class="input-group-append">
                                         <div class="input-group-text">
                                           <p class="mb-0">Días</p>
@@ -471,8 +473,13 @@
             
             // Actualizar los campos ocultos
             var alarmas = document.querySelectorAll('input[name="alarmas[]"]');
-            if (alarmas.length > 0) document.getElementById("alarmas2").value = alarmas.length > 1 ? alarmas[1].value : "";
-            if (alarmas.length > 1) document.getElementById("alarmas3").value = alarmas.length > 2 ? alarmas[2].value : "";
+            ///////estoy agregando tambien el valor de alarmas1
+            if (alarmas.length > 0) document.getElementById("alarmas").value = alarmas.length > 0 ? alarmas[0].value : "";
+            console.log('Valor de alarma:1', document.getElementById("alarmas").value);  
+            if (alarmas.length > 1) document.getElementById("alarmas2").value = alarmas.length > 1 ? alarmas[1].value : "";
+            console.log('Valor de alarmas2:', document.getElementById("alarmas2").value);  // Añadido
+            if (alarmas.length > 2) document.getElementById("alarmas3").value = alarmas.length > 2 ? alarmas[2].value : "";
+            console.log('Valor de alarmas3:', document.getElementById("alarmas3").value);  // Añadido
         } else {
             alert("Solo puedes agregar tres alarmas.");
         }
@@ -482,14 +489,10 @@
 }
 
 
-
 function eliminarAlarma(button) {
     if (button && button.parentElement) {
         var alarma = button.parentElement;
         alarma.remove();
-
-        ///agregando las otras dos alarmas
-        ///agregando las otras dos alarmas
 
 
     } else {

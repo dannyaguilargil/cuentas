@@ -35,7 +35,7 @@ SECRET_KEY = 'django-insecure-ruhs)hlt#vqu=c)(n_tr$w__wpn2$!h!-=a+k=ts1ql0of)^kn
 #cuando la pose a produccion dejarlo en false
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.130','sara.imsalud.gov.co','localhost','127.0.0.1','192.168.134.223']
+ALLOWED_HOSTS = ['192.168.0.130','saradev.imsalud.gov.co','localhost','127.0.0.1','192.168.134.223']
 
 
 # Application definition
@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'rest_framework', # apis
     'corsheaders', # apis
     'django_celery_results',
+    'gestion_encuestas',
     #'django_celery_beat' opcional mas adelante
   
 ]
@@ -164,12 +165,12 @@ CORS_ALLOWED_ORIGINS = []
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 
-EMAIL_HOST_USER = 
-EMAIL_HOST_PASSWORD = 
-EMAIL_PORT = 
-EMAIL_USE_SSL = 
-DEFAULT_FROM_EMAIL = 
+EMAIL_HOST =
+EMAIL_HOST_USER =
+EMAIL_HOST_PASSWORD =
+EMAIL_PORT =
+EMAIL_USE_SSL =
+DEFAULT_FROM_EMAIL =
 
 ###########configuraciones necesaria para la tareas programadas #########
 CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672//' 
@@ -178,16 +179,19 @@ CELERY_RESULT_BACKEND = 'rpc://'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-########### NUEVAS CONFIGURACIONES ##########################
+#####################################
 CELERY_RESULT_BACKEND = 'django-db'
 CELERY_ENABLE_UTC = False
-########################################################
-#CELERY_
-
-
-
+################################### NUEVAS CONFIGURACIONES DEL 05/06/2024
+CELERY_BROKER_HEARTBEAT = 120  
+CELERY_BROKER_CONNECTION_TIMEOUT = 60
+CELERY_TASK_ACKS_LATE = True 
+CELERY_TASK_REJECT_ON_WORKER_LOST = True
+CELERY_WORKER_PREFETCH_MULTIPLIER = 1 
+###########LOGIN#####################
 LOGIN_URL = '/login'
-LOGOUT_REDIRECT_URL = 'login'
+LOGOUT_REDIRECT_URL = '/login'
 ###agregado para las sesiones
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_AGE = 3600  
+###########LOGIN#####################

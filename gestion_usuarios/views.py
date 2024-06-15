@@ -86,11 +86,11 @@ def home(request):
                     ### realizar cambios para asignalos por grupos
         else:
             print("Usuario invalido")
-            messages.error(request, 'Las credenciales de inicio de sesión son inválidas.')
+            messages.error(request, 'Ingresar credenciales validos para iniciar sesión.')
             return redirect('inicio')
     else:
         print("Renderizado")
-
+        #messages.error(request, 'Las credenciales de inicio de sesión son inválidas.')
         form = AuthenticationForm()
 
     return render(request, 'home.html', {'form': form})

@@ -10,11 +10,9 @@
 </center>
 
 
-
 <form action="" class="form-control">
     
-    
-
+  
     <div class="row container center">
      <div class="col-4">
         <label for="">Modulo:</label>
@@ -32,7 +30,7 @@
 
 
      <div class="col">
-        Modelo a graficar:
+        Modelo:
         <select name="" id="" class="form-control">
             <option value="">Tareas programadas</option>
             <option value="">Entregas</option>
@@ -50,12 +48,12 @@
         <input type="date" name="" id="" class="form-control">
 
 
-      
+    
     
       </div>
       
       <div class="col">
-        Tipo de grafica:
+        Grafica:
         <select name="" id="" class="form-control">
             <option value="">Torta</option>
             <option value="">Barras</option>
@@ -72,8 +70,10 @@
     <br>
     
     <center>
-   
-      <img src="{{ data }}" alt="Gráfica de Tareas del Mes">
+      <div class="card">
+        <img src="{{ data }}" alt="Gráfica de Tareas del Mes" class="card-img-to">
+      </div>
+  
     </center>
           
     

@@ -1,4 +1,4 @@
-{% extends 'base_informes.html' %}
+{% extends 'base_informes_actualizar.html' %}
 {% block titulo %}Actualizacion del informe{% endblock titulo %}
 {% block contenido %}
 
@@ -128,7 +128,8 @@
                                     id="nombreresponsable"
                                     name="nombreresponsable"
                                     placeholder="Nombre del responsable"
-                                    disabled
+                                    value="{{ responsable }}"
+                                    readonly
                                   />
                                 </div>
                               </div>
@@ -143,7 +144,8 @@
                                     id="correoresponsable"
                                     name="correoresponsable"
                                     placeholder="Correo del responsable"
-                                    disabled
+                                    value="{{ correoresponsable }}"
+                                    readonly
                                   />
                                 </div>
                               </div>
@@ -184,10 +186,10 @@
                               <div class="col-sm-4">
                                 <div class="form-group">
                                   <label for="report-initial-date"
-                                    >Fecha de entrega inical *</label
+                                    >Fecha de entrega inicial *</label
                                   >
                                   <input
-                                    type="date"
+                                    type="text"
                                     class="form-control"
                                     id="fechaentregainicial"
                                     name="fechaentregainicial"
@@ -341,10 +343,17 @@
                             </form>
                           </div>
 
-
                           <center>
-                            <div id="contenedor-alarmas"></div>
-                          </center>
+                            {% if alarmas %}
+                                Alarma creada {{ alarmas }} días antes de la fecha <br>
+                            {% endif %}
+                            {% if alarmas2 %}
+                                Alarma creada {{ alarmas2 }} días antes de la fecha <br>
+                            {% endif %}
+                            {% if alarmas3 %}
+                                Alarma creada {{ alarmas3 }} días antes de la fecha <br>
+                            {% endif %}
+                        </center>
                           
                           
 

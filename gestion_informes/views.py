@@ -16,100 +16,95 @@ from django.contrib.auth.decorators import login_required
 #####REUERIDOS PARA EL CALCULO DE ENTREGAS#####
 from dateutil.relativedelta import relativedelta
 from django.conf import settings
-
+from django.utils import timezone
 
 @login_required
 def informes(request):
-    #print("SESSION_EXPIRE_AT_BROWSER_CLOSE:", settings.SESSION_EXPIRE_AT_BROWSER_CLOSE)
-    #print("SESSION_COOKIE_AGE:", settings.SESSION_COOKIE_AGE)
     username = request.user.username
     entes_control = entecontrol.objects.all()
     entes_dependencia = dependencia.objects.all()
-    ### inserccion del informe ##
     finformes = finforme(request.POST, request.FILES)
     if finformes.is_valid():
         informe = finformes.save()
         messages.success(request, 'Informe agregado correctamente.')
         nombre_informe = informe.nombre
 
-        ####configuracion de envios de tareas programadas#####
-        print("Informe creado exitosamente")
         nombre_responsable = request.POST.get('nombreresponsable')
-        correo_responsable = request.POST.get('correoresponsable')##no lo paso por formulario, debo mirar como lo tomo
-        print(nombre_responsable)
-        print(correo_responsable)
+        correo_responsable = request.POST.get('correoresponsable')
         dias_anticipacion = int(request.POST.get('alarmas'))
-        ########cargando las otras dos alarmas######
-        dias_anticipacion2 = int(request.POST.get('alarmas2') or 0)
-        dias_anticipacion3 = int(request.POST.get('alarmas3') or 0)
-        #############################################
+        dias_anticipacion2 = int(request.POST.get('alarmas2') or 0)###revisar
+        dias_anticipacion3 = int(request.POST.get('alarmas3') or 0)###revisar
         print(dias_anticipacion)
         print(dias_anticipacion2)
         print(dias_anticipacion3)
-        fecha_entrega_inicial = datetime.strptime(request.POST.get('fechaentregainicial'), '%Y-%m-%d')
-        print(fecha_entrega_inicial)
-        fecha_alarma = fecha_entrega_inicial - timedelta(days=dias_anticipacion)
-        ########cargando las otras dos alarmas######
-        fecha_alarma2 = fecha_entrega_inicial - timedelta(days=dias_anticipacion2)
-        fecha_alarma3 = fecha_entrega_inicial - timedelta(days=dias_anticipacion3)
-        ########cargando las otras dos alarmas######
-        print(fecha_alarma)
-        mensaje_html = f"""
-            <html>
-            <body>
-                <p>{nombre_responsable},</p>
-                <p>Está a <b style="color: green;">{dias_anticipacion} días</b> de la fecha LIMITE para entregar el informe: <strong>{informe.nombre}</strong> al ente de control: <strong>{informe.entecontrol}</strong>.</p>
-                <p>Fecha límite: <strong>{informe.fechaentregainicial}</strong></p>
-                <p>Recuerde que debe <strong>ENVIAR</strong> el ticket en la mesa de ayuda para que la oficina de <b style="color: green">INFORMATICA</b> pueda validar la información <b>A TIEMPO</b>.</p>
-                <p><a type="button" href="http://sara.imsalud.gov.co:8000/informe/entrega/{informe.id}">Ver informe</a> | <a type="button" href="https://soporte.imsalud.gov.co">Mesa de ayuda</a></p>
-            </body>
-            </html>
-            """
-            
-            # Envío del correo de alarma
-        enviar_alarma2.apply_async(
-            args=[correo_responsable, mensaje_html, nombre_informe],
-            eta=fecha_alarma
-        )
-        ########cargando las otras dos alarmas###### 
-        enviar_alarma2.apply_async(
-            args=[correo_responsable, mensaje_html, nombre_informe],
-            eta=fecha_alarma2
-        )
-        
-        enviar_alarma2.apply_async(
-            args=[correo_responsable, mensaje_html, nombre_informe],
-            eta=fecha_alarma3
-        )
-        ########cargando las otras dos alarmas######     
-
-        ###AQUI VA LA CREACION AUTOMATICAS DE LAS ENTREGAS### 
         periodicidad = int(request.POST.get('periodicidad'))
         periodicidadtipo = request.POST.get('periodicidadtipo')
         totalentregas = int(request.POST.get('totalentregas'))
-        fecha_entrega = fecha_entrega_inicial
-
+        fecha_entrega = datetime.strptime(request.POST.get('fechaentregainicial'), '%Y-%m-%d')
+        
         for i in range(totalentregas):
-            entrega.objects.create(informe=informe, fecha=fecha_entrega, activo=True)
+            nueva_entrega = entrega.objects.create(informe=informe, fecha=fecha_entrega, activo=True)
             print(f"Entrega {i + 1}: Fecha de entrega {fecha_entrega}")
+            
+            # Calcular las fechas de las alarmas para esta entrega
+            fecha_alarma = fecha_entrega - timedelta(days=dias_anticipacion)
+            fecha_alarma2 = fecha_entrega - timedelta(days=dias_anticipacion2)
+            fecha_alarma3 = fecha_entrega - timedelta(days=dias_anticipacion3)
+            
+            mensaje_html = f"""
+                <html>
+                <body>
+                    <p><span>{nombre_responsable}</span>,</p>
+                    <p>Está a <span style="color: green">{dias_anticipacion} días</span> de la fecha LIMITE para entregar el informe: <strong>{informe.nombre}</strong> al ente de control: <strong>{informe.entecontrol}</strong>.</p>
+                    <p>Fecha límite: <strong">{fecha_entrega.strftime('%Y-%m-%d')}</strong></p>
+                    <p>Recuerde que debe <strong>ENVIAR</strong> el ticket en la mesa de ayuda para que la oficina de <strong>INFORMATICA</strong> pueda validar la información <strong>A TIEMPO</strong>.</p> <br>
+                    <p><a style="background: green; color: white; border-style: solid; border-width: 1px; border-color: white; padding: 5px; text-decoration: none; border-radius: 20px;" type="button" href="http://sara.imsalud.gov.co:8000/informe/entrega/{informe.id}">Ver informe</a> | <a style="background: green; color: white; border-style: solid; border-width: 1px; border-color: white; padding: 5px; text-decoration: none; border-radius: 20px;" type="button" href="https://soporte.imsalud.gov.co">Mesa de ayuda</a></p>
+                </body>
+                </html>
+                """
+            
+            # Enviar las alarmas
+            if dias_anticipacion > 0:
+                enviar_alarma2.apply_async(
+                    args=[correo_responsable, mensaje_html, nombre_informe],
+                    eta=fecha_alarma
+                )
+            if dias_anticipacion2 > 0:
+                enviar_alarma2.apply_async(
+                    args=[correo_responsable, mensaje_html, nombre_informe],
+                    eta=fecha_alarma2
+                )
+            if dias_anticipacion3 > 0:
+                enviar_alarma2.apply_async(
+                    args=[correo_responsable, mensaje_html, nombre_informe],
+                    eta=fecha_alarma3
+                )
+                
+            # Actualizar la fecha de entrega para la siguiente iteración
             if periodicidadtipo == 'Dias':
                 fecha_entrega += timedelta(days=periodicidad)
             elif periodicidadtipo == 'Meses':
                 fecha_entrega += relativedelta(months=periodicidad)
             else:
                 print(f"Tipo de periodicidad no reconocido: {periodicidadtipo}")
-                break  
-        return redirect('informe')
-        ###AQUI VA LA CREACION AUTOMATICAS DE LAS ENTREGAS### 
+                break
 
+        return redirect('informe')
 
     else:
         finformes = finforme()
-        print("Rednderizado")
+        print("Renderizado")
+    
     pertenece_a_informes = request.user.groups.filter(name='informes').exists()
     es_staff = request.user.is_staff
-    return render(request, 'informes.html', {'entes_control': entes_control, 'entes_dependencia': entes_dependencia, 'finformes': finformes, 'username': username, 'pertenece_a_informes': pertenece_a_informes,
-                                             'es_staff': es_staff}) 
+    return render(request, 'informes.html', {
+        'entes_control': entes_control,
+        'entes_dependencia': entes_dependencia,
+        'finformes': finformes,
+        'username': username,
+        'pertenece_a_informes': pertenece_a_informes,
+        'es_staff': es_staff
+    })
 
 #ejemplo con solicitudes de usuarios provisionalmente
 @login_required
@@ -134,22 +129,28 @@ def listadodependencia(request):
 
 #ejemplo con solicitudes de usuarios provisionalmente
 @login_required
-def  listado(request):
-     username = request.user.username
-     es_staff = request.user.is_staff
-     datos = informe.objects.all().select_related('entecontrol', 'dependencia')#para busqueda relacionada en cascada
-     return render(request, 'listado.html', {'datos': datos, 'username': username, 'es_staff': es_staff}) 
+def listado(request):
+    username = request.user.username
+    es_staff = request.user.is_staff
+    datos = informe.objects.all().select_related('entecontrol', 'dependencia')  # Para búsqueda relacionada en cascada
 
-#@login_required
-#def  entecontrols(request):
-#     datos = entecontrol.objects.values()
-#     formper = fente(request.POST or None)
-#     if formper.is_valid():
-#        formper.save()
-#        messages.success(request, 'Ente de control agregado.')
-#        return redirect('entecontrol')
-     ######Formulario de actualizacion del ente de control
-#     return render(request, 'entecontrol.html', {'datos': datos, 'formper': formper}) 
+    # Añadir información sobre la entrega más reciente para cada informe
+    informes_con_entrega_reciente = []
+    now = timezone.now().date()
+    for informe_obj in datos:
+        entregas = entrega.objects.filter(informe=informe_obj, fecha__gt=now).order_by('fecha')
+        entrega_reciente = entregas.first() if entregas.exists() else None
+        informes_con_entrega_reciente.append({
+            'informe': informe_obj,
+            'entrega_reciente': entrega_reciente
+        })
+
+    return render(request, 'listado.html', {
+        'datos': informes_con_entrega_reciente, 
+        'username': username, 
+        'es_staff': es_staff
+    })
+ 
 @login_required
 def entecontrols(request):
     username = request.user.username
@@ -215,6 +216,7 @@ def dependencias(request):
     es_staff = request.user.is_staff
     return render(request, 'dependencia.html', {'datos': datos, 'formpers': formpers, 'username': username, 'es_staff': es_staff})
 ## en entregas debe trarse el id del informe
+
 @login_required
 def  entregar(request, id):
      username = request.user.username
@@ -241,9 +243,17 @@ def  entregar(request, id):
 
      nombre = informes.nombre
 
+
      ####ONTIENE TODA LAS ENTREGAS DEL INFORME############
      entregas = entrega.objects.filter(informe=informes)
-     #### EVIDENCIAS ASOCIADAS A CADA ENTREGA #############
+     ####OBTIENE FECHA DE ENTREGA MAS RECIENTE ###########
+     now = timezone.now().date()
+     entrega_reciente = entregas.filter(fecha__gt=now).order_by('fecha').first()
+
+     ##para organizarlo de la fecha mas cercana y que los otros botones se desabiliten   
+     entregas = sorted(entregas, key=lambda e: (e.fecha - now).days if e.fecha >= now else float('inf'))
+     ##para organizarlo de la fecha mas cercana y que los otros botones se desabiliten   
+  
      entregas_con_evidencias = []
      for entrega_obj in entregas:
          evidencias = evidencia.objects.filter(entrega=entrega_obj)   
@@ -251,6 +261,7 @@ def  entregar(request, id):
             'entrega': entrega_obj,
             'evidencias': evidencias
          })
+
 
      normativa = informes.normativa
      entecontrol = informes.entecontrol
@@ -280,7 +291,7 @@ def  entregar(request, id):
      'fechaentregainicial': fechaentregainicial, 'periodicidad': periodicidad, 'periodicidadtipo': periodicidadtipo, 'totalentregas': totalentregas,
      'activo': activo, 'descripcion': descripcion, 'dias': dias, 'fechaentregapendiente': fechaentregapendiente, 'responsable': responsable,
      'correoresponsable': correoresponsable, 'entregas': entregas, 'entregas_con_evidencias': entregas_con_evidencias, 'alarmas': alarmas,
-     'alarmas2': alarmas2, 'alarmas3': alarmas3, 'forevidencia': forevidencia, 'username': username, 'es_staff': es_staff } ) 
+     'alarmas2': alarmas2, 'alarmas3': alarmas3, 'forevidencia': forevidencia, 'username': username, 'es_staff': es_staff, 'entrega_reciente': entrega_reciente} ) 
 
 @login_required
 def obtener_nombre_responsable(request):
@@ -318,7 +329,14 @@ def informeactualizar(request, id):
     nombre = informes.nombre
     normativa = informes.normativa
     entecontrols = informes.entecontrol
+    #####depedencias en la actualizacion#####
     dependencias = informes.dependencia
+    responsable = ""
+    correoresponsable = ""
+    if dependencias:
+        responsable = dependencias.responsable
+        correoresponsable = dependencias.correoresponsable
+    #####dependencias en la actualizacion####
     fechaentregainicial = informes.fechaentregainicial
     fechaentregapendiente = informes.fechaentregapendiente
     periodicidad = informes.periodicidad
@@ -328,11 +346,13 @@ def informeactualizar(request, id):
     descripcion = informes.descripcion
     ####campos para ser actualizados###
     es_staff = request.user.is_staff
-
+    alarmas = informes.alarmas
+    alarmas2 = informes.alarmas2
+    alarmas3 = informes.alarmas3
     ### inserccion del informe ##
     return render(request, 'informes-actualizar.html', {'nombre': nombre, 'entecontrols': entecontrols, 'dependencias': dependencias, 'descripcion': descripcion,
     'fechaentregainicial': fechaentregainicial, 'username': username, 'es_staff': es_staff, 'periodicidad': periodicidad, 'periodicidadtipo': periodicidadtipo,
-    'totalentregas': totalentregas}) 
+    'totalentregas': totalentregas, 'responsable': responsable, 'correoresponsable': correoresponsable, 'alarmas': alarmas, 'alarmas2': alarmas2, 'alarmas3': alarmas3}) 
 
 #opcion de eliminar aqui
 @login_required

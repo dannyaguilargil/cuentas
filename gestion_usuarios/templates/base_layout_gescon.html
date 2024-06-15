@@ -67,7 +67,7 @@
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="background: #1d985a; color: white;"><i class="fas fa-user fa-fw" ></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" style="background: #1d985a; color: white;">
                      <!--   <li><a class="dropdown-item fas fa-user-edit" href=" {% url 'perfil' %} ">Actualizar perfil</a></li> -->
-                        <li><hr class="dropdown-divider" /></li>
+                       
                         <li>
                             <form method="POST" action="{% url 'logout' %}">
                                 {% csrf_token %}
@@ -156,7 +156,7 @@
                              <!-- GESTION DE IDENTIDADES-->
                              <!--div class="sb-sidenav-menu-heading" style="color: white;">CUENTAS</div> -->
                              <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts4" aria-expanded="false" aria-controls="collapseLayouts" style="background: #1d985a; color: white;">
-                                 <div class="sb-nav-link-icon"><i class="fas fa-hospital-user"></i></div>
+                                 <div class="sb-nav-link-icon"><i class="far fa-file-invoice-dollar"></i></div>
                                  Cuentas
                                  <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                              </a>
@@ -172,7 +172,7 @@
 
                                 <!-- <div class="sb-sidenav-menu-heading" style="color: white;">INFORMES</div> -->
                                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts5" aria-expanded="false" aria-controls="collapseLayouts" style="background: #1d985a; color: white;">
-                                    <div class="sb-nav-link-icon"><i class="fas fa-hospital-user"></i></div>
+                                    <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
                                     Informes
                                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                                 </a>
@@ -184,6 +184,32 @@
                                     <a class="nav-link" href="{% url 'dependencias' %}" style="color: white;">Dependencias</a>
                                 </nav>
                                 </div>
+
+                                <br>
+                                
+                                
+                                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts6" aria-expanded="false" aria-controls="collapseLayouts" style="background: #1d985a; color: white;">
+                                    <div class="sb-nav-link-icon"><i class="far fa-comment-alt"></i></div>
+                                    Siau
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                </a>
+                                <div class="collapse" id="collapseLayouts6" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{% url 'consultaexterna' %}" style="color: white;">Consulta externa</a>
+                                    
+                                    <a class="nav-link" href="" style="color: white;">Odontologia</a>
+
+                                    <a class="nav-link" href="" style="color: white;">Enfermeria</a>
+
+                                    <!---
+                                    <a class="nav-link" href="" style="color: white;">Urgencias</a>
+                                    <a class="nav-link" href="" style="color: white;">Enfoque diferencial</a>
+                                    <a class="nav-link" href="" style="color: white;">Promocion y prevencion</a>
+                                    -->
+                                    
+                                </nav>
+                                </div>
+                            
                            
 
 

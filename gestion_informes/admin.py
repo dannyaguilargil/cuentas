@@ -32,14 +32,14 @@ class Informe(admin.ModelAdmin):
     list_display= ('id', 'nombre', 'display_normativa', 'entecontrol', 'dependencia', 'fecha_actualizacion')
 admin.site.register(informe, Informe)
 
-class Alarma(admin.ModelAdmin):
-    list_display= ('id', 'informe', 'activo', 'dias', 'fecha_actualizacion')
-    search_fields = ('informe',)
-admin.site.register(alarma, Alarma)
+#class Alarma(admin.ModelAdmin):
+#    list_display= ('id', 'informe', 'activo', 'dias', 'fecha_actualizacion')
+#    search_fields = ('informe',)
+#admin.site.register(alarma, Alarma)
 
 class Entrega(admin.ModelAdmin):
     list_display= ('id', 'informe', 'fecha', 'activo', 'fecha_actualizacion')
-    search_fields = ('informe',)
+    search_fields = ('fecha',)
 admin.site.register(entrega, Entrega)
 
 class Evidencia(admin.ModelAdmin):
