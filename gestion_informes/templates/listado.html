@@ -40,16 +40,18 @@
                        data-alarmas="{{ item.informe.alarmas }}"
                        data-alarmas2="{{ item.informe.alarmas2 }}"
                        data-alarmas3="{{ item.informe.alarmas3 }}"
+                       data-descripcion="{{ item.informe.descripcion }}"
                        data-bs-toggle="modal"
                        data-bs-target="#ex">
                     </a>
 
                     <a class="fa fa-edit btn btn-outline-primary btn-sm disabled"
-                       href="{% url 'informeactualizar' item.informe.id %}"
-                       data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
-                       data-bs-title="Desactivado temporalmente por el desarollador"
-                       >
-                    </a>
+                    href="{% url 'informeactualizar' item.informe.id %}"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    data-bs-custom-class="custom-tooltip"
+                    title="Desactivado temporalmente por el desarrollador">
+                 </a>
 
                 </td>
                 <td><center>{{ item.informe.nombre }}</center></td>
@@ -166,7 +168,7 @@
                             </tr>
 
                             <tr>
-                              <th scope="col">Tipo de periodicidad</th>
+                              <th scope="col">Tipo de periodicidad:</th>
                               <th scope="col"><input type="text" name="periodicidadtipo" id="periodicidadtipo" class="form-control input-no-border"></th>
                             </th>
                             </tr>
@@ -174,6 +176,11 @@
                             <tr>
                                 <th scope="col">Finalizar después de cuántas entregas:</th>
                                 <th scope="col"><input type="text" name="totalentregas" id="totalentregas" class="form-control input-no-border"></th>
+                            </tr>
+
+                            <tr>
+                                <th scope="col">Descripcion del informe:</th>
+                                <th scope="col"><input type="text" name="descripcion" id="descripcion" class="form-control input-no-border"></th>
                             </tr>
                             <!--ESTE SI DEBE IR PILASSSS-->
                             <!--
@@ -269,5 +276,8 @@
         });
     });
 </script>
+
+
+
 
 {% endblock contenido %}

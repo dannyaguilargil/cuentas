@@ -32,11 +32,8 @@ def informes(request):
         nombre_responsable = request.POST.get('nombreresponsable')
         correo_responsable = request.POST.get('correoresponsable')
         dias_anticipacion = int(request.POST.get('alarmas'))
-        dias_anticipacion2 = int(request.POST.get('alarmas2') or 0)###revisar
-        dias_anticipacion3 = int(request.POST.get('alarmas3') or 0)###revisar
-        print(dias_anticipacion)
-        print(dias_anticipacion2)
-        print(dias_anticipacion3)
+        dias_anticipacion2 = int(request.POST.get('alarmas2') or 0)
+        dias_anticipacion3 = int(request.POST.get('alarmas3') or 0)
         periodicidad = int(request.POST.get('periodicidad'))
         periodicidadtipo = request.POST.get('periodicidadtipo')
         totalentregas = int(request.POST.get('totalentregas'))
@@ -51,32 +48,55 @@ def informes(request):
             fecha_alarma2 = fecha_entrega - timedelta(days=dias_anticipacion2)
             fecha_alarma3 = fecha_entrega - timedelta(days=dias_anticipacion3)
             
-            mensaje_html = f"""
-                <html>
-                <body>
-                    <p><span>{nombre_responsable}</span>,</p>
-                    <p>Está a <span style="color: green">{dias_anticipacion} días</span> de la fecha LIMITE para entregar el informe: <strong>{informe.nombre}</strong> al ente de control: <strong>{informe.entecontrol}</strong>.</p>
-                    <p>Fecha límite: <strong">{fecha_entrega.strftime('%Y-%m-%d')}</strong></p>
-                    <p>Recuerde que debe <strong>ENVIAR</strong> el ticket en la mesa de ayuda para que la oficina de <strong>INFORMATICA</strong> pueda validar la información <strong>A TIEMPO</strong>.</p> <br>
-                    <p><a style="background: green; color: white; border-style: solid; border-width: 1px; border-color: white; padding: 5px; text-decoration: none; border-radius: 20px;" type="button" href="http://sara.imsalud.gov.co:8000/informe/entrega/{informe.id}">Ver informe</a> | <a style="background: green; color: white; border-style: solid; border-width: 1px; border-color: white; padding: 5px; text-decoration: none; border-radius: 20px;" type="button" href="https://soporte.imsalud.gov.co">Mesa de ayuda</a></p>
-                </body>
-                </html>
-                """
-            
             # Enviar las alarmas
             if dias_anticipacion > 0:
+                mensaje_html = f"""
+                    <html>
+                    <body>
+                        <p><span>{nombre_responsable}</span>,</p>
+                        <p>Está a <span style="color: green">{dias_anticipacion} días</span> de la fecha LIMITE para entregar el informe: <strong>{informe.nombre}</strong> al ente de control: <strong>{informe.entecontrol}</strong>.</p>
+                        <p>Fecha límite: <strong>{fecha_entrega.strftime('%Y-%m-%d')}</strong></p>
+                        <p>Recuerde que debe <strong>ENVIAR</strong> el ticket en la mesa de ayuda para que la oficina de <strong>INFORMATICA</strong> pueda validar la información <strong>A TIEMPO</strong>.</p> <br>
+                        <p><a style="background: green; color: white; border-style: solid; border-width: 1px; border-color: white; padding: 5px; text-decoration: none; border-radius: 20px;" type="button" href="http://sara.imsalud.gov.co:8000/informe/entrega/{informe.id}">Ver informe</a> | <a style="background: green; color: white; border-style: solid; border-width: 1px; border-color: white; padding: 5px; text-decoration: none; border-radius: 20px;" type="button" href="https://soporte.imsalud.gov.co">Mesa de ayuda</a></p>
+                    </body>
+                    </html>
+                """
                 enviar_alarma2.apply_async(
                     args=[correo_responsable, mensaje_html, nombre_informe],
                     eta=fecha_alarma
                 )
+                
             if dias_anticipacion2 > 0:
+                mensaje_html2 = f"""
+                    <html>
+                    <body>
+                        <p><span>{nombre_responsable}</span>,</p>
+                        <p>Está a <span style="color: green">{dias_anticipacion2} días</span> de la fecha LIMITE para entregar el informe: <strong>{informe.nombre}</strong> al ente de control: <strong>{informe.entecontrol}</strong>.</p>
+                        <p>Fecha límite: <strong>{fecha_entrega.strftime('%Y-%m-%d')}</strong></p>
+                        <p>Recuerde que debe <strong>ENVIAR</strong> el ticket en la mesa de ayuda para que la oficina de <strong>INFORMATICA</strong> pueda validar la información <strong>A TIEMPO</strong>.</p> <br>
+                        <p><a style="background: green; color: white; border-style: solid; border-width: 1px; border-color: white; padding: 5px; text-decoration: none; border-radius: 20px;" type="button" href="http://sara.imsalud.gov.co:8000/informe/entrega/{informe.id}">Ver informe</a> | <a style="background: green; color: white; border-style: solid; border-width: 1px; border-color: white; padding: 5px; text-decoration: none; border-radius: 20px;" type="button" href="https://soporte.imsalud.gov.co">Mesa de ayuda</a></p>
+                    </body>
+                    </html>
+                """
                 enviar_alarma2.apply_async(
-                    args=[correo_responsable, mensaje_html, nombre_informe],
+                    args=[correo_responsable, mensaje_html2, nombre_informe],
                     eta=fecha_alarma2
                 )
+                
             if dias_anticipacion3 > 0:
+                mensaje_html3 = f"""
+                    <html>
+                    <body>
+                        <p><span>{nombre_responsable}</span>,</p>
+                        <p>Está a <span style="color: green">{dias_anticipacion3} días</span> de la fecha LIMITE para entregar el informe: <strong>{informe.nombre}</strong> al ente de control: <strong>{informe.entecontrol}</strong>.</p>
+                        <p>Fecha límite: <strong>{fecha_entrega.strftime('%Y-%m-%d')}</strong></p>
+                        <p>Recuerde que debe <strong>ENVIAR</strong> el ticket en la mesa de ayuda para que la oficina de <strong>INFORMATICA</strong> pueda validar la información <strong>A TIEMPO</strong>.</p> <br>
+                        <p><a style="background: green; color: white; border-style: solid; border-width: 1px; border-color: white; padding: 5px; text-decoration: none; border-radius: 20px;" type="button" href="http://sara.imsalud.gov.co:8000/informe/entrega/{informe.id}">Ver informe</a> | <a style="background: green; color: white; border-style: solid; border-width: 1px; border-color: white; padding: 5px; text-decoration: none; border-radius: 20px;" type="button" href="https://soporte.imsalud.gov.co">Mesa de ayuda</a></p>
+                    </body>
+                    </html>
+                """
                 enviar_alarma2.apply_async(
-                    args=[correo_responsable, mensaje_html, nombre_informe],
+                    args=[correo_responsable, mensaje_html3, nombre_informe],
                     eta=fecha_alarma3
                 )
                 
@@ -105,6 +125,7 @@ def informes(request):
         'pertenece_a_informes': pertenece_a_informes,
         'es_staff': es_staff
     })
+
 
 #ejemplo con solicitudes de usuarios provisionalmente
 @login_required
