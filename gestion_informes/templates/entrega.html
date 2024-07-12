@@ -1,341 +1,233 @@
 {% extends 'base_informes_entrega.html' %}
-{% block titulo %}Creacion del informe{% endblock titulo %}
+{% block titulo %}Creación del informe{% endblock titulo %}
 {% block contenido %}
 
 <center>
-    <h5 class=""><b>S</b>istema de <b>A</b>dministracion de <b>R</b>ecursos y <b>A</b>plicaciones </h5>
-    
+    <h5 class=""><b>S</b>istema de <b>A</b>dministración de <b>R</b>ecursos y <b>A</b>plicaciones </h5>
 </center>
-      
 
-    <div class="content-wrapper">
-      <!-- Content Header (Page header) -->
-      <div class="content-header">
+<div class="content-wrapper">
+    <div class="content-header">
         <div class="container-fluid">
-          <div class="row mb-2">
-            <div class="col-sm-6">
-            
-            </div>
-            <!-- /.col -->
-        
-            <!-- /.col -->
-          </div>
-          <!-- /.row -->
-        </div>
-        <!-- /.container-fluid -->
-      </div>
-      <!-- /.content-header -->
-  
-      <!-- Main content -->
-      <div class="content">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-12">
-              <div class="card card-primary card-outline">
-                <div class="card-header">
-                  <div class="d-flex justify-content-between">
-                    <h6 class="m-0">Gestión de entregas</h6>
-                  </div>
+            <div class="row mb-2">
+                <div class="col-sm-6">
                 </div>
-                <div class="card-body">
-                  <div class="card card-primary">
-                    <div class="card-header">
-                      <h6 class="card-title">Datos del informe</h6>
-                    </div>
-                    <div class="card-body">
-                      <div class="div-responsive table-responsive">
-                        <table
-                          class="table table-striped table-bordered"
-                          id="tabla-entregas"
-                        >
-                          <tbody>
-                            <tr>
-                              <td>
-                                <b>Nombre del informe:</b> {{ nombre }}
-                                
-                              </td>
-                              <td>
-                                <b>Normativa:</b> 
-                                <a
-                                  href="/static/{{ normativa }}"
-                                  target="_blank"
-                                  style="color: grey;"
-                                  >
-                                  {{ normativa }}</a
-                                >
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <b>Ente de control:</b> {{ entecontrol }}
-                              </td>
-                              <td>
-                                <b>Dependencia:</b> {{ dependencia }}
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <b>Responsable:</b> {{ responsable }}
-                              </td>
-                              <td>
-                                <b>Correo del responsable:</b> {{ correoresponsable }}
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                               
-                                  <b>Fecha entrega incial del informe:</b> {{ fechaentregainicial}}
-                              
-                                
-                              </td>
-                              <td>
-                               
-                                  <b>Fecha de entrega pendiente:</b> 
-                                  
-                                  {% if entrega_reciente %}
-                                  {{ entrega_reciente.fecha }}
-                                  {% else %}
-                                  No hay entregas pendientes.
-                                  {% endif %}
-                               
-                                
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                
-                                  <b>Periodo de repetición del Informe:</b>
-                                
-                                {{ periodicidad }}
-                                {{ periodicidadtipo }}
-                              </td>
-                              <td>
-                               
-                                  <b>Finalizar despues de cuantas entregas:<b>
-                                    {{ totalentregas }}
-                                
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                 <b> Estado del Informe: </b>   {{ activo|yesno:"Activo,Inactivo" }}
-                              </td>
-                              <td>
-                                 <b>Descripcion del Informe:</b> {{ descripcion }}
-                              </td>
-                            </tr>
-                            <tr>
-                              <td colspan="3" class="text-bold text-center">
-                                Alarmas
-                              </td>
-                            </tr>
-                            <tr>
-                              <td colspan="3">
-                                <ul class="list-group">
-                                  <li
-                                    class="list-group-item"
-                                  >
+            </div>
+        </div>
+    </div>
 
-                                  <center>
-                                    {% if alarmas %}
-                                        Alarma creada {{ alarmas }} días antes de la fecha <br>
-                                    {% endif %}
-                                    {% if alarmas2 %}
-                                        Alarma creada {{ alarmas2 }} días antes de la fecha <br>
-                                    {% endif %}
-                                    {% if alarmas3 %}
-                                        Alarma creada {{ alarmas3 }} días antes de la fecha <br>
-                                    {% endif %}
-                                </center>
-                                    
-                                  </li>
-                                </ul>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-
-
-                  <!-- gestion de entregas-->
-                  <div class="card card-primary">
-                    <div class="card-header">
-                      <h5 class="card-title">Listado de entregas</h5>
-                    {% if messages %}
-                      {% for message in messages %}
-                        <div class="alert alert-success">
-                            {{ message }}
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="m-0">Gestión de entregas</h6>
+                            </div>
                         </div>
-                      {% endfor %}
-                    {% endif %}
+                        <div class="card-body">
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h6 class="card-title">Datos del informe</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="div-responsive table-responsive">
+                                        <table class="table table-striped table-bordered" id="tabla-entregas">
+                                            <tbody>
+                                                <tr>
+                                                    <td><b>Nombre del informe:</b> {{ nombre }}</td>
+                                                    <td>
+                                                        <b>Normativa:</b> 
+                                                        <a href="/static/{{ normativa }}" target="_blank" style="color: grey;">
+                                                            {{ normativa }}
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Ente de control:</b> {{ entecontrol }}</td>
+                                                    <td><b>Dependencia:</b> {{ dependencia }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Responsable:</b> {{ responsable }}</td>
+                                                    <td><b>Correo del responsable:</b> {{ correoresponsable }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Fecha entrega inicial del informe:</b> {{ fechaentregainicial }}</td>
+                                                    <td>
+                                                        <b>Fecha de entrega pendiente:</b>
+                                                        {% if entrega_reciente %}
+                                                            {{ entrega_reciente.fecha }}
+                                                        {% else %}
+                                                            No hay entregas pendientes.
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Periodo de repetición del Informe:</b> {{ periodicidad }} {{ periodicidadtipo }}</td>
+                                                    <td><b>Finalizar después de cuantas entregas:</b> {{ totalentregas }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Estado del Informe:</b> {{ activo|yesno:"Activo,Inactivo" }}</td>
+                                                    <td><b>Descripción del Informe:</b> {{ descripcion }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3" class="text-bold text-center">Alarmas</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3">
+                                                        <ul class="list-group">
+                                                            <li class="list-group-item">
+                                                                <center>
+                                                                    {% if alarmas %}
+                                                                        Alarma creada {{ alarmas }} días antes de la fecha <br>
+                                                                    {% endif %}
+                                                                    {% if alarmas2 %}
+                                                                        Alarma creada {{ alarmas2 }} días antes de la fecha <br>
+                                                                    {% endif %}
+                                                                    {% if alarmas3 %}
+                                                                        Alarma creada {{ alarmas3 }} días antes de la fecha <br>
+                                                                    {% endif %}
+                                                                </center>
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h5 class="card-title">Listado de entregas</h5>
+                                    {% if messages %}
+                                        {% for message in messages %}
+                                            <div class="alert alert-success">
+                                                {{ message }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                                <div class="card-body">
+                                    <div class="div-responsive table-responsive">
+                                        <table class="table table-hover table-bordered" id="tabla-informes">
+                                            <thead>
+                                                <tr>
+                                                    <th>Num</th>
+                                                    <th>Fecha de entrega</th>
+                                                    <th>Evidencias</th>
+                                                    <th class="text-center">Opciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for item in entregas_con_evidencias %}
+                                                    <tr>
+                                                        <td>{{ forloop.counter }}</td>
+                                                        <td>{{ item.entrega.fecha }}</td>
+                                                        <td>
+                                                          <table class="table table-sm">
+                                                           
+                                                            <tbody>
+                                                                {% for evidencia in item.evidencias %}
+                                                                    <tr>
+                                                                        <td>
+                                                                            <a href="/static/{{ evidencia.archivo }}" target="_blank" class="evidencia-link" style="color: grey;">
+                                                                                {{ evidencia.archivo }}
+                                                                            </a>
+                                                                        </td>
+                                                                    </tr>
+                                                                {% endfor %}
+                                                            </tbody>
+                                                        </table>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <a type="button" class="fas fa-upload btn btn-warning btn-sm ver" data-bs-toggle="modal" data-bs-target="#exampleModal" name="ver" data-bs-toggle="modal" data-bs-target="#ex" data-fecha="{{item.entrega.fecha}}" data-bs-entrega="{{ item.entrega.id }}">
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                {% empty %}
+                                                    <tr>
+                                                        <td colspan="5">
+                                                            <h4 class="text-center">No se encontraron entregas.</h4>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>Num</th>
+                                                    <th>Fecha de entrega</th>
+                                                    <th>Evidencias</th>
+                                                    <th class="text-center">Opciones</th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                      <div class="div-responsive table-responsive">
-                        <table
-                          class="table table-hover table-bordered"
-                          id="tabla-informes"
-                        >
-                          <thead>
-                            <tr>
-                              <th>Num</th>
-                              <th>Fecha de entrega</th>
-                              <th>Evidencias</th>
-                              <th class="text-center">Opciones</th>
-                              <th class="text-center">Estado</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-
-                            
-                        {% for item in entregas_con_evidencias %}
-                            <tr>
-                                <td>{{ forloop.counter }}</td>
-                                <td>{{ item.entrega.fecha }}</td>
-                                <td>
-                                  {% for evidencia in item.evidencias %}
-                                          <li><a
-                                            href="/static/{{ evidencia.archivo }}"
-                                            target="_blank"
-                                            style="color: grey;"
-                                            >
-                                            {{ evidencia.archivo }}</a
-                                          ></li>
-                                  {% endfor %}
-                                </td> <!-- Ahora debo remplazar el nombre por los enlaces de entrega-->
-                                <td class="text-center">
-                                  <a type="button" class="fas fa-upload btn btn-warning btn-sm ver" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                  name="ver"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#ex" 
-                                  data-fecha="{{item.entrega.fecha}}"
-                                  data-bs-entrega="{{ item.entrega.id }}"
-                                  >
-                                    
-                                  </a>
-                                                                  </td>
-                                <td class="text-center">
-                                  <button class="btn btn-outline-success btn-sm">
-                                    {{ item.entrega.activo|yesno:"Activo,Inactivo" }}
-                                  </button>
-                                  
-                                </td>
-                            </tr>
-                        {% empty %}
-                            <tr>
-                                <td colspan="5">
-                                    <h4 class="text-center">No se encontraron entregas.</h4>
-                                </td>
-                            </tr>
-                        {% endfor %}
-
-
-
-                          </tbody>
-                          <tfoot>
-                            <tr>
-                              <th>Num</th>
-                              <th>Fecha de entrega</th>
-                              <th>Evidencias</th>
-                              <th class="text-center">Opciones</th>
-                              <th class="text-center">Estado</th>
-                            </tr>
-                          </tfoot>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
-          <!-- /.row -->
         </div>
-        <!-- /.container-fluid -->
-      </div>
-      <!-- /.content -->
-      <ControlEntitiesLoadEvidencie />
     </div>
-  
-  
 
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Cargar evidencias</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="POST" class="form-control" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="hidden" class="form-control" value="" placeholder="Id de la entrega" name="entrega" id="entrega" readonly>
+                        <label for="">Observaciones</label>
+                        <input type="text" class="form-control" value="" placeholder="Observaciones opcional" name="nombre" id="nombre" autofocus>
+                        <label for="">Fecha de entrega</label>
+                        <input type="text" class="form-control" placeholder="Fecha de entrega" name="fecha" id="fecha" readonly> <br>
+                        <input type="file" name="archivo" id="archivo" class="form-control">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <h3 class="dropzone-custom-title">
+                                    Arrastre y suba sus evidencias de Informe aquí
+                                    <i class="fa fa-upload" aria-hidden="true"></i>
+                                </h3>
+                                <div class="subtitle"></div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12" id="msg-errors">
+                            <div v-if="msgerror.mensaje" class="flex">
+                                <div>
+                                    <img :src="msgerror.img" style="width: 25px" />
+                                </div>
+                                <div>
+                                    <p>{{ msgerror.mensaje }}</p>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Guardar evidencia</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .center-block {
+            display: block;
+            margin-right: auto;
+            margin-left: auto;
+        }
+    </style>
     
-  <!-- Modal de cargue de evidencias-->
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Cargar evidencias</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form action="" method="POST" class="form-control" enctype="multipart/form-data">
-        {% csrf_token %}
-
-       
-        <!-- intentare solo nombre, pero revisar porque no hace la insserccion con relacion anetrega llave foranea-->
-        <input type="hidden" class="form-control" value="" placeholder="Id de la entrega" name="entrega" id="entrega" readonly> 
-        <label for="">Observaciones</label>
-        <input type="text" class="form-control" value="" placeholder="Observaciones opcional" name="nombre" id="nombre" autofocus>
-        <label for="">Fecha de entrega</label>
-        <input type="text" class="form-control" placeholder="Fecha de entrega" name="fecha" id="fecha" readonly> <br>
-        <input type="file" name="archivo" id="archivo" class="form-control">
-
-
-
-        <div class="col-xs-12">
-          <div class="form-group">
-            
-            
-              <h3 class="dropzone-custom-title">
-                Arrastre y suba sus evidencias de Informe aquí
-                <i class="fa fa-upload" aria-hidden="true"></i>
-              </h3>
-              <div class="subtitle">
-              
-              </div>
-           
-          </div>
-        </div>
-          <div class="col-xs-12" id="msg-errors">
-          <div v-if="msgerror.mensaje" class="flex">
-            <div>
-              <img :src="msgerror.img" style="width: 25px" />
-            </div>
-            <div>
-              <p>{{ msgerror.mensaje }}</p>
-            </div>
-          </div>
-        </div>
-
-
-
-
-
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="sumbit" class="btn btn-primary">Guardar evidencia</button>
-      </div>
-    </form>
-    </div>
-  </div>
-</div>
-
-  <!-- Modal de cargue de evidencias-->
-  
-  <style>
-  .center-block {
-    display: block;
-    margin-right: auto;
-    margin-left: auto;
-  }
-  </style>
-      
-      <script>
+    <script>
         var evidenciaModal = document.getElementById('exampleModal');
         evidenciaModal.addEventListener('show.bs.modal', function (event) {
             var button = event.relatedTarget;
@@ -343,8 +235,11 @@
             var inputEntregaId = evidenciaModal.querySelector('#entrega');
             inputEntregaId.value = entregaId;
         });
+
+        document.querySelectorAll('.evidencia-link').forEach(function(link) {
+            var originalText = link.textContent;
+            var fileName = originalText.split('/').pop();
+            link.textContent = fileName;
+        });
     </script>
-
-
-
 {% endblock contenido %}

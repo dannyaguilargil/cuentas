@@ -17,6 +17,8 @@ from django.contrib.auth.decorators import login_required
 from dateutil.relativedelta import relativedelta
 from django.conf import settings
 from django.utils import timezone
+#####################################
+from operator import itemgetter
 
 @login_required
 def informes(request):
@@ -146,9 +148,8 @@ def listadodependencia(request):
     entes = list(dependencia.objects.values())
     data = {'dependencias': entes}
     return JsonResponse(data)
-###listado de informe ###
 
-#ejemplo con solicitudes de usuarios provisionalmente
+
 @login_required
 def listado(request):
     username = request.user.username
@@ -166,11 +167,25 @@ def listado(request):
             'entrega_reciente': entrega_reciente
         })
 
+    # Ordenar los informes por entrega_reciente en forma ascendente
+    informes_con_entrega_reciente = sorted(
+        informes_con_entrega_reciente,
+        key=lambda x: x['entrega_reciente'].fecha if x['entrega_reciente'] else timezone.datetime.max.date()
+    )
+
+    # Depuración: imprimir la lista ordenada
+    for item in informes_con_entrega_reciente:
+        entrega_fecha = item['entrega_reciente'].fecha if item['entrega_reciente'] else 'No hay entregas recientes'
+        print(f"Informe ID: {item['informe'].id}, Fecha de entrega reciente: {entrega_fecha}")
+
     return render(request, 'listado.html', {
-        'datos': informes_con_entrega_reciente, 
-        'username': username, 
+        'datos': informes_con_entrega_reciente,
+        'username': username,
         'es_staff': es_staff
     })
+
+
+
  
 @login_required
 def entecontrols(request):
@@ -265,14 +280,12 @@ def  entregar(request, id):
      nombre = informes.nombre
 
 
-     ####ONTIENE TODA LAS ENTREGAS DEL INFORME############
-     entregas = entrega.objects.filter(informe=informes)
-     ####OBTIENE FECHA DE ENTREGA MAS RECIENTE ###########
+     entregas = entrega.objects.filter(informe=informes).order_by('-fecha')
      now = timezone.now().date()
      entrega_reciente = entregas.filter(fecha__gt=now).order_by('fecha').first()
 
      ##para organizarlo de la fecha mas cercana y que los otros botones se desabiliten   
-     entregas = sorted(entregas, key=lambda e: (e.fecha - now).days if e.fecha >= now else float('inf'))
+     #entregas = sorted(entregas, key=lambda e: (e.fecha - now).days if e.fecha >= now else float('inf'))
      ##para organizarlo de la fecha mas cercana y que los otros botones se desabiliten   
   
      entregas_con_evidencias = []

@@ -5,18 +5,27 @@
     <h5> Listado de informes </h5>
 </center>
 <div class="table-responsive">
-    <table id="tabla-informes" class="table table-bordered table-striped">
+  <table id="tabla-informes" class="table table-bordered table-striped table-sm">
         <caption>Listado de informes</caption>
-        <thead>
+        <thead class="small">
             <tr>
-                <th class="centered">Id</th>
-                <th class="text-center centered">Opciones</th>
-                <th class="text-center centered">Nombre del informe</th>
-                <th class="text-center centered">Ente de control</th>
-                <th class="text-center centered">Dependencia</th>
-                <th class="text-center centered">Entrega pendiente</th>
+                <th class="centered" rowspan="2">Id</th>
+                <th class="text-center centered" rowspan="2">Opciones</th>
+                <th class="text-center centered" rowspan="2">Nombre del informe</th>
+                <th class="text-center centered" rowspan="2">Ente de control</th>
+                <th class="text-center centered" rowspan="2">Dependencia</th>
+        
+                <th class="text-center centered" colspan="2">Entregas</th>
                <!-- <th class="text-center centered">Estado</th>-->
             </tr>
+
+            <tr>
+               
+
+                <th class="text-center centered">Pendiente</th>
+                <th class="text-center centered">Acción</th>
+            </tr>
+
         </thead>
         <tbody id="tabla-usuarios">
             {% for item in datos %}
@@ -64,6 +73,10 @@
                         {% else %}
                             No hay entregas pendientes.
                         {% endif %}
+                    </center>
+                </td>
+                <td>
+                    <center>
                         <a class="fas fa-folder-open btn btn-secondary btn-sm"
                            href="{% url 'entrega' item.informe.id %}">
                         </a>
@@ -83,6 +96,20 @@
             </tr>
             {% endfor %}
         </tbody>
+        <tfoot class="small">
+            <tr>
+                <th class="centered" rowspan="2">Id</th>
+                <th class="text-center centered" rowspan="2">Opciones</th>
+                <th class="text-center centered" rowspan="2">Nombre del informe</th>
+                <th class="text-center centered" rowspan="2">Ente de control</th>
+                <th class="text-center centered" rowspan="2">Dependencia</th>
+              
+            </tr>
+            <tr>
+                <th class="text-center centered">Pendiente</th>
+                <th class="text-center centered">Acción</th>
+            </tr>
+        </tfoot>
     </table>
 </div>
 
@@ -197,29 +224,35 @@
                             -->
 
                             <tr>
-                                <th scope="col" colspan="2" class="text-center">Días de anticipación de alarma</th>
+                                <th scope="col" colspan="3" class="text-center">Alarmas</th>
                             </tr>
+
+
                             <tr>
-                                <td class="text-center">Alarma creada</td>
-                                <td class="text-center">
+                                <td class="text-center" colspan="3">
                                     <input type="text" name="alarmas" id="alarmas" class="form-control form-control-sm mx-auto input-no-border text-center" placeholder="No creada" style="max-width: 90px;">
                                     días antes de la fecha de entrega
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="text-center">Alarma creada</td>
-                                <td class="text-center">
+
+
+                     
+                             <tr>
+                                <td class="text-center" colspan="3" >
                                     <input type="text" name="alarmas2" id="alarmas2" class="form-control form-control-sm mx-auto input-no-border text-center" placeholder="No creada" style="max-width: 90px;">
                                     días antes de la fecha de entrega
                                 </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">Alarma creada</td>
-                                <td class="text-center">
+                             </tr>
+                      
+
+                              
+                               <tr>
+                                <td class="text-center" colspan="3">
                                     <input type="text" name="alarmas3" id="alarmas3" class="form-control form-control-sm mx-auto input-no-border text-center" placeholder="No creada" style="max-width: 90px;">
                                     días antes de la fecha de entrega
                                 </td>
-                            </tr>
+                            
+                       
                             
 
 <style>
