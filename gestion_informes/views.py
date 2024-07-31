@@ -254,78 +254,93 @@ def dependencias(request):
 ## en entregas debe trarse el id del informe
 
 @login_required
-def  entregar(request, id):
-     username = request.user.username
-     informes = get_object_or_404(informe, id=id)
+def entregar(request, id):
+    username = request.user.username
+    informes = get_object_or_404(informe, id=id)
 
-     dependencia = informes.dependencia
-     responsable = ""
-     correoresponsable = ""
+    dependencia = informes.dependencia
+    responsable = ""
+    correoresponsable = ""
 
-     if dependencia:
-         responsable = dependencia.responsable
-         correoresponsable = dependencia.correoresponsable
+    if dependencia:
+        responsable = dependencia.responsable
+        correoresponsable = dependencia.correoresponsable
 
-     ######revisar resultado de alarmas en revision
-     try: 
-         alarmas = alarma.objects.get(id=id)## para trearme toda las alarmas
-         informe_id = alarmas.informe.id
-         dias = alarmas.dias
+    try:
+        alarmas = alarma.objects.get(id=id)
+        informe_id = alarmas.informe.id
+        dias = alarmas.dias
+    except alarma.DoesNotExist:
+        dias = "No se encontraron alarmas"
 
-     except alarma.DoesNotExist:
-         dias = "No se encontraron alarmas"
-      ######revisar resultado de alarmas en revision
-     #dias = "En desarollo"
+    nombre = informes.nombre
+    entregas = entrega.objects.filter(informe=informes).order_by('-fecha')
+    now = timezone.now().date()
+    entrega_reciente = entregas.filter(fecha__gt=now).order_by('fecha').first()
 
-     nombre = informes.nombre
-
-
-     entregas = entrega.objects.filter(informe=informes).order_by('-fecha')
-     now = timezone.now().date()
-     entrega_reciente = entregas.filter(fecha__gt=now).order_by('fecha').first()
-
-     ##para organizarlo de la fecha mas cercana y que los otros botones se desabiliten   
-     #entregas = sorted(entregas, key=lambda e: (e.fecha - now).days if e.fecha >= now else float('inf'))
-     ##para organizarlo de la fecha mas cercana y que los otros botones se desabiliten   
-  
-     entregas_con_evidencias = []
-     for entrega_obj in entregas:
-         evidencias = evidencia.objects.filter(entrega=entrega_obj)   
-         entregas_con_evidencias.append({
+    entregas_con_evidencias = []
+    for entrega_obj in entregas:
+        evidencias = evidencia.objects.filter(entrega=entrega_obj)
+        entregas_con_evidencias.append({
             'entrega': entrega_obj,
             'evidencias': evidencias
-         })
+        })
+
+    # Verifica si la última entrega tiene evidencias
+    ultima_entrega = entregas.first() if entregas else None
+    ultima_entrega_sin_evidencias = ultima_entrega and not evidencia.objects.filter(entrega=ultima_entrega).exists()
+
+    # Determina si la entrega reciente tiene evidencias
+    entrega_reciente_tiene_evidencias = False
+    if entrega_reciente:
+        entrega_reciente_tiene_evidencias = evidencia.objects.filter(entrega=entrega_reciente).exists()
+
+    estado_pendiente = ''
+    fechaentregapendiente = informes.fechaentregapendiente
+    normativa = informes.normativa
+    entecontrol = informes.entecontrol
+    fechaentregainicial = informes.fechaentregainicial
+    periodicidad = informes.periodicidad
+    periodicidadtipo = informes.periodicidadtipo
+    totalentregas = informes.totalentregas
+    activo = informes.activo
+    descripcion = informes.descripcion
+    alarmas = informes.alarmas
+    alarmas2 = informes.alarmas2
+    alarmas3 = informes.alarmas3
+
+    if request.method == 'POST':
+        entrega_id = request.POST['entrega']
+        nombre = request.POST['nombre']
+        archivos = request.FILES.getlist('archivo')
+
+        for archivo in archivos:
+            evidencia_obj = evidencia(
+                entrega_id=entrega_id,
+                nombre=nombre,
+                archivo=archivo
+            )
+            evidencia_obj.save()
+
+        messages.success(request, 'Evidencias entregadas correctamente.')
+        return redirect('entrega', id=id)
+
+    es_staff = request.user.is_staff
+    return render(request, 'entrega.html', {
+        'nombre': nombre, 'normativa': normativa, 'entecontrol': entecontrol, 'dependencia': dependencia,
+        'fechaentregainicial': fechaentregainicial, 'periodicidad': periodicidad, 'periodicidadtipo': periodicidadtipo,
+        'totalentregas': totalentregas, 'activo': activo, 'descripcion': descripcion, 'dias': dias,
+        'fechaentregapendiente': fechaentregapendiente, 'estado_pendiente': estado_pendiente, 'responsable': responsable,
+        'correoresponsable': correoresponsable, 'entregas': entregas, 'entregas_con_evidencias': entregas_con_evidencias,
+        'alarmas': alarmas, 'alarmas2': alarmas2, 'alarmas3': alarmas3, 'username': username, 'es_staff': es_staff,
+        'entrega_reciente': entrega_reciente, 'ultima_entrega_sin_evidencias': ultima_entrega_sin_evidencias, 'now': now, 'id': id,
+        'entrega_reciente_tiene_evidencias': entrega_reciente_tiene_evidencias
+    })
 
 
-     normativa = informes.normativa
-     entecontrol = informes.entecontrol
-     fechaentregainicial = informes.fechaentregainicial
-     fechaentregapendiente = informes.fechaentregapendiente
-     periodicidad = informes.periodicidad
-     periodicidadtipo = informes.periodicidadtipo
-     totalentregas = informes.totalentregas
-     activo = informes.activo
-     descripcion = informes.descripcion
-     alarmas = informes.alarmas
-     alarmas2 = informes.alarmas2
-     alarmas3 = informes.alarmas3 # pendiente configurar alarmas segn cantidades para la notificacion y el frontend
-     forevidencia = ''
 
-     if request.method == 'POST':
-        forevidencia = fevidencia(request.POST, request.FILES)
-        if forevidencia.is_valid():
-            forevidencia.save()
-            messages.success(request, 'Evidencia entregada')
-            return redirect('entrega', id=id)
-        else :
-            messages.error(request, 'No se realizo el cargue de evidencias')
-            print("NO se realizo el cargue de evidencias")
-     es_staff = request.user.is_staff
-     return render(request, 'entrega.html', {'nombre': nombre, 'normativa': normativa, 'entecontrol': entecontrol, 'dependencia': dependencia,
-     'fechaentregainicial': fechaentregainicial, 'periodicidad': periodicidad, 'periodicidadtipo': periodicidadtipo, 'totalentregas': totalentregas,
-     'activo': activo, 'descripcion': descripcion, 'dias': dias, 'fechaentregapendiente': fechaentregapendiente, 'responsable': responsable,
-     'correoresponsable': correoresponsable, 'entregas': entregas, 'entregas_con_evidencias': entregas_con_evidencias, 'alarmas': alarmas,
-     'alarmas2': alarmas2, 'alarmas3': alarmas3, 'forevidencia': forevidencia, 'username': username, 'es_staff': es_staff, 'entrega_reciente': entrega_reciente} ) 
+
+
 
 @login_required
 def obtener_nombre_responsable(request):

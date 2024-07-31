@@ -1,270 +1,315 @@
-{% extends 'base_identidades_general.html' %}
+{% extends 'base_identidades_sistemas.html' %}
 {% block titulo %}Formato gestion de identidades{% endblock titulo %}
 {% block contenido %}
 
-
 <center>
-  <h5 class="">Formato gestion de identidades</h5>
+  <h5 class="">Formulario gestion de identidades</h5>
 
-{% if messages %}
-  {% for message in messages %}
-   <div class="alert alert-{{ message.tags }}">
-  {{ message }}
-   </div>
-  {% endfor %}
-{% endif %}
-
-  </center>
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+</center>
 
 <form action="" method="POST" class="form-control">
   {% csrf_token %}
-                <!-- ESTE DEBE IR MANUAL DEBIDO A LAS VALIDACIONES Y A LA TOMA DE DATOS-->
-                <fieldset>Informacion general del colaborador</fieldset> 
-              <div class="row">
 
-                <div class="col">
-                <label for="nombre" class=""><b>Primer Nombre: *</b></label> <br>
-                <input type="text" name="nombre" id="nombre" class="emerge form-control" value="" placeholder="Digite primer nombre">
-                </div>
-                
-                <div class="col">
-                <label for="segundonombre" class=""><b>Segundo Nombre:</b></label> <br>
-                <input type="text" name="segundonombre" id="segundonombre" class="form-control" value="" placeholder="Digite segundo nombre">
-                </div>
+  <div class="card mb-4">
+    <div class="card-header"  style="background: #FFFFCC;">
+      <h6 class="card-title">Información general del colaborador</h6>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-3">
+          <label for="nombre" class=""><b>Primer Nombre: *</b></label>
+          <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Digite primer nombre">
+        </div>
+        <div class="col-md-3">
+          <label for="segundonombre" class=""><b>Segundo Nombre:</b></label>
+          <input type="text" name="segundonombre" id="segundonombre" class="form-control" placeholder="Digite segundo nombre">
+        </div>
+        <div class="col-md-3">
+          <label for="primerapellido" class=""><b>Primer apellido: *</b></label>
+          <input type="text" name="primerapellido" id="primerapellido" class="form-control" placeholder="Digite primer apellido">
+        </div>
+        <div class="col-md-3">
+          <label for="segundoapellido" class=""><b>Segundo apellido: *</b></label>
+          <input type="text" name="segundoapellido" id="segundoapellido" class="form-control" placeholder="Digite segundo apellido">
+        </div>
+      </div>
 
-                <div class="col">
-                <label for="primerapellido" class=""><b>Primer apellido: *</b></label> <br>
-                <input type="text" name="primerapellido" id="primerapellido" class="form-control" value="" placeholder="Digite primer apellido"> 
-                </div>
+      <div class="row mt-3">
+        <div class="col-md-3">
+          <label for="tipodocumento" class=""><b>Tipo de documento:</b></label>
+          <select name="tipodocumento" id="tipodocumento" class="form-control">
+            <option value="CC" selected>Cedula de ciudadania</option>
+            <option value="CE">CE</option>
+            <option value="PASAPORTE">PASAPORTE</option>
+            <option value="RESIDENCIA">RESIDENCIA</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label for="cedula" class=""><b>Cedula:</b></label>
+          <input type="number" name="cedula" id="cedula" class="form-control" placeholder="Digite cedula">
+        </div>
+        <div class="col-md-3">
+          <label for="lugarexpedicion" class=""><b>Lugar de expedición:</b></label>
+          <input type="text" name="lugarexpedicion" id="lugarexpedicion" class="form-control" placeholder="Digite lugar expedición" required>
+        </div>
+        <div class="col-md-3">
+          <label for="sexo" class=""><b>Sexo:</b></label>
+          <select name="sexo" id="sexo" class="form-control">
+            <option value="M" selected>M</option>
+            <option value="F">F</option>
+          </select>
+        </div>
+      </div>
 
-                <div class="col">
-                <label for="segundoapellido" class=""><b>Segundo apellido: *</b></label> <br>
-                <input type="text" name="segundoapellido" id="segundoapellido" class="form-control" placeholder="Digite segundo apellido" value="">
-                </div>
+      <div class="row mt-3">
+        <div class="col-md-3">
+          <label for="telefono" class=""><b>Telefono fijo:</b></label>
+          <input type="text" name="telefono" id="telefono" class="form-control" placeholder="Digite telefono fijo" required>
+        </div>
+        <div class="col-md-3">
+          <label for="celular" class=""><b>Celular:</b></label>
+          <input type="number" name="celular" id="celular" class="form-control" placeholder="Digite celular">
+        </div>
+        <div class="col-md-3">
+          <label for="direccion" class=""><b>Direccion:</b></label>
+          <input type="text" name="direccion" id="direccion" class="form-control" placeholder="Digite direccion de residencia" required>
+        </div>
+        <div class="col-md-3">
+          <label for="cargo" class=""><b>Cargo o N° de contrato:</b></label>
+          <input type="text" name="cargo" id="cargo" class="form-control" placeholder="Cargo o N° de contrato">
+        </div>
+      </div>
 
-              </div>
-                
+      <div class="row mt-3">
+        <div class="col-md-3">
+          <label for="tarjetaprofesional" class=""><b>Tarjeta profesional:</b></label>
+          <input type="text" name="tarjetaprofesional" id="tarjetaprofesional" class="form-control" placeholder="Digite tarjeta profesional">
+        </div>
+        <div class="col-md-3">
+          <label for="email" class=""><b>Correo personal:</b></label>
+          <input type="email" name="email" id="email" class="form-control" placeholder="Digite correo">
+        </div>
+        <div class="col-md-3">
+          <label for="ubicacion_laboral" class=""><b>Ubicacion laboral:</b></label>
+          <input type="text" name="ubicacion_laboral" id="ubicacion_laboral" class="form-control" placeholder="Ubicacion laboral o area">
+        </div>
+        <div class="col-md-3">
+          <label for="dependencia" class=""><b>Dependencia o servicio:</b></label>
+          <input type="text" name="dependencia" id="dependencia" class="form-control" placeholder="Dependencia o servicio">
+        </div>
+      </div>
 
-              <div class="row">
+      <div class="row mt-3">
+        <div class="col-md-3">
+          <label for="sede" class=""><b>Sede:</b></label>
+          <input type="text" name="sede" id="sede" class="form-control" placeholder="Digite sede UBA o IPS">
+        </div>
+        <div class="col-md-3">
+          <label for="supervisor" class=""><b>Supervisor o jefe inmediato:</b></label>
+          <input type="text" name="supervisor" id="supervisor" class="form-control" placeholder="Digite supervisor">
+        </div>
+        <div class="col-md-3">
+          <label for="fechafinalcontrato" class=""><b>Fecha final de contrato:</b></label>
+          <input type="date" name="fechafinalcontrato" id="fechafinalcontrato" class="form-control" required>
+        </div>
+      </div>
+    </div>
+  </div>
 
-              <div class="col">
-                <label for="" class=""><b>Tipo de documento:</b></label> <br>
-                <select name="tipodocumento" id="tipodocumento" class="form-control">
-                  <option value="CC" class="" selected>Cedula de ciudadania</option>
-                  <option value="CE" class="">CE</option>
-                  <option value="PASAPORTE" class="">PASAPORTE</option>
-                  <option value="RESIDENCIA" class="">RESIDENCIA</option>
-                </select>
-                </div>
+  <div class="card mb-4">
+    <div class="card-header"  style="background: #FFFFCC;">
+      <h6 class="card-title">Sistema de información requerido</h6>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          <label for="tiposolicitud" class=""><b>Tipo de solicitud</b></label>
+          <select name="tiposolicitud" id="tiposolicitud" class="form-control">
+            <option value="CREAR">Crear</option>
+            <option value="ACTUALIZAR" selected>Actualizar</option>
+            <option value="ELIMINAR">Eliminar</option>
+            <option value="CONSULTAS">Consultas</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label for="apicativo" class=""><b>Aplicativo</b></label>
+          
+          <select
+          class="form-control"
+          id="aplicativo"
+          name="aplicativo"
+          required
+        >
+          <option selected disabled>
+            Seleccione Aplicativo
+          </option>
+          
+        </select>
+        </div>
+        <div class="col-md-4">
+          <label for="modulo" class=""><b>Modulo</b></label>
+          <select
+          class="form-control"
+          id="modulo"
+          name="modulo"
+          required
+        >
+          <option selected disabled>
+            Seleccione Modulo
+          </option>
+          
+        </select>
+        </div>
+      </div>
 
-                <div class="col">
-                <label for="cedula" class=""><b>Cedula:</b></label> <br>
-                <input type="number" name="cedula" id="cedula" class="form-control" value="" placeholder="Digite cedula"> 
-                </div>
-                <div class="col">
-                <label for="lugarexpedicion" class=""><b>Lugar  de expedicion:</b></label> <br>
-                <input type="text" name="lugarexpedicion" id="lugarexpedicion" class="form-control" placeholder="Digite Lugar expedicion" required >
-                </div>
+      <div class="row mt-3">
+        <div class="col-md-6">
+          <label for="firma" class=""><b>Adjunte firma fondo blanco</b></label>
+          <input type="file" name="firma" id="firma" class="form-control">
+        </div>
+        <div class="col-md-6">
+          <label for="observaciones" class=""><b>Observaciones</b></label>
+          <textarea name="observaciones" id="observaciones" cols="80" rows="2" class="form-control"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
 
-                <div class="col">
-                <label for="sexo" class=""><b>Sexo:</b></label> <br>
-                <select name="sexo" id="sexo" class="form-control">
-                  <option value="M" selected class="">M</option>
-                  <option value="F"  class="">F</option>
-                </select> 
-                </div>
+  <center>
+    <ul class="list-group list-group-horizontal">
+      <li class="list-group-item">
+       <!-- Button trigger modal -->
+<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+  Acuerdo de confidencialidad 
+</button>
 
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Formulario acuerdo de confidencialidad</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="">
+
+          <button class="btn btn-outline-primary">Enviar codigo</button> <!-- este codigo debe enviarse automaticamente al abrir en el boton-->
+          <div class="col">
+            <label for="">Firma digital</label>
+            <input type="text" value="" class="form-control" placeholder="Digite codigo de validacion que se envio al correo" required>
+          </div>
+        <br>
+        
+          <button class="btn btn-outline-warning">Ver pdf acuerdo de confidencialidad</button>
+
+        </form>
+        <br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success">Guardar firma electronica</button>
+      </div>
+    </div>
+  </div>
 </div>
-
-                <div class="row">
-                <div class="col">
-                <label for="telefono" class=""><b>Telefono fijo:</b></label> <br>
-                <input type="text" name="telefono" id="telefono" class="form-control" placeholder="Digite telefono fijo" required> 
-                </div>
-                
-                <div class="col">
-                <label for="celular" class=""><b> Celular:</b></label> <br>
-                <input type="number" name="celular" id="celular" class="emerge form-control" placeholder="Digite celular">
-                </div>
-
-                <div class="col">
-                <label for="direccion" class=""><b>Direccion:</b></label> <br>
-                <input type="text" id="direccion" name="direccion" class="emerge form-control" required placeholder="Digite direccion de residencia">
-                </div>
-
-                <div class="col">
-                <label for="cargo" class="emerge"><b>Cargo o N° de contrato:</b></label> <br>
-                <input type="text" name="cargo" id="cargo" class="form-control" value="" placeholder="Cargo o N° de contrato">  
-                </div>
-                </div>
-            
-                <div class="row">
-                
-                <div class="col">
-                <label for="tarjetaprofesional" class=""><b>Tarjeta profesional:</b></label> <br>
-                <input type="text" name="tarjetaprofesional" id="tarjetaprofesional"  placeholder="Digite tarjeta profesional" class="form-control">
-                </div>
-
-
-                <div class="col">
-                <label  for="email" class="emerge"><b>Correo personal:</b></label> <br>
-                <input type="email" name="email" id="email" class="emerge form-control" value="" placeholder="Digite correo"> 
-                </div>
-
-
-                <div class="col">
-                <label for="ubicacion_laboral" class="emerge"><b>Ubicacion laboral:</b></label><br>
-                <input type="text" name="ubicacion_laboral" id="ubicacion_laboral" class="emerge form-control" placeholder="Ubicacion laboral o area"> 
-                </div>
-
-                <div class="col">
-                <label for="dependencia" class="emerge"><b>Dependencia o servicio:</b></label><br>
-                <input type="text" name="dependencia" id="dependencia" class="emerge form-control" placeholder="Dependencia o servicio"> 
-                </div>
-
-                </div>
-
-
-                <div class="row">
-               
-
-                <div class="col">
-                <label for="sede" class="emerge"><b>Sede:</b></label> <br>
-                <input type="text" name="sede" id="sede" class="emerge form-control" value="" placeholder="Digite sede UBA o IPS">
-                <ul class="list"></ul>
-
-                </div>
-               
-                <div class="col">
-                <label for="supervisor" class="emerge"><b>Supervisor o jefe inmediato:</b></label> <br>
-                <input type="text" name="supervisor" id="supervisor" class="emerge form-control" value="" placeholder="Digite supervisor">
-                <ul class="list"></ul>
+        
+    
+      <li class="list-group-item">
+       <!-- <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckboxStretched">
+        <label class="form-check-label stretched-link" for="thirdCheckboxStretched">Formulario tratamiento de datos</label>
+        -->
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Tratamiento de datos personales
+        </button>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
+              <div class="modal-body">
+                ...
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Understood</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
 
+      </li>
+    </ul>
+  </center>
 
-                <div class="col">
-                  
-                  <label for="fechafinalcontrato" class=""><b>Fecha final de contrato</b></label> <br>
-                  <input type="date" name="fechafinalcontrato" id="fechafinalcontrato" class="form-control" placeholder="Digite para que requiere el permiso del sistema?" required> 
-                  
-                </div>
+  <br> <br>
 
-                <div class="col">
-
-                </div>
-                 
-              
-              
-                </div>
-
-                
-             
-                <hr>
-                <h6>Sistema de informacion requerido</h6> 
-
-                <div class="row" id="divtiposolicitud">
-
-                <div class="col" id="">
-                <label for="tiposolicitud" class=""> <span style="font-family: Lato;"></span><b> Tipo de solicitud</b></label> <br>
-                <select name="tiposolicitud" id="tiposolicitud" class="form-control">
-                  <option value="CREAR" class="form-control">CREAR</option>
-                  <option value="ACTUALIZAR" selected class="form-control">ACTUALIZAR</option>
-                  <option value="ELIMINAR" class="form-control">ELIMINAR</option>
-                  <option value="CONSULTAS" class="form-control">CONSULTAS</option>
-                </select>
-                </div>
-
-
-
-                <div class="col aplica" id="aplica">
-                <label for=""><b>Aplicativo</b></label> <br>
-                <select name="apicativo" id="apicativo" class="form-control" onchange="aplicativos();">
-                  <option value="ALDEAMO SMS" class="form-control">ALDEAMO SMS</option>
-                  <option value="ALMERA" class="form-control">ALMERA</option>
-                  <option value="EMAIL" class="form-control">EMAIL</option>
-                  <option value="KUBAPP" class="form-control" selected>KUBAPP</option>
-                  <option value="HIKCENTRAL" class="form-control">HIKCENTRAL</option>
-                  <option value="NUBE" class="form-control">NUBE</option>
-                  <option value="ORTHANC" class="form-control">ORTHANC</option>
-                  <option value="MESA DE AYUDA" class="form-control">MESA DE AYUDA</option>
-                  <option value="AULA VIRTUAL" class="form-control">AULA VIRTUAL</option>
-                  <option value="TNS" class="form-control">TNS</option>
-                  <option value="OTRO" class="form-control">OTRO</option>
-                  <option value="ANNARLARB" class="form-control">ANNARLAB</option>
-                </select> 
-                 </div>
-               
-           
-
-                <div class="col firma" id="firma">
-                <label for="firma" class=""><b>Adjunte firma fondo blanco</b></label>
-                <input type="file" name="firma" id="firma" class="form-control" placeholder="Seleccione" value="NO REQUIERE"> 
-                </div>
-
-
-                <div class="col" id="padreobservaciones">
-                <label for="observaciones" class=""><b>Observaciones</b></label>  <br>
-                <input style="color: green; height: 40px;" type="text" name="observaciones" id="observaciones" class="obs form-control" placeholder="Digite para que requiere el permiso del sistema?" required> 
-                </div>
-                </div>
-
-                 <br>
-
-                <div class="row repetidor">
-                <div class="col-4">
-                <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked required>
-                    <label class="form-check-label" for="flexCheckChecked">
-                     <span style="font-family: Lato"><i> Acepto tratamiento de datos</i> </span> 
-                       <a class="btn btn-white fad fa-eye botonsito" href="https://www.imsalud.gov.co/web/gobierno-digital/politicas-de-proteccion-de-datos-personales/"   target="_blank" ></a>
-                    </label> <br>
-                   
-                </div>
-                </div>
-
-              
-
-                
-                
-
-                <center>
-<br>
-                  <div class="row">
-                    <div class="col">
-
-                    </div>
-
-                    <div class="col">
-                      <button class="btn btn-outline-primary botonsito" id="otro" onclick="otro();" disabled>Agregar otro</button>
-
-                    </div>
-
-                    <div class="col">
-                      <button class="btn btn-success botonsito" type="submit" onclick="envio();" name="solicitar" id="solicitar">Solicitar</button>
-
-                    </div>
-                    <div class="col">
-
-                    </div>
-
-                    <div class="col">
-
-                    </div>
-                    <div class="col">
-
-                    </div>
-                  </div>
-
-             
-                  
-               
-              
-                </center>
-                
-
-
+  <center>
+    <div class="col">
+      <button class="btn btn-outline-secondary" id="otro" onclick="otro();">Agregar otro aplicativo</button>
+      <button class="btn btn-outline-success" type="submit" onclick="envio();" name="solicitar" id="solicitar">Solicitar</button>
+    </div>
+  </center>
 </form>
-<br><br> <br>
+ <br> 
+
+
+ <script>
+    // Función para cargar los entes de control desde el servidor
+    function cargarAplicativos() {
+                    fetch('identidades/listadoaplicativos')
+                        .then(response => response.json())
+                        .then(data => {
+                            const selectAplicativos = document.getElementById('aplicativo');
+                            data.aps.forEach(aps => {
+                                const option = document.createElement('option');
+                                option.value = aps.id;
+                                option.textContent = aps.nombre;
+                                selectAplicativos.appendChild(option);
+                            });
+                        })
+                        .catch(error => console.error('Error al cargar aplicativos:', error));
+                }
+
+
+    function cargarModulos(){
+                    document.getElementById('aplicativo').addEventListener('change', function() {
+                  const aplicativoId = this.value;
+                  const selectModulos = document.getElementById('modulo');
+                  
+                  // Limpia el contenido previo de los módulos
+                  selectModulos.innerHTML = '<option value="">Seleccione un módulo</option>';
+                  
+                  if (aplicativoId) {
+                      fetch(`/identidades/modulos/${aplicativoId}/`)
+                          .then(response => response.json())
+                          .then(data => {
+                              data.modulos.forEach(modulo => {
+                                  const option = document.createElement('option');
+                                  option.value = modulo.id;
+                                  option.textContent = modulo.nombre;
+                                  selectModulos.appendChild(option);
+                              });
+                          })
+                          .catch(error => console.error('Error al cargar módulos:', error));
+                  }
+              });
+                  }
+
+    cargarAplicativos();
+    cargarModulos();
+                
+ </script>
 
 {% endblock contenido %}

@@ -16,7 +16,7 @@ urlpatterns = [
     path('informe/listado_ente', views.listadoente, name='listadoente'), #JSON ente de control
     path('informe/dependencias', views.dependencias, name='dependencias'), #solo django
     path('informe/listado_dependencia', views.listadodependencia, name='listadodependencia'), #JSON dependencia
-    path('informe/entrega/<int:id>', views.entregar, name='entrega'), #solo django
+    path('informe/entrega/<int:id>', views.entregar, name='entrega'), 
     path('informe/nombre_responsable', views.obtener_nombre_responsable, name='nombre_responsable'),
     path('informe/prueba', views.prueba, name='informeprueba'),
 ] 

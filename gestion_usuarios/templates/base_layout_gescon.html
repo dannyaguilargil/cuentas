@@ -96,17 +96,17 @@
                             <!-- <div class="sb-sidenav-menu-heading" style="color: white;">Administracion</div> -->
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayoutss" aria-expanded="false" aria-controls="collapseLayouts" style="background: #1d985a; color: white;">
                                 <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                                Administracion
+                                Administración
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapseLayoutss" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                             
                                     <a class="nav-link" href=" {% url 'dashboard' %} " style="color: white;">Dashboard</a>
-                                    <a class="nav-link" href=" {% url 'usuario_pendient' %} " style="color: white;">Usuarios pendientes</a>
-                                    <a class="nav-link" href=" {% url 'crear' %} " style="color: white;">Registrar un usuario</a>
+                                  <!--  <a class="nav-link" href=" {% url 'usuario_pendient' %} " style="color: white;">Usuarios pendientes</a> -->
+                                    <!--<a class="nav-link" href=" {% url 'crear' %} " style="color: white;">Registrar un usuario</a>
                                    
-                                    <a class="nav-link" href=" {% url 'documentos' %} " style="color: white;">Registrar documento</a>
+                                    <a class="nav-link" href=" {% url 'documentos' %} " style="color: white;">Registrar documento</a>-->
                                     <a class="nav-link" href=" {% url 'usuariosauditoria' %} " style="color: white;">Auditoria</a>
                                     <a class="nav-link" href="/admin/" style="background: #1d985a; color: white;">
                                         
@@ -115,16 +115,19 @@
                                 </nav>
                             </div>
 
-<br>
+
 
                            
                             <!-- GESTION DE APIS-->
                             <!-- <div class="sb-sidenav-menu-heading" style="color: white;">INTEROAPIBILIDAD</div> -->
+                            
+                            <!--
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts2" aria-expanded="false" aria-controls="collapseLayouts" style="background: #1d985a; color: white;">
                                 <div class="sb-nav-link-icon"><i class="fas fa-receipt"></i></div>
                                 Interoapibilidad
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
+
                             <div class="collapse" id="collapseLayouts2" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="{% url 'nuevaeps' %}" style="color: white;">Datos de afiliacion</a>
@@ -132,7 +135,7 @@
                                     <a class="nav-link" href="{% url 'nuevaepscontacto' %}" style="color: white;">Datos de contacto</a>
                                     <a class="nav-link" href="{% url 'nuevaepscontacto' %}" style="color: white;">Radicacion</a>
                                 </nav>
-                            </div>
+                            </div>-->
                             <!-- GESTION DE APIS-->
 <br>
 
@@ -153,8 +156,8 @@
                             </div>
                             <!-- GESTION DE IDENTIDADES-->
 <br>
-                             <!-- GESTION DE IDENTIDADES-->
-                             <!--div class="sb-sidenav-menu-heading" style="color: white;">CUENTAS</div> -->
+                             <!-- GESTION DE CUENTAS-->
+                             <!--
                              <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts4" aria-expanded="false" aria-controls="collapseLayouts" style="background: #1d985a; color: white;">
                                  <div class="sb-nav-link-icon"><i class="far fa-file-invoice-dollar"></i></div>
                                  Cuentas
@@ -166,8 +169,8 @@
                                      
                                  </nav>
                              </div>
-                             <!-- GESTION DE IDENTIDADES-->
-<br>
+                              GESTION DE IDENTIDADES-->
+
                             
 
                                 <!-- <div class="sb-sidenav-menu-heading" style="color: white;">INFORMES</div> -->
@@ -188,11 +191,13 @@
                                 <br>
                                 
                                 
+
+                                <!--
                                  <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts6" aria-expanded="false" aria-controls="collapseLayouts" style="background: #1d985a; color: white;">
                                     <div class="sb-nav-link-icon"><i class="far fa-comment-alt"></i></div>
                                     Siau
                                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                </a>
+                                </a>-->
                                 <div class="collapse" id="collapseLayouts6" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="{% url 'consultaexterna' %}" style="color: white;">Consulta externa</a>
@@ -241,7 +246,7 @@
 
                     <div class="sb-sidenav-footer" style="background: #1d985a; color: white;">
                         <div class="small">
-                            E.S.E IMSALUD &copy v1.0
+                            E.S.E IMSALUD &copy v2.0
                         </div>
                 </nav>
             </div>

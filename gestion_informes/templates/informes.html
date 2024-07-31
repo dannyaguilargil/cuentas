@@ -13,6 +13,8 @@
   {% endfor %}
 {% endif %}
 </center>
+
+
 <form action="" method="POST" enctype="multipart/form-data" >
   {% csrf_token %}
 
@@ -30,7 +32,7 @@
                     <form
                       id="form-inform"
                       enctype="multipart/form-data"
-                      @submit.prevent="validarDatosCompletosDelInforme"
+                     
                     >
                       <div class="card-body">
                         <div class="card card-primary">

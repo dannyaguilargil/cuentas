@@ -5,7 +5,7 @@ from django.http.response import JsonResponse
 from django.http import JsonResponse
 from gestion_usuarios.models import usolicitudes,usuario
 from gestion_identidades.forms import Formidentidades,FormidentidadesSupervisor
-from gestion_identidades.models import solicitudsistema,solicitudsistemasupervisor
+from gestion_identidades.models import solicitudsistema,solicitudsistemasupervisor,aplicativo,modulo
 from django.contrib.auth.decorators import login_required
 
 @login_required
@@ -16,6 +16,7 @@ def identidades(request):
     #if usuario.objects.filter(usuario=username).exists():
     #    cedula = usuario_obj.cedula
     ####para realizar la inserccion del formato de identidades ####
+    datos = aplicativo.objects.all()
     if request.method == 'POST':
         formularios = Formidentidades(request.POST)
         if formularios.is_valid():
@@ -29,7 +30,7 @@ def identidades(request):
         formularios = Formidentidades()
 
      ####para realizar la inserccion del formato de identidades ####
-    return render(request, 'identidades.html' , {'username': username, 'formularios': formularios})
+    return render(request, 'identidades.html' , {'username': username, 'formularios': formularios, 'datos': datos})
 
 @login_required
 def pazysalvo(request):
@@ -156,3 +157,16 @@ def certificado(request,cedula):
                       
     context = {'nombre': nombre}
     template = render(request, 'pazysalvohtml', context)
+
+###listado de informe ###
+@login_required
+def listadoaplicativos(request):
+    aps = list(aplicativo.objects.values())
+    data = {'aps': aps}
+    return JsonResponse(data)
+
+@login_required
+def listadomodulos(request):
+    mods = list(modulo.objects.values())
+    data = {'mods': mods}
+    return JsonResponse(data)

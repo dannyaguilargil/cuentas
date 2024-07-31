@@ -118,9 +118,7 @@ DATABASES = {
        'PASSWORD': 'danny',
        'HOST': 'localhost',
        'PORT': '3306',
-       'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES', time_zone='+00:00'",
-        }
+       
     
 }}
 

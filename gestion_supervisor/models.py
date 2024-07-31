@@ -45,6 +45,8 @@ class cuentasupervisorcontratista(models.Model):
     pdfplanilla = models.CharField(max_length=200, verbose_name='Pdf de la planilla', default='pdfs/NOCARGADO')
     
 class supervisor(models.Model):
-    nombrecompleto = models.CharField(max_length=120, verbose_name='Nombre completo', default='No asignado')
-    cedula = models.IntegerField(primary_key=True, verbose_name='Cedula', default=1)
-    cargo = models.CharField(max_length=120, verbose_name='Cargo', default='No asignado')
+    nombrecompleto = models.CharField(max_length=120, verbose_name='Nombre completo')
+    cedula = models.IntegerField(primary_key=True, verbose_name='Cedula')
+    cargo = models.CharField(max_length=120, verbose_name='Cargo', blank=True, null=True)
+    def __str__(self):
+        return self.nombrecompleto

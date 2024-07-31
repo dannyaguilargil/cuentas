@@ -18,6 +18,8 @@ urlpatterns = [
     #path('contratista/seguimiento/<int:cedula>/', views.seguimiento, name='seguimiento'),
     path('identidades/certificado', views.pazysalvohtml, name='pazysalvohtml'),
     path('identidades/certificado/<int:cedula>', views.certificado, name='certificado'),
+    path('identidades/listadoaplicativos', views.listadoaplicativos, name='listadoaplicativos'), #JSON aplicativos
+    path('identidades/modulos', views.listadomodulos, name='listadomodulos'), #JSON aplicativos
 
 
 ]

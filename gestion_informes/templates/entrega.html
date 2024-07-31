@@ -54,14 +54,22 @@
                                                 </tr>
                                                 <tr>
                                                     <td><b>Fecha entrega inicial del informe:</b> {{ fechaentregainicial }}</td>
+                                               
+                                                    
                                                     <td>
                                                         <b>Fecha de entrega pendiente:</b>
+                                                        
                                                         {% if entrega_reciente %}
+                                                        <span class="">
                                                             {{ entrega_reciente.fecha }}
+                                                        </span>
                                                         {% else %}
                                                             No hay entregas pendientes.
                                                         {% endif %}
                                                     </td>
+                                                    
+                                                    
+                                                    
                                                 </tr>
                                                 <tr>
                                                     <td><b>Periodo de repetición del Informe:</b> {{ periodicidad }} {{ periodicidadtipo }}</td>
@@ -123,12 +131,11 @@
                                             </thead>
                                             <tbody>
                                                 {% for item in entregas_con_evidencias %}
-                                                    <tr>
+                                                    <tr class="{% if forloop.first and ultima_entrega_sin_evidencias %}table-danger{% endif %}">
                                                         <td>{{ forloop.counter }}</td>
                                                         <td>{{ item.entrega.fecha }}</td>
                                                         <td>
                                                           <table class="table table-sm">
-                                                           
                                                             <tbody>
                                                                 {% for evidencia in item.evidencias %}
                                                                     <tr>
@@ -167,79 +174,85 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Cargar evidencias</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="{% url 'entrega' id %}" method="POST" class="form-control" enctype="multipart/form-data">
+                                                {% csrf_token %}
+                                                <input type="hidden" class="form-control" value="{{ id }}" placeholder="Id de la entrega" name="entrega" id="entrega" readonly>
+                                                <label for="">Observaciones</label>
+                                                <input type="text" class="form-control" value="" placeholder="Observaciones opcional" name="nombre" id="nombre" autofocus>
+                                                <label for="">Fecha de entrega</label>
+                                                <input type="text" class="form-control" placeholder="Fecha de entrega" name="fecha" id="fecha" readonly> <br>
+                                                <input type="file" name="archivo" id="archivo" class="form-control" multiple>
+                                                <div class="col-xs-12">
+                                                    <div class="form-group">
+                                                        <h3 class="dropzone-custom-title">
+                                                            Arrastre y suba sus evidencias de Informe aquí
+                                                            <i class="fa fa-upload" aria-hidden="true"></i>
+                                                        </h3>
+                                                        <div class="subtitle"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12" id="msg-errors">
+                                                    <div v-if="msgerror.mensaje" class="flex">
+                                                        <div v-if="msgerror.file" class="item-error">
+                                                            <span class="text-error">{{ msgerror.file }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                    <button type="submit" class="btn btn-primary">Subir Evidencias</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Cargar evidencias</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="" method="POST" class="form-control" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <input type="hidden" class="form-control" value="" placeholder="Id de la entrega" name="entrega" id="entrega" readonly>
-                        <label for="">Observaciones</label>
-                        <input type="text" class="form-control" value="" placeholder="Observaciones opcional" name="nombre" id="nombre" autofocus>
-                        <label for="">Fecha de entrega</label>
-                        <input type="text" class="form-control" placeholder="Fecha de entrega" name="fecha" id="fecha" readonly> <br>
-                        <input type="file" name="archivo" id="archivo" class="form-control">
-                        <div class="col-xs-12">
-                            <div class="form-group">
-                                <h3 class="dropzone-custom-title">
-                                    Arrastre y suba sus evidencias de Informe aquí
-                                    <i class="fa fa-upload" aria-hidden="true"></i>
-                                </h3>
-                                <div class="subtitle"></div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12" id="msg-errors">
-                            <div v-if="msgerror.mensaje" class="flex">
-                                <div>
-                                    <img :src="msgerror.img" style="width: 25px" />
-                                </div>
-                                <div>
-                                    <p>{{ msgerror.mensaje }}</p>
-                                </div>
-                            </div>
-                        </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Guardar evidencia</button>
-                </div>
-            </form>
-            </div>
-        </div>
-    </div>
-
-    <style>
-        .center-block {
-            display: block;
-            margin-right: auto;
-            margin-left: auto;
-        }
-    </style>
-    
-    <script>
-        var evidenciaModal = document.getElementById('exampleModal');
-        evidenciaModal.addEventListener('show.bs.modal', function (event) {
+{% block scripts %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var exampleModal = document.getElementById('exampleModal');
+        exampleModal.addEventListener('show.bs.modal', function(event) {
             var button = event.relatedTarget;
             var entregaId = button.getAttribute('data-bs-entrega');
-            var inputEntregaId = evidenciaModal.querySelector('#entrega');
-            inputEntregaId.value = entregaId;
+            var entregaFecha = button.getAttribute('data-fecha');
+
+            var modalEntrega = exampleModal.querySelector('.modal-body input#entrega');
+            var modalFecha = exampleModal.querySelector('.modal-body input#fecha');
+
+            modalEntrega.value = entregaId;
+            modalFecha.value = entregaFecha;
         });
 
-        document.querySelectorAll('.evidencia-link').forEach(function(link) {
+         document.querySelectorAll('.evidencia-link').forEach(function(link) {
             var originalText = link.textContent;
             var fileName = originalText.split('/').pop();
             link.textContent = fileName;
         });
-    </script>
-{% endblock contenido %}
+    });
+</script>
+{% endblock %}
+{% endblock %}
+
+
+
+
+
+

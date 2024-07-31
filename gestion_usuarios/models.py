@@ -41,7 +41,7 @@ class usolicitudes(models.Model):
     segundoapellido = models.CharField(max_length=40, verbose_name='Segundo apellido')
     cargo = models.CharField(max_length=40, verbose_name='Cargo')
     email = models.CharField(max_length=40, verbose_name='Email')
-    supervisor = models.CharField(max_length=40, verbose_name='supervisor')
+    supervisor = models.ForeignKey(supervisor,max_length=40, verbose_name='supervisor',on_delete=models.CASCADE)
     tipodocumento = models.CharField(max_length=40, verbose_name='Tipo de documento',choices=tipodocumento, default='CC')
     cedula = models.IntegerField(primary_key=True, verbose_name='Cedula')
     #modulo = models.CharField(max_length=40, verbose_name='Sistema',choices=modulo, default='identidades')
