@@ -16,7 +16,7 @@ tipodocumento=(
     ('CE', 'Cedula de extranjeria')
 )
 sede=(
-    ('ADMINISTRATIVA', 'Sede administrativa'),
+    ('ADMINISTRATIVA', 'Administrativa'),
     ('UBA PBL', 'UBA Puente barco leones'),
     ('UBA LIBERTAD', 'UBA Libertad'),
     ('UBA COMUNEROS', 'UBA Comuneros'),
@@ -30,11 +30,18 @@ tiposolicitud=(
     ('ELIMINAR', 'Eliminar'),
     ('CONSULTAS', 'Consultas')
 )
-aplicativo=(
+aplicativos=(
     ('KUBAPP', 'kubApp'),
     ('TNS', 'TNS'),
     ('ALMERA', 'Almera'),
-    ('HICKCENTRAL', 'Hickcentral')
+    ('HICKCENTRAL', 'Hickcentral'),
+    ('SARA', 'SARA'),
+    ('ANNARLAB', 'ANNARLAB'),
+    ('GLPI', 'Mesa de ayuda GLPI'),
+    ('ORTHANC', 'ORTHANC'),
+    ('NUBE', 'Nube'),
+    ('ZIMBRA', 'email Zimbra'),
+
 )
 modulo=(
     ('identidades', 'Gestion de identidades'),

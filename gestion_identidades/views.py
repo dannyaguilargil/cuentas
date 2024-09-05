@@ -34,7 +34,8 @@ def identidades(request):
 
 @login_required
 def pazysalvo(request):
-    return render(request, 'pazysalvo.html')
+    username = request.user.username
+    return render(request, 'pazysalvo.html', {'username': username})
 
 @login_required
 def usolicitud(request):
@@ -167,6 +168,10 @@ def listadoaplicativos(request):
 
 @login_required
 def listadomodulos(request):
-    mods = list(modulo.objects.values())
-    data = {'mods': mods}
+    aplicativo_id = request.GET.get('aplicativo_id')
+    if aplicativo_id:
+        mods = list(modulo.objects.filter(aplicativo_id=aplicativo_id).values('id', 'nombre'))
+        data = {'modulos': mods}
+    else:
+        data = {'modulos': []}
     return JsonResponse(data)

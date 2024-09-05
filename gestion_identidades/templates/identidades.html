@@ -1,9 +1,9 @@
 {% extends 'base_identidades_sistemas.html' %}
-{% block titulo %}Formato gestion de identidades{% endblock titulo %}
+{% block titulo %}Formato gestión de identidades{% endblock titulo %}
 {% block contenido %}
 
 <center>
-  <h5 class="">Formulario gestion de identidades</h5>
+  <h5 class="">Formulario gestión de identidades</h5>
 
   {% if messages %}
     {% for message in messages %}
@@ -45,15 +45,15 @@
         <div class="col-md-3">
           <label for="tipodocumento" class=""><b>Tipo de documento:</b></label>
           <select name="tipodocumento" id="tipodocumento" class="form-control">
-            <option value="CC" selected>Cedula de ciudadania</option>
+            <option value="CC" selected>Cédula de ciudadanía</option>
             <option value="CE">CE</option>
-            <option value="PASAPORTE">PASAPORTE</option>
-            <option value="RESIDENCIA">RESIDENCIA</option>
+            <option value="PASAPORTE">Pasaporte</option>
+            <option value="RESIDENCIA">Residencia</option>
           </select>
         </div>
         <div class="col-md-3">
-          <label for="cedula" class=""><b>Cedula:</b></label>
-          <input type="number" name="cedula" id="cedula" class="form-control" placeholder="Digite cedula">
+          <label for="cedula" class=""><b>Cédula:</b></label>
+          <input type="number" name="cedula" id="cedula" class="form-control" placeholder="Digite cédula">
         </div>
         <div class="col-md-3">
           <label for="lugarexpedicion" class=""><b>Lugar de expedición:</b></label>
@@ -70,16 +70,16 @@
 
       <div class="row mt-3">
         <div class="col-md-3">
-          <label for="telefono" class=""><b>Telefono fijo:</b></label>
-          <input type="text" name="telefono" id="telefono" class="form-control" placeholder="Digite telefono fijo" required>
+          <label for="telefono" class=""><b>Teléfono fijo:</b></label>
+          <input type="text" name="telefono" id="telefono" class="form-control" placeholder="Digite teléfono fijo" required>
         </div>
         <div class="col-md-3">
           <label for="celular" class=""><b>Celular:</b></label>
           <input type="number" name="celular" id="celular" class="form-control" placeholder="Digite celular">
         </div>
         <div class="col-md-3">
-          <label for="direccion" class=""><b>Direccion:</b></label>
-          <input type="text" name="direccion" id="direccion" class="form-control" placeholder="Digite direccion de residencia" required>
+          <label for="direccion" class=""><b>Dirección:</b></label>
+          <input type="text" name="direccion" id="direccion" class="form-control" placeholder="Digite dirección de residencia" required>
         </div>
         <div class="col-md-3">
           <label for="cargo" class=""><b>Cargo o N° de contrato:</b></label>
@@ -97,8 +97,8 @@
           <input type="email" name="email" id="email" class="form-control" placeholder="Digite correo">
         </div>
         <div class="col-md-3">
-          <label for="ubicacion_laboral" class=""><b>Ubicacion laboral:</b></label>
-          <input type="text" name="ubicacion_laboral" id="ubicacion_laboral" class="form-control" placeholder="Ubicacion laboral o area">
+          <label for="ubicacion_laboral" class=""><b>Ubicación laboral:</b></label>
+          <input type="text" name="ubicacion_laboral" id="ubicacion_laboral" class="form-control" placeholder="Ubicación laboral o área">
         </div>
         <div class="col-md-3">
           <label for="dependencia" class=""><b>Dependencia o servicio:</b></label>
@@ -139,33 +139,18 @@
           </select>
         </div>
         <div class="col-md-4">
-          <label for="apicativo" class=""><b>Aplicativo</b></label>
-          
-          <select
-          class="form-control"
-          id="aplicativo"
-          name="aplicativo"
-          required
-        >
-          <option selected disabled>
-            Seleccione Aplicativo
-          </option>
-          
-        </select>
+          <label for="aplicativo" class=""><b>Aplicativo</b></label>
+          <select class="form-control" id="aplicativo" name="aplicativo" required>
+            <option selected disabled>Seleccione Aplicativo</option>
+            <!-- Las opciones se cargarán dinámicamente con JavaScript -->
+          </select>
         </div>
         <div class="col-md-4">
           <label for="modulo" class=""><b>Modulo</b></label>
-          <select
-          class="form-control"
-          id="modulo"
-          name="modulo"
-          required
-        >
-          <option selected disabled>
-            Seleccione Modulo
-          </option>
-          
-        </select>
+          <select class="form-control" id="modulo" name="modulo">
+            <option selected disabled>Seleccione Modulo</option>
+            <!-- Las opciones se cargarán dinámicamente con JavaScript -->
+          </select>
         </div>
       </div>
 
@@ -181,135 +166,62 @@
       </div>
     </div>
   </div>
-
+  
   <center>
-    <ul class="list-group list-group-horizontal">
-      <li class="list-group-item">
-       <!-- Button trigger modal -->
-<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-  Acuerdo de confidencialidad 
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Formulario acuerdo de confidencialidad</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form action="">
-
-          <button class="btn btn-outline-primary">Enviar codigo</button> <!-- este codigo debe enviarse automaticamente al abrir en el boton-->
-          <div class="col">
-            <label for="">Firma digital</label>
-            <input type="text" value="" class="form-control" placeholder="Digite codigo de validacion que se envio al correo" required>
-          </div>
-        <br>
-        
-          <button class="btn btn-outline-warning">Ver pdf acuerdo de confidencialidad</button>
-
-        </form>
-        <br>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-success">Guardar firma electronica</button>
-      </div>
-    </div>
-  </div>
-</div>
-        
-    
-      <li class="list-group-item">
-       <!-- <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckboxStretched">
-        <label class="form-check-label stretched-link" for="thirdCheckboxStretched">Formulario tratamiento de datos</label>
-        -->
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Tratamiento de datos personales
-        </button>
-        
-        <!-- Modal -->
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                ...
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Understood</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-      </li>
-    </ul>
-  </center>
-
-  <br> <br>
-
-  <center>
-    <div class="col">
-      <button class="btn btn-outline-secondary" id="otro" onclick="otro();">Agregar otro aplicativo</button>
-      <button class="btn btn-outline-success" type="submit" onclick="envio();" name="solicitar" id="solicitar">Solicitar</button>
-    </div>
+    <button type="submit" class="btn btn-success">Enviar Solicitud</button>
   </center>
 </form>
- <br> 
 
+<script>
+// Función para cargar los aplicativos desde el servidor
+function cargarAplicativos() {
+    fetch('identidades/listadoaplicativos')
+        .then(response => response.json())
+        .then(data => {
+            const selectAplicativos = document.getElementById('aplicativo');
+            data.aps.forEach(aps => {
+                const option = document.createElement('option');
+                option.value = aps.id;
+                option.textContent = aps.nombre;
+                selectAplicativos.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error al cargar aplicativos:', error));
+}
 
- <script>
-    // Función para cargar los entes de control desde el servidor
-    function cargarAplicativos() {
-                    fetch('identidades/listadoaplicativos')
-                        .then(response => response.json())
-                        .then(data => {
-                            const selectAplicativos = document.getElementById('aplicativo');
-                            data.aps.forEach(aps => {
-                                const option = document.createElement('option');
-                                option.value = aps.id;
-                                option.textContent = aps.nombre;
-                                selectAplicativos.appendChild(option);
-                            });
-                        })
-                        .catch(error => console.error('Error al cargar aplicativos:', error));
-                }
+// Función para cargar los módulos basados en el aplicativo seleccionado
+function cargarModulos() {
+    document.getElementById('aplicativo').addEventListener('change', function() {
+        const aplicativoId = this.value;
+        const selectModulos = document.getElementById('modulo');
+        
+        // Limpia el contenido previo de los módulos
+        selectModulos.innerHTML = '<option value="">Seleccione un módulo</option>';
+        
+        if (aplicativoId) {
+            fetch(`/identidades/modulos?aplicativo_id=${aplicativoId}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data); // Verifica el contenido de la respuesta
+                    if (data.modulos) {
+                        data.modulos.forEach(modulo => {
+                            const option = document.createElement('option');
+                            option.value = modulo.id;
+                            option.textContent = modulo.nombre;
+                            selectModulos.appendChild(option);
+                        });
+                    } else {
+                        console.error('No se encontraron módulos.');
+                    }
+                })
+                .catch(error => console.error('Error al cargar módulos:', error));
+        }
+    });
+}
 
-
-    function cargarModulos(){
-                    document.getElementById('aplicativo').addEventListener('change', function() {
-                  const aplicativoId = this.value;
-                  const selectModulos = document.getElementById('modulo');
-                  
-                  // Limpia el contenido previo de los módulos
-                  selectModulos.innerHTML = '<option value="">Seleccione un módulo</option>';
-                  
-                  if (aplicativoId) {
-                      fetch(`/identidades/modulos/${aplicativoId}/`)
-                          .then(response => response.json())
-                          .then(data => {
-                              data.modulos.forEach(modulo => {
-                                  const option = document.createElement('option');
-                                  option.value = modulo.id;
-                                  option.textContent = modulo.nombre;
-                                  selectModulos.appendChild(option);
-                              });
-                          })
-                          .catch(error => console.error('Error al cargar módulos:', error));
-                  }
-              });
-                  }
-
-    cargarAplicativos();
-    cargarModulos();
-                
- </script>
+// Inicializar las funciones al cargar la página
+cargarAplicativos();
+cargarModulos();
+</script>
 
 {% endblock contenido %}

@@ -138,8 +138,9 @@
                                                 <nav class="sb-sidenav-menu-nested nav">
                                                     <a class="nav-link" href=" {% url 'dashboard' %} " style="color: white;">Dashboard</a>
                                                     <!-- <a class="nav-link" href=" {% url 'usuario_pendient' %} " style="color: white;">Usuarios pendientes</a>-->
+                                                     <!--
                                                     <a class="nav-link" href=" {% url 'crear' %} " style="color: white;">Registrar un usuario</a>
-                                                    <a class="nav-link" href=" {% url 'documentos' %} " style="color: white;">Registrar documento</a>
+                                                    <a class="nav-link" href=" {% url 'documentos' %} " style="color: white;">Registrar documento</a>-->
                                                     <a class="nav-link" href=" {% url 'usuariosauditoria' %} " style="color: white;">Auditoria</a>
                                                     <a class="nav-link" href="/admin/" style="background: #1d985a; color: white;">
                                                     
@@ -291,9 +292,32 @@
                             <!---->
                             <div class="text-muted">"Intentando lo Imposible es como se Realiza lo Posible"</div>
                             <div>
-                                <a href="#" style="color: grey;">Politica de privacidad</a>
-                                &middot;
-                                <a href="#" style="color: grey;">Terminos &amp; Condiciones</a>
+                                <!--
+                                <a href="#" style="color: grey;">Politica de privacidad</a>-->
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        <a type="button" class="" style="color: grey;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                            Acuerdo de confidencialidad 
+                                          </a>
+                                       <!-- &middot;-->
+                                    </label>
+                                </div>
+                                
+                               
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                                        <label class="form-check-label" for="flexCheckChecked">
+                                            <a type="button" class="" style="color: grey;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                                Tratamiento de datos personales
+                                              </a>
+                                        </label>
+                                 
+
+
+                                   
+                               
+                                 
+                               
                             </div>
                         </div>
                     </div>
