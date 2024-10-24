@@ -19,9 +19,9 @@
 <br>
 
 
-<p>Que, revisado el contrato de prestacion de servicios N° {numero} asignado al contratista {nombre completo} con cedula de ciudania {cedula} presenta terminacion en el periodo {fechafinalcontrato}, por lo tanto se expide el presente certificado para tramite de cuentas y procesos que se requieran</p>
+<p>Que, revisado el contrato de prestacion de servicios N° <b>{{cargo}}</b> asignado al contratista <b> {{nombre}} {{segundonombre}} {{primerapellido}} {{segundoapellido}} </b> con cedula de ciudania  <b>{{cedula}}</b> presenta terminacion en el periodo <b>{{fechafinalcontrato}}</b>, por lo tanto se expide el presente certificado para tramite de cuentas y procesos que se requieran.</p>
 
-<p>{fechaactual} , {idpazysalvo}</p>
+<p>Fecha de creaccion: {{ fecha_creacion|date:"d/m/Y H:i" }} ,con el id: {idpazysalvo}</p>
 
 
 <center>
@@ -34,7 +34,7 @@
 
 <p>
     <center>
-        Elaboró: SARA  E.S.E IMSALUD <br>
+        Elaboró: SARA  E.S.E IMSALUD (Gestion de identidades)<br>
         Av. Libertadores No. 0-124 Barrio Blanco, San José de Cúcuta
 Norte de Santander-Colombia, Teléfono (7) 5784980
 http/:www.imsalud.gov.co

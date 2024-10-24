@@ -3,12 +3,11 @@ sexos=(
     ('M', 'Masculino')
 )
 rol=(
-    ('CONTRATISTA', 'Contratista'),
-    ('SUPERVISOR', 'Supervisor'),
-    ('GESCON', 'Gescon'),
-    ('PRESUPUESTO', 'Presupuesto'),
-    ('TESORERIA', 'Tesoreria'),
-    ('ADMINISTRADOR', 'Administrador')
+    ('admin_identidadades', 'Administrador de identidades'),
+    ('supervisor', 'Supervisor'),
+    ('identidades', 'Usuario final de identidades'),
+    ('informes', 'ente de control (informes)'),
+    ('admin_sara', 'Administrador de SARA')
 )
 tipodocumento=(
     ('CC', 'Cedula de ciudadania'),

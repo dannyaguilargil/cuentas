@@ -9,8 +9,6 @@
 ----------| |          | |        #   ---------  #
 ################################################## 
 
-
-######ESTE ES EL CONTENIDO DE DATATABLE CON DJANGO PERSONALIZADO PARA EL CRUD
 -->
 
 {% load static %}
@@ -127,7 +125,7 @@
 
                             <!-- AQUI VA LA CONIDICON EN PYTHON PARA OCULTAR ULS EN BASE A GRUPOS Y PERMISOS-->
  
-                                   
+                                             {% if es_staff %}
                                             <!-- <div class="sb-sidenav-menu-heading" style="color: white;">Administracion</div> -->
                                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayoutss" aria-expanded="false" aria-controls="collapseLayouts" style="background: #1d985a; color: white;">
                                                 <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
@@ -205,9 +203,9 @@
                             </a>
                             <div class="collapse" id="collapseLayouts3" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="{% url 'identidades' %}" style="color: white;">Solicitar sistema</a>
-                                    <a class="nav-link" href="{% url 'identidadespendientes' %}" style="color: white;">Pendientes</a>
-                                    <a class="nav-link" href="{% url 'pazysalvo' %}" style="color: white;">Paz y salvo</a>
+                                    <!-- <a class="nav-link" href="{% url 'identidades' %}" style="color: white;">Solicitar sistema</a> -->
+                                    <a class="nav-link" href="{% url 'identidadespendientesadmin' %}" style="color: white;">Pendientes</a>
+                                    <a class="nav-link" href="{% url 'pazysalvolistado' %}" style="color: white;">Paz y salvo</a>
                             
                                 </nav>
                             </div>
@@ -231,6 +229,44 @@
                                </nav>
                            </div>
                             <!-- GESTION DE INFORMES-->
+                        
+
+
+                            {% elif es_supervisor %}
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts3" aria-expanded="false" aria-controls="collapseLayouts" style="background: #1d985a; color: white;">
+                                <div class="sb-nav-link-icon"><i class="fas fa-hospital-user"></i></div>
+                                Identidades
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts3" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{% url 'identidades' %}" style="color: white;">Solicitar sistema</a>
+                                    <a class="nav-link" href="{% url 'identidadespendientes' %}" style="color: white;">Pendientes</a> 
+                                    <a class="nav-link" href="{% url 'pazysalvo' %}" style="color: white;">Paz y salvo</a>
+                            
+                                </nav>
+                            </div>
+                          
+
+
+
+                            {% else %}
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts3" aria-expanded="false" aria-controls="collapseLayouts" style="background: #1d985a; color: white;">
+                                <div class="sb-nav-link-icon"><i class="fas fa-hospital-user"></i></div>
+                                Identidades
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts3" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{% url 'identidades' %}" style="color: white;">Solicitar sistema</a>
+                                    <!-- <a class="nav-link" href="{% url 'identidadespendientes' %}" style="color: white;">Pendientes</a> -->
+                                    <a class="nav-link" href="{% url 'pazysalvo' %}" style="color: white;">Paz y salvo</a>
+                            
+                                </nav>
+                            </div>
+                            {% endif %}
+                         
+
  <br>
 
  <!--
@@ -291,34 +327,24 @@
                         <div class="d-flex align-items-center justify-content-between small">
                             <!---->
                             <div class="text-muted">"Intentando lo Imposible es como se Realiza lo Posible"</div>
-                            <div>
-                                <!--
-                                <a href="#" style="color: grey;">Politica de privacidad</a>-->
+                                                        <!-- Botones para abrir los modales -->
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                     <label class="form-check-label" for="flexCheckDefault">
-                                        <a type="button" class="" style="color: grey;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                            Acuerdo de confidencialidad 
-                                          </a>
-                                       <!-- &middot;-->
+                                        <a type="button" style="color: grey;" data-bs-toggle="modal" data-bs-target="#modalConfidencialidad">
+                                            Acuerdo de confidencialidad
+                                        </a>
                                     </label>
                                 </div>
-                                
-                               
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                                        <label class="form-check-label" for="flexCheckChecked">
-                                            <a type="button" class="" style="color: grey;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                                Tratamiento de datos personales
-                                              </a>
-                                        </label>
-                                 
 
-
-                                   
-                               
-                                 
-                               
-                            </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                                    <label class="form-check-label" for="flexCheckChecked">
+                                        <a type="button" style="color: grey;" data-bs-toggle="modal" data-bs-target="#modalDatosPersonales">
+                                            Tratamiento de datos personales
+                                        </a>
+                                    </label>
+                                </div>
                         </div>
                     </div>
                 </footer>
@@ -327,11 +353,80 @@
  </div>
     </div>
 
-   
+   <!-- Modal para Acuerdo de confidencialidad -->
+<!-- Modal para Acuerdo de confidencialidad -->
+    <div class="modal fade" id="modalConfidencialidad" aria-hidden="true" aria-labelledby="modalConfidencialidadLabel" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modalConfidencialidadLabel">Acuerdo de Confidencialidad</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        <div class="d-flex align-items-center mb-3">
+                            <button class="btn btn-success me-4">Generar</button>
+                            <input type="text" class="form-control" id="otpInputConfidencialidad" placeholder="Código OTP">
+                        </div>
+                        
+                        <button class="btn btn-outline-success">Validar Código OTP</button>
+                        
+                        <br><br>
+                        <a href="ruta/a/tu/documento.pdf" target="_blank" class="btn btn-link-secondary">Abrir PDF del Acuerdo de confidencialidad</a>
+                        
+                        <br>
+                    </center>
+                    
+                 
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-bs-target="#modalDatosPersonales" data-bs-toggle="modal">Tratamiento de Datos Personales</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal para Tratamiento de datos personales -->
+    <div class="modal fade" id="modalDatosPersonales" aria-hidden="true" aria-labelledby="modalDatosPersonalesLabel" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modalDatosPersonalesLabel">Tratamiento de Datos Personales</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+
+                    <center>
+
+                        <button class="btn btn-success">Generar Código OTP</button> <br> <br>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="otpInputConfidencialidad" placeholder="Código OTP">
+                        </div>
+                        <button class="btn btn-outline-success">Validar Código OTP</button>
+                        <br><br>
+                        <a href="identidades/tratamiento/{{usuario.cedula}}" target="_blank" class="btn btn-link-secondary">Abrir PDF del tratamiento de datos personales</a>
+                       
+        
+                    </center>
+                 
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-bs-target="#modalConfidencialidad" data-bs-toggle="modal">Volver al Acuerdo de Confidencialidad</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
         
     <script>
         $(document).ready(function() {
             $(".ver").click(function() {
+                var usuario = $(this).data("usuario");
+                var fecha_creacion = $(this).data("fecha_creacion");
+                var id = $(this).data("id");
                 var nombre = $(this).data("nombre");
                 var segundonombre = $(this).data("segundonombre");
                 var primerapellido = $(this).data("primerapellido");
@@ -339,22 +434,36 @@
                 var cedula = $(this).data("cedula");
                 var cargo = $(this).data("cargo");
                 var email = $(this).data("email");
-                var supervisor = $(this).data("supervisor");
+                var supervisor_id = $(this).data("supervisor_id");
+                var supervisor = $(this).data("supervisor_id");
+                var supervisor_usuario = $(this).data("supervisor_usuario");
+                var dependencia_id = $(this).data("dependencia_id");
+                var dependencia = $(this).data("dependencia_id");
+                var dependencia_nombre = $(this).data("dependencia_nombre");
                 var tipodocumento = $(this).data("tipodocumento");
-                var apicativo = $(this).data("apicativo");
+                var aplicativo_id = $(this).data("aplicativo_id");
+                var aplicativo = $(this).data("aplicativo_id"); // inserccion de aplicativo
+                var aplicativo_nombre = $(this).data("aplicativo_nombre");
+                var modulo_id = $(this).data("modulo_id");
+                var modulo = $(this).data("modulo_id");
+                var modulo_nombre = $(this).data("modulo_nombre");
                 var tiposolicitud = $(this).data("tiposolicitud");
                 var observaciones = $(this).data("observaciones");
-                var observacionessupervisor = $(this).data("observacionessupervisor");
+                var observacionessup = $(this).data("observacionessup");
                 var lugarexpedicion = $(this).data("lugarexpedicion");
-                var dependencia = $(this).data("dependencia");
                 var sexo = $(this).data("sexo");
                 var telefono = $(this).data("telefono");
                 var celular = $(this).data("celular");
                 var direccion = $(this).data("direccion");
                 var sede = $(this).data("sede");
+                var ubicacionlaboral = $(this).data("ubicacionlaboral");
                 var fechafinalcontrato = $(this).data("fechafinalcontrato");
+                var tarjetapf = $(this).data("tarjetapf");
 
     
+                $("#usuario").val(usuario);
+                $("#fecha_creacion").val(fecha_creacion);
+                $("#id").val(id);
                 $("#nombre").val(nombre);
                 $("#segundonombre").val(segundonombre);
                 $("#primerapellido").val(primerapellido);
@@ -362,20 +471,31 @@
                 $("#cedula").val(cedula);
                 $("#cargo").val(cargo);
                 $("#email").val(email);
-                $("#supervisor").val(supervisor);
+                $("#supervisor_id").val(supervisor_id);
+                $("#supervisor").val(supervisor_id);
+                $("#supervisor_usuario").val(supervisor_usuario);
+                $("#dependencia_id").val(dependencia_id);
+                $("#dependencia").val(dependencia_id);
+                $("#dependencia_nombre").val(dependencia_nombre);
                 $("#tipodocumento").val(tipodocumento);
-                $("#apicativo").val(apicativo);
+                $("#aplicativo_id").val(aplicativo_id);
+                $("#aplicativo").val(aplicativo_id); // inserccion de aplicativo
+                $("#aplicativo_nombre").val(aplicativo_nombre);
+                $("#modulo_id").val(modulo_id);
+                $("#modulo").val(modulo_id);
+                $("#modulo_nombre").val(modulo_nombre);
                 $("#tiposolicitud").val(tiposolicitud);
                 $("#observaciones").val(observaciones);
-                $("#observacionessupervisor").val(observacionessupervisor);
+                $("#observacionessup").val(observacionessup);
                 $("#lugarexpedicion").val(lugarexpedicion);
-                $("#dependencia").val(dependencia);
                 $("#sexo").val(sexo);
                 $("#telefono").val(telefono);
                 $("#celular").val(celular);
                 $("#direccion").val(direccion);
                 $("#sede").val(sede);
+                $("#ubicacionlaboral").val(ubicacionlaboral);
                 $("#fechafinalcontrato").val(fechafinalcontrato);
+                $("#tarjetapf").val(tarjetapf);
                
     
                 $("#exampleModal").modal("show");

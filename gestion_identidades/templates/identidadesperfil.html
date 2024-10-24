@@ -1,0 +1,172 @@
+{% extends 'base_identidades_sistemas.html' %}
+{% block titulo %}Gestión de identidades{% endblock titulo %}
+{% block contenido %}
+
+<center>
+  <h5>Gestion de identidades</h5>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+</center>
+
+<form action="" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+  {% csrf_token %}
+
+ 
+ <!-- INformacion general del colaborador -->
+ <div class="card mb-4 accordion" id="accordionExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="background: #FFFFCC; color: black;">
+                Credenciales asignadas
+            </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <div class="row">
+                    <table class="table table-bordered table-hover table-striped table-sm">
+                        <caption>Listado de Aplicativos y Módulos por designar</caption>
+                        <thead>
+                            <tr>
+                                <th class="text-center">Usuario</th>
+                                <th class="text-center">Aplicativo</th>
+                                <th class="text-center">Módulo</th>
+                                <th class="text-center">Tipo de Solicitud</th>
+                                <th class="text-center">Accion</th>
+                              
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for objeto in datos %}
+                            <tr>
+                                <td><center>
+                                    {% if objeto.aplicativo %}
+                                        {{ objeto.aplicativo.nombre|default:'' }}
+                                    {% else %}
+                                        Sin aplicativo
+                                    {% endif %}
+                                </center></td>
+                                <td><center>
+                                    {% if objeto.modulo %}
+                                        {{ objeto.modulo.nombre|default:'' }}
+                                    {% else %}
+                                        Sin módulo
+                                    {% endif %}
+                                </center></td>
+                                <td><center>
+                                    {{ objeto.tiposolicitud|default:'No especificado' }}
+                                </center></td>
+                                <td><center>
+                                    {{ objeto.tiposolicitud|default:'No especificado' }}
+                                </center></td>
+                                <td><center>
+                                    {{ objeto.tiposolicitud|default:'No especificado' }}
+                                </center></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    
+                   
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+ 
+
+  <center>
+    <button type="submit" class="btn btn-success" disabled>Actualizar datos</button>
+  </center>
+</form>
+<br>
+<!-- Scripts para cargar dinámicamente aplicativos y módulos -->
+<script>
+  // Validación personalizada con Bootstrap
+  (function () {
+    'use strict'
+
+    // Seleccionar todos los formularios que queremos aplicar el estilo de validación de Bootstrap
+    var forms = document.querySelectorAll('.needs-validation')
+
+    // Iterar sobre ellos y prevenir el envío si no son válidos
+    Array.prototype.slice.call(forms).forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+
+    // Validación dinámica de los campos al interactuar
+    var inputs = document.querySelectorAll('.form-control, .form-select')
+
+    Array.prototype.slice.call(inputs).forEach(function (input) {
+      input.addEventListener('input', function () {
+        if (input.checkValidity()) {
+          input.classList.remove('is-invalid')
+          input.classList.add('is-valid')
+        } else {
+          input.classList.remove('is-valid')
+          input.classList.add('is-invalid')
+        }
+      })
+    })
+  })()
+
+  // Función para cargar los aplicativos desde el servidor
+  function cargarAplicativos() {
+    fetch('identidades/listadoaplicativos')
+      .then(response => response.json())
+      .then(data => {
+        const selectAplicativos = document.getElementById('aplicativo');
+        data.aps.forEach(aps => {
+          const option = document.createElement('option');
+          option.value = aps.id;
+          option.textContent = aps.nombre;
+          selectAplicativos.appendChild(option);
+        });
+      })
+      .catch(error => console.error('Error al cargar aplicativos:', error));
+  }
+
+  // Función para cargar los módulos basados en el aplicativo seleccionado
+  function cargarModulos() {
+    document.getElementById('aplicativo').addEventListener('change', function() {
+      const aplicativoId = this.value;
+      const selectModulos = document.getElementById('modulo');
+      selectModulos.innerHTML = '<option value="">Seleccione un módulo</option>';
+      if (aplicativoId) {
+        fetch(`/identidades/modulos?aplicativo_id=${aplicativoId}`)
+          .then(response => response.json())
+          .then(data => {
+            if (data.modulos) {
+              data.modulos.forEach(modulo => {
+                const option = document.createElement('option');
+                option.value = modulo.id;
+                option.textContent = modulo.nombre;
+                selectModulos.appendChild(option);
+              });
+            } else {
+              console.error('No se encontraron módulos.');
+            }
+          })
+          .catch(error => console.error('Error al cargar módulos:', error));
+      }
+    });
+  }
+
+  cargarAplicativos();
+  cargarModulos();
+</script>
+
+{% endblock contenido %}

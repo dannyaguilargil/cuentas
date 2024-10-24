@@ -1,88 +1,113 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block contenido  %}
-<!-- 
-<div class="imagen">
-    <img  src="{% static 'imgs/logocompleto.png' %}"  alt="" style="width: 200px; text-align: center;">
-</div>
--->
-<br><br><br>
-    <div class="centrar">
-        <div class="centrar1 col">
-            <div class="container form-control form-control" >
+{% block contenido %}
+<br><br>
+<div class="centrar">
+    <div class="centrar1 col">
+        <div class="container form-control form-control">
             <a class="btn btn-outline-success fas fa-user-lock" href="{% url 'inicio' %}">Iniciar sesión</a>
-            
+            <br>
             <center>
-                <img  src="{% static 'imgs/logocompleto.png' %}"  alt="" style="width: 200px; text-align: center;">
+                <img src="{% static 'imgs/logocompleto.png' %}" alt="" style="width: 200px; text-align: center;">
                 <h5 style="font-family: Kodchasan">Solicitud de usuario al <b>S</b>istema de <b>A</b>dministración de <b>R</b>ecursos y <b>A</b>plicaciones</h5> 
 
-    
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-danger">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endif %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
             </center>
             <br>
-
             
-            <form  action="" method="POST" autocomplete="off" style="font-family: Lato;">
-            <!-- CREANDO FORMULARIO DINAMICOS-->
-            {% csrf_token %}
-            <div class="row">
+            <form action="" method="POST" autocomplete="off" class="row g-3 needs-validation" novalidate>
+                {% csrf_token %}
+                
                 <div class="row">
                     {% for campo in formulario %}
                         <div class="col-md-3">
-                            <label class="">{{ campo.label_tag }}</label>
+                            <label for="{{ campo.auto_id }}" class="form-label">{{ campo.label_tag }}</label>
+
                             {% if campo.field.widget.input_type == 'select' %}
-                                <select class="form-control" name="{{ campo.html_name }}" id="{{ campo.auto_id }}" {% if campo.field.required %}required{% endif %}>
+                                <select class="form-select {% if campo.errors or not campo.value %}is-invalid{% elif campo.value %}is-valid{% endif %}" 
+                                        name="{{ campo.html_name }}" 
+                                        id="{{ campo.auto_id }}" 
+                                        {% if campo.field.required %}required{% endif %}>
+                                    <option value="" disabled {% if not campo.value %}selected{% endif %}>Seleccione...</option>
                                     {% for opcion in campo.field.choices %}
                                         <option value="{{ opcion.0 }}" {% if opcion.0 == campo.value %}selected{% endif %}>{{ opcion.1 }}</option>
                                     {% endfor %}
                                 </select>
                             {% else %}
                                 <input type="{{ campo.field.widget.input_type }}"
-                                       class="form-control"
+                                       class="form-control {% if campo.errors or not campo.value %}is-invalid{% elif campo.value %}is-valid{% endif %}"
                                        name="{{ campo.html_name }}"
                                        id="{{ campo.auto_id }}"
                                        placeholder="Digite {{ campo.label }}"
-                                       {% if campo.field.required %}required{% endif %}>
+                                       value="{{ campo.value|default_if_none:'' }}"
+                                       {% if campo.field.required %}required{% endif %}
+                                       oninput="this.value = this.value.toUpperCase();"> <!-- Modificado aquí -->
                             {% endif %}
-                            <br>
+                            
+                            {% if campo.errors %}
+                                <div class="invalid-feedback">
+                                    {{ campo.errors.as_text }}
+                                </div>
+                            {% else %}
+                                <div class="valid-feedback">
+                                    ¡Correcto!
+                                </div>
+                            {% endif %}
                         </div>
                     {% endfor %}
                 </div>
-          
-            
-            <div class="col-12">{{ campo.errors }}</div>
-             </div>
 
-                <div class="col text-center">
-                <button type="submit" class="fas fa-user-md text-center btn btn-success" onclick="envio();">Solicitar</button>
+                <div class="col-12 text-center">
+                    <button type="submit" class="btn btn-success fas fa-user-md">Solicitar</button>
                 </div>
-
-             </form>
-       
-
-            </div>
+            </form>
         </div>
-        <br>
-        <center>
-            E.S.E IMSALUD &copy V2.0
-          </center>
-      </div>
-{% endblock  %}
+    </div>
+    <br>
+    <center>
+        E.S.E IMSALUD &copy V2.0 <br>
+        <a href="" style="color: black;">Descargue la version movil aquí...</a>
+    </center>
+</div>
 
+<script>
+// Validación personalizada con Bootstrap y cambios dinámicos
+(function () {
+    'use strict'
 
+    var forms = document.querySelectorAll('.needs-validation')
 
+    Array.prototype.slice.call(forms).forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
 
+            form.classList.add('was-validated')
+        }, false)
+    })
 
+    var inputs = document.querySelectorAll('.form-control, .form-select')
 
+    Array.prototype.slice.call(inputs).forEach(function (input) {
+        input.addEventListener('input', function () {
+            if (input.checkValidity()) {
+                input.classList.remove('is-invalid')
+                input.classList.add('is-valid')
+            } else {
+                input.classList.remove('is-valid')
+                input.classList.add('is-invalid')
+            }
+        })
+    })
+})()
+</script>
 
-
-
-
-
-
+{% endblock %}

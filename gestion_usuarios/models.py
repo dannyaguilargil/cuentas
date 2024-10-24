@@ -1,31 +1,36 @@
 from django.db import models
 from gestion_usuarios.choices import sexos, rol, tipodocumento, modulo
 from gestion_supervisor.models import supervisor
+from gestion_informes.models import dependencia
+from django.contrib.auth.models import User
+
 
 class usuario(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Usuario autenticado', blank=True, null=True )
     nombre = models.CharField(max_length=40, verbose_name='Primer nombre')
-    segundonombre = models.CharField(max_length=40, verbose_name='Segundo nombre')
-    primerapellido = models.CharField(max_length=40, verbose_name='Primer apellido')
-    segundoapellido = models.CharField(max_length=40, verbose_name='Segundo apellido')
-    cargo = models.CharField(max_length=40, verbose_name='Cargo')
-    email = models.CharField(max_length=40, verbose_name='Email')
-    supervisor = models.CharField(max_length=40, verbose_name='Supervisor', default='No asignado')
+    segundonombre = models.CharField(max_length=40, verbose_name='Segundo nombre', blank=True, null=True)
+    primerapellido = models.CharField(max_length=40, verbose_name='Primer apellido', blank=True, null=True)
+    segundoapellido = models.CharField(max_length=40, verbose_name='Segundo apellido', blank=True, null=True)
+    cargo = models.CharField(max_length=40, verbose_name='Cargo', blank=True, null=True)
+    email = models.EmailField(max_length=40, verbose_name='Correo personal', blank=True, null=True)
+    supervisor = models.ForeignKey(supervisor,max_length=40, verbose_name='supervisor',on_delete=models.CASCADE,related_name='supervisor_detail')
     tipodocumento = models.CharField(max_length=40, verbose_name='Tipo de documento',choices=tipodocumento, default='CC')
     cedula = models.IntegerField(primary_key=True, verbose_name='Cedula')
     ##hast aqui va el de usuarios registrados
-    lugarexpedicion = models.CharField(max_length=40, verbose_name='Lugar de expedicion')
-    dependencia = models.CharField(max_length=40, verbose_name='Dependencia')
+    lugarexpedicion = models.CharField(max_length=40, verbose_name='Lugar de expedicion', blank=True, null=True)
+    dependencia = models.ForeignKey(dependencia,max_length=40, verbose_name='dependencia',on_delete=models.CASCADE, blank=True, null=True)
     sexo = models.CharField(max_length=40, verbose_name='Sexo', choices=sexos, default='F')
-    usuario = models.CharField(max_length=40, verbose_name='Usuario')
-    contrasena = models.CharField(max_length=40, verbose_name='Contrasena')
-    telefono = models.CharField(max_length=40, verbose_name='Telefono' ,default="")
-    direccion = models.CharField(max_length=40, verbose_name='Direccion', default='')
-    rol = models.CharField(max_length=40, verbose_name='Rol',choices=rol, default='CONTRATISTA')
+    telefono = models.IntegerField(verbose_name='Telefono fijo' , blank=True, null=True)
+    #celular = models.IntegerField(verbose_name='Celular' , blank=True, null=True)
+    direccion = models.CharField(max_length=40, verbose_name='Direccion', blank=True, null=True)
+    rol = models.CharField(max_length=40, verbose_name='Rol',choices=rol, default='identidades')
     #imagen
+    fechafinalcontrato = models.DateField(verbose_name='Fecha final del contrato', null=True,blank=True)
     imagen = models.ImageField(upload_to='imgs/',default='imgs/sinfoto.jpeg')
+  
     #Dependiendo de como se muestre aqui se muestra en la relacion de la llave foranera
     def __str__(self):
-        return self.nombre + ' ' + self.primerapellido + ' ' + self.segundoapellido
+        return self.nombre + ' ' + self.primerapellido
     
     
 class prueba(models.Model):
@@ -35,19 +40,19 @@ class prueba(models.Model):
     
     
 class usolicitudes(models.Model):
-    nombre = models.CharField(max_length=40, verbose_name='Nombre')
-    segundonombre = models.CharField(max_length=40, verbose_name='Segundo nombre')
+    nombre = models.CharField(max_length=40, verbose_name='Primer nombre')
+    segundonombre = models.CharField(max_length=40, verbose_name='Segundo nombre', blank=True, null=True)
     primerapellido = models.CharField(max_length=40, verbose_name='Primer apellido')
-    segundoapellido = models.CharField(max_length=40, verbose_name='Segundo apellido')
+    segundoapellido = models.CharField(max_length=40, verbose_name='Segundo apellido', blank=True, null=True)
     cargo = models.CharField(max_length=40, verbose_name='Cargo')
-    email = models.CharField(max_length=40, verbose_name='Email')
-    supervisor = models.ForeignKey(supervisor,max_length=40, verbose_name='supervisor',on_delete=models.CASCADE)
+    email = models.CharField(max_length=40, verbose_name='Correo personal')
+    supervisor = models.ForeignKey(supervisor,max_length=40, verbose_name='supervisor',on_delete=models.CASCADE, blank=False, null=False, default=1)
     tipodocumento = models.CharField(max_length=40, verbose_name='Tipo de documento',choices=tipodocumento, default='CC')
     cedula = models.IntegerField(primary_key=True, verbose_name='Cedula')
     #modulo = models.CharField(max_length=40, verbose_name='Sistema',choices=modulo, default='identidades')
 
     def __str__(self):
-        return 'Solicitud de usuario: ' + self.nombre + ' ' + self.primerapellido
+        return 'Solicitud de usuario: ' + self.nombre + ' ' + self.primerapellido 
     
     #Aqui cambio los atributos de la tabla 
     class Meta:
@@ -232,3 +237,19 @@ class cuentacontratista(models.Model):
     pdfplanilla = models.CharField(max_length=200, verbose_name='Pdf de la planilla', default='pdfs/NOCARGADO')
     flujo = models.CharField(max_length=80, verbose_name='Flujo', default='Pendiente de pasar cuenta')
     #pdfactividades = models.CharField(max_length=80, verbose_name='Pdf de actividades', default='pdfs/NOCARGADO')
+
+class solicitudrechazada(models.Model):
+    nombre = models.CharField(max_length=40, verbose_name='Primer nombre')
+    segundonombre = models.CharField(max_length=40, verbose_name='Segundo nombre', blank=True, null=True)
+    primerapellido = models.CharField(max_length=40, verbose_name='Primer apellido')
+    segundoapellido = models.CharField(max_length=40, verbose_name='Segundo apellido', blank=True, null=True)
+    cargo = models.CharField(max_length=40, verbose_name='Cargo')
+    email = models.CharField(max_length=40, verbose_name='Email')
+    supervisor = models.ForeignKey(supervisor,max_length=40, verbose_name='supervisor',on_delete=models.CASCADE)
+    tipodocumento = models.CharField(max_length=40, verbose_name='Tipo de documento',choices=tipodocumento, default='CC')
+    cedula = models.IntegerField(primary_key=True, verbose_name='Cedula')
+    #modulo = models.CharField(max_length=40, verbose_name='Sistema',choices=modulo, default='identidades')
+
+    def __str__(self):
+        return 'Solicitud rechazada: ' + self.nombre + ' ' + self.primerapellido
+    

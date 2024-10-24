@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'corsheaders', # apis
     'django_celery_results',
     'gestion_encuestas',
+    #'django_admin_logs',
     #'django_celery_beat' opcional mas adelante
   
 ]
@@ -113,7 +114,7 @@ DATABASES = {
        #conexion con la base de datos local
        ###################################
        'ENGINE': 'django.db.backends.mysql',
-       'NAME': 'sistema_cuentas',
+       'NAME': 'sarav1',
        'USER': 'danny',
        'PASSWORD': 'danny',
        'HOST': 'localhost',
@@ -180,7 +181,6 @@ CELERY_RESULT_SERIALIZER = 'json'
 #####################################
 CELERY_RESULT_BACKEND = 'django-db'
 CELERY_ENABLE_UTC = False
-################################### NUEVAS CONFIGURACIONES DEL 05/06/2024
 CELERY_BROKER_HEARTBEAT = 120  
 CELERY_BROKER_CONNECTION_TIMEOUT = 60
 CELERY_TASK_ACKS_LATE = True 

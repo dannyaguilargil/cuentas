@@ -2,46 +2,40 @@
 {% block titulo %}Paz y Salvo{% endblock titulo %}
 {% block contenido %}
 <center>
-  <h5 class=""><b>S</b>istema de <b>A</b>dministracion de <b>R</b>ecursos y <b>A</b>plicaciones </h5>
-      <!-- para error, haciendo validacion-->
-{% if messages %}
-{% for message in messages %}
-  <div class="alert alert-success">
-      {{ message }}
-  </div>
-{% endfor %}
-{% endif %}
+    <h5 class=""><b>S</b>istema de <b>A</b>dministración de <b>R</b>ecursos y <b>A</b>plicaciones </h5>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
 </center>
 
 <div class="container mt-2">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="card">
-        <div class="card-header text-center">
-          <h5>Paz y Salvo</h5>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h5>Paz y Salvo</h5>
+                </div>
+                <div class="card-body">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        {{ form.as_p }}  
+                        <div class="text-center mt-4">
+                            {% if pdf_url %}
+                                <a target="_blank" href="{{ pdf_url }}" class="btn btn-warning">Descargar Certificado</a>
+                            {% else %}
+                                <button type="submit" class="btn btn-success">Solicitar</button>
+                            {% endif %}
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="card-body">
-          <form action="" method="POST">
-            <div class="form-group form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">
-                Revocar permisos
-              </label>
-            </div>
-            <div class="form-group form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-              <label class="form-check-label" for="flexCheckChecked">
-                Entrega tarjeta de acceso
-              </label>
-            </div>
-            <div class="text-center mt-4">
-              <button type="submit" class="btn btn-success">Solicitar</button>
-            </div>
-          </form>
-        </div>
-      </div>
     </div>
-  </div>
 </div>
- <br>
+<br>
 {% endblock contenido %}
+

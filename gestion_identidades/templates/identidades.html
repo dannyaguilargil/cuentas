@@ -1,9 +1,9 @@
 {% extends 'base_identidades_sistemas.html' %}
-{% block titulo %}Formato gestión de identidades{% endblock titulo %}
+{% block titulo %}Gestión de identidades{% endblock titulo %}
 {% block contenido %}
 
 <center>
-  <h5 class="">Formulario gestión de identidades</h5>
+  <h5>Formulario gestión de identidades</h5>
 
   {% if messages %}
     {% for message in messages %}
@@ -14,56 +14,70 @@
   {% endif %}
 </center>
 
-<form action="" method="POST" class="form-control">
+<form action="" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
   {% csrf_token %}
 
   <div class="card mb-4">
-    <div class="card-header"  style="background: #FFFFCC;">
+    <div class="card-header" style="background: #FFFFCC;">
       <h6 class="card-title">Información general del colaborador</h6>
     </div>
     <div class="card-body">
       <div class="row">
         <div class="col-md-3">
           <label for="nombre" class=""><b>Primer Nombre: *</b></label>
-          <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Digite primer nombre">
+          <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Digite primer nombre" required oninput="this.value = this.value.toUpperCase();" value="{{ usuario.nombre|default:'' }}">
+          <div class="invalid-feedback">
+            Por favor, ingrese el primer nombre.
+          </div>
         </div>
         <div class="col-md-3">
           <label for="segundonombre" class=""><b>Segundo Nombre:</b></label>
-          <input type="text" name="segundonombre" id="segundonombre" class="form-control" placeholder="Digite segundo nombre">
+          <input type="text" id="segundonombre" name="segundonombre" class="form-control" value="" placeholder="Digite segundo nombre" oninput="this.value = this.value.toUpperCase();" value="{{ usuario.segundonombre|default:'' }}">
         </div>
         <div class="col-md-3">
           <label for="primerapellido" class=""><b>Primer apellido: *</b></label>
-          <input type="text" name="primerapellido" id="primerapellido" class="form-control" placeholder="Digite primer apellido">
+          <input type="text" id="primerapellido" name="primerapellido" class="form-control" placeholder="Digite primer apellido" required oninput="this.value = this.value.toUpperCase();" value="{{ usuario.primerapellido|default:'' }}">
+          <div class="invalid-feedback">
+            Por favor, ingrese el primer apellido.
+          </div>
         </div>
         <div class="col-md-3">
-          <label for="segundoapellido" class=""><b>Segundo apellido: *</b></label>
-          <input type="text" name="segundoapellido" id="segundoapellido" class="form-control" placeholder="Digite segundo apellido">
+          <label for="segundoapellido" class=""><b>Segundo apellido:</b></label>
+          <input type="text" id="segundoapellido" name="segundoapellido" class="form-control" value="{{ usuario.segundoapellido|default:'' }}" placeholder="Digite segundo apellido" oninput="this.value = this.value.toUpperCase();" value="{{usuario.segundoapellido}}">
         </div>
       </div>
 
       <div class="row mt-3">
         <div class="col-md-3">
-          <label for="tipodocumento" class=""><b>Tipo de documento:</b></label>
-          <select name="tipodocumento" id="tipodocumento" class="form-control">
+          <label for="tipodocumento" class=""><b>Tipo de documento: *</b></label>
+          <select name="tipodocumento" id="tipodocumento" class="form-control" required>
             <option value="CC" selected>Cédula de ciudadanía</option>
-            <option value="CE">CE</option>
             <option value="PASAPORTE">Pasaporte</option>
-            <option value="RESIDENCIA">Residencia</option>
+            <option value="CE">Cedula de extranjeria</option>
           </select>
+          <div class="invalid-feedback">
+            Por favor, seleccione el tipo de documento.
+          </div>
         </div>
         <div class="col-md-3">
-          <label for="cedula" class=""><b>Cédula:</b></label>
-          <input type="number" name="cedula" id="cedula" class="form-control" placeholder="Digite cédula">
+          <label for="cedula" class=""><b>Cédula: *</b></label>
+          <input type="text" id="cedula" name="cedula" class="form-control" value="{{ usuario.cedula|default:'' }}" placeholder="Digite cédula" required>
+          <div class="invalid-feedback">
+            Por favor, ingrese la cédula.
+          </div>
         </div>
         <div class="col-md-3">
-          <label for="lugarexpedicion" class=""><b>Lugar de expedición:</b></label>
-          <input type="text" name="lugarexpedicion" id="lugarexpedicion" class="form-control" placeholder="Digite lugar expedición" required>
+          <label for="lugarexpedicion" class=""><b>Lugar de expedición: *</b></label>
+          <input type="text" id="lugarexpedicion" name="lugarexpedicion" class="form-control" value="{{ usuario.lugarexpedicion|default:'' }}" placeholder="Digite lugar de expedición" required oninput="this.value = this.value.toUpperCase();">
+          <div class="invalid-feedback">
+            Por favor, ingrese el lugar de expedición.
+          </div>
         </div>
         <div class="col-md-3">
           <label for="sexo" class=""><b>Sexo:</b></label>
           <select name="sexo" id="sexo" class="form-control">
-            <option value="M" selected>M</option>
-            <option value="F">F</option>
+            <option value="M" selected>Masculino</option>
+            <option value="F">Femenino</option>
           </select>
         </div>
       </div>
@@ -71,157 +85,238 @@
       <div class="row mt-3">
         <div class="col-md-3">
           <label for="telefono" class=""><b>Teléfono fijo:</b></label>
-          <input type="text" name="telefono" id="telefono" class="form-control" placeholder="Digite teléfono fijo" required>
+          <input type="text" id="telefono" name="telefono" class="form-control" value="{{ usuario.telefono|default:'' }}" placeholder="Digite teléfono fijo">
         </div>
         <div class="col-md-3">
           <label for="celular" class=""><b>Celular:</b></label>
-          <input type="number" name="celular" id="celular" class="form-control" placeholder="Digite celular">
+          <input type="text" id="celular" name="celular" class="form-control" value="{{ usuario.celular|default:'' }}" placeholder="Digite celular">
         </div>
         <div class="col-md-3">
           <label for="direccion" class=""><b>Dirección:</b></label>
-          <input type="text" name="direccion" id="direccion" class="form-control" placeholder="Digite dirección de residencia" required>
+          <input type="text" id="direccion" name="direccion" class="form-control" value="{{ usuario.direccion|default:'' }}" placeholder="Digite dirección" oninput="this.value = this.value.toUpperCase();">
         </div>
         <div class="col-md-3">
-          <label for="cargo" class=""><b>Cargo o N° de contrato:</b></label>
-          <input type="text" name="cargo" id="cargo" class="form-control" placeholder="Cargo o N° de contrato">
+          <label for="cargo" class=""><b>Cargo o N° de contrato: *</b></label>
+          <input type="text" id="cargo" name="cargo" class="form-control" value="{{ usuario.cargo|default:'' }}" placeholder="Digite cargo" required oninput="this.value = this.value.toUpperCase();">
+          <div class="invalid-feedback">
+            Por favor, ingrese el cargo o número de contrato.
+          </div>
         </div>
       </div>
 
       <div class="row mt-3">
         <div class="col-md-3">
-          <label for="tarjetaprofesional" class=""><b>Tarjeta profesional:</b></label>
-          <input type="text" name="tarjetaprofesional" id="tarjetaprofesional" class="form-control" placeholder="Digite tarjeta profesional">
+          <label for="email" class=""><b>Correo personal: *</b></label>
+          <input type="email" name="email" id="email" class="form-control" placeholder="Digite correo" required oninput="this.value = this.value.toUpperCase();" value="{{ usuario.email|default:'' }}">
+          <div class="invalid-feedback">
+            Por favor, ingrese un correo electrónico válido.
+          </div>
         </div>
-        <div class="col-md-3">
-          <label for="email" class=""><b>Correo personal:</b></label>
-          <input type="email" name="email" id="email" class="form-control" placeholder="Digite correo">
-        </div>
-        <div class="col-md-3">
-          <label for="ubicacion_laboral" class=""><b>Ubicación laboral:</b></label>
-          <input type="text" name="ubicacion_laboral" id="ubicacion_laboral" class="form-control" placeholder="Ubicación laboral o área">
-        </div>
-        <div class="col-md-3">
-          <label for="dependencia" class=""><b>Dependencia o servicio:</b></label>
-          <input type="text" name="dependencia" id="dependencia" class="form-control" placeholder="Dependencia o servicio">
-        </div>
-      </div>
 
-      <div class="row mt-3">
+        <div class="col-md-3">
+          <label for="supervisor" class=""><b>Supervisor:</b></label>
+          <select name="supervisor" id="supervisor" class="form-control">
+            <option value="{{ usuario.supervisor|default:'' }}" selected disabled>Seleccione supervisor...</option>
+            {% for choice_value, choice_label in formularios.supervisor.field.choices %}
+              <option value="{{ choice_value }}" {% if formularios.supervisor.value == choice_value %}selected{% endif %}>
+                {{ choice_label }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="col-md-3">
+          <label for="dependencia" class=""><b>Dependencia:</b></label>
+          <select name="dependencia" id="dependencia" class="form-control">
+            <option  selected disabled>Seleccione dependencia...</option>
+            {% for choice_value, choice_label in formularios.dependencia.field.choices %}
+              <option value="{{ choice_value }}" {% if formularios.dependencia.value == choice_value %}selected{% endif %}>
+                {{ choice_label }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+
         <div class="col-md-3">
           <label for="sede" class=""><b>Sede:</b></label>
-          <input type="text" name="sede" id="sede" class="form-control" placeholder="Digite sede UBA o IPS">
+          <select name="sede" id="sede" class="form-control">
+            {% for choice_value, choice_label in formularios.sede.field.choices %}
+              <option value="{{ choice_value }}" {% if formularios.sede.value == choice_value %}selected{% endif %}>
+                {{ choice_label }}
+              </option>
+            {% endfor %}
+          </select>
         </div>
+      </div>
+
+      <div class="row mt-3">
         <div class="col-md-3">
-          <label for="supervisor" class=""><b>Supervisor o jefe inmediato:</b></label>
-          <input type="text" name="supervisor" id="supervisor" class="form-control" placeholder="Digite supervisor">
+          <label for="ubicacionlaboral" class=""><b>Ubicación laboral:</b></label>
+          <input type="text" name="ubicacionlaboral" id="ubicacionlaboral" class="form-control" placeholder="Ubicación laboral o área" oninput="this.value = this.value.toUpperCase();" value="{{ usuario.ubicacionlaboral|default:'' }}">
         </div>
+
         <div class="col-md-3">
-          <label for="fechafinalcontrato" class=""><b>Fecha final de contrato:</b></label>
-          <input type="date" name="fechafinalcontrato" id="fechafinalcontrato" class="form-control" required>
+          <label for="fechafinalcontrato" class=""><b>Fecha final de contrato: *</b></label>
+          <input type="date" name="fechafinalcontrato" id="fechafinalcontrato" class="form-control" required value="{{ usuario.fechafinalcontrato|default:'' }}">
+          <div class="invalid-feedback">
+            Por favor, seleccione la fecha final de contrato.
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <label for="tarjetapf" class=""><b>Tarjeta profesional:</b></label>
+          <input type="text" name="tarjetapf" id="tarjetapf" class="form-control" placeholder="Digite tarjeta profesional" oninput="this.value = this.value.toUpperCase();" value="{{ usuario.tarjetaprofesional|default:'' }}">
         </div>
       </div>
     </div>
   </div>
 
+  <!-- Sistema de información requerido -->
   <div class="card mb-4">
-    <div class="card-header"  style="background: #FFFFCC;">
+    <div class="card-header" style="background: #FFFFCC;">
       <h6 class="card-title">Sistema de información requerido</h6>
     </div>
     <div class="card-body">
       <div class="row">
         <div class="col-md-4">
-          <label for="tiposolicitud" class=""><b>Tipo de solicitud</b></label>
-          <select name="tiposolicitud" id="tiposolicitud" class="form-control">
+          <label for="tiposolicitud"><b>Tipo de solicitud: *</b></label>
+          <select name="tiposolicitud" id="tiposolicitud" class="form-control" required>
             <option value="CREAR">Crear</option>
             <option value="ACTUALIZAR" selected>Actualizar</option>
             <option value="ELIMINAR">Eliminar</option>
             <option value="CONSULTAS">Consultas</option>
           </select>
+          <div class="invalid-feedback">
+            Por favor, seleccione el tipo de solicitud.
+          </div>
         </div>
         <div class="col-md-4">
-          <label for="aplicativo" class=""><b>Aplicativo</b></label>
+          <label for="aplicativo"><b>Aplicativo o recurso:</b></label>
           <select class="form-control" id="aplicativo" name="aplicativo" required>
-            <option selected disabled>Seleccione Aplicativo</option>
-            <!-- Las opciones se cargarán dinámicamente con JavaScript -->
+            <option selected disabled>Seleccione Aplicativo...</option>
+            <!-- Opciones cargadas dinámicamente por JavaScript -->
           </select>
+          <div class="invalid-feedback">
+            Por favor, seleccione un aplicativo.
+          </div>
         </div>
         <div class="col-md-4">
-          <label for="modulo" class=""><b>Modulo</b></label>
+          <label for="modulo"><b>Módulo:</b></label>
           <select class="form-control" id="modulo" name="modulo">
-            <option selected disabled>Seleccione Modulo</option>
-            <!-- Las opciones se cargarán dinámicamente con JavaScript -->
+            <option selected disabled>Seleccione Módulo...</option>
+            <!-- Opciones cargadas dinámicamente por JavaScript -->
           </select>
         </div>
       </div>
 
       <div class="row mt-3">
         <div class="col-md-6">
-          <label for="firma" class=""><b>Adjunte firma fondo blanco</b></label>
-          <input type="file" name="firma" id="firma" class="form-control">
-        </div>
-        <div class="col-md-6">
-          <label for="observaciones" class=""><b>Observaciones</b></label>
-          <textarea name="observaciones" id="observaciones" cols="80" rows="2" class="form-control"></textarea>
+          <label for="observaciones"><b>Observaciones: *</b></label>
+          <textarea id="observaciones" name="observaciones" class="form-control" required oninput="this.value = this.value.toUpperCase();" placeholder="Digite observaciones"></textarea>
+          <div class="invalid-feedback">
+            Por favor, ingrese observaciones.
+          </div>
         </div>
       </div>
     </div>
   </div>
-  
+
   <center>
     <button type="submit" class="btn btn-success">Enviar Solicitud</button>
   </center>
 </form>
+<br>
 
+
+
+
+
+
+
+
+
+
+<!-- Scripts para cargar dinámicamente aplicativos y módulos -->
 <script>
-// Función para cargar los aplicativos desde el servidor
-function cargarAplicativos() {
-    fetch('identidades/listadoaplicativos')
-        .then(response => response.json())
-        .then(data => {
-            const selectAplicativos = document.getElementById('aplicativo');
-            data.aps.forEach(aps => {
-                const option = document.createElement('option');
-                option.value = aps.id;
-                option.textContent = aps.nombre;
-                selectAplicativos.appendChild(option);
-            });
-        })
-        .catch(error => console.error('Error al cargar aplicativos:', error));
-}
+  // Validación personalizada con Bootstrap
+  (function () {
+    'use strict'
 
-// Función para cargar los módulos basados en el aplicativo seleccionado
-function cargarModulos() {
-    document.getElementById('aplicativo').addEventListener('change', function() {
-        const aplicativoId = this.value;
-        const selectModulos = document.getElementById('modulo');
-        
-        // Limpia el contenido previo de los módulos
-        selectModulos.innerHTML = '<option value="">Seleccione un módulo</option>';
-        
-        if (aplicativoId) {
-            fetch(`/identidades/modulos?aplicativo_id=${aplicativoId}`)
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data); // Verifica el contenido de la respuesta
-                    if (data.modulos) {
-                        data.modulos.forEach(modulo => {
-                            const option = document.createElement('option');
-                            option.value = modulo.id;
-                            option.textContent = modulo.nombre;
-                            selectModulos.appendChild(option);
-                        });
-                    } else {
-                        console.error('No se encontraron módulos.');
-                    }
-                })
-                .catch(error => console.error('Error al cargar módulos:', error));
+    // Seleccionar todos los formularios que queremos aplicar el estilo de validación de Bootstrap
+    var forms = document.querySelectorAll('.needs-validation')
+
+    // Iterar sobre ellos y prevenir el envío si no son válidos
+    Array.prototype.slice.call(forms).forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
         }
-    });
-}
 
-// Inicializar las funciones al cargar la página
-cargarAplicativos();
-cargarModulos();
+        form.classList.add('was-validated')
+      }, false)
+    })
+
+    // Validación dinámica de los campos al interactuar
+    var inputs = document.querySelectorAll('.form-control, .form-select')
+
+    Array.prototype.slice.call(inputs).forEach(function (input) {
+      input.addEventListener('input', function () {
+        if (input.checkValidity()) {
+          input.classList.remove('is-invalid')
+          input.classList.add('is-valid')
+        } else {
+          input.classList.remove('is-valid')
+          input.classList.add('is-invalid')
+        }
+      })
+    })
+  })()
+
+  // Función para cargar los aplicativos desde el servidor
+  function cargarAplicativos() {
+    fetch('identidades/listadoaplicativos')
+      .then(response => response.json())
+      .then(data => {
+        const selectAplicativos = document.getElementById('aplicativo');
+        data.aps.forEach(aps => {
+          const option = document.createElement('option');
+          option.value = aps.id;
+          option.textContent = aps.nombre;
+          selectAplicativos.appendChild(option);
+        });
+      })
+      .catch(error => console.error('Error al cargar aplicativos:', error));
+  }
+
+  // Función para cargar los módulos basados en el aplicativo seleccionado
+  function cargarModulos() {
+    document.getElementById('aplicativo').addEventListener('change', function() {
+      const aplicativoId = this.value;
+      const selectModulos = document.getElementById('modulo');
+      selectModulos.innerHTML = '<option value="">Seleccione un módulo</option>';
+      if (aplicativoId) {
+        fetch(`/identidades/modulos?aplicativo_id=${aplicativoId}`)
+          .then(response => response.json())
+          .then(data => {
+            if (data.modulos) {
+              data.modulos.forEach(modulo => {
+                const option = document.createElement('option');
+                option.value = modulo.id;
+                option.textContent = modulo.nombre;
+                selectModulos.appendChild(option);
+              });
+            } else {
+              console.error('No se encontraron módulos.');
+            }
+          })
+          .catch(error => console.error('Error al cargar módulos:', error));
+      }
+    });
+  }
+
+  cargarAplicativos();
+  cargarModulos();
 </script>
 
 {% endblock contenido %}

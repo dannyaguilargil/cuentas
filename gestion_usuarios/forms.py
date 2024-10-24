@@ -87,7 +87,7 @@ class InsertForm(forms.ModelForm):
 class InsertFormU(forms.ModelForm):
     class Meta:
         model = usuario
-        fields = ['nombre','segundonombre','primerapellido','segundoapellido','cargo','email','supervisor','tipodocumento','cedula','usuario','contrasena']
+        fields = ['nombre','segundonombre','primerapellido','segundoapellido','cargo','email','supervisor','tipodocumento','cedula','usuario']
         
 #FORMULARIO DE USUARIO EXCLUSIOVO PARA ELIMINAR EL USUARIO
 class InsertFormUE(forms.ModelForm):

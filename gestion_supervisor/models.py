@@ -1,5 +1,6 @@
 from django.db import models
 from gestion_usuarios.choices import sexos, rol, tipodocumento
+from django.contrib.auth.models import User
 
 class cuentasupervisor(models.Model):
     ############REVISAR QUE TENGAN LOS MISMOS DATOS QUE EL ANTERIOR##############################
@@ -45,8 +46,11 @@ class cuentasupervisorcontratista(models.Model):
     pdfplanilla = models.CharField(max_length=200, verbose_name='Pdf de la planilla', default='pdfs/NOCARGADO')
     
 class supervisor(models.Model):
-    nombrecompleto = models.CharField(max_length=120, verbose_name='Nombre completo')
-    cedula = models.IntegerField(primary_key=True, verbose_name='Cedula')
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Usuario', default=2)
+    cedula = models.IntegerField(primary_key=True, verbose_name='Cédula')
     cargo = models.CharField(max_length=120, verbose_name='Cargo', blank=True, null=True)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    fecha_actualizacion = models.DateTimeField(auto_now=True)
+
     def __str__(self):
-        return self.nombrecompleto
+        return self.usuario.get_full_name()  # Muestra el nombre completo del usuario

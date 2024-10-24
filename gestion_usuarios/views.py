@@ -78,10 +78,23 @@ def home(request):
                     login(request, user)
                     print("Inicio sesión a gestion de informes")
                     return redirect('informe')
+                elif user.groups.filter(name='identidades').exists():
+                    login(request, user)
+                    print("Inicio sesión a gestion de identidades")
+                    return redirect('identidades')
+                elif user.groups.filter(name='supervisor').exists():##redirigir a pendientes
+                    login(request, user)
+                    print("Inicio sesión a gestion de identidades")
+                    return redirect('identidades')
+                elif user.groups.filter(name='admin_identidades').exists():##redirigir a listado
+                    login(request, user)
+                    print("Inicio sesión a gestion de identidades")
+                    return redirect('identidades')
+            
                 else:
                     print("Inicio sesion el contratista")
                     login(request, user)
-                    return redirect('cuentas')
+                    return redirect('identidades')
                    
                     ### realizar cambios para asignalos por grupos
         else:
@@ -164,13 +177,8 @@ def documentos(request):
             resultado_busqueda2 = buscar_palabra2(texto_extraido, fechaaperfeccion)
             resultado_busqueda3 = buscar_palabra2(texto_extraido, objeto)
             nproceso = buscar_palabra2(texto_extraido, numeroproceso)
-            ########################################################
-            ########### BUSQUEDAS ##################################
-    
             # Eliminar el archivo temporal
             os.unlink(temp_file.name)
-            
-    
             return render(request, 'sdocumentos.html', {'texto_extraido': texto_extraido, 'resultado_busqueda': resultado_busqueda, 'resultado_busqueda2': resultado_busqueda2, 'resultado_busqueda3': resultado_busqueda3, 'nproceso': nproceso, 'proceso': proceso,
                                                         'fechainicio': fechainicio, 'fechafinal': fechafinal, 'duracion': duracion, 'valor': 'valor', 'valor': valor, 'cedula': cedula,'username': username, 'es_staff': es_staff})
         except Exception as e:
@@ -190,10 +198,6 @@ def documentos(request):
     
             # Extraer el texto del archivo PDF
             texto_extraido = extraer_texto_pdf2(nombre_archivo)
-    
-    
-            ########################################################
-            ########### BUSQUEDAS ##################################
             proceso="800"
             fechainicio = "29 DE MARZO 2023"
             fechafinal = "28 DE JULIO 2023"
@@ -210,10 +214,6 @@ def documentos(request):
             resultado_busqueda2 = buscar_palabra2(texto_extraido, fechaaperfeccion)
             resultado_busqueda3 = buscar_palabra2(texto_extraido, objeto)
             nproceso = buscar_palabra2(texto_extraido, numeroproceso)
-            ########################################################
-            ########### BUSQUEDAS ##################################
-    
-            # Eliminar el archivo temporal
             os.unlink(temp_file.name)
             
     

@@ -30,31 +30,7 @@
          <!-- DataTable.js -->
         <link rel="icon" href=" {% static 'imgs/escudito.ico' %} ">
 
-        <script>
-            //SCRIPT PARA LA SELECCION DE LA FIRMA VALIDADA CON EL APLICATIVO KUBAPP
-            function aplicativos(){
-          
-            
-            var aux='KUBAPP';
-            var aplicativo=document.getElementById("aplicativo");
-            var display=aplicativo.options[aplicativo.selectedIndex].text;
-          
-            if(aplicativo.value==="KUBAPP"){
-              console.log("ES IGUAL");
-              const $firma = document.querySelector("#firma");
-              $firma.style.display = "";
-              
-            }
-            else{
-              console.log(aplicativo.value);
-              const $firma = document.querySelector("#firma");
-              $firma.style.display = "none";
-              $("firma" ).removeClass("firma");// remover la clase para pasar observaciones al lado izquierdo
-            }
-          }
-          
-          
-          </script>
+       
     </head>
     <body>
         <nav class="sb-topnav navbar navbar-expand" style="background: #1d985a; color: white; ">

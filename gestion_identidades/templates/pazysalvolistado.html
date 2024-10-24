@@ -1,0 +1,254 @@
+{% extends 'base_identidades_sistemas.html' %}
+{% block titulo %}Listado de paz y salvo{% endblock titulo %}
+{% block contenido %}
+<center>
+   <h5>Listado de paz y salvos</h5>
+</center>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="text-center alert alert-{{ message.tags }} alert-sm">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+<div class="table-responsive">
+    <table id="tabla-identidades" class="table table-bordered table-hover table-striped table-sm">
+        <caption>Listado de paz y salvos</caption>
+        <thead>
+            <tr>
+                <th class="centered">Id</th>
+                <th class="text-center centered">Nombre completo</th>
+                <th class="text-center centered">Cedula</th>
+                <th class="text-center centered">Cargo o N° de contrato</th>
+               
+                <th class="text-center centered">Fecha de solicitud</th>
+                <th class="text-center centered">Accion</th>
+            </tr>
+        </thead>
+        <tbody id="tabla-usuarios">
+            {% for objeto in datos %}
+            <tr>
+                <td><center>
+                    {% if objeto.id %}
+                        {{ objeto.id }}
+                    {% else %}
+                        {{ objeto.cedula }}
+                    {% endif %}
+                </center></td>
+                <td><center>
+                    {{ objeto.usuario.nombre|default:'' }}  
+                    {{ objeto.usuario.segundonombre|default:'' }} 
+                    {{ objeto.usuario.primerapellido|default:'' }}  
+                    {{ objeto.usuario.segundoapellido|default:'' }}
+                </center>
+                </td>
+        
+                <td><center>
+                  {{objeto.usuario.cedula}}
+                </center></td>
+        
+                <td><center>
+                 {{objeto.usuario.cargo}}
+
+                </center></td>
+        
+                <td><center>
+                    {{objeto.fecha_creacion}}
+                    </center></td>
+                <td>
+                    <center>
+                        <a name="ver" class="fa fa-eye btn btn-outline-success ver"
+                            data-id="{{ objeto.id }}"
+                            data-usuario="{{ objeto.usuario.cedula }}"
+                            data-fecha_creacion="{{ objeto.fecha_creacion }}"
+                            data-nombre="{{ objeto.usuario.nombre }}"
+                            data-segundonombre="{{ objeto.segundonombre }}"
+                            data-primerapellido="{{ objeto.primerapellido }}"
+                            data-segundoapellido="{{ objeto.segundoapellido }}"
+                            data-cedula="{{ objeto.usuario.cedula }}"
+                            data-cargo="{{ objeto.cargo }}"
+                            data-email="{{ objeto.email }}"
+                            data-supervisor_id="{{ objeto.supervisor_id }}"
+                            data-supervisor="{{ objeto.supervisor_id }}"
+                            data-supervisor_usuario="{% for supervisor in datossup %}{% if supervisor.id == objeto.supervisor_id %}{{ supervisor.usuario }}{% endif %}{% endfor %}"
+                            data-dependencia_id="{{ objeto.dependencia_id }}"
+                            data-dependencia_nombre="{% for dependencia in datosdep %}{% if dependencia.id == objeto.dependencia_id %}{{ dependencia.nombre }}{% endif %}{% endfor %}"
+                            data-tipodocumento="{{ objeto.tipodocumento }}"
+                            data-aplicativo_id="{{ objeto.aplicativo_id }}"
+                            data-aplicativo_nombre="{% for aplicativo in datosapp %}{% if aplicativo.id == objeto.aplicativo_id %}{{ aplicativo.nombre }}{% endif %}{% endfor %}"
+                            data-modulo_id="{{ objeto.modulo_id }}"
+                            data-modulo_nombre="{% for modulo in datosmod %}{% if modulo.id == objeto.modulo_id %}{{ modulo.nombre }}{% endif %}{% endfor %}"
+                            data-tiposolicitud="{{ objeto.tiposolicitud }}"
+                            data-observaciones="{{ objeto.observaciones }}"
+                            data-observacionessup="{{ objeto.observacionessup }}"
+                            data-lugarexpedicion="{{ objeto.lugarexpedicion }}"
+                            data-sexo="{{ objeto.sexo }}"
+                            data-sede="{{ objeto.sede }}"
+                            data-ubicacionlaboral="{{ objeto.ubicacionlaboral }}"
+                            data-fechafinalcontrato="{{ objeto.usuario.fechafinalcontrato }}"
+                            data-tarjetapf="{{ objeto.tarjetapf }}"
+                            data-bs-toggle="modal"
+                            data-bs-target="#ex">
+                        </a>
+                    </center>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        
+    </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="ex" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Administracion de paz y salvos</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="POST" class="needs-validation">
+                    {% csrf_token %}
+                    
+
+
+                    <!-- Asignacion de credenciales -->
+                    <div class="card mb-4">
+                        <div class="card-header" style="background: #FFFFCC;">
+                            <h6 class="card-title">Generar paz y salvo</h6>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="row mt-2">
+                          
+                                
+                                   
+                            
+                               
+                                <div class="col-md-3">
+                                    <label for="nombre" class="">Id de solicitud:</label>
+                                    <input type="text" id="id" name="id" class="form-control" placeholder="Nombre completo" readonly>
+                                </div>
+                               
+                                <div class="col-md-3">
+                                    <label for="usuario" class="">Cedula:</label>
+                                    <input type="text" id="usuario" name="usuario" class="form-control" placeholder="Cedula" readonly>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="fechafinalcontrato" class="">Fecha de solicitud:</label>
+                                    <input type="text" id="fecha_creacion" name="fecha_creacion" class="form-control" placeholder="Fecha final de contrato" required readonly>
+                                    <div class="invalid-feedback">Por favor, ingrese el cargo o número de contrato.</div>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-3">
+                        
+                               <div class="col-md-3">
+                                   
+                                <div class="form-group form-check">
+                                    <input class="form-check-input" type="checkbox" value="true" id="permisos" name="permisos">
+                                    <label class="form-check-label" for="permisos">Revocar permisos</label>
+                                </div>
+                                <div class="form-group form-check">
+                                    <input class="form-check-input" type="checkbox" value="true" id="rfid" name="rfid">
+                                    <label class="form-check-label" for="rfid">Entrega de tarjeta</label>
+                                </div>
+
+                                </div>   
+
+                               <div class="col-md-3">
+                                 <center>
+                                    <a href="">Ver pdf ...</a>
+                                 </center>
+                              
+                         
+                               </div>
+                               <div class="col-md-6">
+                            
+                                <label for="">Observaciones:</label> 
+                                <input type="text" placeholder="Observaciones opcional" class="form-control">
+                           
+                                 
+                             </div>
+                           </div>
+                      
+                         
+                        </div>
+                    </div>
+
+                    <!-- INformacion general del colaborador -->
+                    <div class="card mb-4 accordion" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="background: #FFFFCC; color: black;">
+                                    Designacion de credenciales
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <div class="row">
+                                        <table class="table table-bordered table-hover table-striped table-sm">
+                                            <caption>Listado de Aplicativos y Módulos por designar</caption>
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">Usuario</th>
+                                                    <th class="text-center">Aplicativo</th>
+                                                    <th class="text-center">Módulos</th>
+                                                    <th class="text-center">Tipo de Solicitud</th>
+                                                  
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for objeto in datos %}
+                                                <tr>
+                                                    <td><center>
+                                                        {% if objeto.aplicativo %}
+                                                            {{ objeto.aplicativo.nombre|default:'' }}
+                                                        {% else %}
+                                                            Sin aplicativo
+                                                        {% endif %}
+                                                    </center></td>
+                                                    <td><center>
+                                                        {% if objeto.modulo %}
+                                                            {{ objeto.modulo.nombre|default:'' }}
+                                                        {% else %}
+                                                            Sin módulo
+                                                        {% endif %}
+                                                    </center></td>
+                                                    <td><center>
+                                                        {{ objeto.tiposolicitud|default:'No especificado' }}
+                                                    </center></td>
+                                                    <td><center>
+                                                        {{ objeto.tiposolicitud|default:'No especificado' }}
+                                                    </center></td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                        
+                                       
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+  
+
+                   
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-success" name="aprobar" value="aprobar">Aprobar</button>
+                        <button type="submit" class="btn btn-danger" name="rechazar" value="rechazar">Rechazar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock contenido %}

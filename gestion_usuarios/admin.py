@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import  usuario, usolicitudes, contrato, rp, actainicio, prueba, planilla, actividades, actapago, certificadoseguimiento, cuentausuario, cuentabancaria, cuentacontratista
+from .models import  usuario, usolicitudes, contrato, rp, actainicio, prueba, planilla, actividades, actapago, certificadoseguimiento, cuentausuario, cuentabancaria, cuentacontratista,solicitudrechazada
 #from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
@@ -136,3 +136,7 @@ admin.site.register(contrato, Cont)
 #class CuentaContratista(admin.ModelAdmin):
 #    list_display=('id','numeroplanilla','archivo','objetocontrato','cedula')
 #admin.site.register(cuentacontratista, CuentaContratista )
+class solicitudRechazada(admin.ModelAdmin):
+    list_display=('nombre', 'primerapellido', 'segundoapellido', 'cedula', 'cargo')
+    search_fields = ('nombre',)#cuadrito de busqueda dentro del panel de administracion
+admin.site.register(solicitudrechazada, solicitudRechazada)

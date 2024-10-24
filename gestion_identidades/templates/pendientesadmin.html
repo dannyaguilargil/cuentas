@@ -1,270 +1,344 @@
 {% extends 'base_identidades_sistemas.html' %}
-{% block titulo %}Identidades pendientes{% endblock titulo %}
+{% block titulo %}Gestion de identidades Admin{% endblock titulo %}
 {% block contenido %}
-   <center>
-   <h5> Formato de identidades pendientes administrador</h5>
-   </center>
-   <div class="table-responsive"> 
-    <table id="tabla-usuarios" class="table table-bordered table-hover table-striped">
-      <caption>
-         Formato de identidades pendientes por el administrador
-      </caption>
-      <thead>
-          <tr>
-              <th class="centered">#</th>
-              <th class="text-center centered">Primer nombre</th>
-              <th class="text-center centered">Primer apellido</th>
-              <th class="text-center centered">Aplicativo</th>
-              <th class="text-center centered">Tipo de solicitud</th>
-              <th class="text-center centered">Observacion</th>
-              <th class="text-center centered">Accion</th>
-          </tr>
-      </thead>
-      <tbody id="tabla-usuarios">
-        {% for objeto in datos %}
-        <tr> <!-- SE REMPLAZA CON INPUTS PARA OBTENER LOS DATOS DE ESE INPUT-->
-            <td>{{forloop.counter}}</td>
-            <td><center>{{objeto.nombre}}</center></td>
-            <td><center>{{objeto.primerapellido}}</center></td>
-            <td><center>{{objeto.apicativo}}</center></td>
-            <td><center>{{objeto.tiposolicitud}}</center></td>
-            <td><center>{{objeto.observaciones}}</center></td>
-            <td>
-              <center>
+<center>
+   <h5>Gestion de identidades administrador</h5>
+</center>
 
-                <a  name="ver" class="fa fa-eye btn btn-outline-success ver" 
-                data-nombre="{{objeto.nombre}}"
-                data-segundonombre="{{objeto.segundonombre}}"
-                data-primerapellido="{{objeto.primerapellido}}"
-                data-segundoapellido="{{objeto.segundoapellido}}" 
-                data-cedula="{{objeto.cedula}}"
-                data-cargo="{{objeto.cargo}}"
-                data-email="{{objeto.email}}"
-                data-supervisor="{{objeto.supervisor}}"
-                data-tipodocumento="{{objeto.tipodocumento}}"
-                data-apicativo="{{objeto.apicativo}}"
-                data-tiposolicitud="{{objeto.tiposolicitud}}"
-                data-observaciones="{{objeto.observaciones}}"
-                data-lugarexpedicion="{{objeto.lugarexpedicion}}"
-                data-dependencia="{{objeto.dependencia}}"
-                data-sexo="{{objeto.sexo}}"
-                data-telefono="{{objeto.telefono}}"
-                data-celular="{{objeto.celular}}"
-                data-direccion="{{objeto.direccion}}"
-                data-sede="{{objeto.sede}}"
-                data-fechafinalcontrato="{{objeto.fechafinalcontrato}}"
-                data-observacionessupervisor="{{objeto.observacionessupervisor}}"
-                data-bs-toggle="modal"
-                data-bs-target="#ex" >
-            </a>
-
-              </center>
-              
-              
-              <!-- <button  class="fa fa-save btn btn-outline-secondary" type="submit"></button> 
-              <a  class="fa fa-eraser btn btn-outline-danger" 
-              data-cedula="{{objeto.cedula}}"
-              href="{% url 'eliminar' objeto.cedula %}"
-               >
-            </a>
-            --> 
-            </td>
-        </tr>
-    {% endfor %}
-
-      </tbody>
-    </table>
-
-</div>
- 
-  <!-- Modal -->
-<div class="modal fade" id="ex" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Asignacion de credenciales Administrador</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form action="" method="POST" >
-            {% csrf_token %}
-          <div class="row">
-            <div class="col">
-                <label for="">Nombre</label>
-                <input type="text" name="nombre" id="nombre" class="form-control">
-            </div>
-
-            <div class="col">
-                <label for=""> Segundo nombre</label>
-                <input type="text" class="form-control" name="segundonombre" id="segundonombre">
-            </div>
-
-            <div class="col">
-                <label for="">Primer apellido</label>
-                <input type="text" class="form-control" name="primerapellido" id="primerapellido" >
-            </div>
-
-            <div class="col">
-                <label for=""> Segundo apellido</label>
-                <input type="text" class="form-control" name="segundoapellido" id="segundoapellido">
-            </div>
-
-          </div>
-
-          <div class="row">
-            
-            <div class="col">
-                <label for="">Cedula</label>
-                <input type="text" class="form-control" name="cedula" id="cedula">
-            </div>
-
-           
-            <div class="col">
-                <label for="">Cargo </label>
-                <input type="text" class="form-control" name="cargo" id="cargo" >
-            </div>
-
-
-            <div class="col">
-                <label for="">Tipo documento</label>
-                <input type="text" class="form-control" name="tipodocumento" id="tipodocumento">
-            </div>
-
-            <div class="col">
-                <label for="">Tipo de solicitud</label>
-                <input type="text" class="form-control" name="tiposolicitud" id="tiposolicitud">
-            </div>
-
-          </div>
-
-          <div class="row">
-            
-
-            <div class="col">
-                <label for="lugarexpedicion">Lugar de expedicion</label>
-                <input type="text" class="form-control" name="lugarexpedicion" id="lugarexpedicion">
-            </div>
-
-            <div class="col">
-                <label for="">Dependencia</label>
-                <input type="text" class="form-control" name="dependencia" id="dependencia">
-            </div>
-
-            <div class="col">
-              <label for="sexo">Sexo</label>
-              <input type="text" class="form-control" name="sexo" id="sexo">
-          </div>
-
-          <div class="col">
-              <label for="telefono">Telefono</label>
-              <input type="text" class="form-control" name="telefono" id="telefono">
-          </div>
-           
-          </div>
-
-          <div class="row">
-            
-
-            <div class="col">
-                <label for="celular">Celular</label>
-                <input type="text" class="form-control" name="celular" id="celular">
-            </div>
-
-            <div class="col">
-                <label for="">Direccion</label>
-                <input type="text" class="form-control" name="direccion" id="direccion">
-            </div>
-
-            <div class="col">
-              <label for="sexo">Sede</label>
-              <input type="text" class="form-control" name="sede" id="sede">
-          </div>
-
-          <div class="col">
-              <label for="fechafinalcontrato">Fecha final del contrato</label>
-              <input type="text" class="form-control" name="fechafinalcontrato" id="fechafinalcontrato">
-          </div>
-           
-          </div>
-
-
-
-          <div class="row">
-            
-
-            <div class="col">
-                <label for="">Email</label>
-                <input type="text" class="form-control" name="email" id="email">
-            </div>
-
-            <div class="col">
-                <label for="">Supervisor</label>
-                <input type="text" class="form-control" name="supervisor" id="supervisor">
-            </div>
-           
-          </div>
-
-          <div class="row">
-            
-
-            <div class="col">
-                <label for="">Observaciones del colaborador</label>
-                <input type="text" class="form-control" name="observaciones" id="observaciones">
-            </div>
-
-            <div class="col">
-                <label for=""><b>Aplicativo</b></label>
-                <input type="text" class="form-control" name="apicativo" id="apicativo">
-            </div>
-           
-          </div>
-
-
-          <div class="row">
-            <div class="col">
-              <label for="observacionessupervisor"><b>Observaciones del supervisor</b></label>
-              <input type="text" class="form-control" name="observacionessupervisor" id="observacionessupervisor">
-            </div>
-
-            
-          </div>
-
-          <div class="row">
-            
-
-            <div class="col">
-                <label for="">Usuario</label>
-                <input type="text" class="form-control" name="usuario" id="usuario" required autofocus>
-            </div>
-
-            <div class="col">
-                <label for=""><b>Contraseña</b></label>
-                <input type="text" class="form-control" name="contraseña" id="contraseña" required>
-            </div>
-           
-          </div>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-          <button class=" fas fa-save btn btn-success" type="submit">Aprobar</button>
-          <button class=" fas fa-eraser btn btn-outline-danger" type="submit">Rechazar</button>
-         
-        </div>
-    </form>
-    {% if messages %}
+{% if messages %}
     {% for message in messages %}
-        <div class="alert alert-{{ message.tags }} alert-sm">
-         {{ message }}
+        <div class="text-center alert alert-{{ message.tags }} alert-sm">
+            {{ message }}
         </div>
-   {% endfor %}
-
+    {% endfor %}
 {% endif %}
-      </div>
-    </div>
-  </div>
- 
-  <!-- AQUI DEBE ASIGNAR EL MISMO SISTEMA EL NOMBRE DE USUARIO Y POR DEFECTO LA CONTRASEÑA ES LA CEDULA-->
 
+<div class="table-responsive">
+    <table id="tabla-identidades" class="table table-bordered table-hover table-striped table-sm">
+        <caption>listado gestion de identidades administrador!</caption>
+        <thead>
+            <tr>
+                <th class="centered">Id</th>
+                <th class="text-center centered">Nombre completo</th>
+                <th class="text-center centered">Aplicativo</th>
+                <th class="text-center centered">Modulo</th>
+                <th class="text-center centered">Tipo de solicitud</th>
+                <th class="text-center centered">Observacion</th>
+                <th class="text-center centered">Accion</th>
+            </tr>
+        </thead>
+        <tbody id="tabla-usuarios">
+            {% for objeto in datos %}
+            <tr>
+                <td><center>
+                    {% if objeto.id %}
+                        {{ objeto.id }}
+                    {% else %}
+                        {{ objeto.cedula }}
+                    {% endif %}
+                </center></td>
+                <td><center>
+                    {{ objeto.nombre|default:'' }} {{ objeto.segundonombre|default:'' }} {{ objeto.primerapellido|default:'' }} {{ objeto.segundoapellido|default:'' }}                </center>
+                </td>
+        
+                <td><center>
+                    {% if objeto.aplicativo_id %}
+                {% for aplicativo in datosapp %}
+                    {% if aplicativo.id == objeto.aplicativo_id %}
+                        {{ aplicativo.nombre }}
+                    {% endif %}
+                {% endfor %}
+                {% else %}
+                        SARA
+                {% endif %}
+                </center></td>
+        
+                <td><center>
+                    {% if objeto.modulo_id %}
+                {% for modulo in datosmod %}
+                    {% if modulo.id == objeto.modulo_id %}
+                        {{ modulo.nombre }}
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                GESTIÓN DE IDENTIDADES
+            {% endif %}
+
+                </center></td>
+        
+                <td><center>
+                {% if objeto.tiposolicitud %}
+                    {{ objeto.tiposolicitud }}
+                {% else %}
+                    CREAR
+                {% endif %}
+            </center></td>
+                <td><center>{% if objeto.observaciones %}
+                    {{ objeto.observaciones }}
+                {% else %}
+                    SOLICITUD DE USUARIO A SARA (GESTIÓN DE IDENTIDADES)
+                {% endif %}
+                    </center></td>
+                <td>
+                    <center>
+                        <a name="ver" class="fa fa-eye btn btn-outline-success ver"
+                            data-id="{{ objeto.id }}"
+                            data-nombre="{{ objeto.nombre }}"
+                            data-segundonombre="{{ objeto.segundonombre }}"
+                            data-primerapellido="{{ objeto.primerapellido }}"
+                            data-segundoapellido="{{ objeto.segundoapellido }}"
+                            data-cedula="{{ objeto.cedula }}"
+                            data-cargo="{{ objeto.cargo }}"
+                            data-email="{{ objeto.email }}"
+                            data-supervisor_id="{{ objeto.supervisor_id }}"
+                            data-supervisor="{{ objeto.supervisor_id }}"
+                            data-supervisor_usuario="{% for supervisor in datossup %}{% if supervisor.id == objeto.supervisor_id %}{{ supervisor.usuario }}{% endif %}{% endfor %}"
+                            data-dependencia_id="{{ objeto.dependencia_id }}"
+                            data-dependencia_nombre="{% for dependencia in datosdep %}{% if dependencia.id == objeto.dependencia_id %}{{ dependencia.nombre }}{% endif %}{% endfor %}"
+                            data-tipodocumento="{{ objeto.tipodocumento }}"
+                            data-aplicativo_id="{{ objeto.aplicativo_id }}"
+                            data-aplicativo_nombre="{% for aplicativo in datosapp %}{% if aplicativo.id == objeto.aplicativo_id %}{{ aplicativo.nombre }}{% endif %}{% endfor %}"
+                            data-modulo_id="{{ objeto.modulo_id }}"
+                            data-modulo_nombre="{% for modulo in datosmod %}{% if modulo.id == objeto.modulo_id %}{{ modulo.nombre }}{% endif %}{% endfor %}"
+                            data-tiposolicitud="{{ objeto.tiposolicitud }}"
+                            data-observaciones="{{ objeto.observaciones }}"
+                            data-observacionessup="{{ objeto.observacionessup }}"
+                            data-lugarexpedicion="{{ objeto.lugarexpedicion }}"
+                            data-sexo="{{ objeto.sexo }}"
+                            data-telefono="{{ objeto.telefono }}"
+                            data-celular="{{ objeto.celular }}"
+                            data-direccion="{{ objeto.direccion }}"
+                            data-sede="{{ objeto.sede }}"
+                            data-ubicacionlaboral="{{ objeto.ubicacionlaboral }}"
+                            data-fechafinalcontrato="{{ objeto.fechafinalcontrato }}"
+                            data-tarjetapf="{{ objeto.tarjetapf }}"
+                            data-bs-toggle="modal"
+                            data-bs-target="#ex">
+                        </a>
+                    </center>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        
+    </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="ex" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Gestión de identidades / administrador</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="POST" class="needs-validation">
+                    {% csrf_token %}
+                    
+                    <!-- INformacion general del colaborador -->
+                    <div class="card mb-4 accordion" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="background: #FFFFCC; color: black;">
+                                    Información general del colaborador
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <div class="row">
+                                       
+                                           
+                                        <input type="hidden" id="id" name="id" class="form-control" placeholder="Digite primer nombre"readonly>
+                                           
+                                        <div class="col-md-3">
+                                            <label for="nombre" class=""><b>Primer Nombre: *</b></label>
+                                            <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Digite primer nombre" required readonly>
+                                            <div class="invalid-feedback">Por favor, ingrese el primer nombre.</div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="segundonombre" class="">Segundo Nombre:</label>
+                                            <input type="text" id="segundonombre" name="segundonombre" class="form-control" placeholder="Digite segundo nombre" readonly>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="primerapellido" class=""><b>Primer apellido: *</b></label>
+                                            <input type="text" id="primerapellido" name="primerapellido" class="form-control" placeholder="Digite primer apellido" required readonly>
+                                            <div class="invalid-feedback">Por favor, ingrese el primer apellido.</div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="segundoapellido" class="">Segundo apellido:</label>
+                                            <input type="text" id="segundoapellido" name="segundoapellido" class="form-control" placeholder="Digite segundo apellido" readonly value=" ">
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-3">
+                                        <div class="col-md-3">
+                                            <label for="tipodocumento" class=""><b>Tipo de documento: *</b></label>
+                                            <input type="text" id="tipodocumento" name="tipodocumento" class="form-control" placeholder="Digite tipo de documento" required readonly>
+                                            <div class="invalid-feedback">Por favor, ingrese el tipo de documento.</div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="cedula" class=""><b>Cédula: *</b></label>
+                                            <input type="text" id="cedula" name="cedula" class="form-control" placeholder="Digite cédula" required readonly>
+                                            <div class="invalid-feedback">Por favor, ingrese la cédula.</div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="lugarexpedicion" class=""><b>Lugar de expedición: *</b></label>
+                                            <input type="text" id="lugarexpedicion" name="lugarexpedicion" class="form-control" placeholder="Digite lugar de expedición" required readonly>
+                                            <div class="invalid-feedback">Por favor, ingrese el lugar de expedición.</div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="sexo" class="">Sexo:</label>
+                                            <input type="text" id="sexo" name="sexo" class="form-control" placeholder="Digite sexo" readonly>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-3">
+                                        <div class="col-md-3">
+                                            <label for="telefono" class="">Teléfono fijo:</label>
+                                            <input type="text" id="telefono" name="telefono" class="form-control" placeholder="Digite teléfono fijo" readonly>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="celular" class="">Celular:</label>
+                                            <input type="text" id="celular" name="celular" class="form-control" placeholder="Digite celular" readonly>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="direccion" class="">Dirección:</label>
+                                            <input type="text" id="direccion" name="direccion" class="form-control" placeholder="Digite dirección" readonly>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="cargo" class=""><b>Cargo o N° de contrato: *</b></label>
+                                            <input type="text" id="cargo" name="cargo" class="form-control" placeholder="Digite cargo" required readonly>
+                                            <div class="invalid-feedback">Por favor, ingrese el cargo o número de contrato.</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-3">
+                                        <div class="col-md-3">
+                                            <label for="email" class=""><b>Correo personal: *</b></label>
+                                            <input type="email" id="email" name="email" class="form-control" placeholder="Digite correo" required readonly>
+                                            <div class="invalid-feedback">Por favor, ingrese un correo electrónico válido.</div>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <label for="supervisor" class=""><b>Supervisor id:</b></label>
+                                            <input type="text" id="supervisor" name="supervisor" class="form-control" placeholder="Digite supervisor" readonly>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <label for="dependencia" class=""><b>Dependencia:</b></label>
+                                            <input type="text" id="dependencia_nombre" name="dependencia_nombre" class="form-control" placeholder="Digite dependencia" readonly>
+                                        </div>
+
+                                        <!-- ID DE DEPENCIA PARA INSERCCION-->
+                                    <input type="hidden" id="dependencia" name="dependencia" class="form-control" placeholder="Digite dependencia" readonly>
+                                    <!-- ID DE DEPENCIA PARA INSERCCION-->
+
+                                        <div class="col-md-3">
+                                            <label for="sede" class=""><b>Sede:</b></label>
+                                            <input type="text" id="sede" name="sede" class="form-control" placeholder="Digite sede" readonly>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-3">
+                                        <div class="col-md-3">
+                                            <label for="ubicacionlaboral" class=""><b>Ubicación laboral:</b></label>
+                                            <input type="text" id="ubicacionlaboral" name="ubicacionlaboral" class="form-control" placeholder="Digite ubicación laboral" readonly>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="fechafinalcontrato" class=""><b>Fecha final de contrato: *</b></label>
+                                            <input type="text" id="fechafinalcontrato" name="fechafinalcontrato" class="form-control" required readonly placeholder="Digite fecha final de contrato">
+                                            <div class="invalid-feedback">Por favor, ingrese la fecha final de contrato.</div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="tarjetapf" class="">Tarjeta profesional:</label>
+                                            <input type="text" id="tarjetapf" name="tarjetapf" class="form-control" placeholder="Digite tarjeta profesional" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+  
+
+                    <!-- Sistema de información requerido -->
+                    <div class="card mb-4">
+                        <div class="card-header" style="background: #FFFFCC;">
+                            <h6 class="card-title">Sistema de información requerido</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+
+
+                                 <!-- id del aplicativo para inserccion-->
+                                 <input type="hidden" id="aplicativo" name="aplicativo" class="form-control" placeholder="Digite aplicativo" readonly value="{% if objeto.aplicativo_id %}{{ objeto.aplicativo_id }}{% else %}SARA_ID{% endif %}">
+                                 <!-- id del aplicativo para inserccion-->
+
+                                <div class="col-md-4">
+                                    <label for="aplicativo_nombre" class=""><b>Aplicativo:</b></label>
+                                    <input type="text" id="aplicativo_nombre" name="aplicativo_nombre" class="form-control" placeholder="Digite aplicativo" readonly value="{% if objeto.aplicativo %}{{ objeto.aplicativo.nombre }}{% else %}SARA{% endif %}">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="modulo_nombre" class=""><b>Módulo:</b></label>
+                                    <input type="text" id="modulo_nombre" name="modulo_nombre" class="form-control" placeholder="Digite módulo" readonly>
+                                </div>
+
+                                    <!-- id del modulo para inserccion-->
+                                    <input type="hidden" id="modulo" name="modulo" class="form-control" placeholder="Digite módulo" readonly>
+                                 <!-- id del modulo para inserccion-->
+
+                                <div class="col-md-4">
+                                    <label for="tiposolicitud" class=""><b>Tipo de solicitud:</b></label>
+                                    <input type="text" id="tiposolicitud" name="tiposolicitud" class="form-control" placeholder="Digite tipo de solicitud" readonly>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="observaciones" class=""><b>Observaciones contratista:</b></label>
+                                    <textarea id="observaciones" name="observaciones" class="form-control" placeholder="Digite observaciones" readonly></textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="observaciones" class=""><b>Observaciones del supervisor: *</b></label>
+                                    <textarea autofocus id="observacionessup" name="observacionessup" class="form-control" placeholder="Digite observaciones obligatorias*" readonly oninput="this.value = this.value.toUpperCase();"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Asignacion de credenciales -->
+                    <div class="card mb-4">
+                        <div class="card-header" style="background: #FFFFCC;">
+                            <h6 class="card-title">Asignacion de credenciales</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label for="usuario" class=""><b>Usuario:</b></label>
+                                    <input type="text" id="usuario" name="usuario" class="form-control" placeholder="Digite usuario" autofocus>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="contrasena" class=""><b>Contraseña:</b></label>
+                                    <input type="text" id="contrasena" name="contrasena" class="form-control" placeholder="Digite módulo">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="observaciones" class=""><b>Observaciones de administrador:</b></label>
+                                    <textarea id="observacionesadm" name="observacionesadm" class="form-control" placeholder="Digite observaciones" oninput="this.value = this.value.toUpperCase();" required></textarea>
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-success" name="aprobar" value="aprobar">Aprobar</button>
+                        <button type="submit" class="btn btn-danger" name="rechazar" value="rechazar">Rechazar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock contenido %}
